@@ -272,3 +272,20 @@ html, body {
   font-weight: 700; /* bold nunito */
   text-decoration: underline;
 }
+
+
+
+
+
+
+
+
+.button-padding-left-right{
+  padding-left: 24px;
+  padding-right: 24px;
+}
+.button-padding-top-bottom{
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
