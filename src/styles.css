@@ -109,8 +109,8 @@
   line-height: 140%;
   letter-spacing: calc(1rem*0.03);
 
-  color: var(--sc-900);
-  background-color: var(--sc-100);
+  color: var(--sc-100);
+  background-color: var(--sc-900);
 
   padding: 0px;
   margin: 0px;
