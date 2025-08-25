@@ -1,1 +1,154 @@
-/* You can add global styles to this file, and also import other style files */
+@font-face{
+  font-family: nunito;
+  src: url("/font/nunito-regular.woff2") format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face{
+  font-family: nunito;
+  src: url("/font/nunito-bold.woff2") format('woff2');
+  font-weight: 700;
+  font-display: swap;
+}
+
+
+
+
+:root{
+  --pc1-100: #0D3027; /* darker green */
+  --pc1-200: #195848; /* darker green */
+  --pc1-300: #278B70; /* darker green */
+  --pc1-400: #2EA684; /* darker green */
+  --pc1-500: #35BF9B; /* darker green */
+  --pc1-600: #60D2B4; /* darker green */
+  --pc1-700: #8ADEC7; /* darker green */
+  --pc1-800: #C2EDE3; /* darker green */
+  --pc1-900: #F4FCF9; /* darker green */
+
+  --pc2-100: #11341F; /* lighther green */
+  --pc2-200: #1C5534; /* lighther green */
+  --pc2-300: #2A804E; /* lighther green */
+  --pc2-400: #3AAE6B; /* lighther green */
+  --pc2-500: #57C785; /* lighther green */
+  --pc2-600: #81D5A3; /* lighther green */
+  --pc2-700: #A2E1BA; /* lighther green */
+  --pc2-800: #BEE8D0; /* lighther green */
+  --pc2-900: #F4FBF7; /* lighther green */
+
+  --pc3-100: #363106; /* mango yellow */
+  --pc3-200: #605B0B; /* mango yellow */
+  --pc3-300: #998A10; /* mango yellow */
+  --pc3-400: #C6B315; /* mango yellow */
+  --pc3-500: #E9D326; /* mango yellow */
+  --pc3-600: #EDDD53; /* mango yellow */
+  --pc3-700: #F1E683; /* mango yellow */
+  --pc3-800: #F7EFB1; /* mango yellow */
+  --pc3-900: #FDFCF1; /* mango yellow */
+
+
+
+
+  --sc-100: #212121; /* secondary color( white space ), black to white */
+  --sc-200: #2C2C2C; /* secondary color( white space ), black to white */
+  --sc-300: #454545; /* secondary color( white space ), black to white */
+  --sc-400: #5E5E5E; /* secondary color( white space ), black to white */
+  --sc-500: #7B7B7B; /* secondary color( white space ), black to white */
+  --sc-600: #989898; /* secondary color( white space ), black to white */
+  --sc-700: #C6C6C6; /* secondary color( white space ), black to white */
+  --sc-800: #DFDFDF; /* secondary color( white space ), black to white */
+  --sc-900: #FAFAFA; /* secondary color( white space ), black to white */
+
+
+
+
+  --tc1-100: #123410; /* success green */
+  --tc1-200: #26671D; /* success green */
+  --tc1-300: #37972C; /* success green */
+  --tc1-400: #44BD35; /* success green */
+  --tc1-500: #60CF51; /* success green */
+  --tc1-600: #82D979; /* success green */
+  --tc1-700: #A2E398; /* success green */
+  --tc1-800: #C9EFC4; /* success green */
+  --tc1-900: #EDF9EC; /* success green */
+
+  --tc2-100: #002242; /* info blue */
+  --tc2-200: #004385; /* info blue */
+  --tc2-300: #0163C2; /* info blue */
+  --tc2-400: #0173E5; /* info blue */
+  --tc2-500: #178BFE; /* info blue */
+  --tc2-600: #49A5FE; /* info blue */
+  --tc2-700: #87C3FE; /* info blue */
+  --tc2-800: #BADDFE; /* info blue */
+  --tc2-900: #E9F4FF; /* info blue */
+
+  --tc2-100: #3F0C04; /* error red */
+  --tc2-200: #761509; /* error red */
+  --tc2-300: #A11E0C; /* error red */
+  --tc2-400: #D7290E; /* error red */
+  --tc2-500: #EE2F15; /* error red */
+  --tc2-600: #F36652; /* error red */
+  --tc2-700: #F69B8F; /* error red */
+  --tc2-800: #FAC6BF; /* error red */
+  --tc2-900: #FEEEEC; /* error red */
+
+
+
+
+  /* --bf-blur: blur(7px); backdrop-filter: var(--bf-blur) */
+  --time-regular: background-color 0.4s ease, padding 0.4s ease;
+  --time-slow: background-color 0.9s ease, padding 0.9s ease;
+  --shadow_a: 0px 0px 9px 3px rgba(0, 0, 0, 0.25); /* box-shadow: var(--shaddow_a) */
+
+
+  font-family: nunito,
+      "Segoe UI", Roboto, Helvetica, Arial,
+      "Inter", -apple-system, BlinkMacSystemFont,
+      sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+      "Segoe UI Symbol", system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 140%;
+  letter-spacing: calc(1rem*0.03);
+
+  color: var(--sc-900);
+  background-color: var(--sc-100);
+
+  padding: 0px;
+  margin: 0px;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+
+.font-normal-regular{
+  font-family: nunito,
+      "Segoe UI", Roboto, Helvetica, Arial,
+      "Inter", -apple-system, BlinkMacSystemFont,
+      sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+      "Segoe UI Symbol", system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 140%;
+  letter-spacing: calc(1rem *0.03);
+}
+.font-normal-title{
+  font-family: nunito,
+      "Segoe UI", Roboto, Helvetica, Arial,
+      "Inter", -apple-system, BlinkMacSystemFont,
+      sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+      "Segoe UI Symbol", system-ui, sans-serif;
+  font-size: 1.41rem;
+  line-height: 127%;
+  letter-spacing: calc(1rem *0.02);
+}
+.font-normal-wild{
+  font-family: nunito,
+      "Segoe UI", Roboto, Helvetica, Arial,
+      "Inter", -apple-system, BlinkMacSystemFont,
+      sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+      "Segoe UI Symbol", system-ui, sans-serif;
+  font-size: 1.88rem;
+  line-height: 120%;
+  letter-spacing: calc(1rem *0.01);
+}
