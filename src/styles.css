@@ -122,6 +122,12 @@ html, body {
 }
 
 
+
+
+
+
+
+
 .font-normal-regular{
   font-family: nunito,
       "Segoe UI", Roboto, Helvetica, Arial,
@@ -131,6 +137,7 @@ html, body {
   font-size: 1rem;
   line-height: 140%;
   letter-spacing: calc(1rem *0.03);
+  font-weight: 400; /* regular nunito */
 }
 .font-normal-title{
   font-family: nunito,
@@ -141,6 +148,7 @@ html, body {
   font-size: 1.41rem;
   line-height: 127%;
   letter-spacing: calc(1rem *0.02);
+  font-weight: 400; /* regular nunito */
 }
 .font-normal-wild{
   font-family: nunito,
@@ -151,4 +159,40 @@ html, body {
   font-size: 1.88rem;
   line-height: 120%;
   letter-spacing: calc(1rem *0.01);
+  font-weight: 400; /* regular nunito */
+}
+
+
+.font-bold-regular{
+  font-family: nunito,
+      "Segoe UI", Roboto, Helvetica, Arial,
+      "Inter", -apple-system, BlinkMacSystemFont,
+      sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+      "Segoe UI Symbol", system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 140%;
+  letter-spacing: calc(1rem *0.03);
+  font-weight: 700; /* bold nunito */
+}
+.font-bold-title{
+  font-family: nunito,
+      "Segoe UI", Roboto, Helvetica, Arial,
+      "Inter", -apple-system, BlinkMacSystemFont,
+      sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+      "Segoe UI Symbol", system-ui, sans-serif;
+  font-size: 1.41rem;
+  line-height: 127%;
+  letter-spacing: calc(1rem *0.02);
+  font-weight: 700; /* bold nunito */
+}
+.font-bold-wild{
+  font-family: nunito,
+      "Segoe UI", Roboto, Helvetica, Arial,
+      "Inter", -apple-system, BlinkMacSystemFont,
+      sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+      "Segoe UI Symbol", system-ui, sans-serif;
+  font-size: 1.88rem;
+  line-height: 120%;
+  letter-spacing: calc(1rem *0.01);
+  font-weight: 700; /* bold nunito */
 }
