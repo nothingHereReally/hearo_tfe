@@ -134,3 +134,10 @@
   color: var(--sc-900);
   background-color: var(--tc3-300);
 }
+
+
+
+
+.underlined{
+  text-decoration: underline;
+}

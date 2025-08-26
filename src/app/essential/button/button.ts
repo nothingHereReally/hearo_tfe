@@ -15,6 +15,7 @@ export class Button implements OnInit{
   'style-danger-outline', 'style-danger-naked'
   */
   readonly iconname= input<string>('');
+  readonly isUnderlined= input<string>('');
   protected iconfiledir= signal('');
   private iconfile_init: string= '';
   private iconfile_hover: string= '';
@@ -32,6 +33,9 @@ export class Button implements OnInit{
       if( this.iconname().length!=0 ){
 
 
+        if( this.isUnderlined()!='' && this.isUnderlined()!='underlined' ){
+          throw new TypeError(`isUnderlined can only be empty '' or 'underlined'`);
+        }
         if( this.styleButton()===validStyles[0] ){ /* style-solid */
           this.iconfiledir.set(`/icon_sc_900/${this.iconname()}.svg`);
           this.iconfile_init= `/icon_sc_900/${this.iconname()}.svg`;
