@@ -114,7 +114,7 @@
 .style-danger-outline:active{
   color: var(--sc-900);
   background-color: var(--tc3-300);
-  border: 1px solid var(--sc-900);
+  border: 1px solid var(--tc3-300);
 }
 
 
