@@ -81,15 +81,15 @@
   --tc2-800: #BADDFE; /* info blue */
   --tc2-900: #E9F4FF; /* info blue */
 
-  --tc2-100: #3F0C04; /* error red */
-  --tc2-200: #761509; /* error red */
-  --tc2-300: #A11E0C; /* error red */
-  --tc2-400: #D7290E; /* error red */
-  --tc2-500: #EE2F15; /* error red */
-  --tc2-600: #F36652; /* error red */
-  --tc2-700: #F69B8F; /* error red */
-  --tc2-800: #FAC6BF; /* error red */
-  --tc2-900: #FEEEEC; /* error red */
+  --tc3-100: #3F0C04; /* error red */
+  --tc3-200: #761509; /* error red */
+  --tc3-300: #A11E0C; /* error red */
+  --tc3-400: #D7290E; /* error red */
+  --tc3-500: #EE2F15; /* error red */
+  --tc3-600: #F36652; /* error red */
+  --tc3-700: #F69B8F; /* error red */
+  --tc3-800: #FAC6BF; /* error red */
+  --tc3-900: #FEEEEC; /* error red */
 
 
 
