@@ -1,4 +1,4 @@
-import { Component, input, OnInit } from '@angular/core';
+import { Component, signal, input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-button',
@@ -15,7 +15,7 @@ export class Button implements OnInit{
   'style-danger-outline', 'style-danger-naked'
   */
   readonly iconname= input<string>('');
-  public iconfiledir: string= '';
+  protected iconfiledir= signal('');
   private iconfile_init: string= '';
   private iconfile_hover: string= '';
   private iconfile_pressed: string= '';
@@ -32,40 +32,38 @@ export class Button implements OnInit{
       if( this.iconname().length!=0 ){
 
 
-        this.iconfiledir= `/icon_pc1_300/${this.iconname()}.svg`
-        console.log(`${validStyles[0]} ---- ${this.styleButton()}`)
         if( this.styleButton()===validStyles[0] ){ /* style-solid */
-          this.iconfiledir= `/icon_sc_900/${this.iconname()}.svg`
-          this.iconfile_init= `/icon_sc_900/${this.iconname()}.svg`
-          this.iconfile_hover= `/icon_sc_900/${this.iconname()}.svg`
-          this.iconfile_pressed= `/icon_sc_900/${this.iconname()}.svg`
+          this.iconfiledir.set(`/icon_sc_900/${this.iconname()}.svg`);
+          this.iconfile_init= `/icon_sc_900/${this.iconname()}.svg`;
+          this.iconfile_hover= `/icon_sc_900/${this.iconname()}.svg`;
+          this.iconfile_pressed= `/icon_sc_900/${this.iconname()}.svg`;
         }else if( this.styleButton()===validStyles[1] ){ /* style-outline */
-          this.iconfiledir= `/icon_pc1_300/${this.iconname()}.svg`
+          this.iconfiledir.set(`/icon_pc1_300/${this.iconname()}.svg`);
           this.iconfile_init= `/icon_pc1_300/${this.iconname()}.svg`
           this.iconfile_hover= `/icon_pc1_300/${this.iconname()}.svg`
           this.iconfile_pressed= `/icon_sc_900/${this.iconname()}.svg`
         }else if( this.styleButton()===validStyles[2] ){ /* style-naked */
-          this.iconfiledir= `/icon_pc1_300/${this.iconname()}.svg`
+          this.iconfiledir.set(`/icon_pc1_300/${this.iconname()}.svg`)
           this.iconfile_init= `/icon_pc1_300/${this.iconname()}.svg`
           this.iconfile_hover= `/icon_pc1_300/${this.iconname()}.svg`
           this.iconfile_pressed= `/icon_pc1_300/${this.iconname()}.svg`
         }else if( this.styleButton()===validStyles[4] ){ /* style-link */
-          this.iconfiledir= `/icon_tc2_400/link.svg`
+          this.iconfiledir.set(`/icon_tc2_400/link.svg`)
           this.iconfile_init= `/icon_tc2_400/link.svg`
           this.iconfile_hover= `/icon_tc2_400/link.svg`
           this.iconfile_pressed= `/icon_sc_900/link.svg`
         }else if( this.styleButton()===validStyles[5] ){ /* style-danger-solid */
-          this.iconfiledir= `/icon_sc_900/${this.iconname()}.svg`
+          this.iconfiledir.set(`/icon_sc_900/${this.iconname()}.svg`)
           this.iconfile_init= `/icon_sc_900/${this.iconname()}.svg`
           this.iconfile_hover= `/icon_tc3_500/${this.iconname()}.svg`
           this.iconfile_pressed= `/icon_sc_900/${this.iconname()}.svg`
         }else if( this.styleButton()===validStyles[6] ){ /* style-danger-outline */
-          this.iconfiledir= `/icon_tc3_500/${this.iconname()}.svg`
+          this.iconfiledir.set(`/icon_tc3_500/${this.iconname()}.svg`)
           this.iconfile_init= `/icon_tc3_500/${this.iconname()}.svg`
           this.iconfile_hover= `/icon_tc3_500/${this.iconname()}.svg`
           this.iconfile_pressed= `/icon_sc_900/${this.iconname()}.svg`
         }else if( this.styleButton()===validStyles[7] ){ /* style-danger-naked */
-          this.iconfiledir= `/icon_tc3_500/${this.iconname()}.svg`
+          this.iconfiledir.set(`/icon_tc3_500/${this.iconname()}.svg`)
           this.iconfile_init= `/icon_tc3_500/${this.iconname()}.svg`
           this.iconfile_hover= `/icon_tc3_500/${this.iconname()}.svg`
           this.iconfile_pressed= `/icon_sc_900/${this.iconname()}.svg`
@@ -74,7 +72,22 @@ export class Button implements OnInit{
 
       }
     }else{
-      throw new TypeError(`validStyles can only be 1 of the following: ${validStyles}`)
+      throw new TypeError(`validstyles can only be 1 of the following: ${validStyles}`)
     }
+  }
+
+
+  public onHover(){ /* 1) onHover; 3) onHover */
+    this.iconfiledir.set(this.iconfile_hover)
+  }
+  public onPressing(){ /* 2) onPressing */
+    this.iconfiledir.set(this.iconfile_pressed)
+  }
+  public onClick(){ /* 4) onClick */
+    this.iconfiledir.set(this.iconfile_pressed)
+    this.onHover()
+  }
+  public initIcon(){ /* 5) initIcon, leaving hover( outside button ) */
+    this.iconfiledir.set(this.iconfile_init)
   }
 }

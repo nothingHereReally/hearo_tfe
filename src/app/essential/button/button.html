@@ -5,8 +5,15 @@
   'border-radius',
   'flex-row-button',
   styleButton()
-  ]">
-    <span>{{ styleButton() }}</span>
-    <span>{{ iconDir() }}</span>
+  ]"
+    (click)="onClick()"
+    (mouseenter)="onHover()"
+    (mouseleave)="initIcon()"
+    (mousedown)="onPressing()"
+    (mouseup)="onHover()"
+  >
+    @if(iconfiledir()!=''){
+      <img [src]="iconfiledir()" [alt]="iconfiledir()">
+    }
     <span>{{ text() }}</span>
 </button>
