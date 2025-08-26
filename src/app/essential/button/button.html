@@ -13,7 +13,7 @@
     (mouseup)="onHover()"
   >
     @if(iconfiledir()!=''){
-      <img [src]="iconfiledir()" [alt]="iconfiledir()">
+      <img [src]="iconfiledir()" [alt]="iconfiledir()" class='icon-botton-size'>
     }
     <span>{{ text() }}</span>
 </button>
