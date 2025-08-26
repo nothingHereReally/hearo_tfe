@@ -28,3 +28,19 @@
   background-color: var(--pc1-200);
   border: 1px solid var(--pc1-200);
 }
+
+
+
+
+.style-naked{
+  color: var(--pc1-300);
+  background-color: transparent;
+  border-width: 0px;
+  transition: var(--time-regular);
+}
+.style-naked:hover{
+  background-color: var(--pc1-800);
+}
+.style-naked:active{
+  background-color: var(--pc1-600);
+}
