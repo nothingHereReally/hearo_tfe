@@ -116,3 +116,20 @@
   background-color: var(--tc3-300);
   border: 1px solid var(--sc-900);
 }
+
+
+
+
+.style-danger-naked{
+  color: var(--tc3-500);
+  background-color: transparent;
+  border-width: 0px;
+  transition: var(--time-regular);
+}
+.style-danger-naked:hover{
+  background-color: var(--tc3-800);
+}
+.style-danger-naked:active{
+  color: var(--sc-900);
+  background-color: var(--tc3-300);
+}
