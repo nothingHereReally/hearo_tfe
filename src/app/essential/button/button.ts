@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-button',
@@ -6,9 +6,75 @@ import { Component, input } from '@angular/core';
   templateUrl: './button.html',
   styleUrl: './button.css'
 })
-export class Button {
+export class Button implements OnInit{
   readonly text= input<string>('Button Name');
-  readonly styleButton= input<string>('style-solid'); /* style-solid, style-outline, style-naked, style-spacial, style-link,
-  style-danger_solid, style-danger_outline, style-danger_naked */
-  readonly iconDir= input<string>('blah');
+  readonly styleButton= input<string>('style-solid'); /*
+  'style-solid', 'style-outline',
+  'style-naked', 'style-special',
+  'style-link', 'style-danger-solid',
+  'style-danger-outline', 'style-danger-naked'
+  */
+  readonly iconname= input<string>('');
+  public iconfiledir: string= '';
+  private iconfile_init: string= '';
+  private iconfile_hover: string= '';
+  private iconfile_pressed: string= '';
+
+
+  ngOnInit(){
+    let validStyles: Array<string>= [
+      'style-solid', 'style-outline',
+      'style-naked', 'style-special',
+      'style-link', 'style-danger-solid',
+      'style-danger-outline', 'style-danger-naked'
+    ]
+    if(  validStyles.includes(this.styleButton()) ){
+      if( this.iconname().length!=0 ){
+
+
+        this.iconfiledir= `/icon_pc1_300/${this.iconname()}.svg`
+        console.log(`${validStyles[0]} ---- ${this.styleButton()}`)
+        if( this.styleButton()===validStyles[0] ){ /* style-solid */
+          this.iconfiledir= `/icon_sc_900/${this.iconname()}.svg`
+          this.iconfile_init= `/icon_sc_900/${this.iconname()}.svg`
+          this.iconfile_hover= `/icon_sc_900/${this.iconname()}.svg`
+          this.iconfile_pressed= `/icon_sc_900/${this.iconname()}.svg`
+        }else if( this.styleButton()===validStyles[1] ){ /* style-outline */
+          this.iconfiledir= `/icon_pc1_300/${this.iconname()}.svg`
+          this.iconfile_init= `/icon_pc1_300/${this.iconname()}.svg`
+          this.iconfile_hover= `/icon_pc1_300/${this.iconname()}.svg`
+          this.iconfile_pressed= `/icon_sc_900/${this.iconname()}.svg`
+        }else if( this.styleButton()===validStyles[2] ){ /* style-naked */
+          this.iconfiledir= `/icon_pc1_300/${this.iconname()}.svg`
+          this.iconfile_init= `/icon_pc1_300/${this.iconname()}.svg`
+          this.iconfile_hover= `/icon_pc1_300/${this.iconname()}.svg`
+          this.iconfile_pressed= `/icon_pc1_300/${this.iconname()}.svg`
+        }else if( this.styleButton()===validStyles[4] ){ /* style-link */
+          this.iconfiledir= `/icon_tc2_400/link.svg`
+          this.iconfile_init= `/icon_tc2_400/link.svg`
+          this.iconfile_hover= `/icon_tc2_400/link.svg`
+          this.iconfile_pressed= `/icon_sc_900/link.svg`
+        }else if( this.styleButton()===validStyles[5] ){ /* style-danger-solid */
+          this.iconfiledir= `/icon_sc_900/${this.iconname()}.svg`
+          this.iconfile_init= `/icon_sc_900/${this.iconname()}.svg`
+          this.iconfile_hover= `/icon_tc3_500/${this.iconname()}.svg`
+          this.iconfile_pressed= `/icon_sc_900/${this.iconname()}.svg`
+        }else if( this.styleButton()===validStyles[6] ){ /* style-danger-outline */
+          this.iconfiledir= `/icon_tc3_500/${this.iconname()}.svg`
+          this.iconfile_init= `/icon_tc3_500/${this.iconname()}.svg`
+          this.iconfile_hover= `/icon_tc3_500/${this.iconname()}.svg`
+          this.iconfile_pressed= `/icon_sc_900/${this.iconname()}.svg`
+        }else if( this.styleButton()===validStyles[7] ){ /* style-danger-naked */
+          this.iconfiledir= `/icon_tc3_500/${this.iconname()}.svg`
+          this.iconfile_init= `/icon_tc3_500/${this.iconname()}.svg`
+          this.iconfile_hover= `/icon_tc3_500/${this.iconname()}.svg`
+          this.iconfile_pressed= `/icon_sc_900/${this.iconname()}.svg`
+        }
+
+
+      }
+    }else{
+      throw new TypeError(`validStyles can only be 1 of the following: ${validStyles}`)
+    }
+  }
 }
