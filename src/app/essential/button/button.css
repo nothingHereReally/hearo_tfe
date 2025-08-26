@@ -48,7 +48,7 @@
 
 
 
-.style-spacial{
+.style-special{
   color: var(--sc-900);
   border-width: 0px;
   background-image: var(--gradiant-g1);
@@ -56,10 +56,10 @@
   background-position: center;
   transition: var(--time-regular-background-position);
 }
-.style-spacial:hover{
+.style-special:hover{
   background-position: left;
 }
-.style-spacial:active{
+.style-special:active{
   background-position: right;
 }
 
