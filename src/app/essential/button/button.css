@@ -1,0 +1,12 @@
+.style-solid{
+  color: var(--sc-900);
+  background-color: var(--pc1-300);
+  border-width: 0px;
+  transition: var(--time-regular);
+}
+.style-solid:hover{
+  background-color: var(--pc1-400);
+}
+.style-solid:active{
+  background-color: var(--pc1-200);
+}
