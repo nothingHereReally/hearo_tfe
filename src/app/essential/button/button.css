@@ -80,3 +80,21 @@
   background-color: var(--tc2-200);
   border: 1px solid var(--tc2-200);
 }
+
+
+
+
+.style-danger-solid{
+  color: var(--sc-900);
+  background-color: var(--tc3-500);
+  border-width: 0px;
+  transition: var(--time-regular);
+}
+.style-danger-solid:hover{
+  color: var(--tc3-500);
+  background-color: var(--tc3-800);
+}
+.style-danger-solid:active{
+  color: var(--sc-900);
+  background-color: var(--tc3-300);
+}
