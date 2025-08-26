@@ -62,3 +62,21 @@
 .style-spacial:active{
   background-position: right;
 }
+
+
+
+
+.style-link{
+  color: var(--tc2-400);
+  background-color: transparent;
+  border: 1px solid var(--tc2-400);
+  transition: var(--time-regular);
+}
+.style-link:hover{
+  background-color: var(--tc2-800);
+}
+.style-link:active{
+  color: var(--sc-900);
+  background-color: var(--tc2-200);
+  border: 1px solid var(--tc2-200);
+}
