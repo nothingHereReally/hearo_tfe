@@ -94,6 +94,13 @@
 
 
 
+  --gradiant-g1: linear-gradient(90deg, #278B70 0%, #EDDD53 100%);
+  --gradiant-g2: linear-gradient(90deg, #60D2B4 0%, #E9D326 100%);
+  --gradiant-g3: linear-gradient(90deg, #195848 0%, #605B0B 100%);
+
+
+
+
   /* --bf-blur: blur(7px); backdrop-filter: var(--bf-blur) */
   --time-regular: color 0.4s ease, background-color 0.4s ease, padding 0.4s ease;
   --time-slow: color 0.9s ease, background-color 0.9s ease, padding 0.9s ease;
