@@ -302,7 +302,8 @@ html, body {
 .flex-row-button{
   display: flex;
   flex-direction: row;
-  align-items: center;
+  justify-content: center; /* center x-axis/horizontal, due to flex-direction: row */
+  align-items: center; /* center y-axis/vertical, due to flex-direction: row */
   gap: 4px;
 }
 
