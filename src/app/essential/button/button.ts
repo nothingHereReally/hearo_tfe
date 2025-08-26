@@ -1,4 +1,4 @@
-import { Component, signal, input, OnInit } from '@angular/core';
+import { Component, signal, input, OnInit, output } from '@angular/core';
 
 @Component({
   selector: 'app-button',
@@ -7,6 +7,8 @@ import { Component, signal, input, OnInit } from '@angular/core';
   styleUrl: './button.css'
 })
 export class Button implements OnInit{
+  public outOnClick= output();
+
   readonly text= input<string>('Button Name');
   readonly styleButton= input<string>('style-solid'); /*
   'style-solid', 'style-outline',
@@ -90,6 +92,7 @@ export class Button implements OnInit{
   public onClick(){ /* 4) onClick */
     this.iconfiledir.set(this.iconfile_pressed)
     this.onHover()
+    this.outOnClick.emit();
   }
   public initIcon(){ /* 5) initIcon, leaving hover( outside button ) */
     this.iconfiledir.set(this.iconfile_init)

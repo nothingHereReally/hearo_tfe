@@ -8,4 +8,9 @@ import { Component, signal } from '@angular/core';
 })
 export class App {
   protected readonly title = signal('hearo_tfe');
+
+
+  public onClick(){
+    console.log("from app.ts"+Math.random())
+  }
 }
