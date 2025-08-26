@@ -1,8 +1,12 @@
-<button type="button" class="
-  button-padding-left-right
-  font-normal-regular
-  border-radius
-  button-padding-top-bottom
-  ">
-    {{ text() }}
+<button type="button" [ngClass]="[
+  'button-padding-left-right',
+  'button-padding-top-bottom',
+  'font-normal-regular',
+  'border-radius',
+  'flex-row-button',
+  styleButton()
+  ]">
+    <span>{{ styleButton() }}</span>
+    <span>{{ iconDir() }}</span>
+    <span>{{ text() }}</span>
 </button>

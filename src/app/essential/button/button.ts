@@ -8,7 +8,7 @@ import { Component, input } from '@angular/core';
 })
 export class Button {
   readonly text= input<string>('Button Name');
-  readonly styleButton= input<string>('solid'); /* solid, outline, naked, spacial, link,
-  danger_solid, danger_outline, danger_naked */
+  readonly styleButton= input<string>('style-solid'); /* style-solid, style-outline, style-naked, style-spacial, style-link,
+  style-danger_solid, style-danger_outline, style-danger_naked */
   readonly iconDir= input<string>('blah');
 }
