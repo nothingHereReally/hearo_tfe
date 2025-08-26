@@ -98,3 +98,21 @@
   color: var(--sc-900);
   background-color: var(--tc3-300);
 }
+
+
+
+
+.style-danger-outline{
+  color: var(--tc3-500);
+  background-color: transparent;
+  border: 1px solid var(--tc3-500);
+  transition: var(--time-regular);
+}
+.style-danger-outline:hover{
+  background-color: var(--tc3-800);
+}
+.style-danger-outline:active{
+  color: var(--sc-900);
+  background-color: var(--tc3-300);
+  border: 1px solid var(--sc-900);
+}
