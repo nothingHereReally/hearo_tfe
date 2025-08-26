@@ -44,3 +44,21 @@
 .style-naked:active{
   background-color: var(--pc1-600);
 }
+
+
+
+
+.style-spacial{
+  color: var(--sc-900);
+  border-width: 0px;
+  background-image: var(--gradiant-g1);
+  background-size: 150%;
+  background-position: center;
+  transition: var(--time-regular-background-position);
+}
+.style-spacial:hover{
+  background-position: left;
+}
+.style-spacial:active{
+  background-position: right;
+}
