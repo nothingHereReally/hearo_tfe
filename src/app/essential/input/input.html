@@ -1,1 +1,52 @@
-<p>input works!</p>
+<div class="all-inside-of-input">
+  @if( nameInput()!='' ){
+    <label
+        [for]="nameInput()"
+        class="font-normal-regular">
+      {{ labelText() }}
+    </label>
+  }
+
+
+
+
+  <div class="input-padding-left-right">
+    @if( iconNameLeft()!='' ){
+      <label [for]="nameInput()">
+        <img
+            [src]="`/icon_pc1_300/${iconNameLeft()}.svg`"
+            [alt]="`/icon_pc1_300/${iconNameLeft()}.svg`"
+            class="icon-botton-size"
+        >
+      </label>
+    }
+    <input
+        [type]="textType()"
+        [id]="nameInput()"
+        [name]="nameInput()"
+        [placeholder]="placeholderText()"
+        [(ngModel)]="inputValue"
+        [ngClass]="[
+             'input-padding-top-bottom',
+             'font-normal-regular',
+             isReadOnly()
+        ]"
+        [readOnly]="isReadOnly()=='is-readonly'"
+        (keydown.enter)="onEnterClick()"
+    >
+    @if( hasEye()=='eye' ){
+      <button
+          type="button"
+          (click)="eyeClick()">
+        <img
+            [src]="eyefile()"
+            [alt]="eyefile()"
+            class="icon-botton-size">
+      </button>
+    }
+  </div>
+
+
+
+
+</div>
