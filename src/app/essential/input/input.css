@@ -1,0 +1,46 @@
+.all-inside-of-input{
+  padding: 0px;
+  margin: 0px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 4px;
+  /* width: 100%; can also use this instead of flex-grow: 1; */
+  flex-grow: 1;
+  color: var(--pc1-300);
+}
+
+
+
+
+.all-inside-of-input > div{
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid var(--pc1-300);
+  border-radius: 24px;
+  flex-grow: 1;
+}
+.all-inside-of-input > div > input{
+  background-color: transparent;
+  border: none;
+  flex-grow: 1;
+}
+.all-inside-of-input > div > button{
+  background-color: transparent;
+  padding: 0px;
+  margin: 0px;
+  border: none;
+}
+
+
+
+
+.is-readonly{
+  color: var(--sc-600);
+}
+.is-not-readonly{
+  color: var(--pc1-300);
+}
+
