@@ -1,9 +1,19 @@
 <app-input
+    [isReadOnly]="false"
     [nameInput]="'input_sample'"
     [labelText]="'input sample'"
     [iconNameLeft]="'shield_lock'"
+    [inputValue]="'some input here by user'"
     [placeholderText]="'password'"
     [hasEye]="'eye'"
+    />
+<app-input
+    [isReadOnly]="false"
+    [nameInput]="'inpt_text'"
+    [labelText]="'input text'"
+    [iconNameLeft]="'shield_lock'"
+    [placeholderText]="'password'"
+    [hasEye]="''"
     />
 <app-button
     [text]="'hello world'"
