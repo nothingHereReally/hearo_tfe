@@ -1,0 +1,41 @@
+.header-logged-in{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.header-logged-in > div:nth-child(2){
+  display: flex;
+  max-width: 900px;
+  justify-content: space-between;
+  flex-grow: 1;
+  align-items: center;
+  border: 1px solid var(--pc1-300);
+  flex-wrap: wrap;
+}
+
+.header-logged-in > div:nth-child(3){
+  display: flex;
+  gap: 24px;
+}
+
+
+
+
+.logo-on-top-left{
+  width: 70px;
+}
+
+
+.profile-pic-and-name{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.profile-pic-and-name > img{
+  width: 48px;
+  border-radius: 50%;
+}
+
