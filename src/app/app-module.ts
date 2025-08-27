@@ -6,12 +6,14 @@ import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
 import { Button } from './essential/button/button';
 import { Input } from './essential/input/input';
+import { Home } from './page/home/home';
 
 @NgModule({
   declarations: [
     App,
     Button,
-    Input
+    Input,
+    Home
   ],
   imports: [
     BrowserModule,
