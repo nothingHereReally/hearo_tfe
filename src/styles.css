@@ -312,3 +312,13 @@ html, body {
   width: 24px;
 }
 
+
+.input-padding-left-right{
+  padding-left: 16px;
+  padding-right: 16px;
+}
+.input-padding-top-bottom{
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
