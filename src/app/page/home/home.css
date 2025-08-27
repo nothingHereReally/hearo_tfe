@@ -1,8 +1,19 @@
+.div-all-are-inside-this{
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  align-items: center;
+}
+
+
+
+
 .header-logged-in{
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+  width: 100%;
 }
 
 .header-logged-in > div:nth-child(2){
@@ -37,5 +48,8 @@
 .profile-pic-and-name > img{
   width: 48px;
   border-radius: 50%;
+}
+.profile-pic-and-name > span{
+  color: var(--pc1-300);
 }
 
