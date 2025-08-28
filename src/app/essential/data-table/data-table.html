@@ -17,7 +17,11 @@
       {{ row.datetime }}
     </div>
     <div>
-      {{ row.linkreview }}
+      <app-button
+          [text]="'View Details'"
+          [styleButton]="'style-link'"
+          [linkURL]=row.linkreview
+          />
     </div>
   }
 </div>
