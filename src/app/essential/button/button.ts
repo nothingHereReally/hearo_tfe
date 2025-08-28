@@ -76,6 +76,11 @@ export class Button implements OnInit{
         }
 
 
+      }else if( this.styleButton()===validStyles[4] ){ /* style-link */
+          this.iconfiledir.set(`/icon_tc2_400/link.svg`)
+          this.iconfile_init= `/icon_tc2_400/link.svg`
+          this.iconfile_hover= `/icon_tc2_400/link.svg`
+          this.iconfile_pressed= `/icon_sc_900/link.svg`
       }
     }else{
       throw new TypeError(`validstyles can only be 1 of the following: ${validStyles}`)
