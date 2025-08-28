@@ -7,13 +7,15 @@ import { App } from './app';
 import { Button } from './essential/button/button';
 import { Input } from './essential/input/input';
 import { Home } from './page/home/home';
+import { DataTable } from './essential/data-table/data-table';
 
 @NgModule({
   declarations: [
     App,
     Button,
     Input,
-    Home
+    Home,
+    DataTable
   ],
   imports: [
     BrowserModule,
