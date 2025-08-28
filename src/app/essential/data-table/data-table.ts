@@ -8,9 +8,9 @@ import { DataTableTitle } from '../../model/data-table-title';
   styleUrl: './data-table.css'
 })
 export class DataTable implements OnInit{
-  readonly tableName= input<string>()
-  readonly titles= input<Array<DataTableTitle>>()
-  readonly rowsContent= input<Array< Array<string> >>()
+  readonly tableName= input.required<string>()
+  readonly titles= input.required<Array<DataTableTitle>>()
+  readonly rowsContent= input.required<Array< Array<string> >>()
 
   ngOnInit(): void{
     console.log(`tableName ${this.tableName()}`);
