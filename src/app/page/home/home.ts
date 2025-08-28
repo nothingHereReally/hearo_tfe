@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 
-import { DataTableTitle } from '../../model/data-table-title';
+import { TableHospitalHeadRequest } from '../../model/table-hospital-head-request';
 
 @Component({
   selector: 'app-home',
@@ -10,18 +10,36 @@ import { DataTableTitle } from '../../model/data-table-title';
   styleUrl: './home.css'
 })
 export class Home {
-  protected tableName: string= 'Hospital Head Request';
-  protected titles: Array<DataTableTitle>= [
-    {'name': 'Name', isLink: false},
-    {'name': 'Hospital', isLink: false},
-    {'name': 'Date and Time', isLink: false},
-    {'name': 'Review', isLink: false}
-  ]
-  protected contents: Array< Array<string> >= [
-    ['Liza Mae Villanueva', 'Cebu City Medical Center', 'July 4, 2025 8:50am', 'https://example.com/'],
-    ['Jessica Bautista', 'Camp Lapu-Lapu Station Hospital', 'July 6, 2025 8:30am', 'https://example.com/'],
-    ['Maria Clara Santos', 'Adventist Hospital - Cebu, Inc.', 'July 9, 2025 9:55am', 'https://example.com/'],
-    ['Lisa Garcia', 'Barili District Hospital', 'July 10, 2025 9:10am', 'https://example.com/'],
-    ['Anna Cruz', 'Cebu South Medical Center', 'July 11, 2025 9:50am', 'https://example.com/']
+  protected contents: Array< TableHospitalHeadRequest >= [
+    {
+      name: 'Liza Mae Villanueva',
+      hospital: 'Cebu City Medical Center',
+      datetime: 'July 4, 2025 8:50am',
+      linkreview: 'https://example.com/'
+    },
+    {
+      name: 'Jessica Bautista',
+      hospital: 'Camp Lapu-Lapu Station Hospital',
+      datetime: 'July 6, 2025 8:30am',
+      linkreview: 'https://example.com/'
+    },
+    {
+      name: 'Maria Clara Santos',
+      hospital: 'Adventist Hospital - Cebu, Inc.',
+      datetime: 'July 9, 2025 9:55am',
+      linkreview: 'https://example.com/'
+    },
+    {
+      name: 'Lisa Garcia',
+      hospital: 'Barili District Hospital',
+      datetime: 'July 10, 2025 9:10am',
+      linkreview: 'https://example.com/'
+    },
+    {
+      name: 'Anna Cruz',
+      hospital: 'Cebu South Medical Center',
+      datetime: 'July 11, 2025 9:50am',
+      linkreview: 'https://example.com/'
+    }
   ]
 }

@@ -1,62 +1,23 @@
 <div class="container-datatable border-radius">
-  <div class="font-bold-title">Hospital Head Request</div>
-      <div class="font-bold-title">Name</div>
-      <div class="font-bold-title">Hospital</div>
-      <div class="font-bold-title">Date and Time</div>
-      <div class="font-bold-title">Review</div>
+  <div class="font-bold-title">{{ tableName() }}</div>
+  @for(title of titles(); track $index){
+    <div>
+      {{ title }}
+    </div>
+  }
 
-  <div>Liza Mae Villanueva</div>
-  <div>Cebu City Medical Center</div>
-  <div>July 4, 2025 8:50am</div>
-  <div>
-    <app-button
-        [text]="'View Details'"
-        [styleButton]="'style-link'"
-        [iconname]="'link'"
-        />
-  </div>
-
-  <div>Jessica Bautista</div>
-  <div>Camp Lapu-Lapu Station Hospital</div>
-  <div>July 6, 2025 8:30am</div>
-  <div>
-    <app-button
-        [text]="'View Details'"
-        [styleButton]="'style-link'"
-        [iconname]="'link'"
-        />
-  </div>
-
-  <div>Maria Clara Santos</div>
-  <div>Adventist Hospital - Cebu, Inc.</div>
-  <div>July 9, 2025 9:55am</div>
-  <div>
-    <app-button
-        [text]="'View Details'"
-        [styleButton]="'style-link'"
-        [iconname]="'link'"
-        />
-  </div>
-
-  <div>Lisa Garcia</div>
-  <div>Barili District Hospital</div>
-  <div>July 10, 2025 9:10am</div>
-  <div>
-    <app-button
-        [text]="'View Details'"
-        [styleButton]="'style-link'"
-        [iconname]="'link'"
-        />
-  </div>
-
-  <div>Anna Cruz</div>
-  <div>Cebu South Medical Center</div>
-  <div>July 11, 2025 9:50am</div>
-  <div>
-    <app-button
-        [text]="'View Details'"
-        [styleButton]="'style-link'"
-        [iconname]="'link'"
-        />
-  </div>
+  @for(row of rowsContent(); track $index){
+    <div>
+      {{ row.name }}
+    </div>
+    <div>
+      {{ row.hospital }}
+    </div>
+    <div>
+      {{ row.datetime }}
+    </div>
+    <div>
+      {{ row.linkreview }}
+    </div>
+  }
 </div>
