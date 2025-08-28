@@ -1,87 +1,14 @@
-<div class="div-all-are-inside-this whole-page-padding">
-
-
-
-
-
-
+<div class="div-all-are-inside-this">
 
 
   <!-- part 1 header -->
-  <header class="header-logged-in">
-
-
-
-
-    <div>
-      <img
-          src="/favicon.svg"
-          alt="logo icon"
-          class="logo-on-top-left-when-logged-in"
-          >
-    </div>
-
-
-
-
-    <div class="border-radius">
-      <app-button
-          [text]="'Home'"
-          [styleButton]="'style-solid'"
-          [iconname]="'home'"
-          />
-      <app-button
-          [text]="'Hospital Head'"
-          [styleButton]="'style-outline'"
-          [iconname]="'plus'"
-          />
-      <app-button
-          [text]="'New Sign'"
-          [styleButton]="'style-outline'"
-          [iconname]="'new'"
-          />
-    </div>
-
-
-
-
-    <div>
-      <app-button
-          [text]="''"
-          [styleButton]="'style-naked'"
-          [iconname]="'logout'"
-          />
-      <div class="profile-pic-and-name">
-        <img src="/profile_sample.png" alt="/profile_sample.png">
-        <span class="font-normal-regular">Steven Universe</span>
-      </div>
-    </div>
-
-
-
-
-  </header>
-
-
-
-
-
-
-
-
+  <app-header
+      />
   <!-- part 2 body, last part -->
-  <div>
-    <app-data-table
-        [forWhat]="'hospital_head_request'"
-        [rowsContent]="contents"
-        />
-  </div>
-
-
-
-
-
-
+  <app-data-table
+      [forWhat]="'hospital_head_request'"
+      [rowsContent]="contents"
+      />
 
 
 </div>

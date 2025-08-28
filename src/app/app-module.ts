@@ -8,6 +8,7 @@ import { Button } from './essential/button/button';
 import { Input } from './essential/input/input';
 import { Home } from './page/home/home';
 import { DataTable } from './essential/data-table/data-table';
+import { Header } from './essential/header/header';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { DataTable } from './essential/data-table/data-table';
     Button,
     Input,
     Home,
-    DataTable
+    DataTable,
+    Header
   ],
   imports: [
     BrowserModule,
