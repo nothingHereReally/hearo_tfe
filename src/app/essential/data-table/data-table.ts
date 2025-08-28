@@ -1,7 +1,7 @@
 import { Component, input, OnInit, signal, Signal } from '@angular/core';
 
 
-import { TableHospitalHeadRequest } from '../../model/table-hospital-head-request';
+import { TableHospitalHead } from '../../model/table-hospital-head';
 
 @Component({
   selector: 'app-data-table',
@@ -17,7 +17,7 @@ export class DataTable implements OnInit{
     'Date and Time',
     'Review'
   ])
-  readonly rowsContent= input.required<Array<TableHospitalHeadRequest>>()
+  readonly rowsContent= input.required<Array<TableHospitalHead>>()
 
   ngOnInit(): void{
     console.log(`tableName ${this.tableName()}`);
@@ -25,7 +25,7 @@ export class DataTable implements OnInit{
     titleArr.forEach(i=>{
       console.log(`titles ________________________${i}`);
     });
-    let rows: Array< TableHospitalHeadRequest >= this.rowsContent() || [];
+    let rows: Array< TableHospitalHead >= this.rowsContent() || [];
     rows.forEach(i=>{
       console.log(`rows be __ ${i.name}__ ${i.hospital}__ ${i.datetime}__ ${i.linkreview}`);
     });

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 
-import { TableHospitalHeadRequest } from '../../model/table-hospital-head-request';
+import { TableHospitalHead } from '../../model/table-hospital-head';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +10,7 @@ import { TableHospitalHeadRequest } from '../../model/table-hospital-head-reques
   styleUrl: './home.css'
 })
 export class Home {
-  protected contents: Array< TableHospitalHeadRequest >= [
+  protected contents: Array< TableHospitalHead >= [
     {
       name: 'Liza Mae Villanueva',
       hospital: 'Cebu City Medical Center',
