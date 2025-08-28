@@ -18,6 +18,7 @@ export class Button implements OnInit{
   */
   readonly iconname: InputSignal<string>= input<string>('');
   readonly isUnderlined: InputSignal<string>= input<string>('');
+  readonly linkURL: InputSignal<string>= input<string>('');
   protected iconfiledir: WritableSignal<string>= signal<string>('');
   private iconfile_init: string= '';
   private iconfile_hover: string= '';
@@ -32,6 +33,9 @@ export class Button implements OnInit{
       'style-danger-outline', 'style-danger-naked'
     ]
     if(  validStyles.includes(this.styleButton()) ){
+      if( this.styleButton()==validStyles[4] && this.linkURL().length==0 ){
+        throw new TypeError(`linkURL can't be empty due to styleButton is ${validStyles[4]}`);
+      }
       if( this.iconname().length!=0 ){
 
 
@@ -95,6 +99,9 @@ export class Button implements OnInit{
     this.iconfiledir.set(this.iconfile_pressed);
   }
   public onClick(){ /* 4) onClick */
+    if( this.styleButton()=='style-link' ){
+      window.open(this.linkURL(), "_blank");
+    }
     this.iconfiledir.set(this.iconfile_pressed);
     this.onHover();
     this.outOnClick.emit();
