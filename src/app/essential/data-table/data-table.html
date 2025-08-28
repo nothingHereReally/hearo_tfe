@@ -1,12 +1,30 @@
 <div class="container-datatable border-radius">
   <div class="font-bold-title">{{ tableName() }}</div>
   @for(title of titles(); track $index){
-    <div>
+    <div class="font-bold-title">
       {{ title }}
     </div>
   }
 
   @for(row of rowsContent(); track $index){
+    @if( $index%2==0 ){
+    <div class="have-light-background">
+      {{ row.name }}
+    </div>
+    <div class="have-light-background">
+      {{ row.hospital }}
+    </div>
+    <div class="have-light-background">
+      {{ row.datetime }}
+    </div>
+    <div class="have-light-background">
+      <app-button
+          [text]="'View Details'"
+          [styleButton]="'style-link'"
+          [linkURL]=row.linkreview
+          />
+    </div>
+    }@else{
     <div>
       {{ row.name }}
     </div>
@@ -23,5 +41,6 @@
           [linkURL]=row.linkreview
           />
     </div>
+    }
   }
 </div>
