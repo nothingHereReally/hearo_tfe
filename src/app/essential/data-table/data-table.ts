@@ -1,4 +1,4 @@
-import { Component, input, InputSignal, OnInit, signal, Signal } from '@angular/core';
+import { Component, input, InputSignal, OnInit, signal, WritableSignal } from '@angular/core';
 
 
 import { TableHospitalHead } from '../../model/table-hospital-head';
@@ -14,8 +14,8 @@ export class DataTable implements OnInit{
   readonly rowsContent: InputSignal<Array<TableHospitalHead>>= input.required<Array<TableHospitalHead>>();
 
 
-  protected tableName: Signal<string>= signal<string>('Hospital Head Request')
-  public titles: Signal<Array<string>>= signal<Array<string>>([
+  protected tableName: WritableSignal<string>= signal<string>('Hospital Head Request')
+  public titles: WritableSignal<Array<string>>= signal<Array<string>>([
     'Name',
     'Hospital',
     'Date and Time',
