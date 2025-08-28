@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 
 
 import { TableHospitalHead } from '../../model/table-hospital-head';
-import { TableNewSign } from '../../model/table-new-sign';
 
 @Component({
   selector: 'app-home',
