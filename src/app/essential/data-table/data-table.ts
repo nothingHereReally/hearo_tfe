@@ -2,6 +2,7 @@ import { Component, input, InputSignal, OnInit, signal, WritableSignal } from '@
 
 
 import { TableHospitalHead } from '../../model/table-hospital-head';
+import { TableNewSign } from '../../model/table-new-sign';
 
 @Component({
   selector: 'app-data-table',
@@ -11,7 +12,7 @@ import { TableHospitalHead } from '../../model/table-hospital-head';
 })
 export class DataTable implements OnInit{
   readonly forWhat: InputSignal<string>= input.required<string>();
-  readonly rowsContent: InputSignal<Array<TableHospitalHead>>= input.required<Array<TableHospitalHead>>();
+  readonly rowsContent: InputSignal<Array<TableHospitalHead | TableNewSign>>= input.required<Array<TableHospitalHead | TableNewSign>>();
 
 
   protected tableName: WritableSignal<string>= signal<string>('Hospital Head Request')
@@ -30,16 +31,33 @@ export class DataTable implements OnInit{
   ngOnInit(): void{
     if( !this.validForWhat.includes(this.forWhat()) ){
       throw new TypeError(`forWhat can only be ${this.validForWhat}, due to forWhat is ${this.forWhat}`);
+    }else if( this.forWhat()==this.validForWhat[1] ){
+      this.tableName.set('Hospital Head Accounts')
+      this.titles.set([
+        'Name',
+        'Hospital',
+        'Joined',
+        'Review'
+      ]);
+    }else if( this.forWhat()==this.validForWhat[2] ){
+      this.tableName.set('Video Sign by patients Tablet')
+      this.titles.set([
+        'Username',
+        'Hospital',
+        'Status',
+        'Review'
+      ]);
     }
+  }
 
-    console.log(`tableName ${this.tableName()}`);
-    let titleArr: Array<string>= this.titles() || [];
-    titleArr.forEach(i=>{
-      console.log(`titles ________________________${i}`);
-    });
-    let rows: Array< TableHospitalHead >= this.rowsContent() || [];
-    rows.forEach(i=>{
-      console.log(`rows be __ ${i.name}__ ${i.hospital}__ ${i.datetime}__ ${i.linkreview}`);
-    });
+  public getCol_name_xor_username(insRow: TableHospitalHead | TableNewSign): string{
+    return ((insRow as TableHospitalHead).name || (insRow as TableNewSign).username);
+  }
+  public getCol_datetime_xor_status(insRow: TableHospitalHead | TableNewSign): string{
+    let out: string|number= ((insRow as TableHospitalHead).datetime || (insRow as TableNewSign).status);
+    if( typeof out === 'string'){
+      return out;
+    }
+    return out==0? 'Pending': (out==1? 'In Progress': 'Done');
   }
 }

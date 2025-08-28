@@ -9,13 +9,13 @@
   @for(row of rowsContent(); track $index){
     @if( $index%2==0 ){
     <div class="have-light-background">
-      {{ row.name }}
+      {{ getCol_name_xor_username(row)  }}
     </div>
     <div class="have-light-background">
       {{ row.hospital }}
     </div>
     <div class="have-light-background">
-      {{ row.datetime }}
+      {{ getCol_datetime_xor_status(row) }}
     </div>
     <div class="have-light-background">
       <app-button
@@ -26,13 +26,13 @@
     </div>
     }@else{
     <div>
-      {{ row.name }}
+      {{ getCol_name_xor_username(row)  }}
     </div>
     <div>
       {{ row.hospital }}
     </div>
     <div>
-      {{ row.datetime }}
+      {{ getCol_datetime_xor_status(row) }}
     </div>
     <div>
       <app-button
