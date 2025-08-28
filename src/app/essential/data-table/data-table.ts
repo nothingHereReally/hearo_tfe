@@ -15,7 +15,7 @@ export class DataTable implements OnInit{
   readonly rowsContent: InputSignal<Array<TableHospitalHead | TableNewSign>>= input.required<Array<TableHospitalHead | TableNewSign>>();
 
 
-  protected tableName: WritableSignal<string>= signal<string>('Hospital Head Request')
+  protected tableName: WritableSignal<string>= signal<string>('Hospital Account Request')
   public titles: WritableSignal<Array<string>>= signal<Array<string>>([
     'Name',
     'Hospital',
@@ -57,6 +57,9 @@ export class DataTable implements OnInit{
     let out: string|number= ((insRow as TableHospitalHead).datetime || (insRow as TableNewSign).status);
     if( typeof out === 'string'){
       return out;
+    }
+    if( this.forWhat()!=this.validForWhat[2] ){
+      throw new TypeError(`forWhat must be ${this.validForWhat[2]}, due to having TableNewSign on rowsContent, but got ${this.forWhat()}`);
     }
     return out==0? 'Pending': (out==1? 'In Progress': 'Done');
   }

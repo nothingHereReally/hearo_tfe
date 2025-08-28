@@ -15,6 +15,13 @@
       {{ row.hospital }}
     </div>
     <div class="have-light-background">
+      @if( getCol_datetime_xor_status(row)=='Pending' ){
+          <img src="/icon_pc1_300/3dots.svg" alt="pending icon">
+      }@else if( getCol_datetime_xor_status(row)=='In Progress' ){
+          <img src="/icon_pc3_600/loading.svg" alt="loading icon">
+      }@else if( getCol_datetime_xor_status(row)=='Done' ){
+          <img src="/icon_tc1_500/check.svg" alt="check icon">
+      }
       {{ getCol_datetime_xor_status(row) }}
     </div>
     <div class="have-light-background">
@@ -32,6 +39,13 @@
       {{ row.hospital }}
     </div>
     <div>
+      @if( getCol_datetime_xor_status(row)=='Pending' ){
+          <img src="/icon_pc1_300/3dots.svg" alt="pending icon">
+      }@else if( getCol_datetime_xor_status(row)=='In Progress' ){
+          <img src="/icon_pc3_600/loading.svg" alt="loading icon">
+      }@else if( getCol_datetime_xor_status(row)=='Done' ){
+          <img src="/icon_tc1_500/check.svg" alt="check icon">
+      }
       {{ getCol_datetime_xor_status(row) }}
     </div>
     <div>
