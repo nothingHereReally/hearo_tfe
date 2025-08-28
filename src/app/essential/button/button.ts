@@ -1,4 +1,4 @@
-import { Component, signal, input, OnInit, output } from '@angular/core';
+import { Component, signal, input, OnInit, output, InputSignal, WritableSignal } from '@angular/core';
 
 @Component({
   selector: 'app-button',
@@ -9,16 +9,16 @@ import { Component, signal, input, OnInit, output } from '@angular/core';
 export class Button implements OnInit{
   public outOnClick= output();
 
-  readonly text= input<string>('Button Name');
-  readonly styleButton= input<string>('style-solid'); /*
+  readonly text: InputSignal<string>= input.required<string>();
+  readonly styleButton: InputSignal<string>= input.required<string>(); /*
   'style-solid', 'style-outline',
   'style-naked', 'style-special',
   'style-link', 'style-danger-solid',
   'style-danger-outline', 'style-danger-naked'
   */
-  readonly iconname= input<string>('');
-  readonly isUnderlined= input<string>('');
-  protected iconfiledir= signal('');
+  readonly iconname: InputSignal<string>= input<string>('');
+  readonly isUnderlined: InputSignal<string>= input<string>('');
+  protected iconfiledir: WritableSignal<string>= signal<string>('');
   private iconfile_init: string= '';
   private iconfile_hover: string= '';
   private iconfile_pressed: string= '';
