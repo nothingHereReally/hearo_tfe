@@ -1,4 +1,4 @@
-import { Component, input, OnInit, signal, Signal } from '@angular/core';
+import { Component, input, InputSignal, OnInit, signal, Signal } from '@angular/core';
 
 
 import { TableHospitalHead } from '../../model/table-hospital-head';
@@ -10,16 +10,28 @@ import { TableHospitalHead } from '../../model/table-hospital-head';
   styleUrl: './data-table.css'
 })
 export class DataTable implements OnInit{
-  readonly tableName: Signal<string>= signal<string>('Hospital Head Request')
-  readonly titles: Signal<Array<string>>= signal<Array<string>>([
+  readonly forWhat: InputSignal<string>= input.required<string>();
+  readonly rowsContent: InputSignal<Array<TableHospitalHead>>= input.required<Array<TableHospitalHead>>();
+
+
+  protected tableName: Signal<string>= signal<string>('Hospital Head Request')
+  public titles: Signal<Array<string>>= signal<Array<string>>([
     'Name',
     'Hospital',
     'Date and Time',
     'Review'
   ])
-  readonly rowsContent= input.required<Array<TableHospitalHead>>()
+  private validForWhat: Array<string>= [
+    'hospital_head_request',
+    'all_hospital_head_accounts',
+    'new_sign_videos'
+  ]
 
   ngOnInit(): void{
+    if( !this.validForWhat.includes(this.forWhat()) ){
+      throw new TypeError(`forWhat can only be ${this.validForWhat}, due to forWhat is ${this.forWhat}`);
+    }
+
     console.log(`tableName ${this.tableName()}`);
     let titleArr: Array<string>= this.titles() || [];
     titleArr.forEach(i=>{
