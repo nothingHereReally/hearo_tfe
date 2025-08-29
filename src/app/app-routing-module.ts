@@ -5,7 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { Home } from './page/home/home';
 
 const routes: Routes = [
-  {path: 'home', component: Home},
+  {path: 'home', component: Home, title: 'Hearo Home'},
 ];
 
 @NgModule({

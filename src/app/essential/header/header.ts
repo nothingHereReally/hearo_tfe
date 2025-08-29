@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -7,13 +8,16 @@ import { Component } from '@angular/core';
   styleUrl: './header.css'
 })
 export class Header {
+  private router= inject(Router);
+
+
   public clickHome(): void{
-    console.log(`hello from click home ${Math.random()}`);
+    this.router.navigate(['/home']);
   }
   public clickHospitalHead(): void{
-    console.log(`hello from click Hospital Head Acc list ${Math.random()}`);
+    this.router.navigate(['/home']);
   }
   public clickNewSign(): void{
-    console.log(`hello from click New Sign Vids ${Math.random()}`);
+    this.router.navigate(['/home']);
   }
 }
