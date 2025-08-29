@@ -1,7 +1,11 @@
-.div-all-are-inside-this{
+.container-home-login{
   display: flex;
   flex-direction: column;
   gap: 60px;
   align-items: center;
+}
+.container-home-login > div:nth-child(1){
+  display: grid;
+  grid-template-columns: 100vw;
 }
 
