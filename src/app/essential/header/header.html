@@ -17,25 +17,25 @@
   <div class="border-radius">
     <app-button
         [text]="'Home'"
-        [styleButton]="'style-solid'"
+        [styleButton]="homeStyle()"
         [iconname]="'home'"
         (outOnClick)="clickHome()"
         />
     <app-button
         [text]="'Hospital Head'"
-        [styleButton]="'style-outline'"
+        [styleButton]="hospitalHeadStyle()"
         [iconname]="'plus'"
         (outOnClick)="clickHospitalHead()"
         />
     <app-button
         [text]="'Hospitals'"
-        [styleButton]="'style-outline'"
+        [styleButton]="hospitalStyle()"
         [iconname]="'hospital_location'"
         (outOnClick)="clickHospitals()"
         />
     <app-button
         [text]="'New Sign'"
-        [styleButton]="'style-outline'"
+        [styleButton]="newSignStyle()"
         [iconname]="'new'"
         (outOnClick)="clickNewSign()"
         />

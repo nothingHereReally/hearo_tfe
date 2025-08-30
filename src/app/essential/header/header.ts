@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal, WritableSignal } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,6 +9,10 @@ import { Router } from '@angular/router';
 })
 export class Header {
   private router= inject(Router);
+  protected homeStyle: WritableSignal<string>= signal<string>('style-outline');
+  protected hospitalHeadStyle: WritableSignal<string>= signal<string>('style-outline');
+  protected hospitalStyle: WritableSignal<string>= signal<string>('style-outline');
+  protected newSignStyle: WritableSignal<string>= signal<string>('style-outline');
 
 
   public clickHome(): void{
