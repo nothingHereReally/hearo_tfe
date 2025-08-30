@@ -1,0 +1,60 @@
+<div class="container-datatable border-radius">
+  <div class="font-bold-title">{{ tableName() }}</div>
+  @for(title of titles(); track $index){
+    <div class="font-bold-title">
+      {{ title }}
+    </div>
+  }
+
+  @for(row of rowsContent(); track $index){
+    @if( $index%2==0 ){
+    <div class="have-light-background">
+      {{ getCol_name_xor_username(row)  }}
+    </div>
+    <div class="have-light-background">
+      {{ row.hospital }}
+    </div>
+    <div class="have-light-background">
+      @if( getCol_datetime_xor_status(row)=='Pending' ){
+          <img src="/icon_pc1_300/3dots.svg" alt="pending icon">
+      }@else if( getCol_datetime_xor_status(row)=='In Progress' ){
+          <img src="/icon_pc3_600/loading.svg" alt="loading icon">
+      }@else if( getCol_datetime_xor_status(row)=='Done' ){
+          <img src="/icon_tc1_500/check.svg" alt="check icon">
+      }
+      {{ getCol_datetime_xor_status(row) }}
+    </div>
+    <div class="have-light-background">
+      <app-button
+          [text]="'View Details'"
+          [styleButton]="'style-link'"
+          [linkURL]=row.linkreview
+          />
+    </div>
+    }@else{
+    <div>
+      {{ getCol_name_xor_username(row)  }}
+    </div>
+    <div>
+      {{ row.hospital }}
+    </div>
+    <div>
+      @if( getCol_datetime_xor_status(row)=='Pending' ){
+          <img src="/icon_pc1_300/3dots.svg" alt="pending icon">
+      }@else if( getCol_datetime_xor_status(row)=='In Progress' ){
+          <img src="/icon_pc3_600/loading.svg" alt="loading icon">
+      }@else if( getCol_datetime_xor_status(row)=='Done' ){
+          <img src="/icon_tc1_500/check.svg" alt="check icon">
+      }
+      {{ getCol_datetime_xor_status(row) }}
+    </div>
+    <div>
+      <app-button
+          [text]="'View Details'"
+          [styleButton]="'style-link'"
+          [linkURL]=row.linkreview
+          />
+    </div>
+    }
+  }
+</div>

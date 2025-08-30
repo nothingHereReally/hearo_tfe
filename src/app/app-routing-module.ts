@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 
-// import { Button } from './essential/button/button';
+import { Home } from './page/home/home';
 
 const routes: Routes = [
-  // {path: 'button', component: Button},
+  {path: 'home', component: Home, title: 'Hearo Home'},
 ];
 
 @NgModule({

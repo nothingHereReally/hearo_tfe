@@ -1,0 +1,38 @@
+.container-datatable{
+  display: grid;
+  grid-template-columns: repeat(4, minmax(280px, auto));
+  grid-auto-rows: 60px;
+  padding: 16px 0px;
+  color: var(--sc-100);
+
+  border: 1px solid var(--pc1-300);
+}
+.container-datatable > div:nth-child(1){
+  grid-column: span 4;
+  padding-top: 8px;
+}
+.container-datatable > div:nth-child(1),
+.container-datatable > div:nth-child(2),
+.container-datatable > div:nth-child(3),
+.container-datatable > div:nth-child(4),
+.container-datatable > div:nth-child(5){
+  /*
+   * tableName is the div:nth-child(1)
+   *
+   * titles[0] is the div:nth-child(2)
+   * titles[1] is the div:nth-child(3)
+   * titles[2] is the div:nth-child(4)
+   * titles[3] is the div:nth-child(5)
+   * */
+  color: var(--pc1-300);
+}
+.container-datatable > div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+}
+.have-light-background{
+  background-color: var(--pc2-800);
+}
+

@@ -6,12 +6,18 @@ import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
 import { Button } from './essential/button/button';
 import { Input } from './essential/input/input';
+import { Home } from './page/home/home';
+import { DataTable } from './essential/data-table/data-table';
+import { Header } from './essential/header/header';
 
 @NgModule({
   declarations: [
     App,
     Button,
-    Input
+    Input,
+    Home,
+    DataTable,
+    Header
   ],
   imports: [
     BrowserModule,

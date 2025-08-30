@@ -1,0 +1,64 @@
+<header class="header-logged-in">
+
+
+
+
+  <div>
+    <img
+        src="/favicon.svg"
+        alt="logo icon"
+        class="logo-on-top-left-when-logged-in"
+        >
+  </div>
+
+
+
+
+  <div class="border-radius">
+    <app-button
+        [text]="'Home'"
+        [styleButton]="homeStyle()"
+        [iconname]="'home'"
+        (outOnClick)="clickHome()"
+        />
+    <app-button
+        [text]="'Hospital Head'"
+        [styleButton]="hospitalHeadStyle()"
+        [iconname]="'plus'"
+        (outOnClick)="clickHospitalHead()"
+        />
+    <app-button
+        [text]="'Hospitals'"
+        [styleButton]="hospitalStyle()"
+        [iconname]="'hospital_location'"
+        (outOnClick)="clickHospitals()"
+        />
+    <app-button
+        [text]="'New Sign'"
+        [styleButton]="newSignStyle()"
+        [iconname]="'new'"
+        (outOnClick)="clickNewSign()"
+        />
+  </div>
+
+
+
+
+  <div>
+    <app-button
+        [text]="''"
+        [styleButton]="'style-naked'"
+        [iconname]="'logout'"
+        (outOnClick)="logout()"
+        />
+    <button class="profile-pic-and-name"
+      (click)="clickedProfile()">
+      <img src="/profile_sample.png" alt="/profile_sample.png">
+      <span class="font-normal-regular">Steven Universe</span>
+    </button>
+  </div>
+
+
+
+
+</header>
