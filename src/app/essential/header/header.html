@@ -30,8 +30,8 @@
     <app-button
         [text]="'Hospitals'"
         [styleButton]="'style-outline'"
-        [iconname]="'plus'"
-        (outOnClick)="clickHospitalHead()"
+        [iconname]="'hospital_location'"
+        (outOnClick)="clickHospitals()"
         />
     <app-button
         [text]="'New Sign'"
@@ -49,11 +49,13 @@
         [text]="''"
         [styleButton]="'style-naked'"
         [iconname]="'logout'"
+        (outOnClick)="logout()"
         />
-    <div class="profile-pic-and-name">
+    <button class="profile-pic-and-name"
+      (click)="clickedProfile()">
       <img src="/profile_sample.png" alt="/profile_sample.png">
       <span class="font-normal-regular">Steven Universe</span>
-    </div>
+    </button>
   </div>
 
 

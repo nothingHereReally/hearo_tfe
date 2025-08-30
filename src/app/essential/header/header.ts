@@ -17,7 +17,18 @@ export class Header {
   public clickHospitalHead(): void{
     this.router.navigate(['/home']);
   }
+  public clickHospitals(): void{
+    this.router.navigate(['/home']);
+  }
   public clickNewSign(): void{
     this.router.navigate(['/home']);
+  }
+
+
+  public logout(): void{
+    console.log(`logout clicked ${Math.random()}`);
+  }
+  public clickedProfile(): void{
+    console.log(`clicked profile ${Math.random()}`);
   }
 }
