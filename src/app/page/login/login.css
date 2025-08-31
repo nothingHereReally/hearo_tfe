@@ -1,0 +1,46 @@
+.login-form{
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+  align-items: center;
+
+  width: 26vw;
+  min-width: 300px;
+}
+
+
+
+
+.login-form > div:nth-child(1){
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+}
+.login-form > div:nth-child(1) > img:nth-child(1){
+  height: 48px;
+}
+.login-form > div:nth-child(1) > img:nth-child(2){
+  height: 36px;
+}
+.login-form > div:nth-child(1) > span{
+  color: var(--pc1-300);
+}
+
+
+
+
+.login-form > div:nth-child(2){
+  display: grid;
+  grid-template-columns: 26vw;
+  grid-template-rows: 100px 24px;
+
+  row-gap: 24px;
+  min-width: 300px;
+}
+.login-form > div:nth-child(2) > div{
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
