@@ -1,1 +1,56 @@
-<p>login works!</p>
+<div>
+
+
+
+
+  <div>
+    <img src="/logo/hearo_logo.svg" alt="hearo logo">
+    <img src="/logo/hearo_word.svg" alt="hearo word">
+    <span>Hearo Team Login</span>
+  </div>
+
+
+
+
+  <div>
+    <div>
+      <app-input
+          [iconNameLeft]="'email'"
+          [placeholderText]="'Email'"
+          />
+      <app-input
+          [iconNameLeft]="'shield_lock'"
+          [placeholderText]="'Password'"
+          />
+    </div>
+    <app-button
+        [text]="'Log in'"
+        [styleButton]="'style-special'"
+        />
+  </div>
+
+
+
+
+  <app-button
+      [text]="'Forgot Password'"
+      [styleButton]="'style-outline'"
+      [isUnderlined]="'underlined'"
+      />
+
+
+
+
+  <div>
+    <span>No Account?</span>
+    <app-button
+        [text]="'Get Access'"
+        [styleButton]="'style-outline'"
+        [isUnderlined]="'underlined'"
+        />
+  </div>
+
+
+
+
+</div>
