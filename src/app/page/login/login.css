@@ -4,9 +4,7 @@
   gap: 64px;
   align-items: center;
 
-  width: 26vw;
   min-width: 300px;
-  background-color: lightgrey;
 }
 
 
@@ -37,12 +35,10 @@
   flex-direction: column;
 }
 .login-form > div:nth-child(2){
-  background-color: lightpink;
   gap: 24px;
   width: 100%;
 }
 .login-form > div:nth-child(2) > div{
-  background-color: lightcoral;
   gap: 8px;
 }
 
@@ -55,5 +51,22 @@
   align-items: center;
   color: var(--pc1-300);
   gap: 4px;
+}
+
+
+@media (max-width: 600px){
+  .login-form{
+    width: 100vw;
+  }
+}
+@media (min-width: 601px) and (max-width: 1000px){
+  .login-form{
+    width: 60vw;
+  }
+}
+@media (min-width: 1001px){
+  .login-form{
+    width: 30rem;
+  }
 }
 
