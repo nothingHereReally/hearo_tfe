@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, viewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Signal, viewChild } from '@angular/core';
 
 @Component({
   selector: 'app-verify-to-register',
@@ -7,7 +7,7 @@ import { AfterViewInit, Component, ElementRef, viewChild } from '@angular/core';
   styleUrl: './verify-to-register.css'
 })
 export class VerifyToRegister implements AfterViewInit {
-  readonly videoRef = viewChild.required<ElementRef<HTMLVideoElement>>('videoEl');
+  readonly videoRef: Signal<ElementRef<HTMLVideoElement>>= viewChild.required<ElementRef<HTMLVideoElement>>('videoEl');
 
   ngAfterViewInit() {
     navigator.mediaDevices.getUserMedia({
