@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, viewChild } from '@angular/core';
 
 @Component({
   selector: 'app-verify-to-register',
@@ -6,18 +6,17 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './verify-to-register.html',
   styleUrl: './verify-to-register.css'
 })
-export class VerifyToRegister implements OnInit{
+export class VerifyToRegister implements AfterViewInit {
+  readonly videoRef = viewChild.required<ElementRef<HTMLVideoElement>>('videoEl');
 
-  videoRef: any;
-  ngOnInit(): void {
-    this.videoRef= document.getElementById('videoEl');
-    console.log(this.videoRef);
+  ngAfterViewInit() {
     navigator.mediaDevices.getUserMedia({
-      video: {width: 400, height: 400},
+      video: { width: 400, height: 400 },
       audio: false
-    }).then(stram=>{
-        console.log(stram);
-        this.videoRef.srcObject= stram;
+    }).then(stream => {
+      this.videoRef().nativeElement.srcObject= stream;
+    }).catch(error => {
+      console.error('Error accessing media devices.', error);
     });
   }
 }
