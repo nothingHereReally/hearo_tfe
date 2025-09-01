@@ -138,6 +138,9 @@
 
 
 
+.not-underlined{
+  text-decoration: none;
+}
 .underlined{
   text-decoration: underline;
 }

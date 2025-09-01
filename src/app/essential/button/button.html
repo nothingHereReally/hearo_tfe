@@ -1,3 +1,4 @@
+@if( isUnderlined()!="underlined" && styleButton()!="style-link"){
 <button type="button" [ngClass]="[
   'button-padding-left-right',
   'button-padding-top-bottom',
@@ -17,3 +18,27 @@
     }
     <span [ngClass]='[isUnderlined()]'>{{ text() }}</span>
 </button>
+}@else{
+<a [ngClass]="[
+  'button-padding-left-right',
+  'button-padding-top-bottom',
+  'font-normal-regular',
+  'border-radius',
+  'flex-row-button',
+  styleButton(),
+  isUnderlined()
+  ]"
+    (click)="onClick()"
+    (mouseenter)="onHover()"
+    (mouseleave)="initIcon()"
+    (mousedown)="onPressing()"
+    (mouseup)="onHover()"
+    [routerLink]="linkURL()"
+    [target]="linkTarget()"
+  >
+    @if(iconfiledir()!=''){
+      <img [src]="iconfiledir()" [alt]="iconfiledir()" class='icon-botton-size'>
+    }
+    <span [ngClass]='[isUnderlined()]'>{{ text() }}</span>
+</a>
+}
