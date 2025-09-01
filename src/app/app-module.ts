@@ -11,6 +11,7 @@ import { Home } from './page/home/home';
 import { DataTable } from './essential/data-table/data-table';
 import { Header } from './essential/header/header';
 import { Login } from './page/login/login';
+import { VerifyToRegister } from './page/verify-to-register/verify-to-register';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { Login } from './page/login/login';
     Home,
     DataTable,
     Header,
-    Login
+    Login,
+    VerifyToRegister
   ],
   imports: [
     BrowserModule,
