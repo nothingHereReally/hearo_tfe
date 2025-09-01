@@ -6,6 +6,7 @@
 
   width: 26vw;
   min-width: 300px;
+  background-color: lightgrey;
 }
 
 
@@ -30,17 +31,29 @@
 
 
 
-.login-form > div:nth-child(2){
-  display: grid;
-  grid-template-columns: 26vw;
-  grid-template-rows: 100px 24px;
-
-  row-gap: 24px;
-  min-width: 300px;
-}
+.login-form > div:nth-child(2),
 .login-form > div:nth-child(2) > div{
   display: flex;
   flex-direction: column;
+}
+.login-form > div:nth-child(2){
+  background-color: lightpink;
+  gap: 24px;
+  width: 100%;
+}
+.login-form > div:nth-child(2) > div{
+  background-color: lightcoral;
+  gap: 8px;
+}
+
+
+
+
+.login-form > div:nth-child(4){
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: var(--pc1-300);
   gap: 4px;
 }
 
