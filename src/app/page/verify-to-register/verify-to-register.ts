@@ -7,7 +7,8 @@ import { AfterViewInit, Component, ElementRef, Signal, viewChild } from '@angula
   styleUrl: './verify-to-register.css'
 })
 export class VerifyToRegister implements AfterViewInit {
-  readonly videoRef: Signal<ElementRef<HTMLVideoElement>>= viewChild.required<ElementRef<HTMLVideoElement>>('videoEl');
+  readonly videoElRef: Signal<ElementRef<HTMLVideoElement>>= viewChild.required<ElementRef<HTMLVideoElement>>('videoEl');
+  private imgCanvas: Signal<ElementRef<HTMLCanvasElement>>= viewChild.required<ElementRef<HTMLCanvasElement>>('canvasEl');
 
   ngAfterViewInit() {
     navigator.mediaDevices.getUserMedia({
@@ -19,19 +20,29 @@ export class VerifyToRegister implements AfterViewInit {
       },
       audio: false
     }).then(stream => {
-      this.videoRef().nativeElement.srcObject= stream;
-      this.videoRef().nativeElement.onloadedmetadata= ()=>{
-          this.videoRef().nativeElement.play();
+      this.videoElRef().nativeElement.srcObject= stream;
+      this.videoElRef().nativeElement.onloadedmetadata= ()=>{
+          this.videoElRef().nativeElement.play();
       }
       setTimeout(()=>{
-        console.log(this.videoRef().nativeElement);
-        console.log(this.videoRef().nativeElement.videoWidth);
-        console.log(this.videoRef().nativeElement.videoHeight);
-        console.log(this.videoRef().nativeElement.width);
-        console.log(this.videoRef().nativeElement.height);
+        this.putImage2canvas();
       }, 3000);
     }).catch(error => {
       console.error('Error accessing media devices.', error);
     });
+  }
+
+
+  private putImage2canvas(): void{
+    const context= this.imgCanvas().nativeElement.getContext('2d');
+    const width: number= this.videoElRef().nativeElement.videoWidth;
+    const height: number= this.videoElRef().nativeElement.videoHeight;
+    if( width!=0 && height!=0 ){
+      this.imgCanvas().nativeElement.width= this.videoElRef().nativeElement.videoWidth
+      this.imgCanvas().nativeElement.height= this.videoElRef().nativeElement.videoHeight
+      context?.drawImage(this.videoElRef().nativeElement, 0, 0, width, height);
+      const imgURL= this.imgCanvas().nativeElement.toDataURL('image/png');
+      console.log(`image url save at: ${imgURL}`);
+    }
   }
 }
