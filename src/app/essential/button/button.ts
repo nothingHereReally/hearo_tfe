@@ -17,8 +17,9 @@ export class Button implements OnInit{
   'style-danger-outline', 'style-danger-naked'
   */
   readonly iconname: InputSignal<string>= input<string>('');
-  readonly isUnderlined: InputSignal<string>= input<string>('');
+  readonly isUnderlined: InputSignal<string>= input<string>('not-underlined');
   readonly linkURL: InputSignal<string>= input<string>('');
+  readonly linkTarget: InputSignal<string>= input<string>('_blank');
   protected iconfiledir: WritableSignal<string>= signal<string>('');
   private iconfile_init: string= '';
   private iconfile_hover: string= '';
@@ -36,11 +37,19 @@ export class Button implements OnInit{
       if( this.styleButton()==validStyles[4] && this.linkURL().length==0 ){
         throw new TypeError(`linkURL can't be empty due to styleButton is ${validStyles[4]}`);
       }
+      if( this.linkTarget()!='_self' && this.linkTarget()!='_blank' ){
+        throw new TypeError(`linkTarget can only be '_self' or '_blank'`);
+      }
       if( this.iconname().length!=0 ){
 
 
-        if( this.isUnderlined()!='' && this.isUnderlined()!='underlined' ){
-          throw new TypeError(`isUnderlined can only be empty '' or 'underlined'`);
+        if( this.isUnderlined()!='not-underlined' && this.isUnderlined()!='underlined' ){
+          throw new TypeError(`isUnderlined can only be 'not-underlined' or 'underlined'`);
+        }else if( (
+        this.isUnderlined()=='underlined' ||
+            this.styleButton()=="style-link"
+        ) && this.linkURL()=='' ){
+          throw new TypeError(`linkURL must not be empty due to isUnderlined or styleButton is 'style-link' is 'underlined'`);
         }
         if( this.styleButton()===validStyles[0] ){ /* style-solid */
           this.iconfiledir.set(`/icon_sc_900/${this.iconname()}.svg`);
@@ -99,9 +108,6 @@ export class Button implements OnInit{
     this.iconfiledir.set(this.iconfile_pressed);
   }
   public onClick(){ /* 4) onClick */
-    if( this.styleButton()=='style-link' ){
-      window.open(this.linkURL(), "_blank");
-    }
     this.iconfiledir.set(this.iconfile_pressed);
     this.onHover();
     this.outOnClick.emit();

@@ -1,6 +1,7 @@
 import { NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
@@ -24,7 +25,8 @@ import { Login } from './page/login/login';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    RouterLink
   ],
   providers: [
     provideBrowserGlobalErrorListeners()
