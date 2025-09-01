@@ -1,1 +1,33 @@
-<p>verify-to-register works!</p>
+<div>
+  <div class="top-left-logo-and-back-v2r">
+    <img src="/logo/hearo_logo.svg" alt="logo icon">
+    <app-button
+        [text]="'Back'"
+        [styleButton]="'style-outline'"
+        [iconname]="'arrow_left'"
+        />
+  </div>
+
+
+  <div class="container-of-form-show-qr-v2r">
+    <div>
+      <video id="videoEl" width="400" height="400" autoplay muted>
+      </video>
+    </div>
+    <div>
+      <div>
+        <img src="/logo/hearo_logo.svg" alt="hearo logo">
+        <img src="/logo/hearo_word.svg" alt="hearo word">
+        <span>Verify Authority</span>
+      </div>
+      <div>
+        <img src="/icon_tc2_400/info.svg" alt="info logo">
+        <div>
+          <span>Please show the</span>
+          <span>QR Access account</span>
+          <span>to be able to create a Hearo member account</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
