@@ -1,56 +1,41 @@
-<div class="login-form">
-
-
-
-
-  <div>
-    <img src="/logo/hearo_logo.svg" alt="hearo logo">
-    <img src="/logo/hearo_word.svg" alt="hearo word">
-    <span class="font-bold-regular">Hearo Team Login</span>
-  </div>
-
-
-
-
-  <div>
+<div class="container-whole-login-page">
+  <div class="login-form">
     <div>
-      <app-input
-          [iconNameLeft]="'email'"
-          [placeholderText]="'Email'"
-          />
-      <app-input
-          [iconNameLeft]="'shield_lock'"
-          [placeholderText]="'Password'"
+      <img src="/logo/hearo_logo.svg" alt="hearo logo">
+      <img src="/logo/hearo_word.svg" alt="hearo word">
+      <span class="font-bold-regular">Hearo Team Login</span>
+    </div>
+
+    <div>
+      <div>
+        <app-input
+            [iconNameLeft]="'email'"
+            [placeholderText]="'Email'"
+            />
+        <app-input
+            [iconNameLeft]="'shield_lock'"
+            [placeholderText]="'Password'"
+            />
+      </div>
+      <app-button
+          [text]="'Log in'"
+          [styleButton]="'style-special'"
           />
     </div>
+
     <app-button
-        [text]="'Log in'"
-        [styleButton]="'style-special'"
-        />
-  </div>
-
-
-
-
-  <app-button
-      [text]="'Forgot Password'"
-      [styleButton]="'style-outline'"
-      [isUnderlined]="'underlined'"
-      />
-
-
-
-
-  <div>
-    <span class="font-normal-regular">No Account?</span>
-    <app-button
-        [text]="'Get Access'"
+        [text]="'Forgot Password'"
         [styleButton]="'style-outline'"
         [isUnderlined]="'underlined'"
         />
+
+    <div>
+      <span class="font-normal-regular">No Account?</span>
+      <app-button
+          [text]="'Get Access'"
+          [styleButton]="'style-outline'"
+          [isUnderlined]="'underlined'"
+          />
+    </div>
   </div>
-
-
-
-
 </div>

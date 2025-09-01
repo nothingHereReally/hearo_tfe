@@ -1,3 +1,11 @@
+.container-whole-login-page{
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 96px;
+  height: 100vw;
+}
+
+
 .login-form{
   display: flex;
   flex-direction: column;
@@ -58,15 +66,33 @@
   .login-form{
     width: 100vw;
   }
+  .container-whole-login-page{
+    padding-right: 8px;
+    padding-left: 8px;
+  }
 }
 @media (min-width: 601px) and (max-width: 1000px){
   .login-form{
     width: 60vw;
   }
+  .container-whole-login-page{
+    padding-right: 48px;
+    padding-left: 48px;
+  }
 }
 @media (min-width: 1001px){
   .login-form{
     width: 30rem;
+  }
+  .container-whole-login-page{
+    background-image: url("/background/background_login.svg");
+    background-repeat: no-repeat;
+    background-size: 90%;
+    background-position-x: -377.18px;
+    background-position-y: -243.99px;
+
+    padding-right: 96px;
+    padding-left: 96px;
   }
 }
 
