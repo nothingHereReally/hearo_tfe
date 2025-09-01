@@ -11,7 +11,12 @@ export class VerifyToRegister implements AfterViewInit {
 
   ngAfterViewInit() {
     navigator.mediaDevices.getUserMedia({
-      video: true,
+      video: {
+        width: { min: 400, ideal: 700},
+        height: { min: 400, ideal: 700},
+        facingMode: 'user',
+        frameRate: { ideal: 24, max: 30}
+      },
       audio: false
     }).then(stream => {
       this.videoRef().nativeElement.srcObject= stream;
