@@ -55,7 +55,7 @@
   background-size: 150%;
   background-position: center;
   transition: var(--time-regular-background-position);
-  width: inherit;
+  width: 100%;
 }
 .style-special:hover{
   background-position: left;
