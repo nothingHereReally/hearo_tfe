@@ -11,7 +11,7 @@ export class VerifyToRegister implements AfterViewInit {
 
   ngAfterViewInit() {
     navigator.mediaDevices.getUserMedia({
-      video: { width: 400, height: 400 },
+      video: true,
       audio: false
     }).then(stream => {
       this.videoRef().nativeElement.srcObject= stream;
