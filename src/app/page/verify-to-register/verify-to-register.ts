@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, ElementRef, Signal, viewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, Signal, viewChild } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-verify-to-register',
@@ -7,6 +8,9 @@ import { AfterViewInit, Component, ElementRef, Signal, viewChild } from '@angula
   styleUrl: './verify-to-register.css'
 })
 export class VerifyToRegister implements AfterViewInit {
+  private router= inject(Router);
+
+
   readonly videoElRef: Signal<ElementRef<HTMLVideoElement>>= viewChild.required<ElementRef<HTMLVideoElement>>('videoEl');
   private imgCanvas: Signal<ElementRef<HTMLCanvasElement>>= viewChild.required<ElementRef<HTMLCanvasElement>>('canvasEl');
 
@@ -44,5 +48,11 @@ export class VerifyToRegister implements AfterViewInit {
       const imgURL= this.imgCanvas().nativeElement.toDataURL('image/png');
       console.log(`image url save at: ${imgURL}`);
     }
+  }
+
+
+  protected backClicked(): void{
+    this.videoElRef().nativeElement.remove()
+    this.router.navigate(['/login']);
   }
 }
