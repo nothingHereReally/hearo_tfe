@@ -13,27 +13,33 @@ export class VerifyToRegister implements AfterViewInit {
 
   readonly videoElRef: Signal<ElementRef<HTMLVideoElement>>= viewChild.required<ElementRef<HTMLVideoElement>>('videoEl');
   private imgCanvas: Signal<ElementRef<HTMLCanvasElement>>= viewChild.required<ElementRef<HTMLCanvasElement>>('canvasEl');
+  private mediaStream?: MediaStream;
 
   ngAfterViewInit() {
-    navigator.mediaDevices.getUserMedia({
-      video: {
-        width: { min: 400, ideal: 700},
-        height: { min: 400, ideal: 700},
-        facingMode: 'user',
-        frameRate: { ideal: 24, max: 30}
-      },
-      audio: false
-    }).then(stream => {
-      this.videoElRef().nativeElement.srcObject= stream;
+    this.initVideoCamera(); /* due to mandatory be asynce */
+  }
+
+  async initVideoCamera(): Promise<void>{
+    try{
+      this.mediaStream= await navigator.mediaDevices.getUserMedia({
+        video: {
+          width: { min: 400, ideal: 700},
+          height: { min: 400, ideal: 700},
+          facingMode: 'user',
+          frameRate: { ideal: 24, max: 30}
+        },
+        audio: false
+      });
+      this.videoElRef().nativeElement.srcObject= this.mediaStream;
       this.videoElRef().nativeElement.onloadedmetadata= ()=>{
           this.videoElRef().nativeElement.play();
       }
-      setTimeout(()=>{
-        this.putImage2canvas();
-      }, 3000);
-    }).catch(error => {
-      console.error('Error accessing media devices.', error);
-    });
+      // setTimeout(()=>{
+      //   this.putImage2canvas();
+      // }, 3000);
+    }catch(err){
+      console.log(`error occured on getting video ${err}`);
+    }
   }
 
 
@@ -52,6 +58,10 @@ export class VerifyToRegister implements AfterViewInit {
 
 
   protected backClicked(): void{
+    if( this.mediaStream ){
+      this.mediaStream.getTracks().forEach(track=>{ track.stop(); });
+    }
+
     this.videoElRef().nativeElement.remove()
     this.router.navigate(['/login']);
   }
