@@ -63,6 +63,8 @@ export class VerifyToRegister implements AfterViewInit {
     }
 
     this.videoElRef().nativeElement.remove()
-    this.router.navigate(['/login']);
+    setTimeout(()=>{
+      this.router.navigate(['/login']);
+    }, 100);
   }
 }
