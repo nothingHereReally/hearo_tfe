@@ -1,6 +1,9 @@
 import { AfterViewInit, Component, ElementRef, inject, Signal, viewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
+
+import { AuthUser } from '../../api-service/auth-user';
+
 @Component({
   selector: 'app-verify-to-register',
   standalone: false,
@@ -14,6 +17,8 @@ export class VerifyToRegister implements AfterViewInit {
   readonly videoElRef: Signal<ElementRef<HTMLVideoElement>>= viewChild.required<ElementRef<HTMLVideoElement>>('videoEl');
   private imgCanvas: Signal<ElementRef<HTMLCanvasElement>>= viewChild.required<ElementRef<HTMLCanvasElement>>('canvasEl');
   private mediaStream?: MediaStream;
+
+  constructor(private authUser: AuthUser){}
 
   ngAfterViewInit() {
     this.initVideoCamera(); /* due to mandatory be asynce */
@@ -34,9 +39,9 @@ export class VerifyToRegister implements AfterViewInit {
       this.videoElRef().nativeElement.onloadedmetadata= ()=>{
           this.videoElRef().nativeElement.play();
       }
-      // setTimeout(()=>{
-      //   this.putImage2canvas();
-      // }, 3000);
+      setTimeout(()=>{
+        this.putImage2canvas();
+      }, 3000);
     }catch(err){
       console.log(`error occured on getting video ${err}`);
     }
@@ -51,8 +56,18 @@ export class VerifyToRegister implements AfterViewInit {
       this.imgCanvas().nativeElement.width= this.videoElRef().nativeElement.videoWidth
       this.imgCanvas().nativeElement.height= this.videoElRef().nativeElement.videoHeight
       context?.drawImage(this.videoElRef().nativeElement, 0, 0, width, height);
-      const imgURL= this.imgCanvas().nativeElement.toDataURL('image/png');
-      console.log(`image url save at: ${imgURL}`);
+      this.imgCanvas().nativeElement.toBlob((blob)=>{
+        this.authUser.verifyQR_hearoAccessAccount(blob).subscribe({
+          next: (r: any)=>{
+            console.log("result: ", r)
+          },
+          error: (err: any)=>{
+            console.log("error: ", err)
+          },
+          complete: ()=>{
+          }
+        })
+      }, 'image/png', 0.98);
     }
   }
 

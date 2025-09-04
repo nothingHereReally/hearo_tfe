@@ -12,6 +12,7 @@ import { DataTable } from './essential/data-table/data-table';
 import { Header } from './essential/header/header';
 import { Login } from './page/login/login';
 import { VerifyToRegister } from './page/verify-to-register/verify-to-register';
+import { provideHttpClient } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { VerifyToRegister } from './page/verify-to-register/verify-to-register';
     RouterLink
   ],
   providers: [
-    provideBrowserGlobalErrorListeners()
+    provideBrowserGlobalErrorListeners(),
+    provideHttpClient()
   ],
   bootstrap: [App]
 })
