@@ -21,7 +21,7 @@ export class AuthUser {
     formData.append('image', qr_image_blob, 'image.png');
 
     return this.http.post<any|Token>(
-      API_DOMAIN+"api/token/qr/hearo-team",
+      API_DOMAIN+"api/token/qr/hearo-team/",
       formData,{
         headers: header,
         observe: 'body'
