@@ -1,9 +1,13 @@
-import { AfterViewInit, Component, ElementRef, inject, signal, Signal, viewChild, WritableSignal } from '@angular/core';
+import {
+  AfterViewInit, Component, ElementRef, inject,
+  OnDestroy, signal, Signal, viewChild, WritableSignal
+} from '@angular/core';
 import { Router } from '@angular/router';
 
 
 import { AuthUser } from '../../api-service/auth-user';
 import { Token } from '../../model/token';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-verify-to-register',
@@ -11,9 +15,10 @@ import { Token } from '../../model/token';
   templateUrl: './verify-to-register.html',
   styleUrl: './verify-to-register.css'
 })
-export class VerifyToRegister implements AfterViewInit {
+export class VerifyToRegister implements AfterViewInit, OnDestroy {
   private router= inject(Router);
   private authUser= inject(AuthUser);
+  private subcription: Array<Subscription>= [];
   private keepVideoCameraRolling: WritableSignal<boolean>= signal(true);
   protected hasAllowedCamera: WritableSignal<boolean>= signal(false);
 
@@ -25,6 +30,10 @@ export class VerifyToRegister implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.initVideoCamera(); /* due to mandatory be asynce */
+  }
+  ngOnDestroy(): void {
+    this.__stopVideoCamera();
+    this.subcription.forEach(entry=> entry.unsubscribe());
   }
 
   private async __sleep(ms: number): Promise<void>{
@@ -70,7 +79,7 @@ export class VerifyToRegister implements AfterViewInit {
       this.imgCanvas().nativeElement.height= this.videoElRef().nativeElement.videoHeight;
       context?.drawImage(this.videoElRef().nativeElement, 0, 0, width, height);
       this.imgCanvas().nativeElement.toBlob((blob)=>{
-        this.authUser.verifyQR_hearoAccessAccount(blob).subscribe({
+        this.subcription.push(this.authUser.verifyQR_hearoAccessAccount(blob).subscribe({
           next: (r: any)=>{
             if( r.access!=null && r.access!=null ){
               this.keepVideoCameraRolling.set(false);
@@ -80,7 +89,6 @@ export class VerifyToRegister implements AfterViewInit {
               };
               /* should save token to cookie */
               this.authUser.saveToken_AccessQRAccount(reponse_token);
-              this.__stopVideoCamera();
               setTimeout(()=>{
                 this.router.navigate(['/register']);
               }, 100);
@@ -91,7 +99,7 @@ export class VerifyToRegister implements AfterViewInit {
           },
           complete: ()=>{
           }
-        })
+        }));
       }, 'image/png', 0.98);
     }
   }
@@ -105,7 +113,6 @@ export class VerifyToRegister implements AfterViewInit {
     this.videoElRef().nativeElement.remove();
   }
   protected backClicked(): void{
-    this.__stopVideoCamera();
     setTimeout(()=>{
       this.router.navigate(['/login']);
     }, 100);
