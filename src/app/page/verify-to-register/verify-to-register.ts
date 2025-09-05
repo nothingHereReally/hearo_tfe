@@ -1,8 +1,9 @@
-import { AfterViewInit, Component, ElementRef, inject, Signal, viewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, signal, Signal, viewChild, WritableSignal } from '@angular/core';
 import { Router } from '@angular/router';
 
 
 import { AuthUser } from '../../api-service/auth-user';
+import { Token } from '../../model/token';
 
 @Component({
   selector: 'app-verify-to-register',
@@ -12,20 +13,27 @@ import { AuthUser } from '../../api-service/auth-user';
 })
 export class VerifyToRegister implements AfterViewInit {
   private router= inject(Router);
+  private authUser= inject(AuthUser);
+  private keepVideoCameraRolling: WritableSignal<boolean>= signal(true);
+  protected hasAllowedCamera: WritableSignal<boolean>= signal(false);
 
 
   readonly videoElRef: Signal<ElementRef<HTMLVideoElement>>= viewChild.required<ElementRef<HTMLVideoElement>>('videoEl');
   private imgCanvas: Signal<ElementRef<HTMLCanvasElement>>= viewChild.required<ElementRef<HTMLCanvasElement>>('canvasEl');
   private mediaStream?: MediaStream;
 
-  constructor(private authUser: AuthUser){}
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.initVideoCamera(); /* due to mandatory be asynce */
+  }
+
+  private async __sleep(ms: number): Promise<void>{
+    return new Promise(resolve=> setTimeout(resolve, ms));
   }
 
   async initVideoCamera(): Promise<void>{
     try{
+      this.hasAllowedCamera.set(true);
       this.mediaStream= await navigator.mediaDevices.getUserMedia({
         video: {
           width: { min: 400, ideal: 700},
@@ -39,30 +47,47 @@ export class VerifyToRegister implements AfterViewInit {
       this.videoElRef().nativeElement.onloadedmetadata= ()=>{
           this.videoElRef().nativeElement.play();
       }
-      setTimeout(()=>{
-        this.putImage2canvas();
-      }, 3000);
+      /* loop till valid qr or has exited( ie. clicked back ) */
+      while( this.keepVideoCameraRolling() ){
+        await this.__sleep(1000);
+        this.__checkQR_imageForAccessAccount();
+      }
     }catch(err){
-      console.log(`error occured on getting video ${err}`);
+      /* denied camera access permission by user */
+      this.hasAllowedCamera.set(false);
+      /* this.initVideoCamera(); does not ask for permission again */
+      /* needs refresh to ask again for permission */
     }
   }
 
 
-  private putImage2canvas(): void{
+  private __checkQR_imageForAccessAccount(): void{
     const context= this.imgCanvas().nativeElement.getContext('2d');
     const width: number= this.videoElRef().nativeElement.videoWidth;
     const height: number= this.videoElRef().nativeElement.videoHeight;
     if( width!=0 && height!=0 ){
-      this.imgCanvas().nativeElement.width= this.videoElRef().nativeElement.videoWidth
-      this.imgCanvas().nativeElement.height= this.videoElRef().nativeElement.videoHeight
+      this.imgCanvas().nativeElement.width= this.videoElRef().nativeElement.videoWidth;
+      this.imgCanvas().nativeElement.height= this.videoElRef().nativeElement.videoHeight;
       context?.drawImage(this.videoElRef().nativeElement, 0, 0, width, height);
       this.imgCanvas().nativeElement.toBlob((blob)=>{
         this.authUser.verifyQR_hearoAccessAccount(blob).subscribe({
           next: (r: any)=>{
-            console.log("result: ", r)
+            if( r.access!=null && r.access!=null ){
+              this.keepVideoCameraRolling.set(false);
+              let reponse_token: Token= {
+                access: r.access,
+                refresh: r.refresh
+              };
+              /* should save token to cookie */
+              this.authUser.saveToken_AccessQRAccount(reponse_token);
+              this.__stopVideoCamera();
+              setTimeout(()=>{
+                this.router.navigate(['/register']);
+              }, 100);
+            }
           },
           error: (err: any)=>{
-            console.log("error: ", err)
+            console.log("error on scanning qr: ", err);
           },
           complete: ()=>{
           }
@@ -72,12 +97,15 @@ export class VerifyToRegister implements AfterViewInit {
   }
 
 
-  protected backClicked(): void{
+  private __stopVideoCamera(): void{
+    this.keepVideoCameraRolling.set(false);
     if( this.mediaStream ){
       this.mediaStream.getTracks().forEach(track=>{ track.stop(); });
     }
-
-    this.videoElRef().nativeElement.remove()
+    this.videoElRef().nativeElement.remove();
+  }
+  protected backClicked(): void{
+    this.__stopVideoCamera();
     setTimeout(()=>{
       this.router.navigate(['/login']);
     }, 100);
