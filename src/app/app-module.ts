@@ -13,6 +13,8 @@ import { Header } from './essential/header/header';
 import { Login } from './page/login/login';
 import { VerifyToRegister } from './page/verify-to-register/verify-to-register';
 import { provideHttpClient } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
+import { Register } from './page/register/register';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { provideHttpClient } from '@angular/common/http';
     DataTable,
     Header,
     Login,
-    VerifyToRegister
+    VerifyToRegister,
+    Register
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,8 @@ import { provideHttpClient } from '@angular/common/http';
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideHttpClient()
+    provideHttpClient(),
+    CookieService
   ],
   bootstrap: [App]
 })
