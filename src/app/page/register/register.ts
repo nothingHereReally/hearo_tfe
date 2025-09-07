@@ -2,6 +2,7 @@ import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core
 import { Token } from '../../model/token';
 import { AuthUser } from '../../api-service/auth-user';
 import { RegisterUser } from '../../model/register-user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -32,9 +33,16 @@ export class Register implements OnInit{
 
 
   private authUser= inject(AuthUser);
+  private router= inject(Router);
 
   ngOnInit(): void {
     this.authTokenQR= this.authUser.getToken_AccessQRAccount()==null? this.authTokenQR: this.authUser.getToken_AccessQRAccount()!;
-    console.log(this.authTokenQR);
+    this.__checkToken();
+    console.log("token: ", this.authTokenQR);
+  }
+  private __checkToken(): void{
+    if( this.authTokenQR.access=='' || this.authTokenQR.refresh=='' ){
+      this.router.navigate(['/verify-to-register'])
+    }
   }
 }
