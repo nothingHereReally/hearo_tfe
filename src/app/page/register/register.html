@@ -1,1 +1,87 @@
-<p>register works!</p>
+<div class="container-whole-register-page">
+  <div class="register-form">
+    <div>
+      <img src="/logo/hearo_logo.svg" alt="hearo logo">
+      <img src="/logo/hearo_word.svg" alt="hearo word">
+      <span class="font-bold-regular">Create a Hearo Team Account</span>
+    </div>
+
+    <div>
+      <div>
+        <app-input
+            [nameInput]="'fname'"
+            [iconNameLeft]="''"
+            [placeholderText]="'First Name'"
+            [labelText]="'First Name'"
+            />
+        @if( warning_firstname()!='' ){
+        <span class="font-normal-regular">{{ warning_firstname() }}</span>
+        }
+      </div>
+
+      <div>
+        <app-input
+            [nameInput]="'lname'"
+            [iconNameLeft]="''"
+            [placeholderText]="'Last Name'"
+            [labelText]="'Last Name'"
+            />
+        @if( warning_lastname()!='' ){
+        <span class="font-normal-regular">{{ warning_lastname() }}</span>
+        }
+      </div>
+
+      <div>
+        <app-input
+            [nameInput]="'email'"
+            [iconNameLeft]="'email'"
+            [placeholderText]="'my.email@example.com'"
+            [labelText]="''"
+            />
+        @if( warning_email()!='' ){
+        <span class="font-normal-regular">{{ warning_email() }}</span>
+        }
+      </div>
+
+      <div>
+        <app-input
+            [nameInput]="'password'"
+            [iconNameLeft]="'shield_lock'"
+            [placeholderText]="'Password'"
+            [hasEye]="'eye'"
+            />
+        @if( warning_password()!='' ){
+        <span class="font-normal-regular">{{ warning_password() }}</span>
+        }
+      </div>
+
+      <div>
+        <app-input
+            [nameInput]="'rpassword'"
+            [iconNameLeft]="'shield_lock'"
+            [placeholderText]="'Retype Password'"
+            [hasEye]="'eye'"
+            />
+        @if( warning_rpassword()!='' ){
+        <span class="font-normal-regular">{{ warning_rpassword() }}</span>
+        }
+      </div>
+    </div>
+
+    <app-button
+        [text]="'Create Account'"
+        [styleButton]="'style-solid'"
+        />
+
+    <div>
+      <span class="font-normal-regular">Already have an account?</span>
+      <app-button
+          [text]="'Sign in'"
+          [styleButton]="'style-outline'"
+          [isUnderlined]="'underlined'"
+          [linkURL]="'/login'"
+          [linkTarget]="'_self'"
+          />
+    </div>
+  </div>
+</div>

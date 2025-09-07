@@ -1,0 +1,106 @@
+.container-whole-register-page{
+  display: flex;
+  padding-top: 96px;
+  height: 89.7vh;
+}
+
+
+.register-form{
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: center;
+
+  min-width: 300px;
+  height: fit-content;
+}
+
+
+
+
+.register-form > div:nth-child(1){
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+}
+.register-form > div:nth-child(1) > img:nth-child(1){
+  height: 48px;
+}
+.register-form > div:nth-child(1) > img:nth-child(2){
+  height: 36px;
+}
+.register-form > div:nth-child(1) > span{
+  color: var(--pc1-300);
+}
+
+
+
+
+.register-form > div:nth-child(2),
+.register-form > div:nth-child(2) > div{
+  display: flex;
+  flex-direction: column;
+}
+.register-form > div:nth-child(2){
+  gap: 8px;
+  width: 100%;
+}
+.register-form > div:nth-child(2) > div{
+  gap: 0px;
+}
+.register-form > div:nth-child(2) > div > span{
+  text-align: center;
+  color: var(--tc3-500);
+  text-wrap: wrap;
+}
+
+
+
+
+.register-form > div:nth-child(4){
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  color: var(--pc1-300);
+  gap: 4px;
+}
+
+
+@media (max-width: 600px){
+  .register-form{
+    width: 100vw;
+  }
+  .container-whole-register-page{
+    padding-right: 8px;
+    padding-left: 8px;
+  }
+}
+@media (min-width: 601px) and (max-width: 1200px){
+  .register-form{
+    width: 60vw;
+  }
+  .container-whole-register-page{
+    padding-right: 48px;
+    padding-left: 48px;
+    justify-content: center;
+  }
+}
+@media (min-width: 1201px){
+  .register-form{
+    width: 30rem;
+  }
+  .container-whole-register-page{
+    background-image: url("/background/background_login.svg");
+    background-repeat: no-repeat;
+    background-size: 90%;
+    background-position-x: -377.18px;
+    background-position-y: -243.99px;
+
+    padding-right: 96px;
+    padding-left: 96px;
+    justify-content: flex-end;
+  }
+}
