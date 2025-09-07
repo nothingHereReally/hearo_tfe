@@ -33,7 +33,7 @@ export class AuthUser {
        "Content-Type": "application/json",
        "Accept": "application/json"
     });
-    return this.http.post<Token|any>(
+    return this.http.post<any|Token>(
       API_DOMAIN+"api/token/refresh/",
       { "refresh": refreshToken },{
         headers: header,
