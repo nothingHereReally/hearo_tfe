@@ -1,4 +1,7 @@
-import { Component, OnInit, signal, WritableSignal } from '@angular/core';
+import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
+import { Token } from '../../model/token';
+import { AuthUser } from '../../api-service/auth-user';
+import { RegisterUser } from '../../model/register-user';
 
 @Component({
   selector: 'app-register',
@@ -13,7 +16,25 @@ export class Register implements OnInit{
   protected warning_password: WritableSignal<string>= signal('warning password');
   protected warning_rpassword: WritableSignal<string>= signal('warning retype password');
 
+  protected hearoUser: WritableSignal<RegisterUser>= signal({
+    first_name: '',
+    last_name: '',
+    email: '',
+    password: '',
+    retype_password: ''
+  });
+
+
+  private authTokenQR: Token= {
+    access: '',
+    refresh: ''
+  };
+
+
+  private authUser= inject(AuthUser);
+
   ngOnInit(): void {
-      console.log("hello world: ", Math.random());
+    this.authTokenQR= this.authUser.getToken_AccessQRAccount()==null? this.authTokenQR: this.authUser.getToken_AccessQRAccount()!;
+    console.log(this.authTokenQR);
   }
 }

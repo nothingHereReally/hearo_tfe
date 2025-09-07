@@ -10,6 +10,7 @@
       <div>
         <app-input
             [nameInput]="'fname'"
+            [(inputValue)]="hearoUser().first_name"
             [iconNameLeft]="''"
             [placeholderText]="'First Name'"
             [labelText]="'First Name'"
@@ -22,6 +23,7 @@
       <div>
         <app-input
             [nameInput]="'lname'"
+            [(inputValue)]="hearoUser().last_name"
             [iconNameLeft]="''"
             [placeholderText]="'Last Name'"
             [labelText]="'Last Name'"
@@ -34,6 +36,7 @@
       <div>
         <app-input
             [nameInput]="'email'"
+            [(inputValue)]="hearoUser().email"
             [iconNameLeft]="'email'"
             [placeholderText]="'my.email@example.com'"
             [labelText]="''"
@@ -46,6 +49,7 @@
       <div>
         <app-input
             [nameInput]="'password'"
+            [(inputValue)]="hearoUser().password"
             [iconNameLeft]="'shield_lock'"
             [placeholderText]="'Password'"
             [hasEye]="'eye'"
@@ -58,6 +62,7 @@
       <div>
         <app-input
             [nameInput]="'rpassword'"
+            [(inputValue)]="hearoUser().retype_password"
             [iconNameLeft]="'shield_lock'"
             [placeholderText]="'Retype Password'"
             [hasEye]="'eye'"
