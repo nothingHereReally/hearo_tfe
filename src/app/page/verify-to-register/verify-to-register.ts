@@ -16,8 +16,10 @@ import { Subscription } from 'rxjs';
   styleUrl: './verify-to-register.css'
 })
 export class VerifyToRegister implements AfterViewInit, OnDestroy {
-  private router= inject(Router);
-  private authUser= inject(AuthUser);
+  private router: Router= inject(Router);
+  private authUser: AuthUser= inject(AuthUser);
+
+
   private subcription: Array<Subscription>= [];
   private keepVideoCameraRolling: WritableSignal<boolean>= signal(true);
   protected hasAllowedCamera: WritableSignal<boolean>= signal(false);
@@ -38,10 +40,12 @@ export class VerifyToRegister implements AfterViewInit, OnDestroy {
     }
   }
 
+
+
+
   private async __sleep(ms: number): Promise<void>{
     return new Promise(resolve=> setTimeout(resolve, ms));
   }
-
   async initVideoCamera(): Promise<void>{
     try{
       this.hasAllowedCamera.set(true);
@@ -72,6 +76,8 @@ export class VerifyToRegister implements AfterViewInit, OnDestroy {
   }
 
 
+
+
   private __checkQR_imageForAccessAccount(): void{
     const context= this.imgCanvas().nativeElement.getContext('2d');
     const width: number= this.videoElRef().nativeElement.videoWidth;
@@ -97,7 +103,6 @@ export class VerifyToRegister implements AfterViewInit, OnDestroy {
             }
           },
           error: (err: any)=>{
-            console.log("error on scanning qr: ", err);
           },
           complete: ()=>{
           }
@@ -107,6 +112,8 @@ export class VerifyToRegister implements AfterViewInit, OnDestroy {
   }
 
 
+
+
   private __stopVideoCamera(): void{
     this.keepVideoCameraRolling.set(false);
     if( this.mediaStream ){
@@ -114,6 +121,10 @@ export class VerifyToRegister implements AfterViewInit, OnDestroy {
     }
     this.videoElRef().nativeElement.remove();
   }
+
+
+
+
   protected backClicked(): void{
     setTimeout(()=>{
       this.router.navigate(['/login']);
