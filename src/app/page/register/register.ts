@@ -88,7 +88,12 @@ export class Register implements OnInit, OnDestroy{
 
       this.subscription.push(this.authUser.createHearoAccount(this.hearoUser()).subscribe({
         next: (r: any)=>{
-          console.log("user created: ", r);
+          if(r.message=="Hearo user successfully created"){
+            this.warning_rpassword.set("Created Account Successfully ✔");
+            setTimeout(()=>{
+              this.router.navigate(['/login']);
+            }, TIME_ERROR_DISPLAY);
+          }
         },
         error: (err: any)=>{
           if( ( err.error.email==null && err.error.email==undefined ) &&
