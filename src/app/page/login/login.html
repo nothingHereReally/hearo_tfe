@@ -14,8 +14,11 @@
               [(inputValue)]="hearoUser().username"
               [iconNameLeft]="'human'"
               [placeholderText]="'Username'"
+              (outWant2Run)="loggingIn()"
               />
-          <span>{{ warnings().username }}</span>
+          @if( warnings().username!='' ){
+          <div class="font-normal-regular">{{ warnings().username }}</div>
+          }
         </div>
         <div>
           <app-input
@@ -24,8 +27,11 @@
               [iconNameLeft]="'shield_lock'"
               [placeholderText]="'Password'"
               [hasEye]="'eye'"
+              (outWant2Run)="loggingIn()"
               />
-          <span>{{ warnings().password }}</span>
+          @if( warnings().password!='' ){
+          <div class="font-normal-regular">{{ warnings().password }}</div>
+          }
         </div>
       </div>
       <app-button
