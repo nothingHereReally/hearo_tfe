@@ -39,16 +39,24 @@
 
 
 .login-form > div:nth-child(2),
-.login-form > div:nth-child(2) > div{
+.login-form > div:nth-child(2) > div,
+.login-form > div:nth-child(2) > div > div{
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 .login-form > div:nth-child(2){
   gap: 24px;
-  width: 100%;
 }
 .login-form > div:nth-child(2) > div{
   gap: 8px;
+}
+.login-form > div:nth-child(2) > div > div{
+  gap: 0px;
+}
+.login-form > div:nth-child(2) > div > div > div{
+  text-align: center;
+  color: var(--tc3-500);
 }
 
 

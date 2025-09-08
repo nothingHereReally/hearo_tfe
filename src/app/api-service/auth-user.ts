@@ -1,10 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { API_DOMAIN } from '../model/constant';
+
+
 import { CookieService } from 'ngx-cookie-service';
+import { API_DOMAIN } from '../model/constant';
 import { Token } from '../model/token';
 import { RegisterUser } from '../model/register-user';
+import { LoginField } from '../model/login-field';
 
 @Injectable({
   providedIn: 'root'
@@ -42,6 +45,19 @@ export class AuthUser {
       }
     )
   }
+  public verifyToken(accessToken: string): Observable<any>{
+    return this.http.post<any>(
+      `${API_DOMAIN}api/token/verify/`,
+      {"token": accessToken},
+      {
+        headers: new HttpHeaders({
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        }),
+        observe: 'body'
+      }
+    )
+  }
 
 
   public createHearoAccount(hearoUser: RegisterUser): Observable<any>{
@@ -74,6 +90,25 @@ export class AuthUser {
       },
     );
   }
+
+
+  public userLogin(hearoUser: LoginField): Observable<Token|any>{
+    return this.http.post<Token|any>(
+      `${API_DOMAIN}api/token/`,
+      hearoUser,
+      {
+        headers: new HttpHeaders({
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        }),
+        observe: 'body'
+      }
+    );
+  }
+
+
+
+
 
 
 

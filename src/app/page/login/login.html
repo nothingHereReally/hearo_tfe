@@ -8,20 +8,36 @@
 
     <div>
       <div>
-        <app-input
-            [nameInput]="'email'"
-            [iconNameLeft]="'email'"
-            [placeholderText]="'Email'"
-            />
-        <app-input
-            [nameInput]="'password'"
-            [iconNameLeft]="'shield_lock'"
-            [placeholderText]="'Password'"
-            />
+        <div>
+          <app-input
+              [nameInput]="'username'"
+              [(inputValue)]="hearoUser().username"
+              [iconNameLeft]="'human'"
+              [placeholderText]="'Username'"
+              (outWant2Run)="loggingIn()"
+              />
+          @if( warnings().username!='' ){
+          <div class="font-normal-regular">{{ warnings().username }}</div>
+          }
+        </div>
+        <div>
+          <app-input
+              [nameInput]="'password'"
+              [(inputValue)]="hearoUser().password"
+              [iconNameLeft]="'shield_lock'"
+              [placeholderText]="'Password'"
+              [hasEye]="'eye'"
+              (outWant2Run)="loggingIn()"
+              />
+          @if( warnings().password!='' ){
+          <div class="font-normal-regular">{{ warnings().password }}</div>
+          }
+        </div>
       </div>
       <app-button
           [text]="'Log in'"
           [styleButton]="'style-special'"
+          (outOnClick)="loggingIn()"
           />
     </div>
 

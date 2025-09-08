@@ -9,29 +9,29 @@
     <div>
       <div>
         <app-input
-            [nameInput]="'fname'"
+            [nameInput]="'first_name'"
             [(inputValue)]="hearoUser().first_name"
             [iconNameLeft]="''"
             [placeholderText]="'First Name'"
             [labelText]="'First Name'"
             (outWant2Run)="createAccount()"
             />
-        @if( warning_firstname()!='' ){
-        <span class="font-normal-regular">{{ warning_firstname() }}</span>
+        @if( warnings().first_name!='' ){
+        <span class="font-normal-regular">{{ warnings().first_name }}</span>
         }
       </div>
 
       <div>
         <app-input
-            [nameInput]="'lname'"
+            [nameInput]="'last_name'"
             [(inputValue)]="hearoUser().last_name"
             [iconNameLeft]="''"
             [placeholderText]="'Last Name'"
             [labelText]="'Last Name'"
             (outWant2Run)="createAccount()"
             />
-        @if( warning_lastname()!='' ){
-        <span class="font-normal-regular">{{ warning_lastname() }}</span>
+        @if( warnings().last_name!='' ){
+        <span class="font-normal-regular">{{ warnings().last_name }}</span>
         }
       </div>
 
@@ -44,8 +44,8 @@
             [labelText]="''"
             (outWant2Run)="createAccount()"
             />
-        @if( warning_email()!='' ){
-        <span class="font-normal-regular">{{ warning_email() }}</span>
+        @if( warnings().email!='' ){
+        <span class="font-normal-regular">{{ warnings().email }}</span>
         }
       </div>
 
@@ -58,8 +58,8 @@
             [labelText]="''"
             (outWant2Run)="createAccount()"
             />
-        @if( warning_username()!='' ){
-        <span class="font-normal-regular">{{ warning_username() }}</span>
+        @if( warnings().username!='' ){
+        <span class="font-normal-regular">{{ warnings().username }}</span>
         }
       </div>
 
@@ -72,22 +72,22 @@
             [hasEye]="'eye'"
             (outWant2Run)="createAccount()"
             />
-        @if( warning_password()!='' ){
-        <span class="font-normal-regular">{{ warning_password() }}</span>
+        @if( warnings().password!='' ){
+        <span class="font-normal-regular">{{ warnings().password }}</span>
         }
       </div>
 
       <div>
         <app-input
-            [nameInput]="'rpassword'"
+            [nameInput]="'retype_password'"
             [(inputValue)]="hearoUser().retype_password"
             [iconNameLeft]="'shield_lock'"
             [placeholderText]="'Retype Password'"
             [hasEye]="'eye'"
             (outWant2Run)="createAccount()"
             />
-        @if( warning_rpassword()!='' ){
-        <span class="font-normal-regular">{{ warning_rpassword() }}</span>
+        @if( warnings().retype_password!='' ){
+        <span class="font-normal-regular">{{ warnings().retype_password }}</span>
         }
       </div>
     </div>
