@@ -5,6 +5,7 @@ import { API_DOMAIN } from '../model/constant';
 import { CookieService } from 'ngx-cookie-service';
 import { Token } from '../model/token';
 import { RegisterUser } from '../model/register-user';
+import { LoginField } from '../model/login-field';
 
 @Injectable({
   providedIn: 'root'
@@ -74,6 +75,25 @@ export class AuthUser {
       },
     );
   }
+
+
+  public userLogin(hearoUser: LoginField): Observable<Token|any>{
+    return this.http.post<Token|any>(
+      `${API_DOMAIN}api/token/`,
+      hearoUser,
+      {
+        headers: new HttpHeaders({
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        }),
+        observe: 'body'
+      }
+    );
+  }
+
+
+
+
 
 
 
