@@ -14,6 +14,7 @@
             [iconNameLeft]="''"
             [placeholderText]="'First Name'"
             [labelText]="'First Name'"
+            (outWant2Run)="createAccount()"
             />
         @if( warning_firstname()!='' ){
         <span class="font-normal-regular">{{ warning_firstname() }}</span>
@@ -27,6 +28,7 @@
             [iconNameLeft]="''"
             [placeholderText]="'Last Name'"
             [labelText]="'Last Name'"
+            (outWant2Run)="createAccount()"
             />
         @if( warning_lastname()!='' ){
         <span class="font-normal-regular">{{ warning_lastname() }}</span>
@@ -40,9 +42,24 @@
             [iconNameLeft]="'email'"
             [placeholderText]="'my.email@example.com'"
             [labelText]="''"
+            (outWant2Run)="createAccount()"
             />
         @if( warning_email()!='' ){
         <span class="font-normal-regular">{{ warning_email() }}</span>
+        }
+      </div>
+
+      <div>
+        <app-input
+            [nameInput]="'username'"
+            [(inputValue)]="hearoUser().username"
+            [iconNameLeft]="'human'"
+            [placeholderText]="'myusername123'"
+            [labelText]="''"
+            (outWant2Run)="createAccount()"
+            />
+        @if( warning_username()!='' ){
+        <span class="font-normal-regular">{{ warning_username() }}</span>
         }
       </div>
 
@@ -53,6 +70,7 @@
             [iconNameLeft]="'shield_lock'"
             [placeholderText]="'Password'"
             [hasEye]="'eye'"
+            (outWant2Run)="createAccount()"
             />
         @if( warning_password()!='' ){
         <span class="font-normal-regular">{{ warning_password() }}</span>
@@ -66,6 +84,7 @@
             [iconNameLeft]="'shield_lock'"
             [placeholderText]="'Retype Password'"
             [hasEye]="'eye'"
+            (outWant2Run)="createAccount()"
             />
         @if( warning_rpassword()!='' ){
         <span class="font-normal-regular">{{ warning_rpassword() }}</span>
@@ -76,6 +95,7 @@
     <app-button
         [text]="'Create Account'"
         [styleButton]="'style-solid'"
+        (outOnClick)="createAccount()"
         />
 
     <div>
