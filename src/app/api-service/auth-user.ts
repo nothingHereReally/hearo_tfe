@@ -1,8 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { API_DOMAIN } from '../model/constant';
+
+
 import { CookieService } from 'ngx-cookie-service';
+import { API_DOMAIN } from '../model/constant';
 import { Token } from '../model/token';
 import { RegisterUser } from '../model/register-user';
 import { LoginField } from '../model/login-field';
@@ -39,6 +41,19 @@ export class AuthUser {
       API_DOMAIN+"api/token/refresh/",
       { "refresh": refreshToken },{
         headers: header,
+        observe: 'body'
+      }
+    )
+  }
+  public verifyToken(accessToken: string): Observable<any>{
+    return this.http.post<any>(
+      `${API_DOMAIN}api/token/verify/`,
+      {"token": accessToken},
+      {
+        headers: new HttpHeaders({
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        }),
         observe: 'body'
       }
     )
