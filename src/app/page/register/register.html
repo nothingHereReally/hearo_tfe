@@ -1,1 +1,112 @@
-<p>register works!</p>
+<div class="container-whole-register-page">
+  <div class="register-form">
+    <div>
+      <img src="/logo/hearo_logo.svg" alt="hearo logo">
+      <img src="/logo/hearo_word.svg" alt="hearo word">
+      <span class="font-bold-regular">Create a Hearo Team Account</span>
+    </div>
+
+    <div>
+      <div>
+        <app-input
+            [nameInput]="'fname'"
+            [(inputValue)]="hearoUser().first_name"
+            [iconNameLeft]="''"
+            [placeholderText]="'First Name'"
+            [labelText]="'First Name'"
+            (outWant2Run)="createAccount()"
+            />
+        @if( warning_firstname()!='' ){
+        <span class="font-normal-regular">{{ warning_firstname() }}</span>
+        }
+      </div>
+
+      <div>
+        <app-input
+            [nameInput]="'lname'"
+            [(inputValue)]="hearoUser().last_name"
+            [iconNameLeft]="''"
+            [placeholderText]="'Last Name'"
+            [labelText]="'Last Name'"
+            (outWant2Run)="createAccount()"
+            />
+        @if( warning_lastname()!='' ){
+        <span class="font-normal-regular">{{ warning_lastname() }}</span>
+        }
+      </div>
+
+      <div>
+        <app-input
+            [nameInput]="'email'"
+            [(inputValue)]="hearoUser().email"
+            [iconNameLeft]="'email'"
+            [placeholderText]="'my.email@example.com'"
+            [labelText]="''"
+            (outWant2Run)="createAccount()"
+            />
+        @if( warning_email()!='' ){
+        <span class="font-normal-regular">{{ warning_email() }}</span>
+        }
+      </div>
+
+      <div>
+        <app-input
+            [nameInput]="'username'"
+            [(inputValue)]="hearoUser().username"
+            [iconNameLeft]="'human'"
+            [placeholderText]="'myusername123'"
+            [labelText]="''"
+            (outWant2Run)="createAccount()"
+            />
+        @if( warning_username()!='' ){
+        <span class="font-normal-regular">{{ warning_username() }}</span>
+        }
+      </div>
+
+      <div>
+        <app-input
+            [nameInput]="'password'"
+            [(inputValue)]="hearoUser().password"
+            [iconNameLeft]="'shield_lock'"
+            [placeholderText]="'Password'"
+            [hasEye]="'eye'"
+            (outWant2Run)="createAccount()"
+            />
+        @if( warning_password()!='' ){
+        <span class="font-normal-regular">{{ warning_password() }}</span>
+        }
+      </div>
+
+      <div>
+        <app-input
+            [nameInput]="'rpassword'"
+            [(inputValue)]="hearoUser().retype_password"
+            [iconNameLeft]="'shield_lock'"
+            [placeholderText]="'Retype Password'"
+            [hasEye]="'eye'"
+            (outWant2Run)="createAccount()"
+            />
+        @if( warning_rpassword()!='' ){
+        <span class="font-normal-regular">{{ warning_rpassword() }}</span>
+        }
+      </div>
+    </div>
+
+    <app-button
+        [text]="'Create Account'"
+        [styleButton]="'style-solid'"
+        (outOnClick)="createAccount()"
+        />
+
+    <div>
+      <span class="font-normal-regular">Already have an account?</span>
+      <app-button
+          [text]="'Sign in'"
+          [styleButton]="'style-outline'"
+          [isUnderlined]="'underlined'"
+          [linkURL]="'/login'"
+          [linkTarget]="'_self'"
+          />
+    </div>
+  </div>
+</div>

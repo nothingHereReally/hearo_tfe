@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { API_DOMAIN } from '../model/constant';
 import { CookieService } from 'ngx-cookie-service';
 import { Token } from '../model/token';
+import { RegisterUser } from '../model/register-user';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ export class AuthUser {
     formData.append('image', qr_image_blob, 'image.png');
 
     return this.http.post<any|Token>(
-      API_DOMAIN+"api/token/qr/hearo-team",
+      API_DOMAIN+"api/token/qr/hearo-team/",
       formData,{
         headers: header,
         observe: 'body'
@@ -33,13 +34,45 @@ export class AuthUser {
        "Content-Type": "application/json",
        "Accept": "application/json"
     });
-    return this.http.post<Token|any>(
+    return this.http.post<any|Token>(
       API_DOMAIN+"api/token/refresh/",
       { "refresh": refreshToken },{
         headers: header,
         observe: 'body'
       }
     )
+  }
+
+
+  public createHearoAccount(hearoUser: RegisterUser): Observable<any>{
+    let token: Token= this.getToken_AccessQRAccount()==null? {
+      access: '',
+      refresh: ''
+    }: this.getToken_AccessQRAccount()!;
+    if( token.access=='' ){
+      throw new TypeError("Access token for QR access account can't be empty");
+    }
+    let header: HttpHeaders= new HttpHeaders({
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Authorization": `Bearer ${token.access}`
+    })
+    let newHearoUser= {
+      "account_type": "ht",
+      "email": hearoUser.email,
+      "username": hearoUser.username,
+      "password": hearoUser.password,
+      "first_name": hearoUser.first_name,
+      "last_name": hearoUser.last_name
+    };
+    return this.http.post<any>(
+      API_DOMAIN+"api/v1/users/",
+      newHearoUser,{
+        headers: header,
+        observe: 'body',
+        credentials: 'include'
+      },
+    );
   }
 
 

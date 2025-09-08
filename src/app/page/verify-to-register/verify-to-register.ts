@@ -32,8 +32,10 @@ export class VerifyToRegister implements AfterViewInit, OnDestroy {
     this.initVideoCamera(); /* due to mandatory be asynce */
   }
   ngOnDestroy(): void {
-    this.__stopVideoCamera();
-    this.subcription.forEach(entry=> entry.unsubscribe());
+    if( this.hasAllowedCamera() ){
+      this.__stopVideoCamera();
+      this.subcription.forEach(entry=> entry.unsubscribe());
+    }
   }
 
   private async __sleep(ms: number): Promise<void>{
