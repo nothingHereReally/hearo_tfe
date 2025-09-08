@@ -27,6 +27,8 @@ export class Input implements OnInit{
     }else if( this.hasEye()=='eye' ){
       this.eyefile.set('/icon_pc1_300/eye_close.svg');
       this.textType.set('password');
+    }else if( this.iconNameLeft()=='email' ){
+      this.textType.set('email');
     }
     if( this.isReadOnly()!='is-readonly' && this.isReadOnly()!='is-not-readonly' ){
       throw new TypeError(`isReadOnly can only be 'is-readonly' or 'is-not-readonly', due to isReadOnly is ${this.isReadOnly()}`);
