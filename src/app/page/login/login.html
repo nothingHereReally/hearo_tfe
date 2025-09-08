@@ -8,20 +8,30 @@
 
     <div>
       <div>
-        <app-input
-            [nameInput]="'email'"
-            [iconNameLeft]="'email'"
-            [placeholderText]="'Email'"
-            />
-        <app-input
-            [nameInput]="'password'"
-            [iconNameLeft]="'shield_lock'"
-            [placeholderText]="'Password'"
-            />
+        <div>
+          <app-input
+              [nameInput]="'username'"
+              [(inputValue)]="hearoUser().username"
+              [iconNameLeft]="'human'"
+              [placeholderText]="'Username'"
+              />
+          <span>{{ warnings().username }}</span>
+        </div>
+        <div>
+          <app-input
+              [nameInput]="'password'"
+              [(inputValue)]="hearoUser().password"
+              [iconNameLeft]="'shield_lock'"
+              [placeholderText]="'Password'"
+              [hasEye]="'eye'"
+              />
+          <span>{{ warnings().password }}</span>
+        </div>
       </div>
       <app-button
           [text]="'Log in'"
           [styleButton]="'style-special'"
+          (outOnClick)="loggingIn()"
           />
     </div>
 
