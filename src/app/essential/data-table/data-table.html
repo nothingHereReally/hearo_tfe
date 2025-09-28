@@ -1,20 +1,20 @@
 <div class="container-datatable border-radius">
   <div class="font-bold-title">{{ tableName() }}</div>
   @for(title of titles(); track $index){
-    <div class="font-bold-title">
+    <div class="font-bold-title" [ngClass]="`in-column-${$index+1}`">
       {{ title }}
     </div>
   }
 
   @for(row of rowsContent(); track $index){
     @if( $index%2==0 ){
-    <div class="have-light-background">
+    <div class="have-light-background in-column-1">
       {{ getCol_name_xor_username(row)  }}
     </div>
-    <div class="have-light-background">
+    <div class="have-light-background in-column-2">
       {{ row.hospital }}
     </div>
-    <div class="have-light-background">
+    <div class="have-light-background in-column-3">
       @if( getCol_datetime_xor_status(row)=='Pending' ){
           <img src="/icon_pc1_300/3dots.svg" alt="pending icon">
       }@else if( getCol_datetime_xor_status(row)=='In Progress' ){
@@ -24,7 +24,7 @@
       }
       {{ getCol_datetime_xor_status(row) }}
     </div>
-    <div class="have-light-background">
+    <div class="have-light-background in-column-4">
       <app-button
           [text]="'View Details'"
           [styleButton]="'style-link'"
@@ -32,13 +32,13 @@
           />
     </div>
     }@else{
-    <div>
+    <div class="in-column-1">
       {{ getCol_name_xor_username(row)  }}
     </div>
-    <div>
+    <div class="in-column-2">
       {{ row.hospital }}
     </div>
-    <div>
+    <div class="in-column-3">
       @if( getCol_datetime_xor_status(row)=='Pending' ){
           <img src="/icon_pc1_300/3dots.svg" alt="pending icon">
       }@else if( getCol_datetime_xor_status(row)=='In Progress' ){
@@ -48,7 +48,7 @@
       }
       {{ getCol_datetime_xor_status(row) }}
     </div>
-    <div>
+    <div class="in-column-4">
       <app-button
           [text]="'View Details'"
           [styleButton]="'style-link'"

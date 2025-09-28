@@ -1,6 +1,5 @@
 .container-datatable{
   display: grid;
-  grid-template-columns: repeat(4, minmax(280px, auto));
   grid-auto-rows: 60px;
   padding: 16px 0px;
   color: var(--sc-100);
@@ -8,8 +7,13 @@
   border: 1px solid var(--pc1-300);
 }
 .container-datatable > div:nth-child(1){
-  grid-column: span 4;
+  /* each cell directly, due to using display: grid; */
+  /* but this div:nth-child(1) only for tableName */
   padding-top: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
 }
 .container-datatable > div:nth-child(1),
 .container-datatable > div:nth-child(2),
@@ -26,13 +30,102 @@
    * */
   color: var(--pc1-300);
 }
-.container-datatable > div{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 4px;
-}
 .have-light-background{
   background-color: var(--pc2-800);
+}
+
+
+@media (max-width: 749px){
+  .container-datatable{
+    grid-template-columns: repeat(2, minmax(280px, auto));
+  }
+  .container-datatable > div:nth-child(1){
+    /* head title */
+    grid-column: span 2;
+  }
+
+  .in-column-1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+  }
+  .in-column-2{
+    display: none;
+  }
+  .in-column-3{
+    display: none;
+  }
+  .in-column-4{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+  }
+}
+@media (min-width: 750px) and (max-width: 1149px){
+  .container-datatable{
+    grid-template-columns: repeat(3, minmax(280px, auto));
+  }
+  .container-datatable > div:nth-child(1){
+    /* head title */
+    grid-column: span 3;
+  }
+
+  .in-column-1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+  }
+  .in-column-2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+  }
+  .in-column-3{
+    display: none;
+  }
+  .in-column-4{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+  }
+}
+@media (min-width: 1150px){
+  .container-datatable{
+    grid-template-columns: repeat(4, minmax(280px, auto));
+  }
+  .container-datatable > div:nth-child(1){
+    /* head title */
+    grid-column: span 4;
+  }
+
+  .in-column-1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+  }
+  .in-column-2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+  }
+  .in-column-3{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+  }
+  .in-column-4{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+  }
 }
 
