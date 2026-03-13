@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 
 import { CookieService } from 'ngx-cookie-service';
-import { API_DOMAIN } from '../model/constant';
+import { environment as env } from '../../environment/environment';
 import { Token } from '../model/token';
 import { RegisterUser } from '../model/register-user';
 import { LoginField } from '../model/login-field';
@@ -25,7 +25,7 @@ export class AuthUser {
     formData.append('image', qr_image_blob, 'image.png');
 
     return this.http.post<any|Token>(
-      API_DOMAIN+"api/token/qr/",
+      env.API_DOMAIN+"api/token/qr/",
       formData,{
         headers: header,
         observe: 'body'
@@ -38,7 +38,7 @@ export class AuthUser {
        "Accept": "application/json"
     });
     return this.http.post<any|Token>(
-      API_DOMAIN+"api/token/refresh/",
+      env.API_DOMAIN+"api/token/refresh/",
       { "refresh": refreshToken },{
         headers: header,
         observe: 'body'
@@ -47,7 +47,7 @@ export class AuthUser {
   }
   public verifyToken(accessToken: string): Observable<any>{
     return this.http.post<any>(
-      `${API_DOMAIN}api/token/verify/`,
+      `${env.API_DOMAIN}api/token/verify/`,
       {"token": accessToken},
       {
         headers: new HttpHeaders({
@@ -82,7 +82,7 @@ export class AuthUser {
       "last_name": hearoUser.last_name
     };
     return this.http.post<any>(
-      API_DOMAIN+"api/v1/users/",
+      env.API_DOMAIN+"api/v1/users/",
       newHearoUser,{
         headers: header,
         observe: 'body',
@@ -94,7 +94,7 @@ export class AuthUser {
 
   public userLogin(hearoUser: LoginField): Observable<Token|any>{
     return this.http.post<Token|any>(
-      `${API_DOMAIN}api/token/`,
+      `${env.API_DOMAIN}api/token/`,
       hearoUser,
       {
         headers: new HttpHeaders({

@@ -1,10 +1,10 @@
 import { Component, inject, OnInit, signal, WritableSignal, OnDestroy } from '@angular/core';
+import { environment as env } from '../../../environment/environment';
 import { Token } from '../../model/token';
 import { AuthUser } from '../../api-service/auth-user';
 import { RegisterUser } from '../../model/register-user';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { TIME_ERROR_DISPLAY } from '../../model/constant';
 import { CreateAccountError } from '../../model/create-account-error';
 
 @Component({
@@ -94,7 +94,7 @@ export class Register implements OnInit, OnDestroy{
             this.warnings.update(value=>{value.retype_password="Created Account Successfully ✔"; return value})
             setTimeout(()=>{
               this.router.navigate(['/login']);
-            }, TIME_ERROR_DISPLAY/2);
+            }, env.TIME_ERROR_DISPLAY/2);
           }
         },
         error: (err: any)=>{
@@ -129,31 +129,31 @@ export class Register implements OnInit, OnDestroy{
             this.warnings.update(value=>{ value.first_name=String(msgErrors.first_name![0]); return value });
             setTimeout(()=>{
               this.warnings.update(value=>{ value.first_name=''; return value });
-            }, TIME_ERROR_DISPLAY);
+            }, env.TIME_ERROR_DISPLAY);
           }
           if( msgErrors.last_name!=undefined ){
             this.warnings.update(value=>{ value.last_name=String(msgErrors.last_name![0]); return value });
             setTimeout(()=>{
               this.warnings.update(value=>{ value.last_name=''; return value });
-            }, TIME_ERROR_DISPLAY);
+            }, env.TIME_ERROR_DISPLAY);
           }
           if( msgErrors.email!=undefined ){
             this.warnings.update(value=>{ value.email=String(msgErrors.email![0]); return value });
             setTimeout(()=>{
               this.warnings.update(value=>{ value.email=''; return value })
-            }, TIME_ERROR_DISPLAY);
+            }, env.TIME_ERROR_DISPLAY);
           }
           if( msgErrors.username!=undefined ){
             this.warnings.update(value=>{ value.username=String(msgErrors.username![0]); return value });
             setTimeout(()=>{
               this.warnings.update(value=>{ value.username=''; return value });
-            }, TIME_ERROR_DISPLAY);
+            }, env.TIME_ERROR_DISPLAY);
           }
           if( msgErrors.password!=undefined ){
             this.warnings.update(value=>{ value.password=String(msgErrors.password![0]); return value });
             setTimeout(()=>{
               this.warnings.update(value=>{ value.password=''; return value });
-            }, TIME_ERROR_DISPLAY);
+            }, env.TIME_ERROR_DISPLAY);
           }
         }
       }));
@@ -164,37 +164,37 @@ export class Register implements OnInit, OnDestroy{
         this.warnings.update(value=>{ value.first_name="Please fill your First Name"; return value });
         setTimeout(()=>{
           this.warnings.update(value=>{ value.first_name=""; return value });
-        }, TIME_ERROR_DISPLAY);
+        }, env.TIME_ERROR_DISPLAY);
       }
       if( this.hearoUser().last_name=='' ){
         this.warnings.update(value=>{ value.last_name="Please fill your Last Name"; return value });
         setTimeout(()=>{
           this.warnings.update(value=>{ value.last_name=""; return value });
-        }, TIME_ERROR_DISPLAY);
+        }, env.TIME_ERROR_DISPLAY);
       }
       if( this.hearoUser().email=='' ){
         this.warnings.update(value=>{ value.email="Please fill your Email"; return value });
         setTimeout(()=>{
           this.warnings.update(value=>{ value.email=""; return value });
-        }, TIME_ERROR_DISPLAY);
+        }, env.TIME_ERROR_DISPLAY);
       }
       if( this.hearoUser().username=='' ){
         this.warnings.update(value=>{ value.username="Please fill your desired username"; return value });
         setTimeout(()=>{
           this.warnings.update(value=>{ value.username=""; return value });
-        }, TIME_ERROR_DISPLAY);
+        }, env.TIME_ERROR_DISPLAY);
       }
       if( this.hearoUser().password=='' ){
         this.warnings.update(value=>{ value.password="Please create your password"; return value });
         setTimeout(()=>{
           this.warnings.update(value=>{ value.password=""; return value });
-        }, TIME_ERROR_DISPLAY);
+        }, env.TIME_ERROR_DISPLAY);
       }
       if( this.hearoUser().retype_password!=this.hearoUser().password ){
         this.warnings.update(value=>{ value.retype_password="Retyped password doesn't match password"; return value });
         setTimeout(()=>{
           this.warnings.update(value=>{ value.retype_password=""; return value });
-        }, TIME_ERROR_DISPLAY);
+        }, env.TIME_ERROR_DISPLAY);
       }
 
 
