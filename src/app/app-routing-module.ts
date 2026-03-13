@@ -8,6 +8,7 @@ import { VerifyToRegister } from './page/verify-to-register/verify-to-register';
 import { Register } from './page/register/register';
 
 const routes: Routes = [
+  /* {path: '', redirectTo: 'home', pathMatch: 'full'}, */
   {path: 'home', component: Home, title: 'Hearo Home'},
   {path: 'login', component: Login, title: 'Hearo Team Login'},
   {path: 'verify-to-register', component: VerifyToRegister, title: 'Verify Authority'},
