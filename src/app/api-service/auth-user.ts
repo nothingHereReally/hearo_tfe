@@ -1,13 +1,15 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 
 import { CookieService } from 'ngx-cookie-service';
 import { environment as env } from '../../environment/environment';
-import { Token } from '../model/token';
-import { RegisterUser } from '../model/register-user';
+import { httpRequestHeadersReceiveJson, httpRequestHeadersSendReceiveJson } from '../model/tools';
 import { LoginField } from '../model/login-field';
+import { RegisterUser } from '../model/register-user';
+import { Token } from '../model/token';
+
 
 @Injectable({
   providedIn: 'root'
@@ -18,29 +20,22 @@ export class AuthUser {
 
 
   public verifyQR_hearoAccessAccount(qr_image_blob: any): Observable<any|Token>{
-    let header: HttpHeaders= new HttpHeaders({
-       "Accept": "application/json"
-    });
     const formData= new FormData();
     formData.append('image', qr_image_blob, 'image.png');
 
     return this.http.post<any|Token>(
       env.API_DOMAIN+"api/token/qr/",
       formData,{
-        headers: header,
+        headers: httpRequestHeadersReceiveJson,
         observe: 'body'
       }
     )
   }
   public getTokenViaRefresh(refreshToken: string): Observable<any|Token>{
-    let header: HttpHeaders= new HttpHeaders({
-       "Content-Type": "application/json",
-       "Accept": "application/json"
-    });
     return this.http.post<any|Token>(
       env.API_DOMAIN+"api/token/refresh/",
       { "refresh": refreshToken },{
-        headers: header,
+        headers: httpRequestHeadersSendReceiveJson,
         observe: 'body'
       }
     )
@@ -50,10 +45,7 @@ export class AuthUser {
       `${env.API_DOMAIN}api/token/verify/`,
       {"token": accessToken},
       {
-        headers: new HttpHeaders({
-          "Content-Type": "application/json",
-          "Accept": "application/json"
-        }),
+        headers: httpRequestHeadersSendReceiveJson,
         observe: 'body'
       }
     )
@@ -68,25 +60,21 @@ export class AuthUser {
     if( token.access=='' ){
       throw new TypeError("Access token for QR access account can't be empty");
     }
-    let header: HttpHeaders= new HttpHeaders({
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-      "Authorization": `Bearer ${token.access}`
-    })
-    let newHearoUser= {
-      "account_type": "ht",
-      "email": hearoUser.email,
-      "username": hearoUser.username,
-      "password": hearoUser.password,
-      "first_name": hearoUser.first_name,
-      "last_name": hearoUser.last_name
-    };
     return this.http.post<any>(
-      env.API_DOMAIN+"api/v1/users/",
-      newHearoUser,{
-        headers: header,
-        observe: 'body',
-        credentials: 'include'
+      env.API_DOMAIN+"api/v1/hearo-teams/",
+      {
+          "user": {
+              "email": hearoUser.email,
+              "username": hearoUser.username,
+              "password": hearoUser.password,
+              "first_name": hearoUser.first_name,
+              "last_name": hearoUser.last_name
+          },
+          /* "is_access_account": false, onCreateForceFalse onBackEnd API */
+      },{
+          headers: httpRequestHeadersSendReceiveJson.set("Authorization", `Bearer ${token.access}`),
+          observe: 'body',
+          credentials: 'include'
       },
     );
   }
@@ -97,10 +85,7 @@ export class AuthUser {
       `${env.API_DOMAIN}api/token/`,
       hearoUser,
       {
-        headers: new HttpHeaders({
-          "Content-Type": "application/json",
-          "Accept": "application/json",
-        }),
+        headers: httpRequestHeadersSendReceiveJson,
         observe: 'body'
       }
     );
@@ -125,7 +110,7 @@ export class AuthUser {
     });
   }
   public getToken_AccessQRAccount(): Token|null{
-    const token: Token = {
+    const token: Token= {
       access: String(this.cookie.get('qr_access_token')),
       refresh: String(this.cookie.get('qr_access_token_refresh'))
     }
@@ -149,7 +134,7 @@ export class AuthUser {
     });
   }
   public getAccountToken(): Token|null{
-    const token: Token = {
+    const token: Token= {
       access: String(this.cookie.get('account_token')),
       refresh: String(this.cookie.get('account_token_refresh'))
     }
