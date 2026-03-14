@@ -24,7 +24,7 @@ export class AuthUser {
     formData.append('image', qr_image_blob, 'image.png');
 
     return this.http.post<any|Token>(
-      env.API_DOMAIN+"api/token/qr/",
+      `${env.API_DOMAIN}api/token/qr/`,
       formData,{
         headers: httpRequestHeadersReceiveJson,
         observe: 'body'
@@ -33,7 +33,7 @@ export class AuthUser {
   }
   public getTokenViaRefresh(refreshToken: string): Observable<any|Token>{
     return this.http.post<any|Token>(
-      env.API_DOMAIN+"api/token/refresh/",
+      `${env.API_DOMAIN}api/token/refresh/`,
       { "refresh": refreshToken },{
         headers: httpRequestHeadersSendReceiveJson,
         observe: 'body'
@@ -61,7 +61,7 @@ export class AuthUser {
       throw new TypeError("Access token for QR access account can't be empty");
     }
     return this.http.post<any>(
-      env.API_DOMAIN+"api/v1/hearo-teams/",
+      `${env.API_DOMAIN}api/v1/hearo-teams/`,
       {
           "user": {
               "email": hearoUser.email,
