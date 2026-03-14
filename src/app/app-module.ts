@@ -3,18 +3,24 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 
-import { AppRoutingModule } from './app-routing-module';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 import { App } from './app';
+import { AppRoutingModule } from './app-routing-module';
+
+import { CookieService } from 'ngx-cookie-service';
+
+/* components */
 import { Button } from './essential/button/button';
-import { Input } from './essential/input/input';
-import { Home } from './page/home/home';
 import { DataTable } from './essential/data-table/data-table';
 import { Header } from './essential/header/header';
+import { Input } from './essential/input/input';
+
+/* pages */
+import { ForgotPassword } from './src/app/page/forgot-password/forgot-password';
+import { Home } from './page/home/home';
 import { Login } from './page/login/login';
-import { VerifyToRegister } from './page/verify-to-register/verify-to-register';
-import { provideHttpClient, withFetch } from '@angular/common/http';
-import { CookieService } from 'ngx-cookie-service';
 import { Register } from './page/register/register';
+import { VerifyToRegister } from './page/verify-to-register/verify-to-register';
 
 @NgModule({
   declarations: [
@@ -26,7 +32,8 @@ import { Register } from './page/register/register';
     Header,
     Login,
     VerifyToRegister,
-    Register
+    Register,
+    ForgotPassword
   ],
   imports: [
     BrowserModule,
