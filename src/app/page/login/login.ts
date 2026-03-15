@@ -29,29 +29,7 @@ export class Login implements OnInit{
 
 
   ngOnInit(): void {
-    let authToken: Token|null= this.authUser.getAccountToken();
-    if( authToken!=null ){
-      this.authUser.verifyToken(authToken.access).subscribe({
-        next: (r: any)=>{
-          this.router.navigate(['/home']);
-        },
-        error: (err: any)=>{
-          this.authUser.getTokenViaRefresh(authToken.refresh).subscribe({
-            next: (validToken: Token)=>{
-              this.authUser.saveAccountToken(validToken);
-              this.router.navigate(['/home']);
-            },
-            error: (err: any)=>{
-              /* refresh token already expired, so need to fill login form again */
-            },
-            complete: ()=>{
-            }
-          });
-        },
-        complete: ()=>{
-        }
-      });
-    }
+    this.authUser.goHomeIfValidAuthToken()
   }
 
 

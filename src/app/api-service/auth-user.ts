@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 
 import { CookieService } from 'ngx-cookie-service';
@@ -17,6 +18,7 @@ import { Token } from '../model/token';
 export class AuthUser {
   private http= inject(HttpClient);
   private cookie= inject(CookieService);
+  private router= inject(Router);
 
 
 
@@ -167,5 +169,41 @@ export class AuthUser {
       return null;
     }
     return token;
+  }
+
+
+
+
+
+
+
+
+  /* essential tools which involves authentication from user */
+  public goHomeIfValidAuthToken(): void{
+    let authToken: Token|null= this.getAccountToken();
+    if( authToken!=null ){
+      this.verifyToken(authToken.access).subscribe({
+        next: (r: any)=>{
+          this.router.navigate(['/home']);
+        },
+        error: (err: any)=>{
+          this.getTokenViaRefresh(authToken.refresh).subscribe({
+            next: (validToken: Token)=>{
+              this.saveAccountToken(validToken);
+              this.router.navigate(['/home']);
+            },
+            error: (err: any)=>{
+              /* refresh token already expired, so need to fill login form again */
+              /* but will not redirect to login due to only main goal here is */
+              /* go to /home if already logged in */
+            },
+            complete: ()=>{
+            }
+          });
+        },
+        complete: ()=>{
+        }
+      });
+    }
   }
 }
