@@ -48,12 +48,14 @@ export class VerifyToRegister implements AfterViewInit, OnDestroy {
   }
   private async __verifyAuthTokenThenAskForCameraPermission(): Promise<void>{
     if(await this.authUser.goTo_home_pageIfValidAuthToken()===false){
-      await this.initVideoCamera();
+      await this.__initVideoCamera();
     }
   }
-  async initVideoCamera(): Promise<void>{
+  private async __initVideoCamera(): Promise<void>{
     try{
       this.hasAllowedCamera.set(true);
+      /* prompts user for camera access */
+      /* if not given permission be error */
       this.mediaStream= await navigator.mediaDevices.getUserMedia({
         video: {
           width: { min: 400, ideal: 700},
@@ -75,7 +77,7 @@ export class VerifyToRegister implements AfterViewInit, OnDestroy {
     }catch(err){
       /* denied camera access permission by user */
       this.hasAllowedCamera.set(false);
-      /* this.initVideoCamera(); does not ask for permission again */
+      /* this.__initVideoCamera(); does not ask for permission again */
       /* needs refresh to ask again for permission */
     }
   }
