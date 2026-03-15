@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { firstValueFrom, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
 
@@ -179,31 +179,23 @@ export class AuthUser {
 
 
   /* essential tools which involves authentication from user */
-  public goTo_home_pageIfValidAuthToken(): void{
+  public async goTo_home_pageIfValidAuthToken(): Promise<boolean>{
     let authToken: Token|null= this.getAccountToken();
     if( authToken!=null ){
-      this.verifyToken(authToken.access).subscribe({
-        next: (r: any)=>{
-          this.router.navigate(['/home']);
-        },
-        error: (err: any)=>{
-          this.getTokenViaRefresh(authToken.refresh).subscribe({
-            next: (validToken: Token)=>{
-              this.saveAccountToken(validToken);
-              this.router.navigate(['/home']);
-            },
-            error: (err: any)=>{
-              /* refresh token already expired, so need to fill login form again */
-              /* but will not redirect to login due to only main goal here is */
-              /* go to /home if already logged in */
-            },
-            complete: ()=>{
-            }
-          });
-        },
-        complete: ()=>{
+      try{
+        await firstValueFrom(this.verifyToken(authToken.access));
+        await this.router.navigate(['/home']);
+        return true;
+      }catch(err){
+        try {
+          const validToken: Token= await firstValueFrom(this.getTokenViaRefresh(authToken.refresh));
+          this.saveAccountToken(validToken);
+          await this.router.navigate(['/home']);
+          return true;
+        } catch (refreshErr) {
         }
-      });
+      }
     }
+    return false;
   }
 }

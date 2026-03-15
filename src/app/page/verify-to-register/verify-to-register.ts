@@ -31,7 +31,7 @@ export class VerifyToRegister implements AfterViewInit, OnDestroy {
 
 
   ngAfterViewInit(): void {
-    this.initVideoCamera(); /* due to mandatory be asynce */
+    this.__verifyAuthTokenThenAskForCameraPermission();
   }
   ngOnDestroy(): void {
     if( this.hasAllowedCamera() ){
@@ -45,6 +45,11 @@ export class VerifyToRegister implements AfterViewInit, OnDestroy {
 
   private async __sleep(ms: number): Promise<void>{
     return new Promise(resolve=> setTimeout(resolve, ms));
+  }
+  private async __verifyAuthTokenThenAskForCameraPermission(): Promise<void>{
+    if(await this.authUser.goTo_home_pageIfValidAuthToken()===false){
+      await this.initVideoCamera();
+    }
   }
   async initVideoCamera(): Promise<void>{
     try{
