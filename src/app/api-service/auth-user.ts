@@ -19,6 +19,14 @@ export class AuthUser {
   private cookie= inject(CookieService);
 
 
+
+
+
+
+
+
+  /* ------------------------------------------------ */
+  /* access/refresh token management to API on back-end */
   public verifyQR_hearoAccessAccount(qr_image_blob: any): Observable<any|Token>{
     const formData= new FormData();
     formData.append('image', qr_image_blob, 'image.png');
@@ -30,6 +38,16 @@ export class AuthUser {
         observe: 'body'
       }
     )
+  }
+  public userLogin(hearoUser: LoginField): Observable<Token|any>{
+    return this.http.post<Token|any>(
+      `${env.API_DOMAIN}api/token/`,
+      hearoUser,
+      {
+        headers: httpRequestHeadersSendReceiveJson,
+        observe: 'body'
+      }
+    );
   }
   public getTokenViaRefresh(refreshToken: string): Observable<any|Token>{
     return this.http.post<any|Token>(
@@ -84,26 +102,6 @@ export class AuthUser {
           observe: 'body',
           credentials: 'include'
       },
-    );
-  }
-
-
-
-
-
-
-
-
-  /* ------------------------------------------------ */
-  /* access/refresh token management to API on back-end */
-  public userLogin(hearoUser: LoginField): Observable<Token|any>{
-    return this.http.post<Token|any>(
-      `${env.API_DOMAIN}api/token/`,
-      hearoUser,
-      {
-        headers: httpRequestHeadersSendReceiveJson,
-        observe: 'body'
-      }
     );
   }
 
