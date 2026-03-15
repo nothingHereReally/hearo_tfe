@@ -52,6 +52,14 @@ export class AuthUser {
   }
 
 
+
+
+
+
+
+
+  /* ------------------------------------------------ */
+  /* account hearo-team crud */
   public createHearoAccount(hearoUser: RegisterUser): Observable<any>{
     let token: Token= this.getToken_AccessQRAccount()==null? {
       access: '',
@@ -80,6 +88,14 @@ export class AuthUser {
   }
 
 
+
+
+
+
+
+
+  /* ------------------------------------------------ */
+  /* access/refresh token management to API on back-end */
   public userLogin(hearoUser: LoginField): Observable<Token|any>{
     return this.http.post<Token|any>(
       `${env.API_DOMAIN}api/token/`,
@@ -98,6 +114,8 @@ export class AuthUser {
 
 
 
+  /* ------------------------------------------------ */
+  /* QR access account access/refresh token on cookie web browser set/get */
   public saveToken_AccessQRAccount(token: Token): void{
     /* cookie is 5 days to expire */
     this.cookie.set('qr_access_token', token.access, {
@@ -122,6 +140,14 @@ export class AuthUser {
   }
 
 
+
+
+
+
+
+
+  /* ------------------------------------------------ */
+  /* access/refresh token on cookie web browser set/get */
   public saveAccountToken(token: Token): void{
     /* cookie is 5 days to expire */
     this.cookie.set('account_token', token.access, {
