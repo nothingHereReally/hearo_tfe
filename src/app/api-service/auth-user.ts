@@ -179,7 +179,7 @@ export class AuthUser {
 
 
   /* essential tools which involves authentication from user */
-  public goHomeIfValidAuthToken(): void{
+  public goTo_home_pageIfValidAuthToken(): void{
     let authToken: Token|null= this.getAccountToken();
     if( authToken!=null ){
       this.verifyToken(authToken.access).subscribe({
