@@ -50,7 +50,7 @@ export class Register implements OnInit, OnDestroy{
     if( this.authTokenQR.access=='' || this.authTokenQR.refresh=='' ){
       this.router.navigate(['/verify-to-register'])
     }
-    this.subscription.push(this.authUser.createHearoAccount(this.hearoUser()).subscribe({
+    this.subscription.push(this.authUser.createHearoAccountHttpPost(this.hearoUser()).subscribe({
       next: (r: any)=>{
       },
       error: (err: any)=>{
@@ -88,7 +88,7 @@ export class Register implements OnInit, OnDestroy{
     this.hearoUser().password==this.hearoUser().retype_password ){
 
 
-      this.subscription.push(this.authUser.createHearoAccount(this.hearoUser()).subscribe({
+      this.subscription.push(this.authUser.createHearoAccountHttpPost(this.hearoUser()).subscribe({
         next: (r: any)=>{
           if(r.message=="Hearo user successfully created"){
             this.warnings.update(value=>{value.retype_password="Created Account Successfully ✔"; return value})

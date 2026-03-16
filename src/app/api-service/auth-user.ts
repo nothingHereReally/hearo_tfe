@@ -80,7 +80,7 @@ export class AuthUser {
 
   /* ------------------------------------------------ */
   /* account hearo-team crud */
-  public createHearoAccount(hearoUser: RegisterUser): Observable<any>{
+  public createHearoAccountHttpPost(hearoUser: RegisterUser): Observable<any>{
     let token: Token= this.getToken_AccessQRAccount()==null? {
       access: '',
       refresh: ''
