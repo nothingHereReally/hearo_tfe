@@ -5,9 +5,13 @@ import {
 import { Router } from '@angular/router';
 
 
+import { firstValueFrom, Subscription } from 'rxjs';
+
+
 import { AuthUser } from '../../api-service/auth-user';
+import { environment as env } from '../../../environment/environment';
 import { Token } from '../../model/token';
-import { Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'app-verify-to-register',
@@ -70,9 +74,9 @@ export class VerifyToRegister implements AfterViewInit, OnDestroy {
           this.videoElRef().nativeElement.play();
       }
       /* loop till valid qr or has exited( ie. clicked back ) */
-      while( this.keepVideoCameraRolling() ){
-        await this.__sleep(1000);
-        this.__checkQR_imageForAccessAccount();
+      while( this.keepVideoCameraRolling() && this.hasAllowedCamera() ){
+        await this.__sleep(env.TIME_DELAY_QR_AUTH);
+        await this.__checkQR_imageForAccessAccount();
       }
     }catch(err){
       /* denied camera access permission by user */
@@ -85,7 +89,7 @@ export class VerifyToRegister implements AfterViewInit, OnDestroy {
 
 
 
-  private __checkQR_imageForAccessAccount(): void{
+  private async __checkQR_imageForAccessAccount(): Promise<void>{
     const context= this.imgCanvas().nativeElement.getContext('2d');
     const width: number= this.videoElRef().nativeElement.videoWidth;
     const height: number= this.videoElRef().nativeElement.videoHeight;
@@ -93,28 +97,23 @@ export class VerifyToRegister implements AfterViewInit, OnDestroy {
       this.imgCanvas().nativeElement.width= this.videoElRef().nativeElement.videoWidth;
       this.imgCanvas().nativeElement.height= this.videoElRef().nativeElement.videoHeight;
       context?.drawImage(this.videoElRef().nativeElement, 0, 0, width, height);
-      this.imgCanvas().nativeElement.toBlob((blob)=>{
-        this.subcriptionVerifyQRViaHttpPostRequest.push(this.authUser.verifyQR_hearoAccessAccount(blob).subscribe({
-          next: (r: Token)=>{
-            if( r.access!=null && r.refresh!=null ){
-              this.keepVideoCameraRolling.set(false);
-              let reponse_token: Token= {
-                access: r.access,
-                refresh: r.refresh
-              };
-              /* should save token to cookie */
-              this.authUser.saveToken_AccessQRAccount(reponse_token);
-              setTimeout(()=>{
-                this.router.navigate(['/register']);
-              }, 100);
-            }
-          },
-          error: (err: any)=>{
-          },
-          complete: ()=>{
-          }
-        }));
-      }, 'image/png', 0.98);
+
+
+      const imageBlob= await new Promise<Blob|null>(resolve =>
+        this.imgCanvas().nativeElement.toBlob(resolve, 'image/png', 0.98)
+      );
+      /* if (!imageBlob) return; no need to check due to logic on __initVideoCamera */
+      try {
+        const responseAuthToken: Token= await firstValueFrom(this.authUser.verifyQR_hearoAccessAccount(imageBlob));
+        if(responseAuthToken.access && responseAuthToken.refresh){
+          this.keepVideoCameraRolling.set(false);
+          this.authUser.saveToken_AccessQRAccount(responseAuthToken);
+          setTimeout(()=>{
+            this.router.navigate(['/register']);
+          }, 100);
+        }
+      } catch (err) {
+      }
     }
   }
 
