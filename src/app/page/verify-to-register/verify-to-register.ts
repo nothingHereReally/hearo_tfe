@@ -95,8 +95,8 @@ export class VerifyToRegister implements AfterViewInit, OnDestroy {
       context?.drawImage(this.videoElRef().nativeElement, 0, 0, width, height);
       this.imgCanvas().nativeElement.toBlob((blob)=>{
         this.subcriptionVerifyQRViaHttpPostRequest.push(this.authUser.verifyQR_hearoAccessAccount(blob).subscribe({
-          next: (r: any)=>{
-            if( r.access!=null && r.access!=null ){
+          next: (r: Token)=>{
+            if( r.access!=null && r.refresh!=null ){
               this.keepVideoCameraRolling.set(false);
               let reponse_token: Token= {
                 access: r.access,
