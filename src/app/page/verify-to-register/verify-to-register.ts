@@ -20,7 +20,7 @@ export class VerifyToRegister implements AfterViewInit, OnDestroy {
   private authUser: AuthUser= inject(AuthUser);
 
 
-  private subcription: Array<Subscription>= [];
+  private subcriptionVerifyQRViaHttpPostRequest: Array<Subscription>= [];
   private keepVideoCameraRolling: WritableSignal<boolean>= signal(true);
   protected hasAllowedCamera: WritableSignal<boolean>= signal(false);
 
@@ -36,7 +36,7 @@ export class VerifyToRegister implements AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     if( this.hasAllowedCamera() ){
       this.__stopVideoCamera();
-      this.subcription.forEach(entry=> entry.unsubscribe());
+      this.subcriptionVerifyQRViaHttpPostRequest.forEach(entry=> entry.unsubscribe());
     }
   }
 
@@ -94,7 +94,7 @@ export class VerifyToRegister implements AfterViewInit, OnDestroy {
       this.imgCanvas().nativeElement.height= this.videoElRef().nativeElement.videoHeight;
       context?.drawImage(this.videoElRef().nativeElement, 0, 0, width, height);
       this.imgCanvas().nativeElement.toBlob((blob)=>{
-        this.subcription.push(this.authUser.verifyQR_hearoAccessAccount(blob).subscribe({
+        this.subcriptionVerifyQRViaHttpPostRequest.push(this.authUser.verifyQR_hearoAccessAccount(blob).subscribe({
           next: (r: any)=>{
             if( r.access!=null && r.access!=null ){
               this.keepVideoCameraRolling.set(false);
