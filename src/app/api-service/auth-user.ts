@@ -60,7 +60,7 @@ export class AuthUser {
       }
     )
   }
-  public verifyToken(accessToken: string): Observable<any>{
+  public verifyTokenHttpPost(accessToken: string): Observable<any>{
     return this.http.post<any>(
       `${env.API_DOMAIN}api/token/verify/`,
       {"token": accessToken},
@@ -183,7 +183,7 @@ export class AuthUser {
     let authToken: Token|null= this.getAccountToken();
     if( authToken!=null ){
       try{
-        await firstValueFrom(this.verifyToken(authToken.access));
+        await firstValueFrom(this.verifyTokenHttpPost(authToken.access));
         await this.router.navigate(['/home']);
         return true;
       }catch(err){
