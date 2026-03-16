@@ -51,7 +51,7 @@ export class AuthUser {
       }
     );
   }
-  public getTokenViaRefresh(refreshToken: string): Observable<any|Token>{
+  public getTokenViaRefreshHttpPost(refreshToken: string): Observable<any|Token>{
     return this.http.post<any|Token>(
       `${env.API_DOMAIN}api/token/refresh/`,
       { "refresh": refreshToken },{
@@ -188,7 +188,7 @@ export class AuthUser {
         return true;
       }catch(err){
         try {
-          const validToken: Token= await firstValueFrom(this.getTokenViaRefresh(authToken.refresh));
+          const validToken: Token= await firstValueFrom(this.getTokenViaRefreshHttpPost(authToken.refresh));
           this.saveAccountToken(validToken);
           await this.router.navigate(['/home']);
           return true;

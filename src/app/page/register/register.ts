@@ -60,7 +60,7 @@ export class Register implements OnInit, OnDestroy{
           ( err.error.first_name==null && err.error.first_name==undefined ) &&
           ( err.error.last_name==null && err.error.last_name==undefined )
         ){
-          this.subscription.push(this.authUser.getTokenViaRefresh(this.authTokenQR.refresh).subscribe({
+          this.subscription.push(this.authUser.getTokenViaRefreshHttpPost(this.authTokenQR.refresh).subscribe({
             next: (r: any|Token)=>{
               this.authTokenQR.access= r.access;
               this.authTokenQR.refresh= r.refresh;
@@ -111,7 +111,7 @@ export class Register implements OnInit, OnDestroy{
             msgErrors.first_name==undefined &&
             msgErrors.last_name==undefined
           ){
-            this.subscription.push(this.authUser.getTokenViaRefresh(this.authTokenQR.refresh).subscribe({
+            this.subscription.push(this.authUser.getTokenViaRefreshHttpPost(this.authTokenQR.refresh).subscribe({
               next: (r: any|Token)=>{
                 this.authTokenQR.access= r.access;
                 this.authTokenQR.refresh= r.refresh;
