@@ -41,7 +41,7 @@ export class AuthUser {
       }
     )
   }
-  public userLogin(hearoUser: LoginField): Observable<Token|any>{
+  public userLoginHttpPost(hearoUser: LoginField): Observable<Token|any>{
     return this.http.post<Token|any>(
       `${env.API_DOMAIN}api/token/`,
       hearoUser,

@@ -35,7 +35,7 @@ export class Login implements OnInit{
 
   protected loggingIn(): void{
     if( this.hearoUser().username!='' && this.hearoUser().password!='' ){
-      this.authUser.userLogin(this.hearoUser()).subscribe({
+      this.authUser.userLoginHttpPost(this.hearoUser()).subscribe({
         next: (r: Token)=>{
           this.authUser.saveAccountToken(r);
           this.router.navigate(['/home']);
