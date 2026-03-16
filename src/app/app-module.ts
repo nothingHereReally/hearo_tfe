@@ -16,7 +16,7 @@ import { Header } from './essential/header/header';
 import { Input } from './essential/input/input';
 
 /* pages */
-import { ForgotPassword } from './src/app/page/forgot-password/forgot-password';
+import { ForgotPassword } from './page/forgot-password/forgot-password';
 import { Home } from './page/home/home';
 import { Login } from './page/login/login';
 import { Register } from './page/register/register';

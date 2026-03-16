@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 
-import { ForgotPassword } from './src/app/page/forgot-password/forgot-password';
+import { ForgotPassword } from './page/forgot-password/forgot-password';
 import { Home } from './page/home/home';
 import { Login } from './page/login/login';
 import { Register } from './page/register/register';
