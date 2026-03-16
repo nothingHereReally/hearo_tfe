@@ -29,7 +29,7 @@ export class AuthUser {
 
   /* ------------------------------------------------ */
   /* access/refresh token management to API on back-end */
-  public verifyQR_hearoAccessAccount(qr_image_blob: any): Observable<any|Token>{
+  public verifyQR_hearoAccessAccountHttpPost(qr_image_blob: any): Observable<any|Token>{
     const formData= new FormData();
     formData.append('image', qr_image_blob, 'image.png');
 
