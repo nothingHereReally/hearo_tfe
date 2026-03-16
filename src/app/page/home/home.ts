@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 
 
+import { AuthUser } from '../../api-service/auth-user';
 import { TableHospitalHead } from '../../model/table-hospital-head';
+
 
 @Component({
   selector: 'app-home',
@@ -9,7 +11,10 @@ import { TableHospitalHead } from '../../model/table-hospital-head';
   templateUrl: './home.html',
   styleUrl: './home.css'
 })
-export class Home {
+export class Home implements OnInit{
+  private authUser: AuthUser= inject(AuthUser);
+
+
   protected contents: Array< TableHospitalHead >= [
     {
       name: 'Liza Mae Villanueva',
@@ -42,4 +47,11 @@ export class Home {
       linkreview: '/login'
     }
   ]
+
+
+
+
+  ngOnInit(): void {
+    this.authUser.goTo_login_pageIfNotValidAuthToken();
+  }
 }
