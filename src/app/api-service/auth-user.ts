@@ -116,6 +116,7 @@ export class AuthUser {
 
   /* ------------------------------------------------ */
   /* QR access account access/refresh token on cookie web browser set/get */
+  /* cookie qr access account */
   public saveToken_AccessQRAccount(token: Token): void{
     /* cookie is 5 days to expire */
     this.cookie.set('qr_access_token', token.access, {
@@ -148,6 +149,7 @@ export class AuthUser {
 
   /* ------------------------------------------------ */
   /* access/refresh token on cookie web browser set/get */
+  /* cookie hearo team account */
   public saveAccountToken(token: Token): void{
     /* cookie is 5 days to expire */
     this.cookie.set('account_token', token.access, {
@@ -197,5 +199,15 @@ export class AuthUser {
       }
     }
     return false;
+  }
+  public async isTokenValid(token: string): Promise<boolean>{
+    try{
+      await firstValueFrom(this.verifyTokenHttpPost(token));
+      /* returns status 200 if valid */
+    }catch(err){
+      /* else 401 */
+      return false;
+    }
+    return true;
   }
 }
