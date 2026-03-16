@@ -210,4 +210,24 @@ export class AuthUser {
     }
     return true;
   }
+  public async goTo_login_pageIfNotValidAuthToken(): Promise<boolean>{
+    let authToken: Token|null= this.getAccountToken();
+    if( authToken!=null &&
+        authToken.access!='' && authToken.access!=null &&
+        authToken.refresh!='' && authToken.refresh!=null ){
+      if(await this.isTokenValid(authToken.access)){
+        return false;
+      }else if(await this.isTokenValid(authToken.refresh)){
+        try{
+          authToken= await firstValueFrom(this.getTokenViaRefreshHttpPost(authToken.refresh));
+          if( authToken!=null ){
+            this.saveAccountToken(authToken)
+          }
+          return false; /* due2not going to /login */
+        }catch(err){ /* just continue below for DRY */ }
+      }
+    }
+    await this.router.navigate(['/login']);
+    return true;
+  }
 }
