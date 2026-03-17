@@ -52,6 +52,6 @@ export class Home implements OnInit{
 
 
   ngOnInit(): void {
-    this.authUser.goTo_login_pageIfNotValidAuthToken();
+    this.authUser.goTo_login_pageIfNotValidAuthTokenAsync();
   }
 }

@@ -29,7 +29,7 @@ export class Login implements OnInit{
 
 
   ngOnInit(): void {
-    this.authUser.goTo_home_pageIfValidAuthToken()
+    this.authUser.goTo_home_pageIfValidAuthTokenAsync()
   }
 
 

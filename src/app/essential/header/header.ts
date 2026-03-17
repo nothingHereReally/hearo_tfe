@@ -60,7 +60,7 @@ export class Header implements OnInit {
 
 
   public async logout(): Promise<void>{
-    await this.authUser.userLogOut();
+    await this.authUser.userLogOutAsync();
   }
   public clickedProfile(): void{
     console.log(`clicked profile ${Math.random()}`);

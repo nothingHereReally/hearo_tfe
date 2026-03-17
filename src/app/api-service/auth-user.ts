@@ -211,7 +211,7 @@ export class AuthUser {
 
 
   /* essential tools which involves authentication from user */
-  public async goTo_home_pageIfValidAuthToken(): Promise<boolean>{
+  public async goTo_home_pageIfValidAuthTokenAsync(): Promise<boolean>{
     let authToken: Token|null= this.getAccountToken();
     if( authToken!=null ){
       try{
@@ -230,7 +230,7 @@ export class AuthUser {
     }
     return false;
   }
-  public async isTokenValid(token: string): Promise<boolean>{
+  public async isTokenValidAsync(token: string): Promise<boolean>{
     try{
       await firstValueFrom(this.verifyTokenHttpPost(token));
       /* returns status 200 if valid */
@@ -240,14 +240,14 @@ export class AuthUser {
     }
     return true;
   }
-  public async goTo_login_pageIfNotValidAuthToken(): Promise<boolean>{
+  public async goTo_login_pageIfNotValidAuthTokenAsync(): Promise<boolean>{
     let authToken: Token|null= this.getAccountToken();
     if( authToken!=null &&
         authToken.access!='' && authToken.access!=null &&
         authToken.refresh!='' && authToken.refresh!=null ){
-      if(await this.isTokenValid(authToken.access)){
+      if(await this.isTokenValidAsync(authToken.access)){
         return false;
-      }else if(await this.isTokenValid(authToken.refresh)){
+      }else if(await this.isTokenValidAsync(authToken.refresh)){
         try{
           authToken= await firstValueFrom(this.getTokenViaRefreshHttpPost(authToken.refresh));
           if( authToken!=null ){
@@ -260,14 +260,14 @@ export class AuthUser {
     await this.router.navigate(['/login']);
     return true;
   }
-  public async goTo_register_pageIfValidQRToken(): Promise<boolean>{
+  public async goTo_register_pageIfValidQRTokenAsync(): Promise<boolean>{
     let authToken: Token|null= this.getToken_AccessQRAccount();
     if( authToken!=null &&
         authToken.access!='' && authToken.access!=null &&
         authToken.refresh!='' && authToken.refresh!=null ){
-      if(await this.isTokenValid(authToken.access)){
+      if(await this.isTokenValidAsync(authToken.access)){
         /* since valid, then ok to proceed */
-      }else if(await this.isTokenValid(authToken.refresh)){
+      }else if(await this.isTokenValidAsync(authToken.refresh)){
         try{
           authToken= await firstValueFrom(this.getTokenViaRefreshHttpPost(authToken.refresh));
           if( authToken!=null ){
@@ -281,14 +281,14 @@ export class AuthUser {
     await this.router.navigate(['/register']);
     return true;
   }
-  public async goTo_verify_to_register_pageIfNotValidQRToken(): Promise<boolean>{
+  public async goTo_verify_to_register_pageIfNotValidQRTokenAsync(): Promise<boolean>{
     let authToken: Token|null= this.getToken_AccessQRAccount();
     if( authToken!=null &&
         authToken.access!='' && authToken.access!=null &&
         authToken.refresh!='' && authToken.refresh!=null ){
-      if(await this.isTokenValid(authToken.access)){
+      if(await this.isTokenValidAsync(authToken.access)){
         return false;
-      }else if(await this.isTokenValid(authToken.refresh)){
+      }else if(await this.isTokenValidAsync(authToken.refresh)){
         try{
           authToken= await firstValueFrom(this.getTokenViaRefreshHttpPost(authToken.refresh));
           if( authToken!=null ){
@@ -301,7 +301,7 @@ export class AuthUser {
     await this.router.navigate(['/verify-to-register']);
     return true;
   }
-  public async userLogOut(): Promise<boolean>{
+  public async userLogOutAsync(): Promise<boolean>{
     try{
       await firstValueFrom(this.__userLogoutHttpPatch());
       this.deleteAccountToken();

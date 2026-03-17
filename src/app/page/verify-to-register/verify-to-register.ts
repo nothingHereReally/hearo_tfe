@@ -47,12 +47,12 @@ export class VerifyToRegister implements AfterViewInit, OnDestroy {
 
 
 
-  private async __sleep(ms: number): Promise<void>{
+  private async __sleepAsync(ms: number): Promise<void>{
     return new Promise(resolve=> setTimeout(resolve, ms));
   }
   private async __verifyAuthTokenThenAskForCameraPermission(): Promise<void>{
-    if(await this.authUser.goTo_home_pageIfValidAuthToken()===false &&
-       await this.authUser.goTo_register_pageIfValidQRToken()===false){
+    if(await this.authUser.goTo_home_pageIfValidAuthTokenAsync()===false &&
+       await this.authUser.goTo_register_pageIfValidQRTokenAsync()===false){
       await this.__initVideoCamera();
     }
   }
@@ -76,8 +76,8 @@ export class VerifyToRegister implements AfterViewInit, OnDestroy {
       }
       /* loop till valid qr or has exited( ie. clicked back ) */
       while( this.keepVideoCameraRolling() && this.hasAllowedCamera() ){
-        await this.__sleep(env.TIME_DELAY_QR_AUTH);
-        await this.__checkQR_imageForAccessAccount();
+        await this.__sleepAsync(env.TIME_DELAY_QR_AUTH);
+        await this.__checkQR_imageForAccessAccountAsync();
       }
     }catch(err){
       /* denied camera access permission by user */
@@ -90,7 +90,7 @@ export class VerifyToRegister implements AfterViewInit, OnDestroy {
 
 
 
-  private async __checkQR_imageForAccessAccount(): Promise<void>{
+  private async __checkQR_imageForAccessAccountAsync(): Promise<void>{
     const context= this.imgCanvas().nativeElement.getContext('2d');
     const width: number= this.videoElRef().nativeElement.videoWidth;
     const height: number= this.videoElRef().nativeElement.videoHeight;
