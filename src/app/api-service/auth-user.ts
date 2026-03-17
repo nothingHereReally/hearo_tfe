@@ -139,6 +139,10 @@ export class AuthUser {
     }
     return token;
   }
+  public deleteToken_AccessQRAccount(): void{
+    this.cookie.delete('qr_access_token', '/');
+    this.cookie.delete('qr_access_token_refresh', '/');
+  }
 
 
 
@@ -171,6 +175,10 @@ export class AuthUser {
       return null;
     }
     return token;
+  }
+  public deleteAccountToken(): void{
+    this.cookie.delete('account_token', '/');
+    this.cookie.delete('account_token_refresh', '/');
   }
 
 
