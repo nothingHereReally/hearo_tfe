@@ -51,6 +51,28 @@ export class AuthUser {
       }
     );
   }
+  private __userLogoutHttpPatch(): Observable<any>{
+    /* needs refresh_token */
+    const authToken: Token|null= this.getAccountToken();
+    if( authToken!=null ){
+      return this.http.patch<Token|any>(
+      `${env.API_DOMAIN}api/token/`,
+        {'refresh_token': authToken.refresh},
+        {
+          headers: httpRequestHeadersSendReceiveJson.set('Authorization', `Bearer ${authToken.access}`),
+          observe: 'body'
+        }
+      );
+    }
+    return this.http.patch<Token|any>(
+      `${env.API_DOMAIN}api/token/`,
+      {'refresh_token': ''},
+      {
+        headers: httpRequestHeadersSendReceiveJson,
+        observe: 'body'
+      }
+    );
+  }
   public getTokenViaRefreshHttpPost(refreshToken: string): Observable<any|Token>{
     return this.http.post<any|Token>(
       `${env.API_DOMAIN}api/token/refresh/`,
@@ -256,6 +278,14 @@ export class AuthUser {
       }
     }
     await this.router.navigate(['/verify-to-register']);
+    return true;
+  }
+  public async userLogOut(): Promise<boolean>{
+    try{
+      await firstValueFrom(this.__userLogoutHttpPatch());
+      this.deleteAccountToken();
+      await this.router.navigate(['/login']);
+    }catch(err){}
     return true;
   }
 }
