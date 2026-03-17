@@ -55,10 +55,15 @@ export class Register implements OnInit, OnDestroy{
   }
 
 
-  protected createAccount(): void{
-    if( this.hearoUser().first_name!='' && this.hearoUser().last_name!='' &&
+  private __checkIfAllFilled(): boolean{
+    return this.hearoUser().first_name!='' && this.hearoUser().last_name!='' &&
     this.hearoUser().email!='' && this.hearoUser().password!='' &&
-    this.hearoUser().password==this.hearoUser().retype_password ){
+    this.hearoUser().password==this.hearoUser().retype_password;
+  }
+
+
+  protected createAccount(): void{
+    if( this.__checkIfAllFilled() ){
 
 
       this.subscription.push(this.authUser.createHearoAccountHttpPost(this.hearoUser()).subscribe({
