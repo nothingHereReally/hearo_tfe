@@ -51,7 +51,8 @@ export class VerifyToRegister implements AfterViewInit, OnDestroy {
     return new Promise(resolve=> setTimeout(resolve, ms));
   }
   private async __verifyAuthTokenThenAskForCameraPermission(): Promise<void>{
-    if(await this.authUser.goTo_home_pageIfValidAuthToken()===false){
+    if(await this.authUser.goTo_home_pageIfValidAuthToken()===false &&
+       await this.authUser.goTo_register_pageIfValidQRToken()===false){
       await this.__initVideoCamera();
     }
   }
