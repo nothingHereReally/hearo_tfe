@@ -59,7 +59,7 @@ export class Header implements OnInit {
   }
 
 
-  public async logout(): Promise<void>{
+  public async logoutAsync(): Promise<void>{
     await this.authUser.userLogOutAsync();
   }
   public clickedProfile(): void{

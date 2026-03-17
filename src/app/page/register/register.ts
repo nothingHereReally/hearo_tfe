@@ -43,9 +43,9 @@ export class Register implements OnInit, OnDestroy{
   private subscription: Array<Subscription>= [];
 
   ngOnInit(): void {
-    this.__checkToken();
+    this.__checkTokenAsync();
   }
-  private async __checkToken(): Promise<void>{
+  private async __checkTokenAsync(): Promise<void>{
     await this.authUser.goTo_verify_to_register_pageIfNotValidQRTokenAsync();
     this.authTokenQR= this.authUser.getToken_AccessQRAccount()==null? this.authTokenQR: this.authUser.getToken_AccessQRAccount()!;
   }

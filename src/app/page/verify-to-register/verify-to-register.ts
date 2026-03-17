@@ -35,7 +35,7 @@ export class VerifyToRegister implements AfterViewInit, OnDestroy {
 
 
   ngAfterViewInit(): void {
-    this.__verifyAuthTokenThenAskForCameraPermission();
+    this.__verifyAuthTokenThenAskForCameraPermissionAsync();
   }
   ngOnDestroy(): void {
     if( this.hasAllowedCamera() ){
@@ -50,13 +50,13 @@ export class VerifyToRegister implements AfterViewInit, OnDestroy {
   private async __sleepAsync(ms: number): Promise<void>{
     return new Promise(resolve=> setTimeout(resolve, ms));
   }
-  private async __verifyAuthTokenThenAskForCameraPermission(): Promise<void>{
+  private async __verifyAuthTokenThenAskForCameraPermissionAsync(): Promise<void>{
     if(await this.authUser.goTo_home_pageIfValidAuthTokenAsync()===false &&
        await this.authUser.goTo_register_pageIfValidQRTokenAsync()===false){
-      await this.__initVideoCamera();
+      await this.__initVideoCameraAsync();
     }
   }
-  private async __initVideoCamera(): Promise<void>{
+  private async __initVideoCameraAsync(): Promise<void>{
     try{
       this.hasAllowedCamera.set(true);
       /* prompts user for camera access */
@@ -82,7 +82,7 @@ export class VerifyToRegister implements AfterViewInit, OnDestroy {
     }catch(err){
       /* denied camera access permission by user */
       this.hasAllowedCamera.set(false);
-      /* this.__initVideoCamera(); does not ask for permission again */
+      /* this.__initVideoCameraAsync(); does not ask for permission again */
       /* needs refresh to ask again for permission */
     }
   }
@@ -103,7 +103,7 @@ export class VerifyToRegister implements AfterViewInit, OnDestroy {
       const imageBlob= await new Promise<Blob|null>(resolve =>
         this.imgCanvas().nativeElement.toBlob(resolve, 'image/png', 0.98)
       );
-      /* if (!imageBlob) return; no need to check due to logic on __initVideoCamera */
+      /* if (!imageBlob) return; no need to check due to logic on __initVideoCameraAsync */
       try {
         const responseAuthToken: Token= await firstValueFrom(this.authUser.verifyQR_hearoAccessAccountHttpPost(imageBlob));
         if(responseAuthToken.access && responseAuthToken.refresh){
