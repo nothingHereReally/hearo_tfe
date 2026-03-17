@@ -1,6 +1,10 @@
 import { Component, inject, input, InputSignal, OnInit, signal, WritableSignal } from '@angular/core';
 import { Router } from '@angular/router';
 
+
+import { AuthUser } from '../../api-service/auth-user';
+
+
 @Component({
   selector: 'app-header',
   standalone: false,
@@ -8,6 +12,8 @@ import { Router } from '@angular/router';
   styleUrl: './header.css'
 })
 export class Header implements OnInit {
+  private authUser: AuthUser= inject(AuthUser);
+
   readonly whatState: InputSignal<string>= input<string>('');
 
   private router= inject(Router);
@@ -53,8 +59,8 @@ export class Header implements OnInit {
   }
 
 
-  public logout(): void{
-    console.log(`logout clicked ${Math.random()}`);
+  public async logout(): Promise<void>{
+    await this.authUser.userLogOut();
   }
   public clickedProfile(): void{
     console.log(`clicked profile ${Math.random()}`);
