@@ -211,6 +211,16 @@ export class AuthUser {
 
 
   /* essential tools which involves authentication from user */
+  public async isTokenValidAsync(token: string): Promise<boolean>{
+    try{
+      await firstValueFrom(this.verifyTokenHttpPost(token));
+      /* returns status 200 if valid */
+    }catch(err){
+      /* else 401 */
+      return false;
+    }
+    return true;
+  }
   public async goTo_home_pageIfValidAuthTokenAsync(): Promise<boolean>{
     let authToken: Token|null= this.getAccountToken();
     if( authToken!=null ){
@@ -230,16 +240,6 @@ export class AuthUser {
     }
     return false;
   }
-  public async isTokenValidAsync(token: string): Promise<boolean>{
-    try{
-      await firstValueFrom(this.verifyTokenHttpPost(token));
-      /* returns status 200 if valid */
-    }catch(err){
-      /* else 401 */
-      return false;
-    }
-    return true;
-  }
   public async goTo_login_pageIfNotValidAuthTokenAsync(): Promise<boolean>{
     let authToken: Token|null= this.getAccountToken();
     if( authToken!=null &&
@@ -252,8 +252,8 @@ export class AuthUser {
           authToken= await firstValueFrom(this.getTokenViaRefreshHttpPost(authToken.refresh));
           if( authToken!=null ){
             this.saveAccountToken(authToken)
+            return false; /* due2not going to /login */
           }
-          return false; /* due2not going to /login */
         }catch(err){ /* just continue below for DRY */ }
       }
     }
@@ -266,20 +266,20 @@ export class AuthUser {
         authToken.access!='' && authToken.access!=null &&
         authToken.refresh!='' && authToken.refresh!=null ){
       if(await this.isTokenValidAsync(authToken.access)){
-        /* since valid, then ok to proceed */
+        await this.router.navigate(['/register']);
+        return true;
       }else if(await this.isTokenValidAsync(authToken.refresh)){
         try{
           authToken= await firstValueFrom(this.getTokenViaRefreshHttpPost(authToken.refresh));
           if( authToken!=null ){
             this.saveToken_AccessQRAccount(authToken)
+            await this.router.navigate(['/register']);
+            return true;
           }
-        }catch(err){ return false; /* due2refresh expired */ }
-      }else{
-        return false; /* due2refresh and access expired */
+        }catch(err){ /* due2refresh expired */ }
       }
     }
-    await this.router.navigate(['/register']);
-    return true;
+    return false;
   }
   public async goTo_verify_to_register_pageIfNotValidQRTokenAsync(): Promise<boolean>{
     let authToken: Token|null= this.getToken_AccessQRAccount();
@@ -293,8 +293,8 @@ export class AuthUser {
           authToken= await firstValueFrom(this.getTokenViaRefreshHttpPost(authToken.refresh));
           if( authToken!=null ){
             this.saveToken_AccessQRAccount(authToken)
+            return false; /* due2not going to /verify-to-register */
           }
-          return false; /* due2not going to /verify-to-register */
         }catch(err){ /* just continue below for DRY */ }
       }
     }
