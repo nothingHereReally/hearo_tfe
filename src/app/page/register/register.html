@@ -16,8 +16,8 @@
             [labelText]="'First Name'"
             (outWant2Run)="createAccount()"
             />
-        @if( warnings().first_name!='' ){
-        <span class="font-normal-regular">{{ warnings().first_name }}</span>
+        @for(warn_first_name of warnings().first_name; track warn_first_name){
+        <span class="font-normal-regular">{{ warn_first_name }}</span>
         }
       </div>
 
@@ -30,8 +30,8 @@
             [labelText]="'Last Name'"
             (outWant2Run)="createAccount()"
             />
-        @if( warnings().last_name!='' ){
-        <span class="font-normal-regular">{{ warnings().last_name }}</span>
+        @for(warn_last_name of warnings().last_name; track warn_last_name){
+        <span class="font-normal-regular">{{ warn_last_name }}</span>
         }
       </div>
 
@@ -44,8 +44,8 @@
             [labelText]="''"
             (outWant2Run)="createAccount()"
             />
-        @if( warnings().email!='' ){
-        <span class="font-normal-regular">{{ warnings().email }}</span>
+        @for(warn_email of warnings().email; track warn_email){
+        <span class="font-normal-regular">{{ warn_email }}</span>
         }
       </div>
 
@@ -58,8 +58,8 @@
             [labelText]="''"
             (outWant2Run)="createAccount()"
             />
-        @if( warnings().username!='' ){
-        <span class="font-normal-regular">{{ warnings().username }}</span>
+        @for(warn_username of warnings().username; track warn_username){
+        <span class="font-normal-regular">{{ warn_username }}</span>
         }
       </div>
 
@@ -72,8 +72,8 @@
             [hasEye]="'eye'"
             (outWant2Run)="createAccount()"
             />
-        @if( warnings().password!='' ){
-        <span class="font-normal-regular">{{ warnings().password }}</span>
+        @for(warn_password of warnings().password; track warn_password){
+        <span class="font-normal-regular">{{ warn_password }}</span>
         }
       </div>
 
@@ -86,8 +86,8 @@
             [hasEye]="'eye'"
             (outWant2Run)="createAccount()"
             />
-        @if( warnings().retype_password!='' ){
-        <span class="font-normal-regular">{{ warnings().retype_password }}</span>
+        @for(warn_retype_password of warnings().retype_password; track warn_retype_password){
+        <span class="font-normal-regular">{{ warn_retype_password }}</span>
         }
       </div>
     </div>
