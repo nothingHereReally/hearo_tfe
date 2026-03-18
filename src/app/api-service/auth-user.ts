@@ -51,6 +51,28 @@ export class AuthUser {
       }
     );
   }
+  private __qrAccessLogoutHttpPatch(): Observable<any>{
+    /* needs refresh_token */
+    const authToken: Token|null= this.getToken_AccessQRAccount();
+    if( authToken!=null ){
+      return this.http.patch<Token|any>(
+      `${env.API_DOMAIN}api/token/`,
+        {'refresh_token': authToken.refresh},
+        {
+          headers: httpRequestHeadersSendReceiveJson.set('Authorization', `Bearer ${authToken.access}`),
+          observe: 'body'
+        }
+      );
+    }
+    return this.http.patch<Token|any>(
+      `${env.API_DOMAIN}api/token/`,
+      {'refresh_token': ''},
+      {
+        headers: httpRequestHeadersSendReceiveJson,
+        observe: 'body'
+      }
+    );
+  }
   private __userLogoutHttpPatch(): Observable<any>{
     /* needs refresh_token */
     const authToken: Token|null= this.getAccountToken();
@@ -305,6 +327,14 @@ export class AuthUser {
     try{
       await firstValueFrom(this.__userLogoutHttpPatch());
       this.deleteAccountToken();
+      await this.router.navigate(['/login']);
+    }catch(err){}
+    return true;
+  }
+  public async qrAccessAccountRemoveAsync(): Promise<boolean>{
+    try{
+      await firstValueFrom(this.__qrAccessLogoutHttpPatch());
+      this.deleteToken_AccessQRAccount();
       await this.router.navigate(['/login']);
     }catch(err){}
     return true;
