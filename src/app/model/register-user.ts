@@ -6,3 +6,11 @@ export type RegisterUser= {
   password: string;
   retype_password: string;
 }
+export type RegisterUserWarnings= {
+  first_name: Array<string>;
+  last_name: Array<string>;
+  email: Array<string>;
+  username: Array<string>;
+  password: Array<string>;
+  retype_password: Array<string>;
+}
