@@ -22,3 +22,7 @@ export type ForgotPasswordField= {
 export type ForgotPasswordResponse= {
   detail: string,
 }
+export type ResetPasswordField= {
+  password: string,
+  retype_password: string
+}
