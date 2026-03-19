@@ -6,6 +6,7 @@ import { ForgotPassword } from './page/forgot-password/forgot-password';
 import { Home } from './page/home/home';
 import { Login } from './page/login/login';
 import { Register } from './page/register/register';
+import { ResetPassword } from './page/reset-password/reset-password';
 import { VerifyToRegister } from './page/verify-to-register/verify-to-register';
 
 const routes: Routes = [
@@ -16,6 +17,7 @@ const routes: Routes = [
   {path: 'register', component: Register, title: 'Create Account | Hearo Team'},
 
   {path: 'forgot-password', component: ForgotPassword, title: 'Forgot Password | Hearo Team'},
+  {path: 'reset-password/:userb64/:usertoken', component: ResetPassword, title: 'Reset Password | Hearo Team'},
 
   {path: 'home', component: Home, title: 'Hearo Home'},
 ];
