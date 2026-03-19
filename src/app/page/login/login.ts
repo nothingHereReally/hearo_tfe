@@ -1,11 +1,14 @@
 import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
+import { Router } from '@angular/router';
+
+
+import { firstValueFrom } from 'rxjs';
 
 
 import { LoginField } from '../../model/login-field';
 import { environment as env } from '../../../environment/environment';
 import { AuthUser } from '../../api-service/auth-user';
 import { Token } from '../../model/token';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -33,24 +36,7 @@ export class Login implements OnInit{
   }
 
 
-  protected loggingIn(): void{
-    if( this.hearoUser().username!='' && this.hearoUser().password!='' ){
-      this.authUser.userLoginHttpPost(this.hearoUser()).subscribe({
-        next: (r: Token)=>{
-          this.authUser.saveAccountToken(r);
-          this.authUser.deleteToken_AccessQRAccount();
-          this.router.navigate(['/home']);
-        },
-        error: (err: any)=>{
-          this.warnings.update(value=>{ value.password="Incorrect Username or Password"; return value });
-          setTimeout(()=>{
-            this.warnings.update(value=>{ value.password=""; return value });
-          }, env.TIME_ERROR_DISPLAY);
-        },
-        complete: ()=>{
-        }
-      });
-    }
+  private __showWarnings(): void{
     if( this.hearoUser().username=='' ){
       this.warnings.update(value=>{ value.username="Please fill your Username"; return value });
       setTimeout(()=>{
@@ -63,5 +49,22 @@ export class Login implements OnInit{
         this.warnings.update(value=>{ value.password=""; return value });
       }, env.TIME_ERROR_DISPLAY);
     }
+  }
+  protected async loggingIn(): Promise<void>{
+    if( this.hearoUser().username!='' && this.hearoUser().password!='' ){
+      let response: Token|any= null;
+      try{
+        response= await firstValueFrom(this.authUser.userLoginHttpPost(this.hearoUser()));
+        this.authUser.saveAccountToken(response)
+        this.authUser.deleteToken_AccessQRAccount();
+        this.router.navigate(['/home']);
+      }catch(err: any){
+        this.warnings.update(value=>{ value.password=err.error.details; return value; });
+        setTimeout(()=>{
+          this.warnings.update(value=>{ value.password=''; return value; });
+        }, env.TIME_ERROR_DISPLAY);
+      }
+
+    }else{ this.__showWarnings(); }
   }
 }
