@@ -248,12 +248,14 @@ export class AuthUser {
     if( authToken!=null ){
       try{
         await firstValueFrom(this.verifyTokenHttpPost(authToken.access));
+        this.deleteToken_AccessQRAccount();
         await this.router.navigate(['/home']);
         return true;
       }catch(err){
         try {
           const validToken: Token= await firstValueFrom(this.getTokenViaRefreshHttpPost(authToken.refresh));
           this.saveAccountToken(validToken);
+          this.deleteToken_AccessQRAccount();
           await this.router.navigate(['/home']);
           return true;
         } catch (refreshErr) {
@@ -288,6 +290,7 @@ export class AuthUser {
         authToken.access!='' && authToken.access!=null &&
         authToken.refresh!='' && authToken.refresh!=null ){
       if(await this.isTokenValidAsync(authToken.access)){
+        this.deleteAccountToken();
         await this.router.navigate(['/register']);
         return true;
       }else if(await this.isTokenValidAsync(authToken.refresh)){
@@ -295,6 +298,7 @@ export class AuthUser {
           authToken= await firstValueFrom(this.getTokenViaRefreshHttpPost(authToken.refresh));
           if( authToken!=null ){
             this.saveToken_AccessQRAccount(authToken)
+            this.deleteAccountToken();
             await this.router.navigate(['/register']);
             return true;
           }
