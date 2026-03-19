@@ -11,6 +11,7 @@ import { firstValueFrom, Subscription } from 'rxjs';
 import { AuthUser } from '../../api-service/auth-user';
 import { environment as env } from '../../../environment/environment';
 import { Token } from '../../model/token';
+import { sleepAsync } from '../../model/tools';
 
 
 @Component({
@@ -47,9 +48,6 @@ export class VerifyToRegister implements AfterViewInit, OnDestroy {
 
 
 
-  private async __sleepAsync(ms: number): Promise<void>{
-    return new Promise(resolve=> setTimeout(resolve, ms));
-  }
   private async __verifyAuthTokenThenAskForCameraPermissionAsync(): Promise<void>{
     if(await this.authUser.goTo_home_pageIfValidAuthTokenAsync()===false &&
        await this.authUser.goTo_register_pageIfValidQRTokenAsync()===false){
@@ -76,7 +74,7 @@ export class VerifyToRegister implements AfterViewInit, OnDestroy {
       }
       /* loop till valid qr or has exited( ie. clicked back ) */
       while( this.keepVideoCameraRolling() && this.hasAllowedCamera() ){
-        await this.__sleepAsync(env.TIME_DELAY_QR_AUTH);
+        await sleepAsync(env.TIME_DELAY_QR_AUTH);
         await this.__checkQR_imageForAccessAccountAsync();
       }
     }catch(err){
@@ -109,9 +107,8 @@ export class VerifyToRegister implements AfterViewInit, OnDestroy {
         if(responseAuthToken.access && responseAuthToken.refresh){
           this.keepVideoCameraRolling.set(false);
           this.authUser.saveToken_AccessQRAccount(responseAuthToken);
-          setTimeout(()=>{
-            this.router.navigate(['/register']);
-          }, 100);
+          await sleepAsync(100);
+          this.router.navigate(['/register']);
         }
       } catch (err) {
       }
@@ -132,9 +129,8 @@ export class VerifyToRegister implements AfterViewInit, OnDestroy {
 
 
 
-  protected backClicked(): void{
-    setTimeout(()=>{
-      this.router.navigate(['/login']);
-    }, 100);
+  protected async backClicked(): Promise<void>{
+    await sleepAsync(100);
+    this.router.navigate(['/login']);
   }
 }

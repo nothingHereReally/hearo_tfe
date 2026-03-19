@@ -1,10 +1,13 @@
 import { Component, inject, OnInit, signal, WritableSignal, OnDestroy } from '@angular/core';
+
+
+import { firstValueFrom, Subscription } from 'rxjs';
+
+
 import { environment as env } from '../../../environment/environment';
-import { Token } from '../../model/token';
 import { AuthUser } from '../../api-service/auth-user';
 import { RegisterUser, RegisterUserWarnings } from '../../model/register-user';
-import { Router } from '@angular/router';
-import { firstValueFrom, Subscription } from 'rxjs';
+import { sleepAsync } from '../../model/tools';
 
 @Component({
   selector: 'app-register',
@@ -31,14 +34,7 @@ export class Register implements OnInit, OnDestroy{
   });
 
 
-  private authTokenQR: Token= {
-    access: '',
-    refresh: ''
-  };
-
-
   private authUser: AuthUser= inject(AuthUser);
-  private router: Router= inject(Router);
   private subscription: Array<Subscription>= [];
 
   ngOnInit(): void {
@@ -47,7 +43,6 @@ export class Register implements OnInit, OnDestroy{
   private async __checkTokenAsync(): Promise<void>{
     if(await this.authUser.goTo_verify_to_register_pageIfNotValidQRTokenAsync()==false &&
        await this.authUser.goTo_home_pageIfValidAuthTokenAsync()==false){
-      this.authTokenQR= this.authUser.getToken_AccessQRAccount()!;
     }
   }
 
@@ -61,129 +56,69 @@ export class Register implements OnInit, OnDestroy{
     this.hearoUser().email!='' && this.hearoUser().password!='' &&
     this.hearoUser().password==this.hearoUser().retype_password;
   }
-  private __writeWarnings2fillUp(): void{
-    if( this.hearoUser().first_name=='' ){
-      this.warnings.update(
-        value=>{
-          value.first_name= [...value.first_name, 'Please fill your First Name'];
-          return value;
-        }
-      );
-      setTimeout(()=>{
-        this.warnings.update(value=>{ value.first_name=[]; return value;});
-      }, env.TIME_ERROR_DISPLAY);
+  private async __writeWarnings2fillUp(): Promise<void>{
+    const field_keys: Array<string>= ['first_name', 'last_name', 'email', 'username', 'password', 'retype_password'];
+    const warning2fillString: RegisterUser= {
+      first_name: 'Please fill your First Name',
+      last_name: 'Please fill your First Name',
+      email: 'Please fill your Email',
+      username: 'Please fill your desired username',
+      password: 'Please create your password',
+      retype_password: "Retyped password doesn't match password",
     }
-    if( this.hearoUser().last_name=='' ){
-      this.warnings.update(
-        value=>{
-          value.last_name= [...value.last_name, 'Please fill your Last Name'];
+    for(const a_key of field_keys){
+      if(this.hearoUser()[a_key as keyof RegisterUser]==''){
+        this.warnings.update(value=>{
+          value[a_key as keyof RegisterUserWarnings]= [...value[a_key as keyof RegisterUserWarnings], warning2fillString[a_key as keyof RegisterUser]];
           return value;
-        }
-      );
-      setTimeout(()=>{
-        this.warnings.update(value=>{ value.last_name=[]; return value;});
-      }, env.TIME_ERROR_DISPLAY);
+        });
+        sleepAsync(env.TIME_ERROR_DISPLAY, ()=>{this.warnings.update(value=>{
+          value[a_key as keyof RegisterUserWarnings]=[];
+          return value;
+        })});
+      }
     }
-    if( this.hearoUser().email=='' ){
-      this.warnings.update(
-        value=>{
-          value.email= [...value.email, 'Please fill your Email'];
-          return value;
+    if( this.hearoUser().password!=this.hearoUser().retype_password ){
+      this.warnings.update(value=>{
+        value.retype_password= [warning2fillString.retype_password];
+        return value;
+      });
+      sleepAsync(
+        env.TIME_ERROR_DISPLAY,
+        ()=>{
+          this.warnings.update(value=>{
+            value.retype_password= [];
+            return value;  })
         }
       );
-      setTimeout(()=>{
-        this.warnings.update(value=>{ value.email=[]; return value;});
-      }, env.TIME_ERROR_DISPLAY);
-    }
-    if( this.hearoUser().username=='' ){
-      this.warnings.update(
-        value=>{
-          value.username= [...value.username, 'Please fill your desired username'];
-          return value;
-        }
-      );
-      setTimeout(()=>{
-        this.warnings.update(value=>{ value.username=[]; return value;});
-      }, env.TIME_ERROR_DISPLAY);
-    }
-    if( this.hearoUser().password=='' ){
-      this.warnings.update(
-        value=>{
-          value.password= [...value.password, 'Please create your password'];
-          return value;
-        }
-      );
-      setTimeout(()=>{
-        this.warnings.update(value=>{ value.password=[]; return value;});
-      }, env.TIME_ERROR_DISPLAY);
-    }
-    if( this.hearoUser().retype_password!=this.hearoUser().password ){
-      this.warnings.update(
-        value=>{
-          value.retype_password= [...value.retype_password, "Retyped password doesn't match password"];
-          return value;
-        }
-      );
-      setTimeout(()=>{
-        this.warnings.update(value=>{ value.retype_password=[]; return value;});
-      }, env.TIME_ERROR_DISPLAY);
     }
   }
   private __displayWarningsFromResponse(err:any){
-    if(err.error.user.first_name!=null){
-      for(const warn_first_name of err.error.user.first_name){
-        this.warnings.update(value=>{
-          value.first_name= [...value.first_name, warn_first_name];
-          return value;
-        });
-      }
-      setTimeout(()=>{
-        this.warnings.update(value=>{ value.first_name=[]; return value;});
-      }, env.TIME_ERROR_DISPLAY);
+    const field_keys: Array<string>= ['first_name', 'last_name', 'email', 'username', 'password'];
+    const warningFromApi: RegisterUserWarnings= {
+      first_name: err.error.user.first_name ?? [],
+      last_name: err.error.user.last_name ?? [],
+      email: err.error.user.email ?? [],
+      username: err.error.user.username ?? [],
+      password: err.error.user.password ?? [],
+      retype_password: [],
     }
-    if(err.error.user.last_name!=null){
-      for(const warn_last_name of err.error.user.last_name){
-        this.warnings.update(value=>{
-          value.last_name= [...value.last_name, warn_last_name];
-          return value;
-        });
+    for(const a_key of field_keys){
+      if( 0<warningFromApi[a_key as keyof RegisterUserWarnings].length ){
+        for(const a_warning_string of warningFromApi[a_key as keyof RegisterUserWarnings]){
+          this.warnings.update(value=>{
+            value[a_key as keyof RegisterUserWarnings]= [...value[a_key as keyof RegisterUserWarnings], a_warning_string];
+            return value;
+          });
+        }
+        sleepAsync(
+          env.TIME_ERROR_DISPLAY,
+          ()=>{this.warnings.update(value=>{
+            value[a_key as keyof RegisterUserWarnings]=[];
+            return value;
+          })}
+        );
       }
-      setTimeout(()=>{
-        this.warnings.update(value=>{ value.last_name=[]; return value;});
-      }, env.TIME_ERROR_DISPLAY);
-    }
-    if(err.error.user.email!=null){
-      for(const warn_email of err.error.user.email){
-        this.warnings.update(value=>{
-          value.email= [...value.email, warn_email];
-          return value;
-        });
-      }
-      setTimeout(()=>{
-        this.warnings.update(value=>{ value.email=[]; return value;});
-      }, env.TIME_ERROR_DISPLAY);
-    }
-    if(err.error.user.username!=null){
-      for(const warn_username of err.error.user.username){
-        this.warnings.update(value=>{
-          value.username= [...value.username, warn_username];
-          return value;
-        });
-      }
-      setTimeout(()=>{
-        this.warnings.update(value=>{ value.username=[]; return value;});
-      }, env.TIME_ERROR_DISPLAY);
-    }
-    if(err.error.user.password!=null){
-      for(const warn_password of err.error.user.password){
-        this.warnings.update(value=>{
-          value.password= [...value.password, warn_password];
-          return value;
-        });
-      }
-      setTimeout(()=>{
-        this.warnings.update(value=>{ value.password=[]; return value;});
-      }, env.TIME_ERROR_DISPLAY);
     }
   }
 
@@ -193,14 +128,13 @@ export class Register implements OnInit, OnDestroy{
       try{
         await firstValueFrom(this.authUser.createHearoAccountHttpPost(this.hearoUser()));
         this.warnings.update(value=>{ value.retype_password=['Created Account Successfully ✔']; return value;});
-        setTimeout(()=>{
-          this.authUser.qrAccessAccountRemoveAnd_goTo_login_pageAsync();
-        }, env.TIME_ERROR_DISPLAY);
+        await sleepAsync(env.TIME_ERROR_DISPLAY);
+        await this.authUser.qrAccessAccountRemoveAnd_goTo_login_pageAsync();
       }catch(err: any){
         this.__displayWarningsFromResponse(err);
       }
     }else{
-      this.__writeWarnings2fillUp();
+      await this.__writeWarnings2fillUp();
     }
   }
 }
