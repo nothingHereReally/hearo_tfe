@@ -1,7 +1,8 @@
-import { Component, inject, OnInit, signal, WritableSignal, OnDestroy } from '@angular/core';
+// import { OnDestroy } from '@angular/core';
+import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
 
 
-import { firstValueFrom, Subscription } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 
 
 import { environment as env } from '../../../environment/environment';
@@ -15,7 +16,7 @@ import { sleepAsync } from '../../model/tools';
   templateUrl: './register.html',
   styleUrl: './register.css'
 })
-export class Register implements OnInit, OnDestroy{
+export class Register implements OnInit{
   protected warnings: WritableSignal<RegisterUserWarnings>= signal({
     first_name: [],
     last_name: [],
@@ -35,7 +36,7 @@ export class Register implements OnInit, OnDestroy{
 
 
   private authUser: AuthUser= inject(AuthUser);
-  private subscription: Array<Subscription>= [];
+  // private subscription: Array<Subscription>= [];
 
   ngOnInit(): void {
     this.__checkTokenAsync();
@@ -46,9 +47,9 @@ export class Register implements OnInit, OnDestroy{
     }
   }
 
-  ngOnDestroy(): void {
-    this.subscription.forEach(entry=> entry.unsubscribe());
-  }
+  // ngOnDestroy(): void {
+  //   this.subscription.forEach(entry=> entry.unsubscribe());
+  // }
 
 
   private __checkIfAllFilled(): boolean{
