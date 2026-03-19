@@ -70,7 +70,7 @@ export class Register implements OnInit{
     for(const a_key of field_keys){
       if(this.hearoUser()[a_key as keyof RegisterUser]==''){
         this.warnings.update(value=>{
-          value[a_key as keyof RegisterUserWarnings]= [...value[a_key as keyof RegisterUserWarnings], warning2fillString[a_key as keyof RegisterUser]];
+          value[a_key as keyof RegisterUserWarnings]= [warning2fillString[a_key as keyof RegisterUser]];
           return value;
         });
         sleepAsync(env.TIME_ERROR_DISPLAY, ()=>{this.warnings.update(value=>{
@@ -106,12 +106,10 @@ export class Register implements OnInit{
     }
     for(const a_key of field_keys){
       if( 0<warningFromApi[a_key as keyof RegisterUserWarnings].length ){
-        for(const a_warning_string of warningFromApi[a_key as keyof RegisterUserWarnings]){
-          this.warnings.update(value=>{
-            value[a_key as keyof RegisterUserWarnings]= [...value[a_key as keyof RegisterUserWarnings], a_warning_string];
-            return value;
-          });
-        }
+        this.warnings.update(value=>{
+          value[a_key as keyof RegisterUserWarnings]= warningFromApi[a_key as keyof RegisterUserWarnings];
+          return value;
+        });
         sleepAsync(
           env.TIME_ERROR_DISPLAY,
           ()=>{this.warnings.update(value=>{
