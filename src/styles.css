@@ -348,6 +348,10 @@ html, body {
 .background-color-pc3-900{ background-color: var(--pc3-900); }
 
 
+.font-color-success{ color: var(--tc1-500); }
+.font-color-fail{ color: var(--tc3-500); }
+
+
 
 
 
