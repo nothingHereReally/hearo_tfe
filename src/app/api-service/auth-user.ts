@@ -10,6 +10,7 @@ import { httpRequestHeadersReceiveJson, httpRequestHeadersSendReceiveJson } from
 import { LoginField } from '../model/login-field';
 import { RegisterUser } from '../model/register-user';
 import { Token } from '../model/token';
+import { ForgotPasswordField, ForgotPasswordResponse } from '../model/account';
 
 
 @Injectable({
@@ -45,6 +46,16 @@ export class AuthUser {
     return this.http.post<Token|any>(
       `${env.API_DOMAIN}api/token/`,
       hearoUser,
+      {
+        headers: httpRequestHeadersSendReceiveJson,
+        observe: 'body'
+      }
+    );
+  }
+  public forgotPasswordHttpPost(forgotPassword: ForgotPasswordField): Observable<ForgotPasswordResponse>{
+    return this.http.post<ForgotPasswordResponse>(
+      `${env.API_DOMAIN}api/forgot-password/`,
+      forgotPassword,
       {
         headers: httpRequestHeadersSendReceiveJson,
         observe: 'body'
