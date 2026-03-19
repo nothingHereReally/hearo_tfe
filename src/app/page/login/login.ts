@@ -38,6 +38,7 @@ export class Login implements OnInit{
       this.authUser.userLoginHttpPost(this.hearoUser()).subscribe({
         next: (r: Token)=>{
           this.authUser.saveAccountToken(r);
+          this.authUser.deleteToken_AccessQRAccount();
           this.router.navigate(['/home']);
         },
         error: (err: any)=>{
