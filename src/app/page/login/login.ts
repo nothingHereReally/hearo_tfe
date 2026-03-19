@@ -9,6 +9,7 @@ import { LoginField } from '../../model/login-field';
 import { environment as env } from '../../../environment/environment';
 import { AuthUser } from '../../api-service/auth-user';
 import { Token } from '../../model/token';
+import { sleepAsync } from '../../model/tools';
 
 @Component({
   selector: 'app-login',
@@ -36,18 +37,21 @@ export class Login implements OnInit{
   }
 
 
-  private __showWarnings(): void{
+  private async __showWarnings2fillUp(): Promise<void>{
     if( this.hearoUser().username=='' ){
       this.warnings.update(value=>{ value.username="Please fill your Username"; return value });
-      setTimeout(()=>{
-        this.warnings.update(value=>{ value.username=""; return value });
-      }, env.TIME_ERROR_DISPLAY);
+      sleepAsync(
+        env.TIME_ERROR_DISPLAY,
+        ()=>{this.warnings.update(value=>{ value.username=""; return value });}
+      );
+
     }
     if( this.hearoUser().password=='' ){
       this.warnings.update(value=>{ value.password="Please fill your Password"; return value });
-      setTimeout(()=>{
-        this.warnings.update(value=>{ value.password=""; return value });
-      }, env.TIME_ERROR_DISPLAY);
+      sleepAsync(
+        env.TIME_ERROR_DISPLAY,
+        ()=>{this.warnings.update(value=>{ value.password=""; return value });}
+      );
     }
   }
   protected async loggingIn(): Promise<void>{
@@ -60,11 +64,12 @@ export class Login implements OnInit{
         this.router.navigate(['/home']);
       }catch(err: any){
         this.warnings.update(value=>{ value.password=err.error.details; return value; });
-        setTimeout(()=>{
-          this.warnings.update(value=>{ value.password=''; return value; });
-        }, env.TIME_ERROR_DISPLAY);
+        sleepAsync(
+          env.TIME_ERROR_DISPLAY,
+          ()=>{this.warnings.update(value=>{ value.password=''; return value; });}
+        );
       }
 
-    }else{ this.__showWarnings(); }
+    }else{ this.__showWarnings2fillUp(); }
   }
 }
