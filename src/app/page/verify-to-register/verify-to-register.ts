@@ -5,7 +5,8 @@ import {
 import { Router } from '@angular/router';
 
 
-import { firstValueFrom, Subscription } from 'rxjs';
+// import { firstValueFrom, Subscription } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 
 
 import { AuthUser } from '../../api-service/auth-user';
@@ -25,7 +26,7 @@ export class VerifyToRegister implements AfterViewInit, OnDestroy {
   private authUser: AuthUser= inject(AuthUser);
 
 
-  private subcriptionVerifyQRViaHttpPostRequest: Array<Subscription>= [];
+  // private subcriptionVerifyQRViaHttpPostRequest: Array<Subscription>= [];
   private keepVideoCameraRolling: WritableSignal<boolean>= signal(true);
   protected hasAllowedCamera: WritableSignal<boolean>= signal(false);
 
@@ -41,7 +42,7 @@ export class VerifyToRegister implements AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     if( this.hasAllowedCamera() ){
       this.__stopVideoCamera();
-      this.subcriptionVerifyQRViaHttpPostRequest.forEach(entry=> entry.unsubscribe());
+      // this.subcriptionVerifyQRViaHttpPostRequest.forEach(entry=> entry.unsubscribe());
     }
   }
 
