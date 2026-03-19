@@ -45,7 +45,8 @@ export class Register implements OnInit, OnDestroy{
     this.__checkTokenAsync();
   }
   private async __checkTokenAsync(): Promise<void>{
-    if(await this.authUser.goTo_verify_to_register_pageIfNotValidQRTokenAsync()==false){
+    if(await this.authUser.goTo_verify_to_register_pageIfNotValidQRTokenAsync()==false &&
+       await this.authUser.goTo_home_pageIfValidAuthTokenAsync()==false){
       this.authTokenQR= this.authUser.getToken_AccessQRAccount()!;
     }
   }
