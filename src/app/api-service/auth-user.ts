@@ -8,9 +8,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { environment as env } from '../../environment/environment';
 import { httpRequestHeadersReceiveJson, httpRequestHeadersSendReceiveJson } from '../model/tools';
 import { LoginField } from '../model/login-field';
-import { RegisterUser } from '../model/register-user';
 import { Token } from '../model/token';
-import { ForgotPasswordField, ForgotPasswordResponse } from '../model/account';
+import { ForgotPasswordField, ForgotPasswordResponse, RegisterUser } from '../model/account';
 
 
 @Injectable({

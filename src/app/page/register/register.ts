@@ -7,7 +7,7 @@ import { firstValueFrom } from 'rxjs';
 
 import { environment as env } from '../../../environment/environment';
 import { AuthUser } from '../../api-service/auth-user';
-import { RegisterUser, RegisterUserWarnings } from '../../model/register-user';
+import { RegisterUser, RegisterUserWarnings } from '../../model/account';
 import { sleepAsync } from '../../model/tools';
 
 @Component({
