@@ -194,7 +194,7 @@ export class Register implements OnInit, OnDestroy{
         await firstValueFrom(this.authUser.createHearoAccountHttpPost(this.hearoUser()));
         this.warnings.update(value=>{ value.retype_password=['Created Account Successfully ✔']; return value;});
         setTimeout(()=>{
-          this.authUser.qrAccessAccountRemoveAsync();
+          this.authUser.qrAccessAccountRemoveAnd_goTo_login_pageAsync();
         }, env.TIME_ERROR_DISPLAY);
       }catch(err: any){
         this.__displayWarningsFromResponse(err);

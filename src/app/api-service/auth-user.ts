@@ -331,7 +331,7 @@ export class AuthUser {
     }catch(err){}
     return true;
   }
-  public async qrAccessAccountRemoveAsync(): Promise<boolean>{
+  public async qrAccessAccountRemoveAnd_goTo_login_pageAsync(): Promise<boolean>{
     try{
       await firstValueFrom(this.__qrAccessLogoutHttpPatch());
       this.deleteToken_AccessQRAccount();
