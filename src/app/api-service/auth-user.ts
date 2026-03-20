@@ -64,8 +64,9 @@ export class AuthUser {
   public resetPasswordHttpPost(resetpw: ResetPasswordField, apiPath: string): Observable<any>{
     return this.http.post<any>(
       `${env.API_DOMAIN}${apiPath}`,
-      resetpw,
       {
+        'password': resetpw.password
+      },{
         headers: httpRequestHeadersSendReceiveJson,
         observe: 'body'
       }
