@@ -1,12 +1,13 @@
 .container-whole-login-page{
   display: flex;
   justify-content: flex-end;
-  padding-top: 96px;
-  height: 89.7vh;
+  height: 100vh;
 }
 
 
 .login-form{
+  padding-top: var(--pad300-lg);
+
   display: flex;
   flex-direction: column;
   gap: 64px;
