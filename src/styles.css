@@ -107,11 +107,9 @@
 
 
 
-  /* --bf-blur: blur(7px); backdrop-filter: var(--bf-blur) */
   --time-regular: color 0.4s ease, background-color 0.4s ease, border 0.4s ease, padding 0.4s ease;
   --time-regular-background-position: background-position 0.4s ease;
   --time-slow: color 0.9s ease, background-color 0.9s ease, border 0.9s ease, padding 0.9s ease;
-  --shadow_a: 0px 0px 9px 3px rgba(0, 0, 0, 0.25); /* box-shadow: var(--shaddow_a) */
 
 
 
@@ -383,6 +381,21 @@ html, body {
 
 .font-color-success{ color: var(--tc1-400); }
 .font-color-fail{ color: var(--tc3-500); }
+
+
+
+
+
+
+
+
+.shadow-only{
+  box-shadow: 0 10px 80px 0 rgba(0, 0, 0, 0.15);
+}
+.shadown-and-blur{
+  box-shadow: 0 10px 80px 0 rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(5px);
+}
 
 
 
