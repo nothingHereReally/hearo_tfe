@@ -9,7 +9,7 @@ import { environment as env } from '../../environment/environment';
 import { httpRequestHeadersReceiveJson, httpRequestHeadersSendReceiveJson } from '../model/tools';
 import { LoginField } from '../model/login-field';
 import { Token } from '../model/token';
-import { ForgotPasswordField, ForgotPasswordResponse, RegisterUser } from '../model/account';
+import { ForgotPasswordField, ForgotPasswordResponse, RegisterUser, ResetPasswordField } from '../model/account';
 
 
 @Injectable({
@@ -60,6 +60,16 @@ export class AuthUser {
         observe: 'body'
       }
     );
+  }
+  public resetPasswordHttpPost(resetpw: ResetPasswordField, apiPath: string): Observable<any>{
+    return this.http.post<any>(
+      `${env.API_DOMAIN}${apiPath}`,
+      resetpw,
+      {
+        headers: httpRequestHeadersSendReceiveJson,
+        observe: 'body'
+      }
+    )
   }
   private __qrAccessLogoutHttpPatch(): Observable<any>{
     /* needs refresh_token */
