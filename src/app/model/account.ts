@@ -26,3 +26,7 @@ export type ResetPasswordField= {
   password: string,
   retype_password: string
 }
+export type ResetPasswordResponse= {
+  detail: string,
+  password: Array<string>
+}
