@@ -106,6 +106,31 @@
   --shadow_a: 0px 0px 9px 3px rgba(0, 0, 0, 0.25); /* box-shadow: var(--shaddow_a) */
 
 
+
+
+  --pad100-xs: 4px;
+  --pad100-md: 8px;
+  --pad100-lg: 12px;
+  --pad100-xl: 16px;
+
+  --pad200-xs: 24px; /* 24= 16+8 */
+  --pad200-md: 32px;
+  --pad200-lg: 40px;
+  --pad200-xl: 48px;
+
+  --pad300-xs: 64px; /* 64= 48+16 */
+  --pad300-md: 80px;
+  --pad300-lg: 96px;
+  --pad300-xl: 112px;
+
+  --pad400-xs: 144px; /* 144- 112+32 */
+  --pad400-md: 176px;
+  --pad400-lg: 208px;
+  --pad400-xl: 240px;
+
+
+
+
   font-family: nunito,
       "Segoe UI", Roboto, Helvetica, Arial,
       "Inter", -apple-system, BlinkMacSystemFont,
