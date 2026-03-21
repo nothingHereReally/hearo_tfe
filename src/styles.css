@@ -442,6 +442,12 @@ html, body {
   justify-content: center;
   align-items: center;
 }
+.flex-end-row-4px-gap{
+  display: flex;
+  gap: var(--pad100-xs);
+  justify-content: flex-end;
+  align-items: center;
+}
 
 
 .icon-botton-size{
