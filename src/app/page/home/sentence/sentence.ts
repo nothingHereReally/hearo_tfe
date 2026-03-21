@@ -1,17 +1,17 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 
-import { AuthUser } from '../../api-service/auth-user';
-import { TableHospitalHead } from '../../model/table-hospital-head';
+import { AuthUser } from '../../../api-service/auth-user';
+import { TableHospitalHead } from '../../../model/table-hospital-head';
 
 
 @Component({
-  selector: 'app-home',
+  selector: 'app-sentence',
   standalone: false,
-  templateUrl: './home.html',
-  styleUrl: './home.css'
+  templateUrl: './sentence.html',
+  styleUrl: './sentence.css'
 })
-export class Home implements OnInit{
+export class Sentence {
   private authUser: AuthUser= inject(AuthUser);
 
 

@@ -17,10 +17,10 @@ import { Input } from './essential/input/input';
 
 /* pages */
 import { ForgotPassword } from './page/forgot-password/forgot-password';
-import { Home } from './page/home/home';
 import { Login } from './page/login/login';
 import { Register } from './page/register/register';
 import { ResetPassword } from './page/reset-password/reset-password';
+import { Sentence } from './page/home/sentence/sentence';
 import { VerifyToRegister } from './page/verify-to-register/verify-to-register';
 
 @NgModule({
@@ -28,14 +28,14 @@ import { VerifyToRegister } from './page/verify-to-register/verify-to-register';
     App,
     Button,
     Input,
-    Home,
     DataTable,
     Header,
     Login,
     VerifyToRegister,
     Register,
     ForgotPassword,
-    ResetPassword
+    ResetPassword,
+    Sentence
   ],
   imports: [
     BrowserModule,

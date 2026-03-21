@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 
 import { ForgotPassword } from './page/forgot-password/forgot-password';
-import { Home } from './page/home/home';
+import { Sentence } from './page/home/sentence/sentence';
 import { Login } from './page/login/login';
 import { Register } from './page/register/register';
 import { ResetPassword } from './page/reset-password/reset-password';
@@ -19,7 +19,7 @@ const routes: Routes = [
   {path: 'forgot-password', component: ForgotPassword, title: 'Forgot Password | Hearo Team'},
   {path: 'reset-password/:userb64/:usertoken', component: ResetPassword, title: 'Reset Password | Hearo Team'},
 
-  {path: 'home/sentence', component: Home, title: 'Hearo Home'},
+  {path: 'home/sentence', component: Sentence, title: 'Hearo Home'},
 ];
 
 @NgModule({
