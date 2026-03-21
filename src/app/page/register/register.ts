@@ -58,7 +58,7 @@ export class Register implements OnInit{
     this.hearoUser().password==this.hearoUser().retype_password;
   }
   private async __writeWarnings2fillUp(): Promise<void>{
-    const field_keys: Array<string>= ['first_name', 'last_name', 'email', 'username', 'password', 'retype_password'];
+    const field_keys: Array<string>= ['first_name', 'last_name', 'email', 'username', 'password'];
     const warning2fillString: RegisterUser= {
       first_name: 'Please fill your First Name',
       last_name: 'Please fill your Last Name',
