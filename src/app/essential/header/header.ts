@@ -46,16 +46,16 @@ export class Header implements OnInit {
 
 
   public clickHome(): void{
-    this.router.navigate(['/home']);
+    this.router.navigate(['/home/sentence']);
   }
   public clickHospitalHead(): void{
-    this.router.navigate(['/home']);
+    this.router.navigate(['/home/sentence']);
   }
   public clickHospitals(): void{
-    this.router.navigate(['/home']);
+    this.router.navigate(['/home/sentence']);
   }
   public clickNewSign(): void{
-    this.router.navigate(['/home']);
+    this.router.navigate(['/home/sentence']);
   }
 
 

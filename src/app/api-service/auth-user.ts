@@ -270,14 +270,14 @@ export class AuthUser {
       try{
         await firstValueFrom(this.verifyTokenHttpPost(authToken.access));
         this.deleteToken_AccessQRAccount();
-        await this.router.navigate(['/home']);
+        await this.router.navigate(['/home/sentence']);
         return true;
       }catch(err){
         try {
           const validToken: Token= await firstValueFrom(this.getTokenViaRefreshHttpPost(authToken.refresh));
           this.saveAccountToken(validToken);
           this.deleteToken_AccessQRAccount();
-          await this.router.navigate(['/home']);
+          await this.router.navigate(['/home/sentence']);
           return true;
         } catch (refreshErr) {
         }

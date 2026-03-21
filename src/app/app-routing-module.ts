@@ -19,7 +19,7 @@ const routes: Routes = [
   {path: 'forgot-password', component: ForgotPassword, title: 'Forgot Password | Hearo Team'},
   {path: 'reset-password/:userb64/:usertoken', component: ResetPassword, title: 'Reset Password | Hearo Team'},
 
-  {path: 'home', component: Home, title: 'Hearo Home'},
+  {path: 'home/sentence', component: Home, title: 'Hearo Home'},
 ];
 
 @NgModule({
