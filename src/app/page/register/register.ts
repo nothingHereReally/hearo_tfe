@@ -33,6 +33,7 @@ export class Register implements OnInit{
     password: '',
     retype_password: ''
   });
+  protected successMessage: WritableSignal<string>= signal('');
 
 
   private authUser: AuthUser= inject(AuthUser);
@@ -126,7 +127,7 @@ export class Register implements OnInit{
     if( this.__checkIfAllFilled() ){
       try{
         await firstValueFrom(this.authUser.createHearoAccountHttpPost(this.hearoUser()));
-        this.warnings.update(value=>{ value.retype_password=['Created Account Successfully ✔']; return value;});
+        this.successMessage.set('Created Account Successfully ✔');
         await sleepAsync(env.TIME_ERROR_DISPLAY);
         await this.authUser.qrAccessAccountRemoveAnd_goTo_login_pageAsync();
       }catch(err: any){
