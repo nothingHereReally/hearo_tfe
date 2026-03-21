@@ -61,7 +61,7 @@ export class Register implements OnInit{
     const field_keys: Array<string>= ['first_name', 'last_name', 'email', 'username', 'password', 'retype_password'];
     const warning2fillString: RegisterUser= {
       first_name: 'Please fill your First Name',
-      last_name: 'Please fill your First Name',
+      last_name: 'Please fill your Last Name',
       email: 'Please fill your Email',
       username: 'Please fill your desired username',
       password: 'Please create your password',
