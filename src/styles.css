@@ -425,6 +425,23 @@ html, body {
   align-items: center; /* center y-axis/vertical, due to flex-direction: row */
   gap: 4px;
 }
+.flex-column-8px-gap-stretch{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: stretch;
+}
+.flex-column-0gap-stretch{
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: stretch;
+}
+.flex-center-horizontal{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 
 .icon-botton-size{
