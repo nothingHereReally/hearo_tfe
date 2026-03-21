@@ -19,6 +19,7 @@ const routes: Routes = [
   {path: 'forgot-password', component: ForgotPassword, title: 'Forgot Password | Hearo Team'},
   {path: 'reset-password/:userb64/:usertoken', component: ResetPassword, title: 'Reset Password | Hearo Team'},
 
+  {path: 'home', redirectTo: 'home/sentence', pathMatch: 'full'},
   {path: 'home/sentence', component: Sentence, title: 'Hearo Home'},
 ];
 
