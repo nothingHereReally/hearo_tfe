@@ -22,6 +22,7 @@ import { Register } from './page/register/register';
 import { ResetPassword } from './page/reset-password/reset-password';
 import { Sentence } from './page/home/sentence/sentence';
 import { VerifyToRegister } from './page/verify-to-register/verify-to-register';
+import { Gloss } from './page/home/gloss/gloss';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { VerifyToRegister } from './page/verify-to-register/verify-to-register';
     Register,
     ForgotPassword,
     ResetPassword,
-    Sentence
+    Sentence,
+    Gloss,
   ],
   imports: [
     BrowserModule,
