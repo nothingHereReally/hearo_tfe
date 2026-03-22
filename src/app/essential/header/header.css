@@ -7,6 +7,13 @@
   padding: 12px;
 }
 
+.logo-botton-topleft{
+  border: none;
+  background-color: transparent;
+  padding: 0px;
+  margin: 0px;
+}
+
 .header-logged-in > div:nth-child(2){
   display: flex;
   max-width: 900px;

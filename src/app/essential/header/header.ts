@@ -45,6 +45,9 @@ export class Header implements OnInit {
   }
 
 
+  protected logoClicked(): void{
+    this.router.navigate(['/home/sentence']);
+  }
   public clickHome(): void{
     this.router.navigate(['/home/sentence']);
   }
