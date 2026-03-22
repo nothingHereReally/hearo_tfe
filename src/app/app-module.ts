@@ -23,6 +23,7 @@ import { ResetPassword } from './page/reset-password/reset-password';
 import { Sentence } from './page/home/sentence/sentence';
 import { VerifyToRegister } from './page/verify-to-register/verify-to-register';
 import { Gloss } from './page/home/gloss/gloss';
+import { Usage } from './page/home/usage/usage';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { Gloss } from './page/home/gloss/gloss';
     ResetPassword,
     Sentence,
     Gloss,
+    Usage,
   ],
   imports: [
     BrowserModule,
