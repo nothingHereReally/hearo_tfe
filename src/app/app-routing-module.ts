@@ -3,10 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 
 
 import { ForgotPassword } from './page/forgot-password/forgot-password';
-import { Sentence } from './page/home/sentence/sentence';
+import { Gloss } from './page/home/gloss/gloss';
 import { Login } from './page/login/login';
 import { Register } from './page/register/register';
 import { ResetPassword } from './page/reset-password/reset-password';
+import { Sentence } from './page/home/sentence/sentence';
+import { Usage } from './page/home/usage/usage';
 import { VerifyToRegister } from './page/verify-to-register/verify-to-register';
 
 const routes: Routes = [
@@ -21,6 +23,8 @@ const routes: Routes = [
 
   {path: 'home', redirectTo: 'home/sentence', pathMatch: 'full'},
   {path: 'home/sentence', component: Sentence, title: 'Hearo Home'},
+  {path: 'home/gloss', component: Gloss, title: 'Hearo Home - gloss'},
+  {path: 'home/usage', component: Usage, title: 'Hearo Home - usage'},
 ];
 
 @NgModule({
