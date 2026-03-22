@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 
 
 import { AuthUser } from '../../../api-service/auth-user';
@@ -11,7 +11,7 @@ import { TableHospitalHead } from '../../../model/table-hospital-head';
   templateUrl: './sentence.html',
   styleUrl: './sentence.css'
 })
-export class Sentence {
+export class Sentence implements OnInit{
   private authUser: AuthUser= inject(AuthUser);
 
 
