@@ -17,7 +17,6 @@ import { Input } from './essential/input/input';
 
 /* pages */
 import { ForgotPassword } from './page/forgot-password/forgot-password';
-import { Gloss } from './page/home/gloss/gloss';
 import { HospitalHead } from './page/hospital-head/hospital-head';
 import { Login } from './page/login/login';
 import { Register } from './page/register/register';
@@ -29,6 +28,7 @@ import { ModelGloss } from './page/model-gloss/model-gloss';
 import { ModelAslRecognitionModel } from './page/model-asl-recognition-model/model-asl-recognition-model';
 import { ModelPatientVideo } from './page/model-patient-video/model-patient-video';
 import { HomeUsage } from './page/home-usage/home-usage';
+import { HomeGloss } from './page/home-gloss/home-gloss';
 
 @NgModule({
   declarations: [
@@ -43,13 +43,13 @@ import { HomeUsage } from './page/home-usage/home-usage';
     ForgotPassword,
     ResetPassword,
     Sentence,
-    Gloss,
     HospitalHead,
     Hospitals,
     ModelGloss,
     ModelAslRecognitionModel,
     ModelPatientVideo,
     HomeUsage,
+    HomeGloss,
   ],
   imports: [
     BrowserModule,

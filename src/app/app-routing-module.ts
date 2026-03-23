@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 
 
 import { ForgotPassword } from './page/forgot-password/forgot-password';
-import { Gloss } from './page/home/gloss/gloss';
 import { HospitalHead } from './page/hospital-head/hospital-head';
 import { Login } from './page/login/login';
 import { Register } from './page/register/register';
@@ -15,6 +14,7 @@ import { ModelGloss } from './page/model-gloss/model-gloss';
 import { ModelAslRecognitionModel } from './page/model-asl-recognition-model/model-asl-recognition-model';
 import { ModelPatientVideo } from './page/model-patient-video/model-patient-video';
 import { HomeUsage } from './page/home-usage/home-usage';
+import { HomeGloss } from './page/home-gloss/home-gloss';
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -28,7 +28,7 @@ const routes: Routes = [
 
   {path: 'home', redirectTo: 'home/sentence', pathMatch: 'full'},
   {path: 'home/sentence', component: Sentence, title: 'Hearo Home'},
-  {path: 'home/gloss', component: Gloss, title: 'Hearo Home - gloss'},
+  {path: 'home/gloss', component: HomeGloss, title: 'Hearo Home - gloss'},
   {path: 'home/usage', component: HomeUsage, title: 'Hearo Home - usage'},
 
   {path: 'hospital-head', component: HospitalHead, title: 'Hearo Hospital Heads'},
