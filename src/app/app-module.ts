@@ -28,6 +28,7 @@ import { VerifyToRegister } from './page/verify-to-register/verify-to-register';
 import { PatientVideo } from './page/model/patient-video/patient-video';
 import { Hospitals } from './page/hospitals/hospitals';
 import { ModelGloss } from './page/model-gloss/model-gloss';
+import { ModelAslRecognitionModel } from './page/model-asl-recognition-model/model-asl-recognition-model';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { ModelGloss } from './page/model-gloss/model-gloss';
     PatientVideo,
     Hospitals,
     ModelGloss,
+    ModelAslRecognitionModel,
   ],
   imports: [
     BrowserModule,

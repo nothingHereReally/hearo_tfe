@@ -14,6 +14,7 @@ import { VerifyToRegister } from './page/verify-to-register/verify-to-register';
 import { PatientVideo } from './page/model/patient-video/patient-video';
 import { Hospitals } from './page/hospitals/hospitals';
 import { ModelGloss } from './page/model-gloss/model-gloss';
+import { ModelAslRecognitionModel } from './page/model-asl-recognition-model/model-asl-recognition-model';
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -36,6 +37,7 @@ const routes: Routes = [
 
   {path: 'model/patient-video', component: PatientVideo, title: 'Hearo Model - Patient Video'},
   {path: 'model/gloss', component: ModelGloss, title: 'Hearo Model - Gloss Record'},
+  {path: 'model/asl-recognition-model', component: ModelAslRecognitionModel, title: 'Hearo - ASL Model'},
 ];
 
 @NgModule({
