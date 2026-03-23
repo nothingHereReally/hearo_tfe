@@ -11,6 +11,7 @@ import { ResetPassword } from './page/reset-password/reset-password';
 import { Sentence } from './page/home/sentence/sentence';
 import { Usage } from './page/home/usage/usage';
 import { VerifyToRegister } from './page/verify-to-register/verify-to-register';
+import { PatientVideo } from './page/model/patient-video/patient-video';
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -28,6 +29,8 @@ const routes: Routes = [
   {path: 'home/usage', component: Usage, title: 'Hearo Home - usage'},
 
   {path: 'hospital-head', component: HospitalHead, title: 'Hearo Hospital Heads'},
+
+  {path: 'model/patient-video', component: PatientVideo, title: 'Hearo Model - Patient Video'},
 ];
 
 @NgModule({

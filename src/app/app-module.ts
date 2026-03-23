@@ -25,6 +25,7 @@ import { ResetPassword } from './page/reset-password/reset-password';
 import { Sentence } from './page/home/sentence/sentence';
 import { Usage } from './page/home/usage/usage';
 import { VerifyToRegister } from './page/verify-to-register/verify-to-register';
+import { PatientVideo } from './page/model/patient-video/patient-video';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { VerifyToRegister } from './page/verify-to-register/verify-to-register';
     Gloss,
     Usage,
     HospitalHead,
+    PatientVideo,
   ],
   imports: [
     BrowserModule,
