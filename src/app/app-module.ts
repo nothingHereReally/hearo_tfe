@@ -17,13 +17,14 @@ import { Input } from './essential/input/input';
 
 /* pages */
 import { ForgotPassword } from './page/forgot-password/forgot-password';
+import { Gloss } from './page/home/gloss/gloss';
+import { HospitalHead } from './page/hospital-head/hospital-head';
 import { Login } from './page/login/login';
 import { Register } from './page/register/register';
 import { ResetPassword } from './page/reset-password/reset-password';
 import { Sentence } from './page/home/sentence/sentence';
-import { VerifyToRegister } from './page/verify-to-register/verify-to-register';
-import { Gloss } from './page/home/gloss/gloss';
 import { Usage } from './page/home/usage/usage';
+import { VerifyToRegister } from './page/verify-to-register/verify-to-register';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { Usage } from './page/home/usage/usage';
     Sentence,
     Gloss,
     Usage,
+    HospitalHead,
   ],
   imports: [
     BrowserModule,

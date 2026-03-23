@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ForgotPassword } from './page/forgot-password/forgot-password';
 import { Gloss } from './page/home/gloss/gloss';
+import { HospitalHead } from './page/hospital-head/hospital-head';
 import { Login } from './page/login/login';
 import { Register } from './page/register/register';
 import { ResetPassword } from './page/reset-password/reset-password';
@@ -25,6 +26,8 @@ const routes: Routes = [
   {path: 'home/sentence', component: Sentence, title: 'Hearo Home'},
   {path: 'home/gloss', component: Gloss, title: 'Hearo Home - gloss'},
   {path: 'home/usage', component: Usage, title: 'Hearo Home - usage'},
+
+  {path: 'hospital-head', component: HospitalHead, title: 'Hearo Hospital Heads'},
 ];
 
 @NgModule({
