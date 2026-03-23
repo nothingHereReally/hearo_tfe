@@ -25,10 +25,10 @@ import { ResetPassword } from './page/reset-password/reset-password';
 import { Sentence } from './page/home/sentence/sentence';
 import { Usage } from './page/home/usage/usage';
 import { VerifyToRegister } from './page/verify-to-register/verify-to-register';
-import { PatientVideo } from './page/model/patient-video/patient-video';
 import { Hospitals } from './page/hospitals/hospitals';
 import { ModelGloss } from './page/model-gloss/model-gloss';
 import { ModelAslRecognitionModel } from './page/model-asl-recognition-model/model-asl-recognition-model';
+import { ModelPatientVideo } from './page/model-patient-video/model-patient-video';
 
 @NgModule({
   declarations: [
@@ -46,10 +46,10 @@ import { ModelAslRecognitionModel } from './page/model-asl-recognition-model/mod
     Gloss,
     Usage,
     HospitalHead,
-    PatientVideo,
     Hospitals,
     ModelGloss,
     ModelAslRecognitionModel,
+    ModelPatientVideo,
   ],
   imports: [
     BrowserModule,

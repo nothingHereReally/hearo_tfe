@@ -11,10 +11,10 @@ import { ResetPassword } from './page/reset-password/reset-password';
 import { Sentence } from './page/home/sentence/sentence';
 import { Usage } from './page/home/usage/usage';
 import { VerifyToRegister } from './page/verify-to-register/verify-to-register';
-import { PatientVideo } from './page/model/patient-video/patient-video';
 import { Hospitals } from './page/hospitals/hospitals';
 import { ModelGloss } from './page/model-gloss/model-gloss';
 import { ModelAslRecognitionModel } from './page/model-asl-recognition-model/model-asl-recognition-model';
+import { ModelPatientVideo } from './page/model-patient-video/model-patient-video';
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -35,7 +35,7 @@ const routes: Routes = [
 
   {path: 'hospitals', component: Hospitals, title: 'Hearo Hospitals'},
 
-  {path: 'model/patient-video', component: PatientVideo, title: 'Hearo Model - Patient Video'},
+  {path: 'model/patient-video', component: ModelPatientVideo, title: 'Hearo Model - Patient Video'},
   {path: 'model/gloss', component: ModelGloss, title: 'Hearo Model - Gloss Record'},
   {path: 'model/asl-recognition-model', component: ModelAslRecognitionModel, title: 'Hearo - ASL Model'},
 ];
