@@ -26,6 +26,7 @@ import { Sentence } from './page/home/sentence/sentence';
 import { Usage } from './page/home/usage/usage';
 import { VerifyToRegister } from './page/verify-to-register/verify-to-register';
 import { PatientVideo } from './page/model/patient-video/patient-video';
+import { Hospitals } from './page/hospitals/hospitals';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { PatientVideo } from './page/model/patient-video/patient-video';
     Usage,
     HospitalHead,
     PatientVideo,
+    Hospitals,
   ],
   imports: [
     BrowserModule,
