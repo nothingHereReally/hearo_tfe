@@ -21,7 +21,6 @@ import { HospitalHead } from './page/hospital-head/hospital-head';
 import { Login } from './page/login/login';
 import { Register } from './page/register/register';
 import { ResetPassword } from './page/reset-password/reset-password';
-import { Sentence } from './page/home/sentence/sentence';
 import { VerifyToRegister } from './page/verify-to-register/verify-to-register';
 import { Hospitals } from './page/hospitals/hospitals';
 import { ModelGloss } from './page/model-gloss/model-gloss';
@@ -29,6 +28,7 @@ import { ModelAslRecognitionModel } from './page/model-asl-recognition-model/mod
 import { ModelPatientVideo } from './page/model-patient-video/model-patient-video';
 import { HomeUsage } from './page/home-usage/home-usage';
 import { HomeGloss } from './page/home-gloss/home-gloss';
+import { HomeSentence } from './page/home-sentence/home-sentence';
 
 @NgModule({
   declarations: [
@@ -42,7 +42,6 @@ import { HomeGloss } from './page/home-gloss/home-gloss';
     Register,
     ForgotPassword,
     ResetPassword,
-    Sentence,
     HospitalHead,
     Hospitals,
     ModelGloss,
@@ -50,6 +49,7 @@ import { HomeGloss } from './page/home-gloss/home-gloss';
     ModelPatientVideo,
     HomeUsage,
     HomeGloss,
+    HomeSentence,
   ],
   imports: [
     BrowserModule,
