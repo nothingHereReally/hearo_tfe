@@ -13,6 +13,7 @@ import { Usage } from './page/home/usage/usage';
 import { VerifyToRegister } from './page/verify-to-register/verify-to-register';
 import { PatientVideo } from './page/model/patient-video/patient-video';
 import { Hospitals } from './page/hospitals/hospitals';
+import { ModelGloss } from './page/model-gloss/model-gloss';
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -34,6 +35,7 @@ const routes: Routes = [
   {path: 'hospitals', component: Hospitals, title: 'Hearo Hospitals'},
 
   {path: 'model/patient-video', component: PatientVideo, title: 'Hearo Model - Patient Video'},
+  {path: 'model/gloss', component: ModelGloss, title: 'Hearo Model - Gloss Record'},
 ];
 
 @NgModule({

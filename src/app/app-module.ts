@@ -27,6 +27,7 @@ import { Usage } from './page/home/usage/usage';
 import { VerifyToRegister } from './page/verify-to-register/verify-to-register';
 import { PatientVideo } from './page/model/patient-video/patient-video';
 import { Hospitals } from './page/hospitals/hospitals';
+import { ModelGloss } from './page/model-gloss/model-gloss';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { Hospitals } from './page/hospitals/hospitals';
     HospitalHead,
     PatientVideo,
     Hospitals,
+    ModelGloss,
   ],
   imports: [
     BrowserModule,
