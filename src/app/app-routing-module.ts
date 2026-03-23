@@ -9,12 +9,12 @@ import { Login } from './page/login/login';
 import { Register } from './page/register/register';
 import { ResetPassword } from './page/reset-password/reset-password';
 import { Sentence } from './page/home/sentence/sentence';
-import { Usage } from './page/home/usage/usage';
 import { VerifyToRegister } from './page/verify-to-register/verify-to-register';
 import { Hospitals } from './page/hospitals/hospitals';
 import { ModelGloss } from './page/model-gloss/model-gloss';
 import { ModelAslRecognitionModel } from './page/model-asl-recognition-model/model-asl-recognition-model';
 import { ModelPatientVideo } from './page/model-patient-video/model-patient-video';
+import { HomeUsage } from './page/home-usage/home-usage';
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -29,7 +29,7 @@ const routes: Routes = [
   {path: 'home', redirectTo: 'home/sentence', pathMatch: 'full'},
   {path: 'home/sentence', component: Sentence, title: 'Hearo Home'},
   {path: 'home/gloss', component: Gloss, title: 'Hearo Home - gloss'},
-  {path: 'home/usage', component: Usage, title: 'Hearo Home - usage'},
+  {path: 'home/usage', component: HomeUsage, title: 'Hearo Home - usage'},
 
   {path: 'hospital-head', component: HospitalHead, title: 'Hearo Hospital Heads'},
 

@@ -23,12 +23,12 @@ import { Login } from './page/login/login';
 import { Register } from './page/register/register';
 import { ResetPassword } from './page/reset-password/reset-password';
 import { Sentence } from './page/home/sentence/sentence';
-import { Usage } from './page/home/usage/usage';
 import { VerifyToRegister } from './page/verify-to-register/verify-to-register';
 import { Hospitals } from './page/hospitals/hospitals';
 import { ModelGloss } from './page/model-gloss/model-gloss';
 import { ModelAslRecognitionModel } from './page/model-asl-recognition-model/model-asl-recognition-model';
 import { ModelPatientVideo } from './page/model-patient-video/model-patient-video';
+import { HomeUsage } from './page/home-usage/home-usage';
 
 @NgModule({
   declarations: [
@@ -44,12 +44,12 @@ import { ModelPatientVideo } from './page/model-patient-video/model-patient-vide
     ResetPassword,
     Sentence,
     Gloss,
-    Usage,
     HospitalHead,
     Hospitals,
     ModelGloss,
     ModelAslRecognitionModel,
     ModelPatientVideo,
+    HomeUsage,
   ],
   imports: [
     BrowserModule,
