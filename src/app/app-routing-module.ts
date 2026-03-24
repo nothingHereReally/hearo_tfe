@@ -10,7 +10,7 @@ import { ResetPassword } from './page/reset-password/reset-password';
 import { VerifyToRegister } from './page/verify-to-register/verify-to-register';
 import { Hospitals } from './page/hospitals/hospitals';
 import { ModelGloss } from './page/model-gloss/model-gloss';
-import { ModelAslRecognitionModel } from './page/model-asl-recognition-model/model-asl-recognition-model';
+import { ModelAslRecognition } from './page/model-asl-recognition/model-asl-recognition';
 import { ModelPatientVideo } from './page/model-patient-video/model-patient-video';
 import { HomeUsage } from './page/home-usage/home-usage';
 import { HomeGloss } from './page/home-gloss/home-gloss';
@@ -37,7 +37,7 @@ const routes: Routes = [
 
   {path: 'model/patient-video', component: ModelPatientVideo, title: 'Hearo Model - Patient Video'},
   {path: 'model/gloss', component: ModelGloss, title: 'Hearo Model - Gloss Record'},
-  {path: 'model/asl-recognition-model', component: ModelAslRecognitionModel, title: 'Hearo - ASL Model'},
+  {path: 'model/asl-recognition', component: ModelAslRecognition, title: 'Hearo - ASL Model'},
 ];
 
 @NgModule({

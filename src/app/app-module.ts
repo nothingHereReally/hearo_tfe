@@ -24,7 +24,7 @@ import { ResetPassword } from './page/reset-password/reset-password';
 import { VerifyToRegister } from './page/verify-to-register/verify-to-register';
 import { Hospitals } from './page/hospitals/hospitals';
 import { ModelGloss } from './page/model-gloss/model-gloss';
-import { ModelAslRecognitionModel } from './page/model-asl-recognition-model/model-asl-recognition-model';
+import { ModelAslRecognition } from './page/model-asl-recognition/model-asl-recognition';
 import { ModelPatientVideo } from './page/model-patient-video/model-patient-video';
 import { HomeUsage } from './page/home-usage/home-usage';
 import { HomeGloss } from './page/home-gloss/home-gloss';
@@ -45,7 +45,7 @@ import { HomeSentence } from './page/home-sentence/home-sentence';
     HospitalHead,
     Hospitals,
     ModelGloss,
-    ModelAslRecognitionModel,
+    ModelAslRecognition,
     ModelPatientVideo,
     HomeUsage,
     HomeGloss,
