@@ -36,6 +36,7 @@ export class Header implements OnInit {
    */
   protected lowerHeaderButton: WritableSignal<Array<string>>= signal(['', '', '']);
   protected lowerHeaderStyle: WritableSignal<Array<string>>= signal(['style-outline', 'style-outline', 'style-outline']);
+  protected userFullName: WritableSignal<string>= signal('Steven Universe');
 
   protected homeStyle: WritableSignal<string>= signal<string>('style-outline');
   protected hospitalHeadStyle: WritableSignal<string>= signal<string>('style-outline');
