@@ -1,6 +1,6 @@
 <header class="whole-header">
   <div class="upper-header">
-    <a routerLink="/home/sentence" class="bg-transparent-no-padding-margin">
+    <a routerLink="/home/sentence" class="bg-transparent-no-border-padding-margin">
       <img
           src="/favicon.svg"
           alt="logo icon"
@@ -11,7 +11,7 @@
 
 
 
-    <div class="border-24r-1w-pc1-300color">
+    <div class="border-24r-1w-pc1-300color bg-transparent-no-padding-margin">
       <app-button
           [text]="'Home'"
           [styleButton]="homeStyle()"
@@ -41,7 +41,7 @@
 
 
 
-    <div>
+    <div class="bg-transparent-no-border-padding-margin">
       <app-button
           [text]="''"
           [styleButton]="'style-naked'"
@@ -50,11 +50,19 @@
           />
 
 
-      <button class="profile-pic-and-name"
-        class="bg-transparent-no-padding-margin"
+      <button class="
+        bg-transparent-no-border-padding-margin
+        "
         (click)="clickedProfile()">
-        <img src="/profile_sample.png" alt="/profile_sample.png" class="logo-height-48px">
-        <span class="font-normal-regular">Steven Universe</span>
+        <img
+            src="/profile_sample.png"
+            alt="/profile_sample.png"
+            class="logo-height-48px radius-50p-be-round"
+        >
+        <span class="
+          font-normal-regular
+          font-color-pc1-300
+          ">Steven Universe</span>
       </button>
     </div>
   </div>

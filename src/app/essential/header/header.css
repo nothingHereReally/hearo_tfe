@@ -3,8 +3,6 @@
   flex-direction: column;
   align-items: center;
 
-  background-color: var(--pc1-800);
-
   padding: var(--pad100-lg, 12px);
 }
 
@@ -20,27 +18,50 @@
   align-items: center;
   width: 100%;
 }
+/* upper header 4 main buttons inside
+ * .upper-header > div:nth-child(2)
+ * */
 .upper-header > div:nth-child(2){
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
   gap: var(--pad200-md);
-  max-width: 1218px;
+  max-width: 71rem;
 
   flex-wrap: wrap;
-
-  background-color: var(--tc1-100);
 }
+/* inside be
+ * -- logout
+ * -- button
+ * ---- logout app-button
+ * ------ generic button
+ * ------ span user full name( 1st name + last name )
+ * */
+.upper-header > div:nth-child(3){
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--pad200-xs, 24px);
+}
+.upper-header > div:nth-child(3) > button{
+  display: flex;
+  width: fit-content;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pad100-xs, 4px);
+}
+
+
+
+
 .lower-header{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
   gap: var(--pad200-md);
-  max-width: 698px;
+  max-width: 41rem;
 
   flex-wrap: wrap;
-
-  background-color: var(--tc1-100);
 }

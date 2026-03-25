@@ -51,13 +51,11 @@ export class Header implements OnInit {
     return '';
   }
   private __isHomePage_usedBy_lowerHeaderWhat(lowerWhat: string): boolean{
-    const upperHeaderCurrent: string= this.upperHeaderWhat();
-    return upperHeaderCurrent=='home' && (lowerWhat=='sentence' ||
+    return this.upperHeaderWhat()=='home' && (lowerWhat=='sentence' ||
       lowerWhat=='gloss' || lowerWhat=='usage');
   }
   private __isModelPage_usedBy_lowerHeaderWhat(lowerWhat: string): boolean{
-    const upperHeaderCurrent: string= this.upperHeaderWhat();
-    return upperHeaderCurrent=='model' && (lowerWhat=='patient-video' ||
+    return this.upperHeaderWhat()=='model' && (lowerWhat=='patient-video' ||
       lowerWhat=='gloss' || lowerWhat=='asl-recognition');
   }
   protected lowerHeaderWhat(): string{
@@ -104,11 +102,6 @@ export class Header implements OnInit {
   ngOnInit(): void {
     this.__setUpperHeader();
     this.__setLowerHeader();
-  }
-
-
-  protected logoClicked(): void{
-    this.router.navigate(['/home/sentence']);
   }
 
 
