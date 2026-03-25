@@ -18,7 +18,9 @@ export class ApiFile {
   private sanitizer: DomSanitizer= inject(DomSanitizer);
   private authUser: AuthUser= inject(AuthUser);
 
-  public async getProfilePictureViaSafeUrl(): Promise<SafeUrl>{
+  private cachedProfilePicture: SafeUrl|null= null;
+
+  private async __getProfilePictureViaSafeUrl(): Promise<SafeUrl>{
     const authToken: Token|null= this.authUser.getAccountToken();
     let errorOut: any= Error("User must be logged in, incorrect implementation.");
     if( authToken!=null ){
@@ -36,6 +38,18 @@ export class ApiFile {
       }catch (error) {
         errorOut= error;
       }
+    }
+    throw errorOut;
+  }
+  public async getProfilePictureViaSafeUrl(): Promise<SafeUrl>{
+    let errorOut: any= Error("User must be logged in, incorrect implementation.");
+    try{
+      if( this.cachedProfilePicture==null ){
+        this.cachedProfilePicture= await this.__getProfilePictureViaSafeUrl();
+      }
+      return this.cachedProfilePicture;
+    }catch(error){
+      errorOut= error;
     }
     throw errorOut;
   }
