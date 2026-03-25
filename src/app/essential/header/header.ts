@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 
 
 import { AuthUser } from '../../api-service/auth-user';
+import { ApiFile } from '../../api-service/api-file';
+import { SafeUrl } from '@angular/platform-browser';
 
 
 @Component({
@@ -13,6 +15,7 @@ import { AuthUser } from '../../api-service/auth-user';
 })
 export class Header implements OnInit {
   private authUser: AuthUser= inject(AuthUser);
+  private apiFile: ApiFile= inject(ApiFile);
   private router= inject(Router);
 
   /*
@@ -36,6 +39,8 @@ export class Header implements OnInit {
    */
   protected lowerHeaderButton: WritableSignal<Array<string>>= signal(['', '', '']);
   protected lowerHeaderStyle: WritableSignal<Array<string>>= signal(['style-outline', 'style-outline', 'style-outline']);
+
+  protected profilePictureSafeUrl: WritableSignal<SafeUrl>= signal('/user_default_profile.svg');
   protected userFullName: WritableSignal<string>= signal('Steven Universe');
 
   protected homeStyle: WritableSignal<string>= signal<string>('style-outline');
@@ -98,9 +103,15 @@ export class Header implements OnInit {
       this.lowerHeaderStyle.set(['style-outline', 'style-outline', 'style-solid']);
     }
   }
+  private async __setProfilePicture(): Promise<void>{
+    try{
+      this.profilePictureSafeUrl.set( await this.apiFile.getProfilePictureViaSafeUrl() );
+    }catch(error){}
+  }
 
 
   ngOnInit(): void {
+    this.__setProfilePicture();
     this.__setUpperHeader();
     this.__setLowerHeader();
   }

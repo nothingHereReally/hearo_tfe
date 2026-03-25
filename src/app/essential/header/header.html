@@ -55,7 +55,7 @@
         "
         (click)="clickedProfile()">
         <img
-            src="/user_default_profile.svg"
+            [src]="profilePictureSafeUrl()"
             alt="User profile picture"
             class="logo-height-48px radius-50p-be-round"
         >
