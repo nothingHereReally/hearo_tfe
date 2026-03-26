@@ -351,20 +351,15 @@ export class AuthUser {
   public async goTo_verify_to_register_pageIfNotValidQRTokenAsync(): Promise<boolean>{
     let authToken: Token|null= this.getToken_AccessQRAccount();
     if( authToken!=null &&
-        authToken.access!='' && authToken.access!=null &&
-        authToken.refresh!='' && authToken.refresh!=null ){
-      if(await this.isTokenValidAsync(authToken.access)){
-        return false;
-      }else if(await this.isTokenValidAsync(authToken.refresh)){
-        try{
-          authToken= await firstValueFrom(this.getTokenViaRefreshHttpPost(authToken.refresh));
-          if( authToken!=null ){
-            this.saveToken_AccessQRAccount(authToken)
-            return false; /* due2not going to /verify-to-register */
-          }
-        }catch(err){ /* just continue below for DRY */ }
-      }
+        await this.isTokenValidAsync(authToken.access) ||
+      ( authToken!=null &&
+        await this.isTokenValidAsync(authToken.refresh) &&
+        await this.refreshAccessQRTokenOnCookieAsync() )  ){
+
+      this.deleteAccountToken();
+      return false;
     }
+
     await this.router.navigate(['/verify-to-register']);
     return true;
   }
