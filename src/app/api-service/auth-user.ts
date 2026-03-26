@@ -314,7 +314,7 @@ export class AuthUser {
 
       this.deleteToken_AccessQRAccount();
       await this.router.navigate(['/home/sentence']);
-      return true
+      return true;
     }
 
     return false;
