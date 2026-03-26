@@ -306,23 +306,17 @@ export class AuthUser {
   }
   public async goTo_home_pageIfValidAuthTokenAsync(): Promise<boolean>{
     let authToken: Token|null= this.getAccountToken();
-    if( authToken!=null ){
-      try{
-        await firstValueFrom(this.verifyTokenHttpPost(authToken.access));
-        this.deleteToken_AccessQRAccount();
-        await this.router.navigate(['/home/sentence']);
-        return true;
-      }catch(err){
-        try {
-          const validToken: Token= await firstValueFrom(this.getTokenViaRefreshHttpPost(authToken.refresh));
-          this.saveAccountToken(validToken);
-          this.deleteToken_AccessQRAccount();
-          await this.router.navigate(['/home/sentence']);
-          return true;
-        } catch (refreshErr) {
-        }
-      }
+    if( authToken!=null &&
+        await this.isTokenValidAsync(authToken.access) ||
+      ( authToken!=null &&
+        await this.isTokenValidAsync(authToken.refresh) &&
+        await this.refreshAuthUserTokenOnCookieAsync() )  ){
+
+      this.deleteToken_AccessQRAccount();
+      await this.router.navigate(['/home/sentence']);
+      return true
     }
+
     return false;
   }
   public async goTo_login_pageIfNotValidAuthTokenAsync(): Promise<boolean>{
