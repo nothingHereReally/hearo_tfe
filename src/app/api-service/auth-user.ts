@@ -208,6 +208,18 @@ export class AuthUser {
     this.cookie.delete('qr_access_token', '/');
     this.cookie.delete('qr_access_token_refresh', '/');
   }
+  public async refreshAccessQRTokenOnCookieAsync(): Promise<boolean>{
+    const oldToken: Token|null= this.getToken_AccessQRAccount();
+    if( oldToken==null ){ throw new Error("Incorrect implementation refreshAccessQRTokenOnCookie() must be used after qr scanned"); }
+
+    try{
+      const newToken: Token= await firstValueFrom(this.getTokenViaRefreshHttpPost(oldToken.refresh));
+      this.deleteToken_AccessQRAccount();
+      this.saveToken_AccessQRAccount(newToken);
+    }catch(error){ return false; }
+
+    return true;
+  }
 
 
 
