@@ -245,7 +245,7 @@ export class AuthUser {
     this.cookie.delete('account_token', '/');
     this.cookie.delete('account_token_refresh', '/');
   }
-  getUserIdViaTokenAuth(): string|null{
+  public getUserIdViaTokenAuth(): string|null{
     const token: Token|null= this.getAccountToken()
     if( token==null ){ return null; }
     try{
