@@ -9,7 +9,7 @@ import { environment as env } from '../../environment/environment';
 import { httpRequestHeadersReceiveJson, httpRequestHeadersSendReceiveJson } from '../model/tools';
 import { LoginField } from '../model/login-field';
 import { Token } from '../model/token';
-import { ForgotPasswordField, ForgotPasswordResponse, RegisterUser, ResetPasswordField } from '../model/account';
+import { ForgotPasswordField, ForgotPasswordResponse, HearoTeamGetWithIdResponse, RegisterUser, ResetPasswordField } from '../model/account';
 
 
 @Injectable({
@@ -260,6 +260,18 @@ export class AuthUser {
     }catch(e) {
       return null;
     }
+  }
+  public async refreshTokenOnCookie(): Promise<boolean>{
+    const oldToken: Token|null= this.getAccountToken();
+    if( oldToken==null ){ throw new Error("Incorrect implementation refreshTokenOnCookie() must be used after logged in"); }
+
+    try{
+      const newToken: Token= await firstValueFrom(this.getTokenViaRefreshHttpPost(oldToken.refresh));
+      this.deleteAccountToken();
+      this.saveAccountToken(newToken);
+    }catch(error){ return false; }
+
+    return true;
   }
 
 
