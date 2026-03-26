@@ -210,7 +210,7 @@ export class AuthUser {
   }
   public async refreshAccessQRTokenOnCookieAsync(): Promise<boolean>{
     const oldToken: Token|null= this.getToken_AccessQRAccount();
-    if( oldToken==null ){ throw new Error("Incorrect implementation refreshAccessQRTokenOnCookie() must be used after qr scanned"); }
+    if( oldToken==null ){ throw new Error("Incorrect implementation, refreshAccessQRTokenOnCookie() must be used after qr scanned"); }
 
     try{
       const newToken: Token= await firstValueFrom(this.getTokenViaRefreshHttpPost(oldToken.refresh));
