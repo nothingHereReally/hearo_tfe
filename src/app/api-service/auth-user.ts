@@ -273,9 +273,9 @@ export class AuthUser {
       return null;
     }
   }
-  public async refreshAuthTokenOnCookieAsync(): Promise<boolean>{
+  public async refreshAuthUserTokenOnCookieAsync(): Promise<boolean>{
     const oldToken: Token|null= this.getAccountToken();
-    if( oldToken==null ){ throw new Error("Incorrect implementation, refreshAuthTokenOnCookieAsync() must be used after logged in"); }
+    if( oldToken==null ){ throw new Error("Incorrect implementation, refreshAuthUserTokenOnCookieAsync() must be used after logged in"); }
 
     try{
       const newToken: Token= await firstValueFrom(this.getTokenViaRefreshHttpPost(oldToken.refresh));
