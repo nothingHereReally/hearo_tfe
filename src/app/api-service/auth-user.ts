@@ -245,6 +245,22 @@ export class AuthUser {
     this.cookie.delete('account_token', '/');
     this.cookie.delete('account_token_refresh', '/');
   }
+  getUserIdViaTokenAuth(): string|null{
+    const token: Token|null= this.getAccountToken()
+    if( token==null ){ return null; }
+    try{
+      /*
+       * eg.
+       * token= 'sdfisdfs.dfsdifw.efsdjsdfi4'
+       * token.split('.') --> ['sdfisdfs', 'dfsdifw', 'efsdjsdfi4']
+       * atob, ascii to binary, ie. decode base64
+       */
+      const payload= JSON.parse(atob(token.access.split('.')[1]));
+      return payload.user_id;
+    }catch(e) {
+      return null;
+    }
+  }
 
 
 
