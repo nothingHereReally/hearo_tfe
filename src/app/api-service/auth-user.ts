@@ -293,17 +293,10 @@ export class AuthUser {
 
 
 
-  /* essential tools which involves authentication from user */
-  public async isTokenValidAsync(token: string): Promise<boolean>{
-    try{
-      await firstValueFrom(this.verifyTokenHttpPost(token));
-      /* returns status 200 if valid */
-    }catch(err){
-      /* else 401 */
-      return false;
-    }
-    return true;
-  }
+  /* go to pages, returns true if success else false
+   * due to will not force to go to that page if
+   * already has correct jwt token for authentication
+   */
   public async goTo_home_pageIfValidAuthTokenAsync(): Promise<boolean>{
     let authToken: Token|null= this.getAccountToken();
     if( authToken!=null &&
@@ -361,6 +354,25 @@ export class AuthUser {
     }
 
     await this.router.navigate(['/verify-to-register']);
+    return true;
+  }
+
+
+
+
+
+
+
+
+  /* essential tools which involves authentication from user */
+  public async isTokenValidAsync(token: string): Promise<boolean>{
+    try{
+      await firstValueFrom(this.verifyTokenHttpPost(token));
+      /* returns status 200 if valid */
+    }catch(err){
+      /* else 401 */
+      return false;
+    }
     return true;
   }
   public async userLogOutAsync(): Promise<boolean>{
