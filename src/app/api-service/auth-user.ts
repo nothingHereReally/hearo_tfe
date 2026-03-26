@@ -322,20 +322,14 @@ export class AuthUser {
   public async goTo_login_pageIfNotValidAuthTokenAsync(): Promise<boolean>{
     let authToken: Token|null= this.getAccountToken();
     if( authToken!=null &&
-        authToken.access!='' && authToken.access!=null &&
-        authToken.refresh!='' && authToken.refresh!=null ){
-      if(await this.isTokenValidAsync(authToken.access)){
-        return false;
-      }else if(await this.isTokenValidAsync(authToken.refresh)){
-        try{
-          authToken= await firstValueFrom(this.getTokenViaRefreshHttpPost(authToken.refresh));
-          if( authToken!=null ){
-            this.saveAccountToken(authToken)
-            return false; /* due2not going to /login */
-          }
-        }catch(err){ /* just continue below for DRY */ }
-      }
+        await this.isTokenValidAsync(authToken.access) ||
+      ( authToken!=null &&
+        await this.isTokenValidAsync(authToken.refresh) &&
+        await this.refreshAuthUserTokenOnCookieAsync() )  ){
+
+      return false; /* due to valid auth user, ie. logged in, then don't go /login */
     }
+
     await this.router.navigate(['/login']);
     return true;
   }
