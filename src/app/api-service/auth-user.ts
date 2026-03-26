@@ -336,24 +336,16 @@ export class AuthUser {
   public async goTo_register_pageIfValidQRTokenAsync(): Promise<boolean>{
     let authToken: Token|null= this.getToken_AccessQRAccount();
     if( authToken!=null &&
-        authToken.access!='' && authToken.access!=null &&
-        authToken.refresh!='' && authToken.refresh!=null ){
-      if(await this.isTokenValidAsync(authToken.access)){
-        this.deleteAccountToken();
-        await this.router.navigate(['/register']);
-        return true;
-      }else if(await this.isTokenValidAsync(authToken.refresh)){
-        try{
-          authToken= await firstValueFrom(this.getTokenViaRefreshHttpPost(authToken.refresh));
-          if( authToken!=null ){
-            this.saveToken_AccessQRAccount(authToken)
-            this.deleteAccountToken();
-            await this.router.navigate(['/register']);
-            return true;
-          }
-        }catch(err){ /* due2refresh expired */ }
-      }
+        await this.isTokenValidAsync(authToken.access) ||
+      ( authToken!=null &&
+        await this.isTokenValidAsync(authToken.refresh) &&
+        await this.refreshAccessQRTokenOnCookieAsync() )  ){
+
+      this.deleteAccountToken();
+      await this.router.navigate(['/register']);
+      return true;
     }
+
     return false;
   }
   public async goTo_verify_to_register_pageIfNotValidQRTokenAsync(): Promise<boolean>{
