@@ -14,27 +14,22 @@ export type RegisterUserWarnings= {
   password: Array<string>;
   retype_password: Array<string>;
 }
-export type UserEssentialInfo= {
-  first_name: string;
-  last_name: string;
-  email: string;
-  username: string;
+export interface HearoUser{
+  id: number|null;
+  email: string|null;
+  username: string|null;
+  first_name: string|null;
+  last_name: string|null;
+  password_last_modified: string|null;
+  date_joined: string|null;
+  last_login: string|null;
 }
-export type HearoTeamGetWithIdResponse= {
-  email_verified: boolean,
-  is_access_account: boolean,
-  last_update: string,
-  profile_picture: string,
-  user: {
-    date_joined: string,
-    email: string
-    first_name: string,
-    id: number
-    last_login: string,
-    last_name: string,
-    password_last_modified: string,
-    username: string
-  }
+export interface HearoTeamGetWithIdResponse{
+  email_verified: boolean|null;
+  is_access_account: boolean|null;
+  last_update: string|null;
+  profile_picture: string|null;
+  user: HearoUser;
 }
 
 
