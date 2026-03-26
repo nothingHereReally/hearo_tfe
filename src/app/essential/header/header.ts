@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AuthUser } from '../../api-service/auth-user';
 import { ApiFile } from '../../api-service/api-file';
 import { SafeUrl } from '@angular/platform-browser';
+import { HearoTeamGetWithIdResponse } from '../../model/account';
 
 
 @Component({
@@ -16,7 +17,7 @@ import { SafeUrl } from '@angular/platform-browser';
 export class Header implements OnInit {
   private authUser: AuthUser= inject(AuthUser);
   private apiFile: ApiFile= inject(ApiFile);
-  private router= inject(Router);
+  private router: Router= inject(Router);
 
   /*
    * uppwerHeaderWhat:
@@ -37,11 +38,16 @@ export class Header implements OnInit {
    *  -- /model/gloss
    *  -- /model/asl-recognition
    */
+  /* TODO
+   * use Local Storage for __userInfo
+   * for it to not look glitchy
+  */
+  private __userInfo: WritableSignal<HearoTeamGetWithIdResponse|null>= signal(null);
+  protected userfullname: WritableSignal<string>= signal('hearo user')
   protected lowerHeaderButton: WritableSignal<Array<string>>= signal(['', '', '']);
   protected lowerHeaderStyle: WritableSignal<Array<string>>= signal(['style-outline', 'style-outline', 'style-outline']);
 
   protected profilePictureSafeUrl: WritableSignal<SafeUrl>= signal('/user_default_profile.svg');
-  protected userFullName: WritableSignal<string>= signal('Steven Universe');
 
   protected homeStyle: WritableSignal<string>= signal<string>('style-outline');
   protected hospitalHeadStyle: WritableSignal<string>= signal<string>('style-outline');
@@ -106,6 +112,12 @@ export class Header implements OnInit {
   private async __setProfilePicture(): Promise<void>{
     try{
       this.profilePictureSafeUrl.set( await this.apiFile.getProfilePictureViaSafeUrl() );
+      this.__userInfo.set( await this.authUser.getHearoTeamAccountAsync() );
+      if( this.__userInfo() && this.__userInfo()!.user &&
+          this.__userInfo()!.user.first_name &&
+          this.__userInfo()!.user.last_name ){
+        this.userfullname.set( `${this.__userInfo()!.user.first_name} ${this.__userInfo()!.user.last_name}`)
+      }
     }catch(error){}
   }
 
