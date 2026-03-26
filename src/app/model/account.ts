@@ -14,6 +14,12 @@ export type RegisterUserWarnings= {
   password: Array<string>;
   retype_password: Array<string>;
 }
+export type UserEssentialInfo= {
+  first_name: string;
+  last_name: string;
+  email: string;
+  username: string;
+}
 
 
 export type ForgotPasswordField= {
