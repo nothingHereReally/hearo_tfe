@@ -172,7 +172,7 @@ export class AuthUser {
     );
   }
   public async getHearoTeamAccountAsync(): Promise<HearoTeamGetWithIdResponse|null>{
-    const token:Token|null= this.getAccountToken();
+    let token:Token|null= this.getAccountToken();
     if( token==null ){
       throw new Error("Incorrect implementation due to getHearoTeamAccountAsync() should be used when already logged in");
 
@@ -180,31 +180,37 @@ export class AuthUser {
             ( await this.isTokenValidAsync(token.refresh) &&
               await this.refreshAuthUserTokenOnCookieAsync() ) ){
       const user_id: string|null= this.getUserIdViaTokenAuth();
-      try{
-        /* 1st try */
-        const userInfo: HearoTeamGetWithIdResponse= await firstValueFrom(this.http.get<HearoTeamGetWithIdResponse>(
-          `${env.API_DOMAIN}api/v1/hearo-teams/${user_id}/`,
-          {
-            headers: httpRequestHeadersSendReceiveJson.set("Authorization", `Bearer ${token.access}`),
-            observe: 'body',
-            credentials: 'include'
-          }
-        ));
+      token= this.getAccountToken();
+      if( token ){
+        try{
+          /* 1st try */
+          const userInfo: HearoTeamGetWithIdResponse= await firstValueFrom(this.http.get<HearoTeamGetWithIdResponse>(
+            `${env.API_DOMAIN}api/v1/hearo-teams/${user_id}/`,
+            {
+              headers: httpRequestHeadersSendReceiveJson.set("Authorization", `Bearer ${token.access}`),
+              observe: 'body',
+              credentials: 'include'
+            }
+          ));
 
-        return userInfo;
-      }catch(error){
-        /* 2nd try */
-        await this.refreshAuthUserTokenOnCookieAsync();
-        const userInfo: HearoTeamGetWithIdResponse= await firstValueFrom(this.http.get<HearoTeamGetWithIdResponse>(
-          `${env.API_DOMAIN}api/v1/hearo-teams/${user_id}/`,
-          {
-            headers: httpRequestHeadersSendReceiveJson.set("Authorization", `Bearer ${token.access}`),
-            observe: 'body',
-            credentials: 'include'
-          }
-        ));
+          return userInfo;
+        }catch(error){
+          /* 2nd try */
+          await this.refreshAuthUserTokenOnCookieAsync();
+          token= this.getAccountToken();
+          if( token ){
+            const userInfo: HearoTeamGetWithIdResponse= await firstValueFrom(this.http.get<HearoTeamGetWithIdResponse>(
+              `${env.API_DOMAIN}api/v1/hearo-teams/${user_id}/`,
+              {
+                headers: httpRequestHeadersSendReceiveJson.set("Authorization", `Bearer ${token.access}`),
+                observe: 'body',
+                credentials: 'include'
+              }
+            ));
 
-        return userInfo;
+            return userInfo;
+          }
+        }
       }
     }
 
