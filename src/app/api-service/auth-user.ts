@@ -30,6 +30,15 @@ export class AuthUser {
 
   /* ------------------------------------------------ */
   /* access/refresh token management to API on back-end */
+
+
+  /**
+   * does HTTP POST request to backend
+   * -- send image
+   * -- if valid returns the access/refresh token
+   * -- can be used for auth on creating account
+   * @param qr_image_blob image blob data
+   */
   public verifyQR_hearoAccessAccountHttpPost(qr_image_blob: any): Observable<any|Token>{
     const formData= new FormData();
     formData.append('image', qr_image_blob, 'image.png');
