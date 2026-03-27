@@ -39,11 +39,10 @@ export class Header implements OnInit {
    *  -- /model/asl-recognition
    */
   /* TODO
-   * use Local Storage for __userInfo
-   * for it to not look glitchy
+   * ( ✔ solved )use Local Storage for hearoTeamUser
+   * ( ✔ solved )for it to not look glitchy
   */
-  private __userInfo: WritableSignal<HearoTeamGetWithIdResponse|null>= signal(null);
-  protected userfullname: WritableSignal<string>= signal('hearo user')
+  protected hearoTeamUser: WritableSignal<HearoTeamGetWithIdResponse|null>= signal(null);
   protected lowerHeaderButton: WritableSignal<Array<string>>= signal(['', '', '']);
   protected lowerHeaderStyle: WritableSignal<Array<string>>= signal(['style-outline', 'style-outline', 'style-outline']);
 
@@ -112,12 +111,15 @@ export class Header implements OnInit {
   private async __setProfilePicture(): Promise<void>{
     try{
       this.profilePictureSafeUrl.set( await this.apiFile.getProfilePictureViaSafeUrl() );
-      this.__userInfo.set( await this.authUser.getHearoTeamAccountAsync() );
-      if( this.__userInfo() && this.__userInfo()!.user &&
-          this.__userInfo()!.user.first_name &&
-          this.__userInfo()!.user.last_name ){
-        this.userfullname.set( `${this.__userInfo()!.user.first_name} ${this.__userInfo()!.user.last_name}`)
-      }
+
+      /* does twice due to on Async is slower */
+      this.hearoTeamUser.set( this.authUser.getHearoTeamUserViaLocalStorage() );
+      this.authUser.updateHearoTeamUserOnLocalStorageAsync()
+          .then((hasUpdate: boolean)=>{
+            if(hasUpdate){ this.hearoTeamUser.set( this.authUser.getHearoTeamUserViaLocalStorage() ); }
+          });
+
+
     }catch(error){}
   }
 

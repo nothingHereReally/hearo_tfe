@@ -62,7 +62,13 @@
         <span class="
           font-normal-regular
           font-color-pc1-300
-          ">{{ userfullname() }}</span>
+          ">
+        @if( hearoTeamUser() && hearoTeamUser()!.user ){
+          {{ hearoTeamUser()!.user.first_name }} {{ hearoTeamUser()!.user.last_name }}
+        }@else{
+          hearo user
+        }
+        </span>
       </button>
     </div>
   </div>

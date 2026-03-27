@@ -19,6 +19,7 @@ export class AuthUser {
   private http= inject(HttpClient);
   private cookie= inject(CookieService);
   private router= inject(Router);
+  private readonly HHUSER_KEY_LS: string= 'hh_user';
 
 
 
@@ -216,6 +217,67 @@ export class AuthUser {
 
 
     return null
+  }
+
+
+
+
+
+
+
+
+  /* local storage CRUD */
+  public setJsonLocalStorage(key: string, data: any): void{
+    localStorage.setItem(key, JSON.stringify(data));
+  }
+  public getJsonLocalStorage<T>(key: string): T|null{
+    const data = localStorage.getItem(key);
+    if(!data) return null;
+
+    try{
+      return JSON.parse(data) as T;
+    }catch(e){ return null; }
+  }
+  public removeJsonLocalStorage(key: string): void {
+    localStorage.removeItem(key);
+  }
+
+
+
+
+
+
+
+
+  /* hearo user on local storage */
+  private __isOldSameAsNewHearoTeamUser(oldUser: HearoTeamGetWithIdResponse, newUser: HearoTeamGetWithIdResponse): boolean{
+    return oldUser.email_verified==newUser.email_verified &&
+           oldUser.is_access_account==newUser.is_access_account &&
+           oldUser.last_update==newUser.last_update &&
+           oldUser.user.email==newUser.user.email &&
+           oldUser.user.username==newUser.user.username &&
+           oldUser.user.first_name==newUser.user.first_name &&
+           oldUser.user.last_name==newUser.user.last_name &&
+           oldUser.user.password_last_modified==newUser.user.password_last_modified &&
+           oldUser.user.date_joined==newUser.user.date_joined &&
+           oldUser.user.last_login==newUser.user.last_login;
+  }
+  public async updateHearoTeamUserOnLocalStorageAsync(): Promise<boolean>{
+    const hearoUser: HearoTeamGetWithIdResponse|null= await this.getHearoTeamAccountAsync();
+    if( hearoUser==null ){
+      throw new Error("Incorrect implementation, updateHearoTeamUserOnLocalStorageAsync() must be used after logged in");
+    }
+    const oldHearoUser: HearoTeamGetWithIdResponse|null= this.getJsonLocalStorage<HearoTeamGetWithIdResponse|null>(this.HHUSER_KEY_LS);
+
+    if( oldHearoUser!=null && this.__isOldSameAsNewHearoTeamUser(oldHearoUser, hearoUser) ){
+      return false; /* no update needed due to same data */
+    }
+
+    this.setJsonLocalStorage(this.HHUSER_KEY_LS, hearoUser);
+    return true;
+  }
+  public getHearoTeamUserViaLocalStorage(): HearoTeamGetWithIdResponse|null{
+    return this.getJsonLocalStorage<HearoTeamGetWithIdResponse|null>(this.HHUSER_KEY_LS);
   }
 
 
