@@ -2,19 +2,20 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 
+import { AccountProfile } from './page/account-profile/account-profile';
 import { ForgotPassword } from './page/forgot-password/forgot-password';
+import { HomeGloss } from './page/home-gloss/home-gloss';
+import { HomeSentence } from './page/home-sentence/home-sentence';
+import { HomeUsage } from './page/home-usage/home-usage';
 import { HospitalHead } from './page/hospital-head/hospital-head';
+import { Hospitals } from './page/hospitals/hospitals';
 import { Login } from './page/login/login';
+import { ModelAslRecognition } from './page/model-asl-recognition/model-asl-recognition';
+import { ModelGloss } from './page/model-gloss/model-gloss';
+import { ModelPatientVideo } from './page/model-patient-video/model-patient-video';
 import { Register } from './page/register/register';
 import { ResetPassword } from './page/reset-password/reset-password';
 import { VerifyToRegister } from './page/verify-to-register/verify-to-register';
-import { Hospitals } from './page/hospitals/hospitals';
-import { ModelGloss } from './page/model-gloss/model-gloss';
-import { ModelAslRecognition } from './page/model-asl-recognition/model-asl-recognition';
-import { ModelPatientVideo } from './page/model-patient-video/model-patient-video';
-import { HomeUsage } from './page/home-usage/home-usage';
-import { HomeGloss } from './page/home-gloss/home-gloss';
-import { HomeSentence } from './page/home-sentence/home-sentence';
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -38,6 +39,8 @@ const routes: Routes = [
   {path: 'model/patient-video', component: ModelPatientVideo, title: 'Hearo Model - Patient Video'},
   {path: 'model/gloss', component: ModelGloss, title: 'Hearo Model - Gloss Record'},
   {path: 'model/asl-recognition', component: ModelAslRecognition, title: 'Hearo - ASL Model'},
+
+  {path: 'account-profile', component: AccountProfile, title: 'Account Hearo Team'},
 ];
 
 @NgModule({

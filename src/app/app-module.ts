@@ -29,6 +29,7 @@ import { ModelPatientVideo } from './page/model-patient-video/model-patient-vide
 import { HomeUsage } from './page/home-usage/home-usage';
 import { HomeGloss } from './page/home-gloss/home-gloss';
 import { HomeSentence } from './page/home-sentence/home-sentence';
+import { AccountProfile } from './page/account-profile/account-profile';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { HomeSentence } from './page/home-sentence/home-sentence';
     HomeUsage,
     HomeGloss,
     HomeSentence,
+    AccountProfile,
   ],
   imports: [
     BrowserModule,

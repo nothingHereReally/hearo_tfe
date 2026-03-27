@@ -183,6 +183,6 @@ export class Header implements OnInit {
     await this.authUser.userLogOutAsync();
   }
   public clickedProfile(): void{
-    console.log(`clicked profile ${Math.random()}`);
+    this.router.navigate(['/account-profile']);
   }
 }
