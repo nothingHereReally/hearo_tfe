@@ -30,8 +30,6 @@ export class AuthUser {
 
   /* ------------------------------------------------ */
   /* access/refresh token management to API on back-end */
-
-
   /**
    * does HTTP POST request to backend
    * -- send image
