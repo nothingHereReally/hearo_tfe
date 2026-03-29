@@ -39,8 +39,7 @@ export class Header implements OnInit {
    *  -- /model/asl-recognition
    */
   /* TODO
-   * ( ✔ solved )use Local Storage for hearoTeamUser
-   * ( ✔ solved )for it to not look glitchy
+   * do /account-profile page
   */
   protected hearoTeamUser: WritableSignal<HearoTeamGetWithIdResponse|null>= signal(null);
   protected lowerHeaderButton: WritableSignal<Array<string>>= signal(['', '', '']);
