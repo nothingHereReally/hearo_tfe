@@ -28,3 +28,9 @@ export function hasSpace(wordStr: string): boolean{
 
   return hasSpaceRegExp.test(wordStr);
 }
+export function allAreSpace(wordStr: string): boolean{
+  const hasSpaceRegExp: RegExp= /^\s+$/;
+  if(!wordStr) return false;
+
+  return hasSpaceRegExp.test(wordStr);
+}
