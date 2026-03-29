@@ -48,40 +48,61 @@
               [nameInput]="'fist_name'"
               [(inputValue)]="userInfoEdit().first_name"
               [iconNameLeft]="''"
+              [isReadOnly]="readOrWithEdit()"
               [labelText]="'First Name'"
               [placeholderText]="'First Name'"
-              (outWant2Run)="toggleEditDone()"
+              (outWant2Run)="clickedUpdateInfo()"
               />
           <app-input
               [nameInput]="'last_name'"
               [(inputValue)]="userInfoEdit().last_name"
               [iconNameLeft]="''"
+              [isReadOnly]="readOrWithEdit()"
               [labelText]="'Last Name'"
               [placeholderText]="'Last Name'"
-              (outWant2Run)="toggleEditDone()"
+              (outWant2Run)="clickedUpdateInfo()"
               />
           <app-input
               [nameInput]="'email'"
               [(inputValue)]="userInfoEdit().email"
               [iconNameLeft]="''"
+              [isReadOnly]="readOrWithEdit()"
               [labelText]="'Email'"
               [placeholderText]="'Email'"
-              (outWant2Run)="toggleEditDone()"
+              (outWant2Run)="clickedUpdateInfo()"
               />
           <app-input
               [nameInput]="'username'"
               [(inputValue)]="userInfoEdit().username"
               [iconNameLeft]="''"
+              [isReadOnly]="readOrWithEdit()"
               [labelText]="'Username'"
               [placeholderText]="'Username'"
-              (outWant2Run)="toggleEditDone()"
+              (outWant2Run)="clickedUpdateInfo()"
               />
+          @if(readOrWithEdit()==profileReadOrAndEdit()[0]){
           <app-button
               [text]="'Edit'"
               [styleButton]="'style-solid'"
               [iconname]="'pen'"
-              (outOnClick)="toggleEditDone()"
+              (outOnClick)="clickedEdit()"
               />
+          }@else{
+          <div class="flex-row-space-between">
+            <app-button
+                [text]="'Update Info'"
+                [styleButton]="'style-outline'"
+                [iconname]="'check'"
+                (outOnClick)="clickedUpdateInfo()"
+                />
+            <app-button
+                [text]="'Cancel'"
+                [styleButton]="'style-solid'"
+                [iconname]="''"
+                (outOnClick)="clickedCancelEdit()"
+                />
+          </div>
+          }
         </div>
       </div>
 

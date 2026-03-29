@@ -23,6 +23,8 @@ export class AccountProfile {
     password: '',
     retype_password: ''
   });
+  protected readonly profileReadOrAndEdit: Signal<Array<string>>= signal(['is-readonly', 'is-not-readonly']);
+  protected readOrWithEdit: WritableSignal<string>= signal(this.profileReadOrAndEdit()[0]);
 
 
   /**
@@ -36,9 +38,26 @@ export class AccountProfile {
   protected clickedUploadPhoto(): void{
     console.log(`clicked upload photo ------- ${Math.random()}`);
   }
-  protected toggleEditDone(): void{
-    console.log(`toggle edit done ------- ${Math.random()}`);
+
+
+
+
+  protected clickedEdit(): void{
+    this.readOrWithEdit.set( this.profileReadOrAndEdit()[1] );
   }
+  protected clickedCancelEdit(): void{
+    this.readOrWithEdit.set( this.profileReadOrAndEdit()[0] );
+  }
+  protected clickedUpdateInfo(): void{
+    this.readOrWithEdit.set( this.profileReadOrAndEdit()[0] );
+    /* TODO
+     * do warnings then upate
+     */
+  }
+
+
+
+
   protected toggleAccessAccount(): void{
     console.log(`toggle access account ------- ${Math.random()}`);
   }
