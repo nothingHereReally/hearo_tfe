@@ -22,3 +22,9 @@ export function isEmailFormat(email: string): boolean{
 
   return emailRegex.test(email);
 }
+export function hasSpace(wordStr: string): boolean{
+  const hasSpaceRegExp: RegExp= /\s/;
+  if(!wordStr) return false;
+
+  return hasSpaceRegExp.test(wordStr);
+}
