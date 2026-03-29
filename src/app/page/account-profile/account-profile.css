@@ -1,0 +1,47 @@
+.account-profile-page{
+  display: flex;
+  flex-direction: column;
+  gap: var(--pad200-md);
+}
+
+
+.account-profile-form{
+  display: flex;
+  flex-direction: column;
+  gap: var(--pad200-xl);
+
+  width: 45vw;
+  min-width: 29rem;
+}
+
+
+.account-edits{
+  display: flex;
+  align-items: center;
+  gap: var(--pad200-xs);
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+
+.account-edits > div{
+  display: flex;
+  flex-direction: column;
+  gap: var(--pad100-lg);
+}
+.account-edits > div:nth-child(1){
+  /* profile photo
+   * upload photo button
+   */
+  align-items: center;
+}
+.account-edits > div:nth-child(2){
+  /* fill up first name
+   * fill up last name
+   * fill up email
+   * fill up username
+   */
+  align-items: stretch;
+  width: 100%;
+  max-width: 31.4rem;
+}
