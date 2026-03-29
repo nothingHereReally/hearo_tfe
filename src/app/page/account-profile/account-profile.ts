@@ -1,5 +1,6 @@
-import { Component, signal, WritableSignal } from '@angular/core';
+import { Component, inject, Signal, signal, WritableSignal } from '@angular/core';
 import { RegisterUser } from '../../model/account';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-account-profile',
@@ -8,6 +9,12 @@ import { RegisterUser } from '../../model/account';
   styleUrl: './account-profile.css'
 })
 export class AccountProfile {
+  private router: Router= inject(Router);
+  private readonly prevPath: Signal<string>= signal(String(
+    this.router.currentNavigation()?.extras.state?.['past_path'] ?? '/sentence/home'
+  ));
+
+
   protected userInfoEdit: WritableSignal<RegisterUser>= signal({
     first_name: '',
     last_name: '',
@@ -24,7 +31,7 @@ export class AccountProfile {
    * to update to pass past data, else use to /home/sentence
    */
   protected clickedBack(): void{
-    console.log(`go back blah ------- ${Math.random()}`);
+    this.router.navigate([this.prevPath()]);
   }
   protected clickedUploadPhoto(): void{
     console.log(`clicked upload photo ------- ${Math.random()}`);
