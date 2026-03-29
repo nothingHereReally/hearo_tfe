@@ -30,9 +30,9 @@
       <div class="account-edits">
         <div>
           <img
-              src="/user_default_profile.svg"
+              [src]="profilePictureSafeUrl()"
               alt="Profile Picture"
-              class="image-18rem-size"
+              class="image-18rem-size radius-50p-be-round"
               >
           <app-button
               [text]="'Upload Photo'"
@@ -44,42 +44,78 @@
 
 
         <div>
-          <app-input
-              [nameInput]="'fist_name'"
-              [(inputValue)]="userInfoEdit().first_name"
-              [iconNameLeft]="''"
-              [isReadOnly]="readOrWithEdit()"
-              [labelText]="'First Name'"
-              [placeholderText]="'First Name'"
-              (outWant2Run)="clickedUpdateInfo()"
-              />
-          <app-input
-              [nameInput]="'last_name'"
-              [(inputValue)]="userInfoEdit().last_name"
-              [iconNameLeft]="''"
-              [isReadOnly]="readOrWithEdit()"
-              [labelText]="'Last Name'"
-              [placeholderText]="'Last Name'"
-              (outWant2Run)="clickedUpdateInfo()"
-              />
-          <app-input
-              [nameInput]="'email'"
-              [(inputValue)]="userInfoEdit().email"
-              [iconNameLeft]="''"
-              [isReadOnly]="readOrWithEdit()"
-              [labelText]="'Email'"
-              [placeholderText]="'Email'"
-              (outWant2Run)="clickedUpdateInfo()"
-              />
-          <app-input
-              [nameInput]="'username'"
-              [(inputValue)]="userInfoEdit().username"
-              [iconNameLeft]="''"
-              [isReadOnly]="readOrWithEdit()"
-              [labelText]="'Username'"
-              [placeholderText]="'Username'"
-              (outWant2Run)="clickedUpdateInfo()"
-              />
+          <div>
+            <app-input
+                [nameInput]="'fist_name'"
+                [(inputValue)]="userHT().user.first_name!"
+                [iconNameLeft]="''"
+                [isReadOnly]="readOrWithEdit()"
+                [labelText]="'First Name'"
+                [placeholderText]="'First Name'"
+                (outWant2Run)="clickedUpdateInfo()"
+                />
+            @for(warn_first_name of userHTWarnings().first_name; track warn_first_name){
+            <span class="
+            font-normal-regular
+            font-color-fail
+            flex-center-horizontal
+            ">{{ warn_first_name }}</span>
+            }
+          </div>
+          <div>
+            <app-input
+                [nameInput]="'last_name'"
+                [(inputValue)]="userHT().user.last_name!"
+                [iconNameLeft]="''"
+                [isReadOnly]="readOrWithEdit()"
+                [labelText]="'Last Name'"
+                [placeholderText]="'Last Name'"
+                (outWant2Run)="clickedUpdateInfo()"
+                />
+            @for(warn_last_name of userHTWarnings().last_name; track warn_last_name){
+            <span class="
+            font-normal-regular
+            font-color-fail
+            flex-center-horizontal
+            ">{{ warn_last_name }}</span>
+            }
+          </div>
+          <div>
+            <app-input
+                [nameInput]="'email'"
+                [(inputValue)]="userHT().user.email!"
+                [iconNameLeft]="''"
+                [isReadOnly]="readOrWithEdit()"
+                [labelText]="'Email'"
+                [placeholderText]="'Email'"
+                (outWant2Run)="clickedUpdateInfo()"
+                />
+            @for(warn_email of userHTWarnings().email; track warn_email){
+            <span class="
+            font-normal-regular
+            font-color-fail
+            flex-center-horizontal
+            ">{{ warn_email }}</span>
+            }
+          </div>
+          <div>
+            <app-input
+                [nameInput]="'username'"
+                [(inputValue)]="userHT().user.username!"
+                [iconNameLeft]="''"
+                [isReadOnly]="readOrWithEdit()"
+                [labelText]="'Username'"
+                [placeholderText]="'Username'"
+                (outWant2Run)="clickedUpdateInfo()"
+                />
+            @for(warn_username of userHTWarnings().username; track warn_username){
+            <span class="
+            font-normal-regular
+            font-color-fail
+            flex-center-horizontal
+            ">{{ warn_username }}</span>
+            }
+          </div>
           @if(readOrWithEdit()==profileReadOrAndEdit()[0]){
           <app-button
               [text]="'Edit'"

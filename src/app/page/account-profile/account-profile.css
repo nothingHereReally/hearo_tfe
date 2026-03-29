@@ -18,7 +18,8 @@
 .account-edits{
   display: flex;
   align-items: center;
-  gap: var(--pad200-xs);
+  column-gap: var(--pad200-xs);
+  row-gap: var(--pad300-md);
   flex-wrap: wrap;
   width: 100%;
 }
