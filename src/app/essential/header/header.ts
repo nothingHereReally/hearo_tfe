@@ -182,6 +182,8 @@ export class Header implements OnInit {
     await this.authUser.userLogOutAsync();
   }
   public clickedProfile(): void{
-    this.router.navigate(['/account-profile']);
+    this.router.navigate(['/account-profile'], {
+        state: {past_path: String(this.router.url)}
+    });
   }
 }
