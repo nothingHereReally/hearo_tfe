@@ -461,6 +461,12 @@ html, body {
   justify-content: center;
   align-items: center;
 }
+.flex-start-row-4px-gap{
+  display: flex;
+  gap: var(--pad100-xs);
+  justify-content: flex-start;
+  align-items: center;
+}
 .flex-end-row-4px-gap{
   display: flex;
   gap: var(--pad100-xs);
@@ -482,6 +488,9 @@ html, body {
   padding-top: 12px;
   padding-bottom: 12px;
 }
+.back-button-padding-left{
+  padding-left: var(--pad100-xl);
+}
 
 
 
@@ -491,6 +500,11 @@ html, body {
 }
 
 
+.image-18rem-size{
+  width: 18rem;
+  height: 18rem;
+  object-fit: cover;
+}
 .logo-height-36px{
   height: 36px;
 }
