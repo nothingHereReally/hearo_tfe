@@ -275,6 +275,7 @@ export class AuthUser {
 
         if( hasUpdate ){
           try{
+            /* 1st try update */
             const userInfoUpdated: HearoTeamGetWithIdResponse= await firstValueFrom(this.http.patch<HearoTeamGetWithIdResponse>(
               `${env.API_DOMAIN}api/v1/hearo-teams/${user_id}/`,
               {
@@ -289,7 +290,26 @@ export class AuthUser {
 
             return userInfoUpdated;
           }catch(err: any){
-            throw err;
+            try{
+              /* 2nd try update */
+              await this.refreshAuthUserTokenOnCookieAsync();
+              token= this.getAccountToken()!;
+              const userInfoUpdated: HearoTeamGetWithIdResponse= await firstValueFrom(this.http.patch<HearoTeamGetWithIdResponse>(
+                `${env.API_DOMAIN}api/v1/hearo-teams/${user_id}/`,
+                {
+                  user: userInfo2Update
+                },
+                {
+                  headers: httpRequestHeadersSendReceiveJson.set("Authorization", `Bearer ${token.access}`),
+                  observe: 'body',
+                  credentials: 'include'
+                }
+              ));
+
+              return userInfoUpdated;
+            }catch(err: any){
+              throw err;
+            }
           }
         }
       }
