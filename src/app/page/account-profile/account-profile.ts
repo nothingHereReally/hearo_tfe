@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, Signal, signal, WritableSignal } from '@angular/core';
-import { HearoTeamGetWithIdResponse, RegisterUserWarnings } from '../../model/account';
+import { DiffUserInfo, HearoTeamGetWithIdResponse, RegisterUserWarnings } from '../../model/account';
 import { Router } from '@angular/router';
 import { SafeUrl } from '@angular/platform-browser';
 
@@ -59,6 +59,14 @@ export class AccountProfile implements OnInit{
     }
   })
   protected userHTWarnings: WritableSignal<RegisterUserWarnings>= signal({
+    first_name: [],
+    last_name: [],
+    email: [],
+    username: [],
+    password: [],
+    retype_password: [],
+  });
+  protected userHTUpdateSuccess: WritableSignal<RegisterUserWarnings>= signal({
     first_name: [],
     last_name: [],
     email: [],
@@ -241,13 +249,218 @@ export class AccountProfile implements OnInit{
 
     return allBeFilled;
   }
-  protected clickedUpdateInfo(): void{
-    if( this.__allAreFilledWithRightChars() ){
-      this.__clearAllWarnings();
-      this.readOrWithEdit.set( this.profileReadOrAndEdit()[0] );
-      /* TODO
-       * do warnings then upate
-       */
+  private __diffPastCurrent(): DiffUserInfo{
+    let isDifferent: DiffUserInfo= {
+      first_name: false,
+      last_name: false,
+      email: false,
+      username: false
+    };
+    if( this.pastUserHT().user.first_name!=this.userHT().user.first_name ){
+      isDifferent.first_name= true;
+    }
+    if( this.pastUserHT().user.last_name!=this.userHT().user.last_name ){
+      isDifferent.last_name= true;
+    }
+    if( this.pastUserHT().user.email!=this.userHT().user.email ){
+      isDifferent.email= true;
+    }
+    if( this.pastUserHT().user.username!=this.userHT().user.username ){
+      isDifferent.username= true;
+    }
+    return isDifferent;
+  }
+  private __hasChangeAtLeastOne(): boolean{
+    const hasDiff: DiffUserInfo= this.__diffPastCurrent();
+    if( hasDiff.first_name ){
+      return true;
+    }else if( hasDiff.last_name ){
+      return true;
+    }else if( hasDiff.email ){
+      return true;
+    }else if( hasDiff.username ){
+      return true;
+    }
+
+    this.userHTWarnings.update(value=>({
+      ...value,
+      username: ['No Changes has been made.']
+    }));
+    sleepAsync(
+      env.TIME_ERROR_DISPLAY,
+      ()=>{
+        this.userHTWarnings.update(value=>({
+          ...value,
+          username: []
+        }));
+      }
+    );
+
+    return false;
+  }
+  private __updateSuccessMessage(whichHasUpdate: DiffUserInfo): void{
+    if( whichHasUpdate.first_name ){
+      this.userHTUpdateSuccess.update(value=>({
+        ...value,
+        first_name: ['Successfully updated First Name ✔']
+      }));
+      sleepAsync(
+        env.TIME_ERROR_DISPLAY,
+        ()=>{
+          this.userHTUpdateSuccess.update(value=>({
+            ...value,
+            first_name: []
+          }));
+        }
+      );
+    }
+    if( whichHasUpdate.last_name ){
+      this.userHTUpdateSuccess.update(value=>({
+        ...value,
+        last_name: ['Successfully updated Last Name ✔']
+      }));
+      sleepAsync(
+        env.TIME_ERROR_DISPLAY,
+        ()=>{
+          this.userHTUpdateSuccess.update(value=>({
+            ...value,
+            last_name: []
+          }));
+        }
+      );
+    }
+    if( whichHasUpdate.email ){
+      this.userHTUpdateSuccess.update(value=>({
+        ...value,
+        email: ['Successfully updated Email ✔']
+      }));
+      sleepAsync(
+        env.TIME_ERROR_DISPLAY,
+        ()=>{
+          this.userHTUpdateSuccess.update(value=>({
+            ...value,
+            email: []
+          }));
+        }
+      );
+    }
+    if( whichHasUpdate.username ){
+      this.userHTUpdateSuccess.update(value=>({
+        ...value,
+        username: ['Successfully updated Username ✔']
+      }));
+      sleepAsync(
+        env.TIME_ERROR_DISPLAY,
+        ()=>{
+          this.userHTUpdateSuccess.update(value=>({
+            ...value,
+            username: []
+          }));
+        }
+      );
+    }
+  }
+  private __showUpdateValidationError(userWarn: RegisterUserWarnings): void{
+    if( userWarn.first_name && 0<userWarn.first_name.length ){
+      this.userHTWarnings.update(value=>({
+        ...value,
+        first_name: [...value.first_name, ...userWarn.first_name]
+      }));
+      sleepAsync(
+        env.TIME_ERROR_DISPLAY,
+        ()=>{
+          this.userHTWarnings.update(value=>({
+            ...value,
+            first_name: []
+          }));
+        }
+      );
+    }
+    if( userWarn.last_name && 0<userWarn.last_name.length ){
+      this.userHTWarnings.update(value=>({
+        ...value,
+        last_name: [...value.last_name, ...userWarn.last_name]
+      }));
+      sleepAsync(
+        env.TIME_ERROR_DISPLAY,
+        ()=>{
+          this.userHTWarnings.update(value=>({
+            ...value,
+            last_name: []
+          }));
+        }
+      );
+    }
+    if( userWarn.email && 0<userWarn.email.length ){
+      this.userHTWarnings.update(value=>({
+        ...value,
+        email: [...value.email, ...userWarn.email]
+      }));
+      sleepAsync(
+        env.TIME_ERROR_DISPLAY,
+        ()=>{
+          this.userHTWarnings.update(value=>({
+            ...value,
+            email: []
+          }));
+        }
+      );
+    }
+    if( userWarn.username && 0<userWarn.username.length ){
+      this.userHTWarnings.update(value=>({
+        ...value,
+        username: [...value.username, ...userWarn.username]
+      }));
+      sleepAsync(
+        env.TIME_ERROR_DISPLAY,
+        ()=>{
+          this.userHTWarnings.update(value=>({
+            ...value,
+            username: []
+          }));
+        }
+      );
+    }
+  }
+  private async __updateInfoViaHttpPatch(): Promise<boolean>{
+    const whichHasUpdate: DiffUserInfo= this.__diffPastCurrent();
+    try{
+      const updateResponse: HearoTeamGetWithIdResponse|null= await this.authUser.updateHearoTeamAccount4BasicInfoAsync(
+        this.userHT(),
+        whichHasUpdate
+      );
+      if( updateResponse!=null ){
+        /* since NOT null means success, now
+         * do success message
+         */
+        this.__updateSuccessMessage(whichHasUpdate);
+        const isUpdateSuccess: boolean= await this.authUser.updateHearoTeamUserOnLocalStorageAsync();
+        if( isUpdateSuccess ){
+          this.userHT.set( this.authUser.getHearoTeamUserViaLocalStorage()! );
+          this.pastUserHT.set( this.authUser.getHearoTeamUserViaLocalStorage()! );
+        }
+      }else{
+        /* go /login
+         * due to refresh token expired
+         */
+        this.authUser.deleteAccountToken();
+        this.router.navigate(['/login']);
+      }
+      return true;
+    }catch(err: any){
+      this.__showUpdateValidationError(err.error.user as RegisterUserWarnings);
+    }
+
+    return false;
+  }
+  protected async clickedUpdateInfo(): Promise<void>{
+    if( this.__allAreFilledWithRightChars() && this.__hasChangeAtLeastOne() ){
+
+      if( await this.__updateInfoViaHttpPatch() ){
+        this.__clearAllWarnings();
+        this.readOrWithEdit.set( this.profileReadOrAndEdit()[0] );
+      }
+
     }
   }
 
