@@ -61,6 +61,13 @@
             flex-center-horizontal
             ">{{ warn_first_name }}</span>
             }
+            @for(success_first_name of userHTUpdateSuccess().first_name; track success_first_name){
+            <span class="
+            font-normal-regular
+            font-color-success
+            flex-center-horizontal
+            ">{{ success_first_name }}</span>
+            }
           </div>
           <div>
             <app-input
@@ -78,6 +85,13 @@
             font-color-fail
             flex-center-horizontal
             ">{{ warn_last_name }}</span>
+            }
+            @for(success_last_name of userHTUpdateSuccess().last_name; track success_last_name){
+            <span class="
+            font-normal-regular
+            font-color-success
+            flex-center-horizontal
+            ">{{ success_last_name }}</span>
             }
           </div>
           <div>
@@ -97,6 +111,13 @@
             flex-center-horizontal
             ">{{ warn_email }}</span>
             }
+            @for(success_email of userHTUpdateSuccess().email; track success_email){
+            <span class="
+            font-normal-regular
+            font-color-success
+            flex-center-horizontal
+            ">{{ success_email }}</span>
+            }
           </div>
           <div>
             <app-input
@@ -114,6 +135,13 @@
             font-color-fail
             flex-center-horizontal
             ">{{ warn_username }}</span>
+            }
+            @for(success_username of userHTUpdateSuccess().username; track success_username){
+            <span class="
+            font-normal-regular
+            font-color-success
+            flex-center-horizontal
+            ">{{ success_username }}</span>
             }
           </div>
           @if(readOrWithEdit()==profileReadOrAndEdit()[0]){
