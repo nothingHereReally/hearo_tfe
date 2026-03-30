@@ -31,6 +31,12 @@ export interface HearoTeamGetWithIdResponse{
   profile_picture: string|null;
   user: HearoUser;
 }
+export interface DiffUserInfo{
+  first_name: boolean;
+  last_name: boolean;
+  email: boolean;
+  username: boolean;
+}
 
 
 export type ForgotPasswordField= {
