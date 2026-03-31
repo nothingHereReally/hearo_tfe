@@ -15,20 +15,20 @@ export type RegisterUserWarnings= {
   retype_password: Array<string>;
 }
 export interface HearoUser{
-  id: number|null;
-  email: string|null;
-  username: string|null;
-  first_name: string|null;
-  last_name: string|null;
-  password_last_modified: string|null;
-  date_joined: string|null;
-  last_login: string|null;
+  id?: number|null;
+  email?: string|null;
+  username?: string|null;
+  first_name?: string|null;
+  last_name?: string|null;
+  password_last_modified?: string|null;
+  date_joined?: string|null;
+  last_login?: string|null;
 }
 export interface HearoTeamGetWithIdResponse{
-  email_verified: boolean|null;
-  is_access_account: boolean|null;
-  last_update: string|null;
-  profile_picture: string|null;
+  email_verified?: boolean|null;
+  is_access_account?: boolean|null;
+  last_update?: string|null;
+  profile_picture?: string|null;
   user: HearoUser;
 }
 export interface DiffUserInfo{
