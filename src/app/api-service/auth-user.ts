@@ -179,6 +179,17 @@ export class AuthUser {
       },
     );
   }
+  public updateHearoAccountHttpPatch(hearoUser: HearoTeamGetWithIdResponse): Observable<HearoTeamGetWithIdResponse|any>{
+    return this.http.patch<HearoTeamGetWithIdResponse|any>(
+      `${env.API_DOMAIN}api/v1/hearo-teams/${this.getUserIdViaTokenAuth()}/`,
+      hearoUser,
+      {
+        headers: httpRequestHeadersSendReceiveJson.set("Authorization", `Bearer ${this.getAccountToken()!.access}`),
+        observe: 'body',
+        credentials: 'include'
+      }
+    );
+  }
   public async getHearoTeamAccountAsync(): Promise<HearoTeamGetWithIdResponse|null>{
     let token:Token|null= this.getAccountToken();
     if( token==null ){
@@ -275,18 +286,7 @@ export class AuthUser {
 
         if( hasUpdate ){
           try{
-            /* 1st try update */
-            const userInfoUpdated: HearoTeamGetWithIdResponse= await firstValueFrom(this.http.patch<HearoTeamGetWithIdResponse>(
-              `${env.API_DOMAIN}api/v1/hearo-teams/${user_id}/`,
-              {
-                user: userInfo2Update
-              },
-              {
-                headers: httpRequestHeadersSendReceiveJson.set("Authorization", `Bearer ${token.access}`),
-                observe: 'body',
-                credentials: 'include'
-              }
-            ));
+            const userInfoUpdated: HearoTeamGetWithIdResponse= await firstValueFrom(this.updateHearoAccountHttpPatch({user: userInfo2Update}));
 
             return userInfoUpdated;
           }catch(err: any){
