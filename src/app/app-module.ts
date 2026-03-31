@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { App } from './app';
 import { AppRoutingModule } from './app-routing-module';
 
@@ -30,6 +30,7 @@ import { HomeUsage } from './page/home-usage/home-usage';
 import { HomeGloss } from './page/home-gloss/home-gloss';
 import { HomeSentence } from './page/home-sentence/home-sentence';
 import { AccountProfile } from './page/account-profile/account-profile';
+import { authTokenHttpInterceptInterceptor } from './services/auth-token-http-intercept-interceptor';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,7 @@ import { AccountProfile } from './page/account-profile/account-profile';
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideHttpClient(withFetch()),
+    provideHttpClient(withFetch(), withInterceptors([authTokenHttpInterceptInterceptor])),
     CookieService
   ],
   bootstrap: [App]
