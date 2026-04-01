@@ -4,9 +4,10 @@ import { firstValueFrom } from 'rxjs';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 
+import { AddAuthTokenHttpIntercept } from '../services/auth-token-http-intercept-interceptor';
+import { AuthUser } from './auth-user';
 import { environment as env } from '../../environment/environment';
 import { httpRequestHeadersSendReceiveJson } from '../model/tools';
-import { AuthUser } from './auth-user';
 import { Token } from '../model/token';
 
 
@@ -28,9 +29,10 @@ export class ApiFile {
         const imgBlob= await firstValueFrom(this.http.get(
           `${env.API_DOMAIN}api/v1/get-profile-picture/`,
           {
-            headers: httpRequestHeadersSendReceiveJson.set('Authorization', `Bearer ${authToken.access}`),
+            headers: httpRequestHeadersSendReceiveJson,
             observe: 'body',
-            responseType: 'blob'
+            responseType: 'blob',
+            context: AddAuthTokenHttpIntercept
           },
         ));
         const objectUrl = URL.createObjectURL(imgBlob);
