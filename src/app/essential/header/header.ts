@@ -110,16 +110,15 @@ export class Header implements OnInit {
   private async __setProfilePicture(): Promise<void>{
     try{
       this.profilePictureSafeUrl.set( await this.apiFile.getProfilePictureViaSafeUrlAsync() );
-
-      /* does twice due to on Async is slower */
-      this.hearoTeamUser.set( this.authUser.getHearoTeamUserViaLocalStorage() );
-      this.authUser.updateHearoTeamUserOnLocalStorageAsync()
-          .then((hasUpdate: boolean)=>{
-            if(hasUpdate){ this.hearoTeamUser.set( this.authUser.getHearoTeamUserViaLocalStorage() ); }
-          });
-
-
     }catch(error){}
+    /* does twice due to on Async is slower */
+    this.hearoTeamUser.set( this.authUser.getHearoTeamUserViaLocalStorage() );
+    this.authUser.updateHearoTeamUserOnLocalStorageAsync()
+        .then((hasUpdate: boolean)=>{
+          if(hasUpdate){ this.hearoTeamUser.set( this.authUser.getHearoTeamUserViaLocalStorage() ); }
+        });
+
+
   }
 
 
