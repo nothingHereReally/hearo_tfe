@@ -103,10 +103,7 @@ export class AccountProfile implements OnInit{
 
 
   private async __setProfilePictureAsync(): Promise<void>{
-    const imageBlobUrl: SafeUrl= await this.apiFile.getProfilePictureViaSafeUrlAsync();
-    if( imageBlobUrl!=null ){
-      this.profilePictureSafeUrl.set( imageBlobUrl );
-    }
+    this.profilePictureSafeUrl.set( await this.apiFile.getProfilePictureViaSafeUrlAsync() );
   }
   protected clickedEdit(): void{
     this.readOrWithEdit.set( this.profileReadOrAndEdit()[1] );
