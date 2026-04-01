@@ -9,7 +9,7 @@ import { environment as env } from '../../environment/environment';
 import { httpRequestHeadersReceiveJson, httpRequestHeadersSendReceiveJson } from '../model/tools';
 import { LoginField } from '../model/login-field';
 import { Token } from '../model/token';
-import { DiffUserInfo, ForgotPasswordField, ForgotPasswordResponse, HearoTeamGetWithIdResponse, RegisterUser, ResetPasswordField } from '../model/account';
+import { DiffUserInfo, ForgotPasswordField, ForgotPasswordResponse, HearoTeamDataStruct, RegisterUser, ResetPasswordField } from '../model/account';
 import { AddAuthTokenHttpIntercept } from '../services/auth-token-http-intercept-interceptor';
 
 
@@ -184,8 +184,8 @@ export class AuthUser {
       },
     );
   }
-  public updateHearoAccountHttpPatch(hearoUser: HearoTeamGetWithIdResponse): Observable<HearoTeamGetWithIdResponse|any>{
-    return this.http.patch<HearoTeamGetWithIdResponse|any>(
+  public updateHearoAccountHttpPatch(hearoUser: HearoTeamDataStruct): Observable<HearoTeamDataStruct|any>{
+    return this.http.patch<HearoTeamDataStruct|any>(
       `${env.API_DOMAIN}api/v1/hearo-teams/${this.getUserIdViaTokenAuth()}/`,
       hearoUser,
       {
@@ -196,7 +196,7 @@ export class AuthUser {
       }
     );
   }
-  public async getHearoTeamAccountAsync(): Promise<HearoTeamGetWithIdResponse|null>{
+  public async getHearoTeamAccountAsync(): Promise<HearoTeamDataStruct|null>{
     let token:Token|null= this.getAccountToken();
     if( token==null ){
       throw new Error("Incorrect implementation due to getHearoTeamAccountAsync() should be used when already logged in");
@@ -204,7 +204,7 @@ export class AuthUser {
     }
 
     const user_id: string|null= this.getUserIdViaTokenAuth();
-    const userInfo: HearoTeamGetWithIdResponse= await firstValueFrom(this.http.get<HearoTeamGetWithIdResponse>(
+    const userInfo: HearoTeamDataStruct= await firstValueFrom(this.http.get<HearoTeamDataStruct>(
       `${env.API_DOMAIN}api/v1/hearo-teams/${user_id}/`,
       {
       headers: httpRequestHeadersSendReceiveJson,
@@ -218,9 +218,9 @@ export class AuthUser {
   }
   /**
    * updateHearoTeamAccount4BasicInfoAsync(
-   *     user: HearoTeamGetWithIdResponse,
+   *     user: HearoTeamDataStruct,
    *     isDiff: DiffUserInfo
-   * ): Promise<HearoTeamGetWithIdResponse|null>
+   * ): Promise<HearoTeamDataStruct|null>
    *
    * @param user - user information value for update
    *
@@ -233,7 +233,7 @@ export class AuthUser {
    * email OR
    * username
    */
-  public async updateHearoTeamAccount4BasicInfoAsync(user: HearoTeamGetWithIdResponse, isDiff: DiffUserInfo): Promise<HearoTeamGetWithIdResponse>{
+  public async updateHearoTeamAccount4BasicInfoAsync(user: HearoTeamDataStruct, isDiff: DiffUserInfo): Promise<HearoTeamDataStruct>{
     let token:Token|null= this.getAccountToken();
     if( token==null ){
       throw new Error("Incorrect implementation due to updateHearoTeamAccount4BasicInfoAsync() should be used when already logged in");
@@ -259,7 +259,7 @@ export class AuthUser {
     }
 
     if( hasUpdate ){
-      const userInfoUpdated: HearoTeamGetWithIdResponse= await firstValueFrom(this.updateHearoAccountHttpPatch({user: userInfo2Update}));
+      const userInfoUpdated: HearoTeamDataStruct= await firstValueFrom(this.updateHearoAccountHttpPatch({user: userInfo2Update}));
 
       return userInfoUpdated;
     }
@@ -299,7 +299,7 @@ export class AuthUser {
 
 
   /* hearo user on local storage */
-  private __isOldSameAsNewHearoTeamUser(oldUser: HearoTeamGetWithIdResponse, newUser: HearoTeamGetWithIdResponse): boolean{
+  private __isOldSameAsNewHearoTeamUser(oldUser: HearoTeamDataStruct, newUser: HearoTeamDataStruct): boolean{
     return oldUser.email_verified==newUser.email_verified &&
            oldUser.is_access_account==newUser.is_access_account &&
            oldUser.last_update==newUser.last_update &&
@@ -312,11 +312,11 @@ export class AuthUser {
            oldUser.user.last_login==newUser.user.last_login;
   }
   public async updateHearoTeamUserOnLocalStorageAsync(): Promise<boolean>{
-    const hearoUser: HearoTeamGetWithIdResponse|null= await this.getHearoTeamAccountAsync();
+    const hearoUser: HearoTeamDataStruct|null= await this.getHearoTeamAccountAsync();
     if( hearoUser==null ){
       throw new Error("Incorrect implementation, updateHearoTeamUserOnLocalStorageAsync() must be used after logged in");
     }
-    const oldHearoUser: HearoTeamGetWithIdResponse|null= this.getJsonLocalStorage<HearoTeamGetWithIdResponse|null>(this.HHUSER_KEY_LS);
+    const oldHearoUser: HearoTeamDataStruct|null= this.getJsonLocalStorage<HearoTeamDataStruct|null>(this.HHUSER_KEY_LS);
 
     if( oldHearoUser!=null && this.__isOldSameAsNewHearoTeamUser(oldHearoUser, hearoUser) ){
       return false; /* no update needed due to same data */
@@ -325,8 +325,8 @@ export class AuthUser {
     this.setJsonLocalStorage(this.HHUSER_KEY_LS, hearoUser);
     return true;
   }
-  public getHearoTeamUserViaLocalStorage(): HearoTeamGetWithIdResponse|null{
-    return this.getJsonLocalStorage<HearoTeamGetWithIdResponse|null>(this.HHUSER_KEY_LS);
+  public getHearoTeamUserViaLocalStorage(): HearoTeamDataStruct|null{
+    return this.getJsonLocalStorage<HearoTeamDataStruct|null>(this.HHUSER_KEY_LS);
   }
 
 

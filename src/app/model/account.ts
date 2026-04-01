@@ -24,7 +24,7 @@ export interface HearoUser{
   date_joined?: string|null;
   last_login?: string|null;
 }
-export interface HearoTeamGetWithIdResponse{
+export interface HearoTeamDataStruct{
   email_verified?: boolean|null;
   is_access_account?: boolean|null;
   last_update?: string|null;

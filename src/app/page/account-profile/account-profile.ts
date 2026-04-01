@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, Signal, signal, WritableSignal } from '@angular/core';
-import { DiffUserInfo, HearoTeamGetWithIdResponse, RegisterUserWarnings } from '../../model/account';
+import { DiffUserInfo, HearoTeamDataStruct, RegisterUserWarnings } from '../../model/account';
 import { Router } from '@angular/router';
 import { SafeUrl } from '@angular/platform-browser';
 
@@ -26,7 +26,7 @@ export class AccountProfile implements OnInit{
 
 
   protected profilePictureSafeUrl: WritableSignal<SafeUrl>= signal('/user_default_profile.svg');
-  protected pastUserHT: WritableSignal<HearoTeamGetWithIdResponse>= signal({
+  protected pastUserHT: WritableSignal<HearoTeamDataStruct>= signal({
     email_verified: null,
     is_access_account: null,
     last_update: null,
@@ -42,7 +42,7 @@ export class AccountProfile implements OnInit{
         last_login: null,
     }
   })
-  protected userHT: WritableSignal<HearoTeamGetWithIdResponse>= signal({
+  protected userHT: WritableSignal<HearoTeamDataStruct>= signal({
     email_verified: null,
     is_access_account: null,
     last_update: null,
@@ -425,7 +425,7 @@ export class AccountProfile implements OnInit{
   private async __updateInfoViaHttpPatch(): Promise<boolean>{
     const whichHasUpdate: DiffUserInfo= this.__diffPastCurrent();
     try{
-      const updateResponse: HearoTeamGetWithIdResponse|null= await this.authUser.updateHearoTeamAccount4BasicInfoAsync(
+      const updateResponse: HearoTeamDataStruct|null= await this.authUser.updateHearoTeamAccount4BasicInfoAsync(
         this.userHT(),
         whichHasUpdate
       );

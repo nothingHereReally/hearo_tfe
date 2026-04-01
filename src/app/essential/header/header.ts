@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { AuthUser } from '../../api-service/auth-user';
 import { ApiFile } from '../../api-service/api-file';
 import { SafeUrl } from '@angular/platform-browser';
-import { HearoTeamGetWithIdResponse } from '../../model/account';
+import { HearoTeamDataStruct } from '../../model/account';
 
 
 @Component({
@@ -41,7 +41,7 @@ export class Header implements OnInit {
   /* TODO
    * do /account-profile page
   */
-  protected hearoTeamUser: WritableSignal<HearoTeamGetWithIdResponse|null>= signal(null);
+  protected hearoTeamUser: WritableSignal<HearoTeamDataStruct|null>= signal(null);
   protected lowerHeaderButton: WritableSignal<Array<string>>= signal(['', '', '']);
   protected lowerHeaderStyle: WritableSignal<Array<string>>= signal(['style-outline', 'style-outline', 'style-outline']);
 
