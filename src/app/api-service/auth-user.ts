@@ -74,7 +74,7 @@ export class AuthUser {
     return this.http.post<any>(
       `${env.API_DOMAIN}${apiPath}`,
       {
-        'password': resetpw.password
+        password: resetpw.password
       },{
         headers: httpRequestHeadersSendReceiveJson,
         observe: 'body'
@@ -87,7 +87,7 @@ export class AuthUser {
     if( authToken!=null ){
       return this.http.patch<Token|any>(
       `${env.API_DOMAIN}api/token/`,
-        {'refresh_token': authToken.refresh},
+        {refresh_token: authToken.refresh},
         {
           headers: httpRequestHeadersSendReceiveJson,
           observe: 'body',
@@ -98,7 +98,7 @@ export class AuthUser {
     }
     return this.http.patch<Token|any>(
       `${env.API_DOMAIN}api/token/`,
-      {'refresh_token': ''},
+      {refresh_token: ''},
       {
         headers: httpRequestHeadersSendReceiveJson,
         observe: 'body'
@@ -111,7 +111,7 @@ export class AuthUser {
     if( authToken!=null ){
       return this.http.patch<Token|any>(
       `${env.API_DOMAIN}api/token/`,
-        {'refresh_token': authToken.refresh},
+        {refresh_token: authToken.refresh},
         {
           headers: httpRequestHeadersSendReceiveJson,
           observe: 'body',
@@ -122,7 +122,7 @@ export class AuthUser {
     }
     return this.http.patch<Token|any>(
       `${env.API_DOMAIN}api/token/`,
-      {'refresh_token': ''},
+      {refresh_token: ''},
       {
         headers: httpRequestHeadersSendReceiveJson,
         observe: 'body'
@@ -132,7 +132,7 @@ export class AuthUser {
   public getTokenViaRefreshHttpPost(refreshToken: string): Observable<any|Token>{
     return this.http.post<any|Token>(
       `${env.API_DOMAIN}api/token/refresh/`,
-      { "refresh": refreshToken },{
+      { refresh: refreshToken },{
         headers: httpRequestHeadersSendReceiveJson,
         observe: 'body'
       }
@@ -141,7 +141,7 @@ export class AuthUser {
   public verifyTokenHttpPost(accessToken: string): Observable<any>{
     return this.http.post<any>(
       `${env.API_DOMAIN}api/token/verify/`,
-      {"token": accessToken},
+      {token: accessToken},
       {
         headers: httpRequestHeadersSendReceiveJson,
         observe: 'body'
@@ -169,12 +169,12 @@ export class AuthUser {
     return this.http.post<any>(
       `${env.API_DOMAIN}api/v1/hearo-teams/`,
       {
-          "user": {
-              "email": hearoUser.email,
-              "username": hearoUser.username,
-              "password": hearoUser.password,
-              "first_name": hearoUser.first_name,
-              "last_name": hearoUser.last_name
+          user: {
+              email: hearoUser.email,
+              username: hearoUser.username,
+              password: hearoUser.password,
+              first_name: hearoUser.first_name,
+              last_name: hearoUser.last_name
           },
           /* "is_access_account": false, onCreateForceFalse onBackEnd API */
       },{
