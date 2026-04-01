@@ -40,6 +40,7 @@ export const authTokenHttpInterceptInterceptor: HttpInterceptorFn= (req, next)=>
   /* 1st try */
   return next(httpHeaderAuth(req)).pipe(
     catchError((error: HttpErrorResponse)=> {
+      if( error.status==401 ){
 
         return from(authUserService.refreshAuthUserTokenOnCookieAsync()).pipe(
           switchMap((success)=> {
@@ -47,15 +48,20 @@ export const authTokenHttpInterceptInterceptor: HttpInterceptorFn= (req, next)=>
               /* 2nd try */
               return next(httpHeaderAuth(req));
             }
+
+            authUserService.deleteAccountToken();
             router.navigate(['/login']);
-            return throwError(()=> error);
+            return throwError(()=> new Error('Session expired, Please login again'));
           }),
           catchError((refreshErr)=> {
+            authUserService.deleteAccountToken();
             router.navigate(['/login']);
             return throwError(()=> refreshErr);
           })
         );
 
+      }
+      return throwError(()=>error);
     })
   );
 };
