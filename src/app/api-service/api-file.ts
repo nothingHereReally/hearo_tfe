@@ -43,16 +43,17 @@ export class ApiFile {
     }
     throw errorOut;
   }
-  public async getProfilePictureViaSafeUrlAsync(): Promise<SafeUrl>{
-    let errorOut: any= Error("User must be logged in, incorrect implementation.");
+  /**
+  * getProfilePictureViaSafeUrlAsync() to be used only when logged in
+  */
+  public async getProfilePictureViaSafeUrlAsync(force: boolean=false): Promise<SafeUrl>{
     try{
-      if( this.cachedProfilePicture==null ){
+      if( this.cachedProfilePicture==null || force ){
         this.cachedProfilePicture= await this.__getProfilePictureViaSafeUrlAsync();
       }
       return this.cachedProfilePicture;
-    }catch(error){
-      errorOut= error;
-    }
-    throw errorOut;
+    }catch(error: any){}
+
+    return '/user_default_profile.svg';
   }
 }
