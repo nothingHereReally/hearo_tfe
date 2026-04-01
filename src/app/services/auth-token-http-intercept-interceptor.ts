@@ -1,11 +1,12 @@
-import { HttpInterceptorFn, HttpErrorResponse, HttpRequest, HttpContextToken } from '@angular/common/http';
+import { HttpInterceptorFn, HttpErrorResponse, HttpRequest, HttpContextToken, HttpContext } from '@angular/common/http';
 import { catchError, switchMap, throwError, from } from 'rxjs';
 import { AuthUser } from '../api-service/auth-user';
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 
 
-export const IS_AUTHTOKEN_REQUIRED= new HttpContextToken<boolean>(() => false);
+const AUTHTOKEN_REQUIRED_TOKEN= new HttpContextToken<boolean>(() => false);
+export const AddAuthTokenHttpIntercept= new HttpContext().set(AUTHTOKEN_REQUIRED_TOKEN, true)
 
 
 /**
@@ -25,7 +26,7 @@ export const IS_AUTHTOKEN_REQUIRED= new HttpContextToken<boolean>(() => false);
  */
 /* public authInterceptor(req: HttpRequest<unknown>, next: any): HttpInterceptorFn{...} */
 export const authTokenHttpInterceptInterceptor: HttpInterceptorFn= (req, next)=> {
-  if(!req.context.get(IS_AUTHTOKEN_REQUIRED)){ return next(req); }
+  if(!req.context.get(AUTHTOKEN_REQUIRED_TOKEN)){ return next(req); }
 
   const authUserService: AuthUser= inject(AuthUser);
   const router: Router= inject(Router);

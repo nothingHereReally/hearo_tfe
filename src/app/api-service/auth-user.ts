@@ -10,6 +10,7 @@ import { httpRequestHeadersReceiveJson, httpRequestHeadersSendReceiveJson } from
 import { LoginField } from '../model/login-field';
 import { Token } from '../model/token';
 import { DiffUserInfo, ForgotPasswordField, ForgotPasswordResponse, HearoTeamGetWithIdResponse, RegisterUser, ResetPasswordField } from '../model/account';
+import { AddAuthTokenHttpIntercept } from '../services/auth-token-http-intercept-interceptor';
 
 
 @Injectable({
@@ -88,8 +89,10 @@ export class AuthUser {
       `${env.API_DOMAIN}api/token/`,
         {'refresh_token': authToken.refresh},
         {
-          headers: httpRequestHeadersSendReceiveJson.set('Authorization', `Bearer ${authToken.access}`),
-          observe: 'body'
+          headers: httpRequestHeadersSendReceiveJson,
+          observe: 'body',
+          credentials: 'include',
+          context: AddAuthTokenHttpIntercept
         }
       );
     }
@@ -110,8 +113,10 @@ export class AuthUser {
       `${env.API_DOMAIN}api/token/`,
         {'refresh_token': authToken.refresh},
         {
-          headers: httpRequestHeadersSendReceiveJson.set('Authorization', `Bearer ${authToken.access}`),
-          observe: 'body'
+          headers: httpRequestHeadersSendReceiveJson,
+          observe: 'body',
+          credentials: 'include',
+          context: AddAuthTokenHttpIntercept
         }
       );
     }
@@ -184,9 +189,10 @@ export class AuthUser {
       `${env.API_DOMAIN}api/v1/hearo-teams/${this.getUserIdViaTokenAuth()}/`,
       hearoUser,
       {
-        headers: httpRequestHeadersSendReceiveJson.set("Authorization", `Bearer ${this.getAccountToken()!.access}`),
+        headers: httpRequestHeadersSendReceiveJson,
         observe: 'body',
-        credentials: 'include'
+        credentials: 'include',
+        context: AddAuthTokenHttpIntercept
       }
     );
   }
@@ -195,46 +201,20 @@ export class AuthUser {
     if( token==null ){
       throw new Error("Incorrect implementation due to getHearoTeamAccountAsync() should be used when already logged in");
 
-    }else if( await this.isTokenValidAsync(token.access) ||
-            ( await this.isTokenValidAsync(token.refresh) &&
-              await this.refreshAuthUserTokenOnCookieAsync() ) ){
-      const user_id: string|null= this.getUserIdViaTokenAuth();
-      token= this.getAccountToken();
-      if( token ){
-        try{
-          /* 1st try */
-          const userInfo: HearoTeamGetWithIdResponse= await firstValueFrom(this.http.get<HearoTeamGetWithIdResponse>(
-            `${env.API_DOMAIN}api/v1/hearo-teams/${user_id}/`,
-            {
-              headers: httpRequestHeadersSendReceiveJson.set("Authorization", `Bearer ${token.access}`),
-              observe: 'body',
-              credentials: 'include'
-            }
-          ));
-
-          return userInfo;
-        }catch(error){
-          /* 2nd try */
-          await this.refreshAuthUserTokenOnCookieAsync();
-          token= this.getAccountToken();
-          if( token ){
-            const userInfo: HearoTeamGetWithIdResponse= await firstValueFrom(this.http.get<HearoTeamGetWithIdResponse>(
-              `${env.API_DOMAIN}api/v1/hearo-teams/${user_id}/`,
-              {
-                headers: httpRequestHeadersSendReceiveJson.set("Authorization", `Bearer ${token.access}`),
-                observe: 'body',
-                credentials: 'include'
-              }
-            ));
-
-            return userInfo;
-          }
-        }
-      }
     }
 
+    const user_id: string|null= this.getUserIdViaTokenAuth();
+    const userInfo: HearoTeamGetWithIdResponse= await firstValueFrom(this.http.get<HearoTeamGetWithIdResponse>(
+      `${env.API_DOMAIN}api/v1/hearo-teams/${user_id}/`,
+      {
+      headers: httpRequestHeadersSendReceiveJson,
+      observe: 'body',
+      credentials: 'include',
+      context: AddAuthTokenHttpIntercept
+      }
+    ));
 
-    return null
+    return userInfo;
   }
   /**
    * updateHearoTeamAccount4BasicInfoAsync(
@@ -253,70 +233,39 @@ export class AuthUser {
    * email OR
    * username
    */
-  public async updateHearoTeamAccount4BasicInfoAsync(user: HearoTeamGetWithIdResponse, isDiff: DiffUserInfo): Promise<HearoTeamGetWithIdResponse|null>{
+  public async updateHearoTeamAccount4BasicInfoAsync(user: HearoTeamGetWithIdResponse, isDiff: DiffUserInfo): Promise<HearoTeamGetWithIdResponse>{
     let token:Token|null= this.getAccountToken();
     if( token==null ){
       throw new Error("Incorrect implementation due to updateHearoTeamAccount4BasicInfoAsync() should be used when already logged in");
 
-    }else if( await this.isTokenValidAsync(token.access) ||
-            ( await this.isTokenValidAsync(token.refresh) &&
-              await this.refreshAuthUserTokenOnCookieAsync() ) ){
-      const user_id: string|null= this.getUserIdViaTokenAuth();
-      token= this.getAccountToken();
-      if( token ){
+    }
+    let userInfo2Update: Record<string, string>= {};
+    let hasUpdate: boolean= false;
+    if( isDiff.first_name ){
+      userInfo2Update['first_name']= String(user.user.first_name);
+      hasUpdate= true;
+    }
+    if( isDiff.last_name ){
+      userInfo2Update['last_name']= String(user.user.last_name);
+      hasUpdate= true;
+    }
+    if( isDiff.email ){
+      userInfo2Update['email']= String(user.user.email);
+      hasUpdate= true;
+    }
+    if( isDiff.username ){
+      userInfo2Update['username']= String(user.user.username);
+      hasUpdate= true;
+    }
 
-        let userInfo2Update: Record<string, string>= {};
-        let hasUpdate: boolean= false;
-        if( isDiff.first_name ){
-          userInfo2Update['first_name']= String(user.user.first_name);
-          hasUpdate= true;
-        }
-        if( isDiff.last_name ){
-          userInfo2Update['last_name']= String(user.user.last_name);
-          hasUpdate= true;
-        }
-        if( isDiff.email ){
-          userInfo2Update['email']= String(user.user.email);
-          hasUpdate= true;
-        }
-        if( isDiff.username ){
-          userInfo2Update['username']= String(user.user.username);
-          hasUpdate= true;
-        }
+    if( hasUpdate ){
+      const userInfoUpdated: HearoTeamGetWithIdResponse= await firstValueFrom(this.updateHearoAccountHttpPatch({user: userInfo2Update}));
 
-        if( hasUpdate ){
-          try{
-            const userInfoUpdated: HearoTeamGetWithIdResponse= await firstValueFrom(this.updateHearoAccountHttpPatch({user: userInfo2Update}));
-
-            return userInfoUpdated;
-          }catch(err: any){
-            try{
-              /* 2nd try update */
-              await this.refreshAuthUserTokenOnCookieAsync();
-              token= this.getAccountToken()!;
-              const userInfoUpdated: HearoTeamGetWithIdResponse= await firstValueFrom(this.http.patch<HearoTeamGetWithIdResponse>(
-                `${env.API_DOMAIN}api/v1/hearo-teams/${user_id}/`,
-                {
-                  user: userInfo2Update
-                },
-                {
-                  headers: httpRequestHeadersSendReceiveJson.set("Authorization", `Bearer ${token.access}`),
-                  observe: 'body',
-                  credentials: 'include'
-                }
-              ));
-
-              return userInfoUpdated;
-            }catch(err: any){
-              throw err;
-            }
-          }
-        }
-      }
+      return userInfoUpdated;
     }
 
 
-    return null
+    throw new Error("Incorrect implementation of using updateHearoTeamAccount4BasicInfoAsync(), no true on `isDiff: DiffUserInfo` parameter");
   }
 
 
