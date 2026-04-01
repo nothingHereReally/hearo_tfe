@@ -196,7 +196,7 @@ export class AuthUser {
       }
     );
   }
-  public async getHearoTeamAccountAsync(): Promise<HearoTeamDataStruct|null>{
+  public async getHearoTeamAccountAsync(): Promise<HearoTeamDataStruct>{
     let token:Token|null= this.getAccountToken();
     if( token==null ){
       throw new Error("Incorrect implementation due to getHearoTeamAccountAsync() should be used when already logged in");
@@ -311,11 +311,12 @@ export class AuthUser {
            oldUser.user.date_joined==newUser.user.date_joined &&
            oldUser.user.last_login==newUser.user.last_login;
   }
+  /**
+   * updateHearoTeamUserOnLocalStorageAsync() must be only
+   * used after --> logged in <--
+   */
   public async updateHearoTeamUserOnLocalStorageAsync(): Promise<boolean>{
-    const hearoUser: HearoTeamDataStruct|null= await this.getHearoTeamAccountAsync();
-    if( hearoUser==null ){
-      throw new Error("Incorrect implementation, updateHearoTeamUserOnLocalStorageAsync() must be used after logged in");
-    }
+    const hearoUser: HearoTeamDataStruct= await this.getHearoTeamAccountAsync();
     const oldHearoUser: HearoTeamDataStruct|null= this.getJsonLocalStorage<HearoTeamDataStruct|null>(this.HHUSER_KEY_LS);
 
     if( oldHearoUser!=null && this.__isOldSameAsNewHearoTeamUser(oldHearoUser, hearoUser) ){
