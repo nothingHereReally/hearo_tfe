@@ -105,8 +105,25 @@ export class AccountProfile implements OnInit{
 
 
   ngOnInit(): void {
-    this.userHT.set( this.authUser.getHearoTeamUserViaLocalStorage()! );
-    this.pastUserHT.set( this.authUser.getHearoTeamUserViaLocalStorage()! );
+    this.authUser.updateHearoUserOnCacheAsync()
+        .then(()=>{
+          this.userHT.set({
+            user: {
+              first_name: String(this.authUser.cachedHearoUser().user.first_name),
+              last_name: String(this.authUser.cachedHearoUser().user.last_name),
+              email: String(this.authUser.cachedHearoUser().user.email),
+              username: String(this.authUser.cachedHearoUser().user.username),
+            }
+          });
+          this.pastUserHT.set({
+            user: {
+              first_name: String(this.authUser.cachedHearoUser().user.first_name),
+              last_name: String(this.authUser.cachedHearoUser().user.last_name),
+              email: String(this.authUser.cachedHearoUser().user.email),
+              username: String(this.authUser.cachedHearoUser().user.username),
+            }
+          });
+        });
     this.apiFile.updateProfilePhotoAsync();
   }
 
@@ -430,27 +447,15 @@ export class AccountProfile implements OnInit{
   private async __updateInfoViaHttpPatch(): Promise<boolean>{
     const whichHasUpdate: DiffUserInfo= this.__diffPastCurrent();
     try{
-      const updateResponse: HearoTeamDataStruct|null= await this.authUser.updateHearoTeamAccount4BasicInfoAsync(
+      const updateResponse: HearoTeamDataStruct= await this.authUser.updateHearoTeamAccount4BasicInfoAsync(
         this.userHT(),
         whichHasUpdate
       );
-      if( updateResponse!=null ){
-        /* since NOT null means success, now
-         * do success message
-         */
-        this.__updateSuccessMessage(whichHasUpdate);
-        const isUpdateSuccess: boolean= await this.authUser.updateHearoTeamUserOnLocalStorageAsync();
-        if( isUpdateSuccess ){
-          this.userHT.set( this.authUser.getHearoTeamUserViaLocalStorage()! );
-          this.pastUserHT.set( this.authUser.getHearoTeamUserViaLocalStorage()! );
-        }
-      }else{
-        /* go /login
-         * due to refresh token expired
-         */
-        this.authUser.deleteAccountToken();
-        this.router.navigate(['/login']);
-      }
+      this.__updateSuccessMessage(whichHasUpdate);
+      this.authUser.cachedHearoUser.set(structuredClone<HearoTeamDataStruct>(updateResponse));
+      this.pastUserHT.set(structuredClone<HearoTeamDataStruct>(updateResponse));
+      this.userHT.set(structuredClone<HearoTeamDataStruct>(updateResponse));
+
       return true;
     }catch(err: any){
       this.__showUpdateValidationError(err.error.user as RegisterUserWarnings);

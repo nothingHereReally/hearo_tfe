@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { firstValueFrom, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -21,7 +21,25 @@ export class AuthUser {
   private http= inject(HttpClient);
   private cookie= inject(CookieService);
   private router= inject(Router);
-  private readonly HHUSER_KEY_LS: string= 'hh_user';
+
+
+  public cachedHearoUser: WritableSignal<HearoTeamDataStruct>= signal({
+    email_verified: false,
+    is_access_account: false,
+    last_update: '',
+    profile_picture: '',
+    user: {
+      id: 0,
+      email:      'user email be what',
+      username:   'user username be what',
+      first_name: 'user first name be what',
+      last_name:  'user last name be what',
+      password_last_modified: '',
+      date_joined: '',
+      last_login: ''
+    }
+  });
+  private __isCachedHearoUserAtLeastOnce: WritableSignal<boolean>= signal(false);
 
 
 
@@ -170,10 +188,8 @@ export class AuthUser {
     );
   }
   public async getHearoTeamAccountAsync(): Promise<HearoTeamDataStruct>{
-    const user_id: string|null= this.getUserIdViaTokenAuth();
-
     return await firstValueFrom(this.http.get<HearoTeamDataStruct>(
-      `${env.API_DOMAIN}api/v1/hearo-teams/${user_id}/`,
+      `${env.API_DOMAIN}api/v1/hearo-teams/${this.getUserIdViaTokenAuth()}/`,
       {
       headers: httpRequestHeadersSendReceiveJson,
       observe: 'body',
@@ -264,36 +280,16 @@ export class AuthUser {
 
 
 
-  /* hearo user on local storage */
-  private __isOldSameAsNewHearoTeamUser(oldUser: HearoTeamDataStruct, newUser: HearoTeamDataStruct): boolean{
-    return oldUser.email_verified==newUser.email_verified &&
-           oldUser.is_access_account==newUser.is_access_account &&
-           oldUser.last_update==newUser.last_update &&
-           oldUser.user.email==newUser.user.email &&
-           oldUser.user.username==newUser.user.username &&
-           oldUser.user.first_name==newUser.user.first_name &&
-           oldUser.user.last_name==newUser.user.last_name &&
-           oldUser.user.password_last_modified==newUser.user.password_last_modified &&
-           oldUser.user.date_joined==newUser.user.date_joined &&
-           oldUser.user.last_login==newUser.user.last_login;
-  }
+  /* hearo user on AuthUser.cachedHearoUser() */
   /**
-   * updateHearoTeamUserOnLocalStorageAsync() must be only
+   * updateHearoUserOnCacheAsync() must be only
    * used after --> logged in <--
    */
-  public async updateHearoTeamUserOnLocalStorageAsync(): Promise<boolean>{
-    const hearoUser: HearoTeamDataStruct= await this.getHearoTeamAccountAsync();
-    const oldHearoUser: HearoTeamDataStruct|null= this.getJsonLocalStorage<HearoTeamDataStruct|null>(this.HHUSER_KEY_LS);
-
-    if( oldHearoUser!=null && this.__isOldSameAsNewHearoTeamUser(oldHearoUser, hearoUser) ){
-      return false; /* no update needed due to same data */
+  public async updateHearoUserOnCacheAsync(force: boolean=false): Promise<void>{
+    if( this.__isCachedHearoUserAtLeastOnce()==false || force ){
+      this.cachedHearoUser.set( await this.getHearoTeamAccountAsync() );
+      this.__isCachedHearoUserAtLeastOnce.set(true);
     }
-
-    this.setJsonLocalStorage(this.HHUSER_KEY_LS, hearoUser);
-    return true;
-  }
-  public getHearoTeamUserViaLocalStorage(): HearoTeamDataStruct|null{
-    return this.getJsonLocalStorage<HearoTeamDataStruct|null>(this.HHUSER_KEY_LS);
   }
 
 

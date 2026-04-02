@@ -63,11 +63,7 @@
           font-normal-regular
           font-color-pc1-300
           ">
-        @if( hearoTeamUser() && hearoTeamUser()!.user ){
-          {{ hearoTeamUser()!.user.first_name }} {{ hearoTeamUser()!.user.last_name }}
-        }@else{
-          hearo user
-        }
+          {{ authUser.cachedHearoUser().user.first_name }} {{ authUser.cachedHearoUser().user.last_name }}
         </span>
       </button>
     </div>

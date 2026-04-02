@@ -4,8 +4,6 @@ import { Router } from '@angular/router';
 
 import { AuthUser } from '../../api-service/auth-user';
 import { ApiFile } from '../../api-service/api-file';
-import { SafeUrl } from '@angular/platform-browser';
-import { HearoTeamDataStruct } from '../../model/account';
 
 
 @Component({
@@ -15,7 +13,7 @@ import { HearoTeamDataStruct } from '../../model/account';
   styleUrl: './header.css'
 })
 export class Header implements OnInit {
-  private authUser: AuthUser= inject(AuthUser);
+  protected authUser: AuthUser= inject(AuthUser);
   protected apiFile: ApiFile= inject(ApiFile);
   private router: Router= inject(Router);
 
@@ -41,7 +39,6 @@ export class Header implements OnInit {
   /* TODO
    * do /account-profile page
   */
-  protected hearoTeamUser: WritableSignal<HearoTeamDataStruct|null>= signal(null);
   protected lowerHeaderButton: WritableSignal<Array<string>>= signal(['', '', '']);
   protected lowerHeaderStyle: WritableSignal<Array<string>>= signal(['style-outline', 'style-outline', 'style-outline']);
 
@@ -105,21 +102,11 @@ export class Header implements OnInit {
       this.lowerHeaderStyle.set(['style-outline', 'style-outline', 'style-solid']);
     }
   }
-  private async __setProfilePicture(): Promise<void>{
-    this.apiFile.updateProfilePhotoAsync();
-    /* does twice due to on Async is slower */
-    this.hearoTeamUser.set( this.authUser.getHearoTeamUserViaLocalStorage() );
-    this.authUser.updateHearoTeamUserOnLocalStorageAsync()
-        .then((hasUpdate: boolean)=>{
-          if(hasUpdate){ this.hearoTeamUser.set( this.authUser.getHearoTeamUserViaLocalStorage() ); }
-        });
-
-
-  }
 
 
   ngOnInit(): void {
-    this.__setProfilePicture();
+    this.apiFile.updateProfilePhotoAsync();
+    this.authUser.updateHearoUserOnCacheAsync();
     this.__setUpperHeader();
     this.__setLowerHeader();
   }
