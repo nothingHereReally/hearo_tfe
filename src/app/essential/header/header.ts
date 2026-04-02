@@ -161,6 +161,8 @@ export class Header implements OnInit {
 
 
   public async logoutAsync(): Promise<void>{
+    this.apiFile.cachedProfilePhotoGoBack2Default();
+    this.authUser.cachedHearoUserGoBack2Default();
     await this.authUser.userLogOutAsync();
   }
   public clickedProfile(): void{

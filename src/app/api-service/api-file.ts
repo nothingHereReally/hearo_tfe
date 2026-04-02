@@ -47,6 +47,10 @@ export class ApiFile {
       this.__isCachedProfilePhotoAtLeastOnce.set(true);
     }
   }
+  public cachedProfilePhotoGoBack2Default(): void{
+    this.cachedProfilePicture.set('/user_default_profile.svg');
+    this.__isCachedProfilePhotoAtLeastOnce.set(false);
+  }
 
 
 

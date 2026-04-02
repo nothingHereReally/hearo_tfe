@@ -291,6 +291,25 @@ export class AuthUser {
       this.__isCachedHearoUserAtLeastOnce.set(true);
     }
   }
+  public cachedHearoUserGoBack2Default(): void{
+    this.cachedHearoUser.set({
+      email_verified: false,
+      is_access_account: false,
+      last_update: '',
+      profile_picture: '',
+      user: {
+        id: 0,
+        email:      'user email be what',
+        username:   'user username be what',
+        first_name: 'user first name be what',
+        last_name:  'user last name be what',
+        password_last_modified: '',
+        date_joined: '',
+        last_login: ''
+      }
+    });
+    this.__isCachedHearoUserAtLeastOnce.set(false);
+  }
 
 
 
