@@ -38,7 +38,7 @@ export class AuthUser {
    * -- can be used for auth on creating account
    * @param qr_image_blob image blob data
    */
-  public verifyQR_hearoAccessAccountHttpPost(qr_image_blob: any): Observable<any|Token>{
+  public verifyQRHearoAccessAccountHttpPost(qr_image_blob: any): Observable<any|Token>{
     const formData= new FormData();
     formData.append('image', qr_image_blob, 'image.png');
 
@@ -83,7 +83,7 @@ export class AuthUser {
   }
   private __qrAccessLogoutHttpPatch(): Observable<any>{
     /* needs refresh_token */
-    const authToken: Token|null= this.getToken_AccessQRAccount();
+    const authToken: Token|null= this.getTokenAccessQRAccount();
     if( authToken!=null ){
       return this.http.patch<Token|any>(
       `${env.API_DOMAIN}api/token/`,
@@ -159,10 +159,10 @@ export class AuthUser {
   /* ------------------------------------------------ */
   /* account hearo-team crud */
   public createHearoAccountHttpPost(hearoUser: RegisterUser): Observable<any>{
-    let token: Token= this.getToken_AccessQRAccount()==null? {
+    let token: Token= this.getTokenAccessQRAccount()==null? {
       access: '',
       refresh: ''
-    }: this.getToken_AccessQRAccount()!;
+    }: this.getTokenAccessQRAccount()!;
     if( token.access=='' ){
       throw new TypeError("Access token for QR access account can't be empty");
     }
@@ -340,7 +340,7 @@ export class AuthUser {
   /* ------------------------------------------------ */
   /* QR access account access/refresh token on cookie web browser set/get */
   /* cookie qr access account */
-  public saveToken_AccessQRAccount(token: Token): void{
+  public saveTokenAccessQRAccount(token: Token): void{
     /* cookie is 5 days to expire */
     this.cookie.set('qr_access_token', token.access, {
       expires: 5,
@@ -351,7 +351,7 @@ export class AuthUser {
       path: '/'
     });
   }
-  public getToken_AccessQRAccount(): Token|null{
+  public getTokenAccessQRAccount(): Token|null{
     const token: Token= {
       access: String(this.cookie.get('qr_access_token')),
       refresh: String(this.cookie.get('qr_access_token_refresh'))
@@ -362,18 +362,18 @@ export class AuthUser {
     }
     return token;
   }
-  public deleteToken_AccessQRAccount(): void{
+  public deleteTokenAccessQRAccount(): void{
     this.cookie.delete('qr_access_token', '/');
     this.cookie.delete('qr_access_token_refresh', '/');
   }
   public async refreshAccessQRTokenOnCookieAsync(): Promise<boolean>{
-    const oldToken: Token|null= this.getToken_AccessQRAccount();
+    const oldToken: Token|null= this.getTokenAccessQRAccount();
     if( oldToken==null ){ throw new Error("Incorrect implementation, refreshAccessQRTokenOnCookieAsync() must be used after qr scanned"); }
 
     try{
       const newToken: Token= await firstValueFrom(this.getTokenViaRefreshHttpPost(oldToken.refresh));
-      this.deleteToken_AccessQRAccount();
-      this.saveToken_AccessQRAccount(newToken);
+      this.deleteTokenAccessQRAccount();
+      this.saveTokenAccessQRAccount(newToken);
     }catch(error){ return false; }
 
     return true;
@@ -463,7 +463,7 @@ export class AuthUser {
         await this.isTokenValidAsync(authToken.refresh) &&
         await this.refreshAuthUserTokenOnCookieAsync() )  ){
 
-      this.deleteToken_AccessQRAccount();
+      this.deleteTokenAccessQRAccount();
       await this.router.navigate(['/home/sentence']);
       return true;
     }
@@ -485,7 +485,7 @@ export class AuthUser {
     return true;
   }
   public async goTo_register_pageIfValidQRTokenAsync(): Promise<boolean>{
-    let authToken: Token|null= this.getToken_AccessQRAccount();
+    let authToken: Token|null= this.getTokenAccessQRAccount();
     if( authToken!=null &&
         await this.isTokenValidAsync(authToken.access) ||
       ( authToken!=null &&
@@ -500,7 +500,7 @@ export class AuthUser {
     return false;
   }
   public async goTo_verify_to_register_pageIfNotValidQRTokenAsync(): Promise<boolean>{
-    let authToken: Token|null= this.getToken_AccessQRAccount();
+    let authToken: Token|null= this.getTokenAccessQRAccount();
     if( authToken!=null &&
         await this.isTokenValidAsync(authToken.access) ||
       ( authToken!=null &&
@@ -544,7 +544,7 @@ export class AuthUser {
   public async qrAccessAccountRemoveAnd_goTo_login_pageAsync(): Promise<boolean>{
     try{
       await firstValueFrom(this.__qrAccessLogoutHttpPatch());
-      this.deleteToken_AccessQRAccount();
+      this.deleteTokenAccessQRAccount();
       await this.router.navigate(['/login']);
     }catch(err){}
     return true;

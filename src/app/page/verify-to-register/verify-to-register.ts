@@ -104,10 +104,10 @@ export class VerifyToRegister implements AfterViewInit, OnDestroy {
       );
       /* if (!imageBlob) return; no need to check due to logic on __initVideoCameraAsync */
       try {
-        const responseAuthToken: Token= await firstValueFrom(this.authUser.verifyQR_hearoAccessAccountHttpPost(imageBlob));
+        const responseAuthToken: Token= await firstValueFrom(this.authUser.verifyQRHearoAccessAccountHttpPost(imageBlob));
         if(responseAuthToken.access && responseAuthToken.refresh){
           this.keepVideoCameraRolling.set(false);
-          this.authUser.saveToken_AccessQRAccount(responseAuthToken);
+          this.authUser.saveTokenAccessQRAccount(responseAuthToken);
           await sleepAsync(100);
           this.router.navigate(['/register']);
         }

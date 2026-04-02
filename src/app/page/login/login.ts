@@ -60,7 +60,7 @@ export class Login implements OnInit{
       try{
         response= await firstValueFrom(this.authUser.userLoginHttpPost(this.hearoUser()));
         this.authUser.saveAccountToken(response)
-        this.authUser.deleteToken_AccessQRAccount();
+        this.authUser.deleteTokenAccessQRAccount();
         this.router.navigate(['/home/sentence']);
       }catch(err: any){
         this.warnings.update(value=>{ value.password=err.error.details; return value; });
