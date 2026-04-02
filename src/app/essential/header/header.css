@@ -9,6 +9,14 @@
 
 
 
+.profile-up-right{
+  width: var(--pad200-xl);
+  height: var(--pad200-xl);
+}
+
+
+
+
 .upper-header{
   display: flex;
   flex-direction: row;
