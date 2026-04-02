@@ -1,7 +1,9 @@
 import { Component, inject, OnInit, Signal, signal, WritableSignal } from '@angular/core';
 import { DiffUserInfo, HearoTeamDataStruct, RegisterUserWarnings } from '../../model/account';
 import { Router } from '@angular/router';
-import { SafeUrl } from '@angular/platform-browser';
+
+
+import { firstValueFrom } from 'rxjs';
 
 
 import { AuthUser } from '../../api-service/auth-user';
@@ -19,13 +21,12 @@ import { allAreSpace, hasSpace, sleepAsync } from '../../model/tools';
 export class AccountProfile implements OnInit{
   private router: Router= inject(Router);
   private authUser: AuthUser= inject(AuthUser);
-  private apiFile: ApiFile= inject(ApiFile);
+  protected apiFile: ApiFile= inject(ApiFile);
   private readonly prevPath: Signal<string>= signal(String(
     this.router.currentNavigation()?.extras.state?.['past_path'] ?? '/home/sentence'
   ));
 
 
-  protected profilePictureSafeUrl: WritableSignal<SafeUrl>= signal('/user_default_profile.svg');
   protected pastUserHT: WritableSignal<HearoTeamDataStruct>= signal({
     email_verified: null,
     is_access_account: null,
@@ -87,7 +88,17 @@ export class AccountProfile implements OnInit{
     this.router.navigate([this.prevPath()]);
   }
   protected clickedUploadPhoto(): void{
-    console.log(`clicked upload photo ------- ${Math.random()}`);
+    const input= document.createElement('input');
+    input.type= 'file';
+    input.accept= 'image/*';
+    input.onchange= async (event: any)=> {
+      const imgFile: File= event.target.files[0];
+      if(imgFile){
+        await firstValueFrom(this.apiFile.uploadPhotoUserHttpPatch(imgFile));
+        this.apiFile.updateProfilePhotoAsync();
+      }
+    };
+    input.click();
   }
 
 
@@ -96,15 +107,12 @@ export class AccountProfile implements OnInit{
   ngOnInit(): void {
     this.userHT.set( this.authUser.getHearoTeamUserViaLocalStorage()! );
     this.pastUserHT.set( this.authUser.getHearoTeamUserViaLocalStorage()! );
-    this.__setProfilePictureAsync();
+    this.apiFile.updateProfilePhotoAsync();
   }
 
 
 
 
-  private async __setProfilePictureAsync(): Promise<void>{
-    this.profilePictureSafeUrl.set( await this.apiFile.getProfilePictureViaSafeUrlAsync() );
-  }
   protected clickedEdit(): void{
     this.readOrWithEdit.set( this.profileReadOrAndEdit()[1] );
   }

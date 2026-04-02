@@ -16,7 +16,7 @@ import { HearoTeamDataStruct } from '../../model/account';
 })
 export class Header implements OnInit {
   private authUser: AuthUser= inject(AuthUser);
-  private apiFile: ApiFile= inject(ApiFile);
+  protected apiFile: ApiFile= inject(ApiFile);
   private router: Router= inject(Router);
 
   /*
@@ -44,8 +44,6 @@ export class Header implements OnInit {
   protected hearoTeamUser: WritableSignal<HearoTeamDataStruct|null>= signal(null);
   protected lowerHeaderButton: WritableSignal<Array<string>>= signal(['', '', '']);
   protected lowerHeaderStyle: WritableSignal<Array<string>>= signal(['style-outline', 'style-outline', 'style-outline']);
-
-  protected profilePictureSafeUrl: WritableSignal<SafeUrl>= signal('/user_default_profile.svg');
 
   protected homeStyle: WritableSignal<string>= signal<string>('style-outline');
   protected hospitalHeadStyle: WritableSignal<string>= signal<string>('style-outline');
@@ -108,9 +106,7 @@ export class Header implements OnInit {
     }
   }
   private async __setProfilePicture(): Promise<void>{
-    try{
-      this.profilePictureSafeUrl.set( await this.apiFile.getProfilePictureViaSafeUrlAsync() );
-    }catch(error){}
+    this.apiFile.updateProfilePhotoAsync();
     /* does twice due to on Async is slower */
     this.hearoTeamUser.set( this.authUser.getHearoTeamUserViaLocalStorage() );
     this.authUser.updateHearoTeamUserOnLocalStorageAsync()
