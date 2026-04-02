@@ -11,6 +11,7 @@ import { LoginField } from '../model/login-field';
 import { Token } from '../model/token';
 import { DiffUserInfo, ForgotPasswordField, ForgotPasswordResponse, HearoTeamDataStruct, RegisterUser, ResetPasswordField } from '../model/account';
 import { AddAuthTokenHttpIntercept } from '../services/auth-token-http-intercept-interceptor';
+import { AddAuthQRTokenHttpIntercept } from '../services/auth-qr-access-http-interceptor';
 
 
 @Injectable({
@@ -83,49 +84,27 @@ export class AuthUser {
   }
   private __qrAccessLogoutHttpPatch(): Observable<any>{
     /* needs refresh_token */
-    const authToken: Token|null= this.getTokenAccessQRAccount();
-    if( authToken!=null ){
-      return this.http.patch<Token|any>(
-      `${env.API_DOMAIN}api/token/`,
-        {refresh_token: authToken.refresh},
-        {
-          headers: httpRequestHeadersSendReceiveJson,
-          observe: 'body',
-          credentials: 'include',
-          context: AddAuthTokenHttpIntercept
-        }
-      );
-    }
     return this.http.patch<Token|any>(
-      `${env.API_DOMAIN}api/token/`,
-      {refresh_token: ''},
+    `${env.API_DOMAIN}api/token/`,
+      {refresh_token: this.getTokenAccessQRAccount()?.refresh},
       {
         headers: httpRequestHeadersSendReceiveJson,
-        observe: 'body'
+        observe: 'body',
+        credentials: 'include',
+        context: AddAuthQRTokenHttpIntercept
       }
     );
   }
   private __userLogoutHttpPatch(): Observable<any>{
     /* needs refresh_token */
-    const authToken: Token|null= this.getAccountToken();
-    if( authToken!=null ){
-      return this.http.patch<Token|any>(
-      `${env.API_DOMAIN}api/token/`,
-        {refresh_token: authToken.refresh},
-        {
-          headers: httpRequestHeadersSendReceiveJson,
-          observe: 'body',
-          credentials: 'include',
-          context: AddAuthTokenHttpIntercept
-        }
-      );
-    }
     return this.http.patch<Token|any>(
-      `${env.API_DOMAIN}api/token/`,
-      {refresh_token: ''},
+    `${env.API_DOMAIN}api/token/`,
+      {refresh_token: this.getAccountToken()?.refresh},
       {
         headers: httpRequestHeadersSendReceiveJson,
-        observe: 'body'
+        observe: 'body',
+        credentials: 'include',
+        context: AddAuthTokenHttpIntercept
       }
     );
   }
@@ -159,13 +138,6 @@ export class AuthUser {
   /* ------------------------------------------------ */
   /* account hearo-team crud */
   public createHearoAccountHttpPost(hearoUser: RegisterUser): Observable<any>{
-    let token: Token= this.getTokenAccessQRAccount()==null? {
-      access: '',
-      refresh: ''
-    }: this.getTokenAccessQRAccount()!;
-    if( token.access=='' ){
-      throw new TypeError("Access token for QR access account can't be empty");
-    }
     return this.http.post<any>(
       `${env.API_DOMAIN}api/v1/hearo-teams/`,
       {
@@ -178,9 +150,10 @@ export class AuthUser {
           },
           /* "is_access_account": false, onCreateForceFalse onBackEnd API */
       },{
-          headers: httpRequestHeadersSendReceiveJson.set("Authorization", `Bearer ${token.access}`),
+          headers: httpRequestHeadersSendReceiveJson,
           observe: 'body',
-          credentials: 'include'
+          credentials: 'include',
+          context: AddAuthQRTokenHttpIntercept
       },
     );
   }
@@ -197,14 +170,9 @@ export class AuthUser {
     );
   }
   public async getHearoTeamAccountAsync(): Promise<HearoTeamDataStruct>{
-    let token:Token|null= this.getAccountToken();
-    if( token==null ){
-      throw new Error("Incorrect implementation due to getHearoTeamAccountAsync() should be used when already logged in");
-
-    }
-
     const user_id: string|null= this.getUserIdViaTokenAuth();
-    const userInfo: HearoTeamDataStruct= await firstValueFrom(this.http.get<HearoTeamDataStruct>(
+
+    return await firstValueFrom(this.http.get<HearoTeamDataStruct>(
       `${env.API_DOMAIN}api/v1/hearo-teams/${user_id}/`,
       {
       headers: httpRequestHeadersSendReceiveJson,
@@ -213,8 +181,6 @@ export class AuthUser {
       context: AddAuthTokenHttpIntercept
       }
     ));
-
-    return userInfo;
   }
   /**
    * updateHearoTeamAccount4BasicInfoAsync(
@@ -541,6 +507,10 @@ export class AuthUser {
     }catch(err){}
     return true;
   }
+  /**
+   * goal is force be going to /login page via deleting QR access token
+   * and navigate to /login
+   */
   public async qrAccessAccountRemoveAnd_goTo_login_pageAsync(): Promise<boolean>{
     try{
       await firstValueFrom(this.__qrAccessLogoutHttpPatch());
