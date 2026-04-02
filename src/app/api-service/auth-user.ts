@@ -84,7 +84,7 @@ export class AuthUser {
   }
   private __qrAccessLogoutHttpPatch(): Observable<any>{
     /* needs refresh_token */
-    return this.http.patch<Token|any>(
+    return this.http.patch<any>(
     `${env.API_DOMAIN}api/token/`,
       {refresh_token: this.getTokenAccessQRAccount()?.refresh},
       {
