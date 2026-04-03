@@ -32,6 +32,7 @@ import { HomeSentence } from './page/home-sentence/home-sentence';
 import { AccountProfile } from './page/account-profile/account-profile';
 import { authTokenHttpInterceptInterceptor } from './services/auth-token-http-intercept-interceptor';
 import { authQrAccessHttpInterceptor } from './services/auth-qr-access-http-interceptor';
+import { AccountProfileQrAccessAccount } from './page/account-profile-qr-access-account/account-profile-qr-access-account';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { authQrAccessHttpInterceptor } from './services/auth-qr-access-http-inte
     HomeGloss,
     HomeSentence,
     AccountProfile,
+    AccountProfileQrAccessAccount,
   ],
   imports: [
     BrowserModule,
