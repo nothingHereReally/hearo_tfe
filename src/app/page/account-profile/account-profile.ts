@@ -540,6 +540,8 @@ export class AccountProfile implements OnInit{
       this.authUser.deleteAccountToken();
       await sleepAsync(env.TIME_ERROR_DISPLAY/2.0);
 
+      this.apiFile.cachedProfilePhotoGoBack2Default();
+      this.authUser.cachedHearoUserGoBack2Default();
       this.router.navigate(['/login']);
     }
   }

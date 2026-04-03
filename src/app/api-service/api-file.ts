@@ -43,7 +43,10 @@ export class ApiFile {
    */
   public async updateProfilePhotoAsync(force: boolean=false): Promise<void>{
     if( this.__isCachedProfilePhotoAtLeastOnce()==false || force ){
-      this.cachedProfilePicture.set( await this.__getProfilePictureViaSafeUrlAsync() );
+      try{
+        const profile_picture_doneSafeUrl: SafeUrl= await this.__getProfilePictureViaSafeUrlAsync();
+        this.cachedProfilePicture.set( profile_picture_doneSafeUrl );
+      }catch(err: any){}
       this.__isCachedProfilePhotoAtLeastOnce.set(true);
     }
   }
