@@ -471,7 +471,9 @@ export class AccountProfile implements OnInit{
     return false;
   }
   protected async clickedUpdateInfo(): Promise<void>{
-    if( this.__allAreFilledWithRightChars() && this.__hasChangeAtLeastOne() ){
+    if( this.readOrWithEdit()==this.profileReadOrAndEdit()[1] &&
+        this.__allAreFilledWithRightChars() &&
+        this.__hasChangeAtLeastOne() ){
 
       if( await this.__updateInfoViaHttpPatch() ){
         this.__clearAllWarnings();
