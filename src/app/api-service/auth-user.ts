@@ -24,7 +24,7 @@ export class AuthUser {
 
 
   public cachedHearoUser: WritableSignal<HearoTeamDataStruct>= signal({
-    email_verified: false,
+    email_verified: true,
     is_access_account: false,
     last_update: '',
     profile_picture: '',
@@ -304,7 +304,7 @@ export class AuthUser {
   }
   public cachedHearoUserGoBack2Default(): void{
     this.cachedHearoUser.set({
-      email_verified: false,
+      email_verified: true,
       is_access_account: false,
       last_update: '',
       profile_picture: '',
