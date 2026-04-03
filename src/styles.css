@@ -379,6 +379,39 @@ html, body {
 .background-color-pc3-900{ background-color: var(--pc3-900); }
 
 
+.background-color-tc1-100{ background-color: var(--tc1-100); }
+.background-color-tc1-200{ background-color: var(--tc1-200); }
+.background-color-tc1-300{ background-color: var(--tc1-300); }
+.background-color-tc1-400{ background-color: var(--tc1-400); }
+.background-color-tc1-500{ background-color: var(--tc1-500); }
+.background-color-tc1-600{ background-color: var(--tc1-600); }
+.background-color-tc1-700{ background-color: var(--tc1-700); }
+.background-color-tc1-800{ background-color: var(--tc1-800); }
+.background-color-tc1-900{ background-color: var(--tc1-900); }
+
+
+.background-color-tc2-100{ background-color: var(--tc2-100); }
+.background-color-tc2-200{ background-color: var(--tc2-200); }
+.background-color-tc2-300{ background-color: var(--tc2-300); }
+.background-color-tc2-400{ background-color: var(--tc2-400); }
+.background-color-tc2-500{ background-color: var(--tc2-500); }
+.background-color-tc2-600{ background-color: var(--tc2-600); }
+.background-color-tc2-700{ background-color: var(--tc2-700); }
+.background-color-tc2-800{ background-color: var(--tc2-800); }
+.background-color-tc2-900{ background-color: var(--tc2-900); }
+
+
+.background-color-tc3-100{ background-color: var(--tc3-100); }
+.background-color-tc3-200{ background-color: var(--tc3-200); }
+.background-color-tc3-300{ background-color: var(--tc3-300); }
+.background-color-tc3-400{ background-color: var(--tc3-400); }
+.background-color-tc3-500{ background-color: var(--tc3-500); }
+.background-color-tc3-600{ background-color: var(--tc3-600); }
+.background-color-tc3-700{ background-color: var(--tc3-700); }
+.background-color-tc3-800{ background-color: var(--tc3-800); }
+.background-color-tc3-900{ background-color: var(--tc3-900); }
+
+
 .font-color-success{ color: var(--tc1-400); }
 .font-color-fail{ color: var(--tc3-500); }
 
@@ -437,6 +470,10 @@ html, body {
 }
 
 
+.text-wrap-300px-max-width{
+  word-wrap: break-word;
+  max-width: 17.6rem;
+}
 .flex-row-button{
   display: flex;
   flex-direction: row;
