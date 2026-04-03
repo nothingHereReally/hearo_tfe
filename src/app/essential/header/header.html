@@ -98,4 +98,20 @@
         />
   </div>
   }
+
+
+
+
+
+
+
+
+  @if(  ( authUser.cachedHearoUser().email_verified ?? true )==false  ){
+  <div class="
+    font-color-fail
+    font-bold-uline-title
+    ">
+    Please verify your Email. We sent a message to your Email.
+  </div>
+  }
 </header>
