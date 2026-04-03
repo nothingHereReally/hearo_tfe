@@ -379,6 +379,17 @@ html, body {
 .background-color-pc3-900{ background-color: var(--pc3-900); }
 
 
+.background-color-sc-100{ background-color: var(--sc-100); }
+.background-color-sc-200{ background-color: var(--sc-200); }
+.background-color-sc-300{ background-color: var(--sc-300); }
+.background-color-sc-400{ background-color: var(--sc-400); }
+.background-color-sc-500{ background-color: var(--sc-500); }
+.background-color-sc-600{ background-color: var(--sc-600); }
+.background-color-sc-700{ background-color: var(--sc-700); }
+.background-color-sc-800{ background-color: var(--sc-800); }
+.background-color-sc-900{ background-color: var(--sc-900); }
+
+
 .background-color-tc1-100{ background-color: var(--tc1-100); }
 .background-color-tc1-200{ background-color: var(--tc1-200); }
 .background-color-tc1-300{ background-color: var(--tc1-300); }
