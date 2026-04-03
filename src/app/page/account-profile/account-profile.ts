@@ -20,7 +20,7 @@ import { allAreSpace, hasSpace, sleepAsync } from '../../model/tools';
 })
 export class AccountProfile implements OnInit{
   private router: Router= inject(Router);
-  private authUser: AuthUser= inject(AuthUser);
+  protected authUser: AuthUser= inject(AuthUser);
   protected apiFile: ApiFile= inject(ApiFile);
   private readonly prevPath: Signal<string>= signal(String(
     this.router.currentNavigation()?.extras.state?.['past_path'] ?? '/home/sentence'
@@ -116,18 +116,18 @@ export class AccountProfile implements OnInit{
         .then(()=>{
           this.userHT.set({
             user: {
-              first_name: String(this.authUser.cachedHearoUser().user.first_name),
-              last_name: String(this.authUser.cachedHearoUser().user.last_name),
-              email: String(this.authUser.cachedHearoUser().user.email),
-              username: String(this.authUser.cachedHearoUser().user.username),
+              first_name: String(this.authUser.cachedHearoUser().user?.first_name),
+              last_name: String(this.authUser.cachedHearoUser().user?.last_name),
+              email: String(this.authUser.cachedHearoUser().user?.email),
+              username: String(this.authUser.cachedHearoUser().user?.username),
             }
           });
           this.pastUserHT.set({
             user: {
-              first_name: String(this.authUser.cachedHearoUser().user.first_name),
-              last_name: String(this.authUser.cachedHearoUser().user.last_name),
-              email: String(this.authUser.cachedHearoUser().user.email),
-              username: String(this.authUser.cachedHearoUser().user.username),
+              first_name: String(this.authUser.cachedHearoUser().user?.first_name),
+              last_name: String(this.authUser.cachedHearoUser().user?.last_name),
+              email: String(this.authUser.cachedHearoUser().user?.email),
+              username: String(this.authUser.cachedHearoUser().user?.username),
             }
           });
         });
@@ -156,10 +156,10 @@ export class AccountProfile implements OnInit{
       ...currentValue,
       user: {
         ...currentValue.user,
-        first_name: String(this.pastUserHT().user.first_name),
-        last_name: String(this.pastUserHT().user.last_name),
-        email: String(this.pastUserHT().user.email),
-        username: String(this.pastUserHT().user.username)
+        first_name: String(this.pastUserHT().user?.first_name),
+        last_name: String(this.pastUserHT().user?.last_name),
+        email: String(this.pastUserHT().user?.email),
+        username: String(this.pastUserHT().user?.username)
       }
     }));
     this.__clearAllWarnings();
@@ -167,7 +167,7 @@ export class AccountProfile implements OnInit{
   private __allAreFilledWithRightChars(): boolean{
     let allBeFilled: boolean= true;
 
-    if( this.userHT().user.first_name=='' ){
+    if( this.userHT().user?.first_name=='' ){
       allBeFilled= false;
       this.userHTWarnings.update(currentValue=>({
         ...currentValue,
@@ -180,7 +180,7 @@ export class AccountProfile implements OnInit{
               first_name: []
             }));}
       )
-    }else if( allAreSpace(this.userHT().user.first_name!) ){
+    }else if( allAreSpace(this.userHT().user?.first_name!) ){
       allBeFilled= false;
       this.userHTWarnings.update(currentValue=>({
         ...currentValue,
@@ -194,7 +194,7 @@ export class AccountProfile implements OnInit{
             }));}
       )
     }
-    if( this.userHT().user.last_name=='' ){
+    if( this.userHT().user?.last_name=='' ){
       allBeFilled= false;
       this.userHTWarnings.update(currentValue=>({
         ...currentValue,
@@ -207,7 +207,7 @@ export class AccountProfile implements OnInit{
               last_name: []
             }));}
       )
-    }else if( allAreSpace(this.userHT().user.last_name!) ){
+    }else if( allAreSpace(this.userHT().user?.last_name!) ){
       allBeFilled= false;
       this.userHTWarnings.update(currentValue=>({
         ...currentValue,
@@ -221,7 +221,7 @@ export class AccountProfile implements OnInit{
             }));}
       )
     }
-    if( this.userHT().user.email=='' ){
+    if( this.userHT().user?.email=='' ){
       allBeFilled= false;
       this.userHTWarnings.update(currentValue=>({
         ...currentValue,
@@ -234,7 +234,7 @@ export class AccountProfile implements OnInit{
               email: []
             }));}
       )
-    }else if( hasSpace(this.userHT().user.email!) ){
+    }else if( hasSpace(this.userHT().user?.email!) ){
       allBeFilled= false;
       this.userHTWarnings.update(currentValue=>({
         ...currentValue,
@@ -248,7 +248,7 @@ export class AccountProfile implements OnInit{
             }));}
       )
     }
-    if( this.userHT().user.username=='' ){
+    if( this.userHT().user?.username=='' ){
       allBeFilled= false;
       this.userHTWarnings.update(currentValue=>({
         ...currentValue,
@@ -261,7 +261,7 @@ export class AccountProfile implements OnInit{
               username: []
             }));}
       )
-    }else if( hasSpace(this.userHT().user.username!) ){
+    }else if( hasSpace(this.userHT().user?.username!) ){
       allBeFilled= false;
       this.userHTWarnings.update(currentValue=>({
         ...currentValue,
@@ -285,16 +285,16 @@ export class AccountProfile implements OnInit{
       email: false,
       username: false
     };
-    if( this.pastUserHT().user.first_name!=this.userHT().user.first_name ){
+    if( this.pastUserHT().user?.first_name!=this.userHT().user?.first_name ){
       isDifferent.first_name= true;
     }
-    if( this.pastUserHT().user.last_name!=this.userHT().user.last_name ){
+    if( this.pastUserHT().user?.last_name!=this.userHT().user?.last_name ){
       isDifferent.last_name= true;
     }
-    if( this.pastUserHT().user.email!=this.userHT().user.email ){
+    if( this.pastUserHT().user?.email!=this.userHT().user?.email ){
       isDifferent.email= true;
     }
-    if( this.pastUserHT().user.username!=this.userHT().user.username ){
+    if( this.pastUserHT().user?.username!=this.userHT().user?.username ){
       isDifferent.username= true;
     }
     return isDifferent;
@@ -486,9 +486,24 @@ export class AccountProfile implements OnInit{
 
 
 
-  protected toggleAccessAccount(): void{
-    console.log(`toggle access account ------- ${Math.random()}`);
+  protected async toggleAccessAccount(): Promise<void>{
+    if( (this.authUser.cachedHearoUser().is_access_account ?? false)==false ){
+      this.authUser.cachedHearoUser.set(
+        await firstValueFrom(this.authUser.updateHearoAccountHttpPatch({is_access_account: true}))
+      )
+    }else{
+      this.authUser.cachedHearoUser.set(
+        await firstValueFrom(this.authUser.updateHearoAccountHttpPatch({is_access_account: false}))
+      );
+    }
   }
+  protected gotoGenerateAccessQR(): void{
+    console.log(`gotoGenerateAccessQR() ------- ${Math.random()}`);
+  }
+
+
+
+
   protected clickedCancelDELETEAccount(): void{
     this.deleteAccount1stGatePass.set(false);
     this.deleteAccount2ndGatePass.set(false);
@@ -510,7 +525,7 @@ export class AccountProfile implements OnInit{
 
     try{
       await firstValueFrom(this.authUser.userLoginHttpPost({
-        username: String(this.pastUserHT().user.username),
+        username: String(this.pastUserHT().user?.username),
         password: this.deleteAccountWritePassword()
       }));
     }catch(err: any){

@@ -29,7 +29,7 @@ export interface HearoTeamDataStruct{
   is_access_account?: boolean|null;
   last_update?: string|null;
   profile_picture?: string|null;
-  user: HearoUser;
+  user?: HearoUser;
 }
 export interface DiffUserInfo{
   first_name: boolean;

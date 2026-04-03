@@ -47,7 +47,7 @@
           <div>
             <app-input
                 [nameInput]="'fist_name'"
-                [(inputValue)]="userHT().user.first_name!"
+                [(inputValue)]="userHT().user!.first_name!"
                 [iconNameLeft]="''"
                 [isReadOnly]="readOrWithEdit()"
                 [labelText]="'First Name'"
@@ -72,7 +72,7 @@
           <div>
             <app-input
                 [nameInput]="'last_name'"
-                [(inputValue)]="userHT().user.last_name!"
+                [(inputValue)]="userHT().user!.last_name!"
                 [iconNameLeft]="''"
                 [isReadOnly]="readOrWithEdit()"
                 [labelText]="'Last Name'"
@@ -97,7 +97,7 @@
           <div>
             <app-input
                 [nameInput]="'email'"
-                [(inputValue)]="userHT().user.email!"
+                [(inputValue)]="userHT().user!.email!"
                 [iconNameLeft]="''"
                 [isReadOnly]="readOrWithEdit()"
                 [labelText]="'Email'"
@@ -122,7 +122,7 @@
           <div>
             <app-input
                 [nameInput]="'username'"
-                [(inputValue)]="userHT().user.username!"
+                [(inputValue)]="userHT().user!.username!"
                 [iconNameLeft]="''"
                 [isReadOnly]="readOrWithEdit()"
                 [labelText]="'Username'"
@@ -171,19 +171,38 @@
       </div>
 
 
-      <div class="flex-start-row-4px-gap">
-        <span class="
-          font-color-pc1-300
-          font-normal-regular
-          ">
-          Is Access Acount
-        </span>
+      <div class="flex-row-space-between">
+        <div class="flex-start-row-4px-gap">
+          <span class="
+            font-color-pc1-300
+            font-normal-regular
+            ">
+            Is Access Acount
+          </span>
+          @if( (authUser.cachedHearoUser().is_access_account ?? false)==false ){
+          <app-button
+             [text]="'Deactivated'"
+             [styleButton]="'style-outline'"
+             [iconname]="''"
+             (outOnClick)="toggleAccessAccount()"
+             />
+          }@else{
+          <app-button
+             [text]="'Activated'"
+             [styleButton]="'style-danger-outline'"
+             [iconname]="''"
+             (outOnClick)="toggleAccessAccount()"
+             />
+          }
+        </div>
+        @if( authUser.cachedHearoUser().is_access_account ){
         <app-button
-           [text]="'Deactivated'"
-           [styleButton]="'style-outline'"
+           [text]="'Generate Access QR'"
+           [styleButton]="'style-danger-outline'"
            [iconname]="''"
-           (outOnClick)="toggleAccessAccount()"
+           (outOnClick)="gotoGenerateAccessQR()"
            />
+        }
       </div>
 
 

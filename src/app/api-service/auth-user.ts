@@ -224,19 +224,19 @@ export class AuthUser {
     let userInfo2Update: Record<string, string>= {};
     let hasUpdate: boolean= false;
     if( isDiff.first_name ){
-      userInfo2Update['first_name']= String(user.user.first_name);
+      userInfo2Update['first_name']= String(user.user?.first_name);
       hasUpdate= true;
     }
     if( isDiff.last_name ){
-      userInfo2Update['last_name']= String(user.user.last_name);
+      userInfo2Update['last_name']= String(user.user?.last_name);
       hasUpdate= true;
     }
     if( isDiff.email ){
-      userInfo2Update['email']= String(user.user.email);
+      userInfo2Update['email']= String(user.user?.email);
       hasUpdate= true;
     }
     if( isDiff.username ){
-      userInfo2Update['username']= String(user.user.username);
+      userInfo2Update['username']= String(user.user?.username);
       hasUpdate= true;
     }
 
