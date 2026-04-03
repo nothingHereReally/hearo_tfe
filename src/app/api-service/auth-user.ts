@@ -154,7 +154,7 @@ export class AuthUser {
 
 
   /* ------------------------------------------------ */
-  /* account hearo-team crud */
+  /* account hearo-team CRUD */
   public createHearoAccountHttpPost(hearoUser: RegisterUser): Observable<any>{
     return this.http.post<any>(
       `${env.API_DOMAIN}api/v1/hearo-teams/`,
@@ -248,6 +248,17 @@ export class AuthUser {
 
 
     throw new Error("Incorrect implementation of using updateHearoTeamAccount4BasicInfoAsync(), no true on `isDiff: DiffUserInfo` parameter");
+  }
+  public deleteHearoTeamHttpDelete(): Observable<any>{
+    return this.http.delete(
+      `${env.API_DOMAIN}api/v1/hearo-teams/${this.getUserIdViaTokenAuth()}/`,
+      {
+        headers: httpRequestHeadersSendReceiveJson,
+        observe: 'body',
+        credentials: 'include',
+        context: AddAuthTokenHttpIntercept
+      }
+    );
   }
 
 

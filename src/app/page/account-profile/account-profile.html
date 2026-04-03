@@ -187,6 +187,8 @@
       </div>
 
 
+      @if( deleteAccount1stGatePass()==false && deleteAccount2ndGatePass()==false ){
+      <!-- delete account hasn't been clicked -->
       <div class="flex-start-row-4px-gap">
         <span class="
           font-color-fail
@@ -201,6 +203,116 @@
            (outOnClick)="clickedDELETEAccount()"
            />
       </div>
+      }@else if( deleteAccount1stGatePass() && deleteAccount2ndGatePass()==false ){
+      <!-- delete account 1st clicked, result below -->
+      <div class="flex-row-space-between flex-wrap-row">
+        <div class="flex-start-row-4px-gap">
+          <span class="
+            font-color-fail
+            font-bold-regular
+            ">
+            DELETE ACCOUNT? SURE?
+          </span>
+          <app-button
+             [text]="'YES, DELETE Account'"
+             [styleButton]="'style-danger-solid'"
+             [iconname]="'delete'"
+             (outOnClick)="clickedDELETEAccount()"
+             />
+        </div>
+        <app-button
+           [text]="'Cancel, DON\'T Delete'"
+           [styleButton]="'style-outline'"
+           [iconname]="''"
+           (outOnClick)="clickedCancelDELETEAccount()"
+           />
+      </div>
+      }@else if( deleteAccount1stGatePass() &&
+                 deleteAccount2ndGatePass() &&
+                 deleteAccountShowSucessMsg()==false ){
+      <!-- delete account 2nd clicked, result below -->
+      <div class="
+        flex-column-8px-gap-stretch
+        background-color-tc3-900
+        border-radius
+        padding-left-right-pad100-md
+        padding-top-bottom-pad100-md
+        ">
+        <div class="flex-center-horizontal">
+          <span class="
+            font-color-fail
+            font-bold-regular
+            text-wrap-300px-max-width
+            ">
+            This is your LAST WARNING. After deleting, you wouldn’t
+            be able to Access your account on this website.
+            Please enter your password to confirm that this is you.
+          </span>
+        </div>
+        <app-input
+            [nameInput]="'delete_account_write_pw'"
+            [(inputValue)]="deleteAccountWritePassword"
+            [iconNameLeft]="''"
+            [placeholderText]="'Password'"
+            [labelText]="'Password'"
+            [hasEye]="'eye'"
+            (outWant2Run)="clickedDELETEAccount()"
+            />
+        <div class="flex-center-horizontal">
+          <span class="
+              font-color-fail
+              font-normal-regular
+            ">{{ deleteAccountPWWarning() }}</span>
+        </div>
+        <div class="flex-start-row-4px-gap">
+          <app-button
+             [text]="'DELETE Account'"
+             [styleButton]="'style-danger-solid'"
+             [iconname]="'delete'"
+             (outOnClick)="clickedDELETEAccount()"
+             />
+        </div>
+        <div class="flex-end-row-4px-gap">
+          <app-button
+             [text]="'Cancel, DON\'T Delete'"
+             [styleButton]="'style-outline'"
+             [iconname]="''"
+             (outOnClick)="clickedCancelDELETEAccount()"
+             />
+        </div>
+      </div>
+      }@else if( deleteAccount1stGatePass() &&
+                 deleteAccount2ndGatePass() &&
+                 deleteAccountShowSucessMsg() ){
+      <div class="
+        flex-center-horizontal
+        background-color-tc3-900
+        border-radius
+        padding-left-right-pad100-md
+        padding-top-bottom-pad100-md
+        ">
+        <div class="flex-start-row-4px-gap">
+          <span class="
+            font-color-success
+            font-bold-regular
+            ">
+            Successfully
+          </span>
+          <span class="
+            font-color-fail
+            font-bold-regular
+            ">
+            Deleted Account
+          </span>
+          <span class="
+            font-color-success
+            font-bold-regular
+            ">
+            ✔
+          </span>
+        </div>
+      </div>
+      }
     </form>
   </div>
 </div>

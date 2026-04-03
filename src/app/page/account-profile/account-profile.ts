@@ -79,6 +79,13 @@ export class AccountProfile implements OnInit{
   protected readOrWithEdit: WritableSignal<string>= signal(this.profileReadOrAndEdit()[0]);
 
 
+  protected deleteAccountWritePassword: WritableSignal<string>= signal('');
+  protected deleteAccountPWWarning: WritableSignal<string>= signal('');
+  protected deleteAccountShowSucessMsg: WritableSignal<boolean>= signal(false);
+  protected deleteAccount1stGatePass: WritableSignal<boolean>= signal(false);
+  protected deleteAccount2ndGatePass: WritableSignal<boolean>= signal(false);
+
+
   /**
    * clickedBack()
    * default bo back to /home/sentence
@@ -480,7 +487,60 @@ export class AccountProfile implements OnInit{
   protected toggleAccessAccount(): void{
     console.log(`toggle access account ------- ${Math.random()}`);
   }
-  protected clickedDELETEAccount(): void{
-    console.log(`clicked delete account ------- ${Math.random()}`);
+  protected clickedCancelDELETEAccount(): void{
+    this.deleteAccount1stGatePass.set(false);
+    this.deleteAccount2ndGatePass.set(false);
+    this.deleteAccountWritePassword.set('');
+    this.deleteAccountPWWarning.set('');
+  }
+  private async __checkPasswordOnDeleteAccountAsync(): Promise<boolean>{
+    if( this.deleteAccountWritePassword()=='' ){
+      this.deleteAccountPWWarning.set('Please put your Password');
+      sleepAsync(
+        env.TIME_ERROR_DISPLAY,
+        ()=>{
+          this.deleteAccountPWWarning.set('');
+        }
+      )
+      return false;
+    }
+
+
+    try{
+      await firstValueFrom(this.authUser.userLoginHttpPost({
+        username: String(this.pastUserHT().user.username),
+        password: this.deleteAccountWritePassword()
+      }));
+    }catch(err: any){
+      this.deleteAccountPWWarning.set(String(err.error.details))
+      sleepAsync(
+        env.TIME_ERROR_DISPLAY,
+        ()=>{
+          this.deleteAccountPWWarning.set('');
+        }
+      )
+      return false;
+    }
+
+
+    return true;
+  }
+  protected async clickedDELETEAccount(): Promise<void>{
+    if( this.deleteAccount1stGatePass()==false ){
+      this.deleteAccount1stGatePass.set(true);
+
+    }else if( this.deleteAccount2ndGatePass()==false ){
+      this.deleteAccount2ndGatePass.set(true);
+
+    }else if( this.deleteAccount1stGatePass() &&
+              this.deleteAccount2ndGatePass() &&
+              await this.__checkPasswordOnDeleteAccountAsync() ){
+      await firstValueFrom(this.authUser.deleteHearoTeamHttpDelete());
+      this.deleteAccountShowSucessMsg.set(true);
+      this.authUser.deleteAccountToken();
+      await sleepAsync(env.TIME_ERROR_DISPLAY/2.0);
+
+      this.router.navigate(['/login']);
+    }
   }
 }
