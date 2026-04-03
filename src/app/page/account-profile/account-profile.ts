@@ -498,7 +498,7 @@ export class AccountProfile implements OnInit{
     }
   }
   protected gotoGenerateAccessQR(): void{
-    console.log(`gotoGenerateAccessQR() ------- ${Math.random()}`);
+    this.router.navigate(['/account-profile/qr-access-account']);
   }
 
 
