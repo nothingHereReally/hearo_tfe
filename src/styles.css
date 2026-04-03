@@ -482,6 +482,9 @@ html, body {
   word-wrap: break-word;
   max-width: 17.6rem;
 }
+.flex-wrap-row{
+  flex-wrap: wrap;
+}
 .flex-row-button{
   display: flex;
   flex-direction: row;
