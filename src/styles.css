@@ -445,6 +445,14 @@ html, body {
 
 
 
+.padding-left-right-pad100-md{
+  padding-left: var(--pad100-md);
+  padding-right: var(--pad100-md);
+}
+.padding-top-bottom-pad100-md{
+  padding-top: var(--pad100-md);
+  padding-bottom: var(--pad100-md);
+}
 
 
 
