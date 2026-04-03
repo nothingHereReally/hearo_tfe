@@ -16,6 +16,7 @@ import { ModelPatientVideo } from './page/model-patient-video/model-patient-vide
 import { Register } from './page/register/register';
 import { ResetPassword } from './page/reset-password/reset-password';
 import { VerifyToRegister } from './page/verify-to-register/verify-to-register';
+import { AccountProfileQrAccessAccount } from './page/account-profile-qr-access-account/account-profile-qr-access-account';
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -41,6 +42,7 @@ const routes: Routes = [
   {path: 'model/asl-recognition', component: ModelAslRecognition, title: 'Hearo - ASL Model'},
 
   {path: 'account-profile', component: AccountProfile, title: 'Account Hearo Team'},
+  {path: 'account-profile/qr-access-account', component: AccountProfileQrAccessAccount, title: 'Account Hearo - QR'},
 ];
 
 @NgModule({
