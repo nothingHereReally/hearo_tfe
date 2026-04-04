@@ -464,6 +464,18 @@ html, body {
   padding-top: var(--pad100-md);
   padding-bottom: var(--pad100-md);
 }
+
+
+.padding-left-right-pad100-xl{
+  padding-left: var(--pad100-xl);
+  padding-right: var(--pad100-xl);
+}
+.padding-top-bottom-pad100-xl{
+  padding-top: var(--pad100-xl);
+  padding-bottom: var(--pad100-xl);
+}
+
+
 .padding-left-right-pad200-xs{
   padding-left: var(--pad200-xs);
   padding-right: var(--pad200-xs);
@@ -476,6 +488,9 @@ html, body {
 
 
 
+.gap-pad100-xs{
+  gap: var(--pad100-xs);
+}
 .gap-pad300-xs{
   gap: var(--pad300-xs);
 }
@@ -504,6 +519,10 @@ html, body {
 }
 
 
+.text-wrap-370px-max-width{
+  word-wrap: break-word;
+  max-width: 21.8rem;
+}
 .text-wrap-300px-max-width{
   word-wrap: break-word;
   max-width: 17.6rem;
@@ -514,6 +533,10 @@ html, body {
 }
 .flex-wrap-row{
   flex-wrap: wrap;
+}
+.flex-row{
+  display: flex;
+  flex-direction: row;
 }
 .flex-column-stretch{
   display: flex;
@@ -587,6 +610,11 @@ html, body {
 }
 
 
+.image-48px-size{
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+}
 .image-18rem-size{
   width: 18rem;
   height: 18rem;
