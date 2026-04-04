@@ -101,7 +101,7 @@ export class AccountProfile implements OnInit{
     input.onchange= async (event: any)=> {
       const imgFile: File= event.target.files[0];
       if(imgFile){
-        await firstValueFrom(this.apiFile.uploadPhotoUserHttpPatch(imgFile));
+        this.authUser.cachedHearoUser.set(await firstValueFrom(this.apiFile.uploadPhotoUserHttpPatch(imgFile)));
         this.apiFile.updateProfilePhotoAsync();
       }
     };
