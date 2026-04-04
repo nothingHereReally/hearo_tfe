@@ -1,6 +1,6 @@
-import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, signal, WritableSignal } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
-import { SafeUrl } from '@angular/platform-browser';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 
 import { AuthUser } from '../../api-service/auth-user';
@@ -15,7 +15,9 @@ import { ApiFile } from '../../api-service/api-file';
   templateUrl: './account-profile-qr-access-account.html',
   styleUrl: './account-profile-qr-access-account.css'
 })
-export class AccountProfileQrAccessAccount implements OnInit{
+export class AccountProfileQrAccessAccount implements OnInit, OnDestroy{
+  private sanitizer: DomSanitizer= inject(DomSanitizer);
+
   protected authUser: AuthUser= inject(AuthUser);
   private apiFile: ApiFile= inject(ApiFile);
 
@@ -32,6 +34,9 @@ export class AccountProfileQrAccessAccount implements OnInit{
   ngOnInit(): void{
     this.apiFile.getQRAccessAccountCode()
         .then((imgSafeUrl)=>{ this.qrImageSafeUrl.set(imgSafeUrl); });
+  }
+  ngOnDestroy(): void {
+    URL.revokeObjectURL(`${this.sanitizer.sanitize(4, this.qrImageSafeUrl())}`);
   }
 
 
@@ -83,6 +88,11 @@ export class AccountProfileQrAccessAccount implements OnInit{
 
 
   protected clickedDownload(): void{
-    console.log(`clicked download ${Math.random()}`);
+    const link: HTMLAnchorElement= document.createElement('a');
+    link.href= `${this.sanitizer.sanitize(4, this.qrImageSafeUrl())}`;
+    link.download= `${this.authUser.cachedHearoUser().user?.username ?? "hearo_team_user"}_qr_code.png`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
 }
