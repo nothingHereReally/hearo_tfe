@@ -1,0 +1,20 @@
+.qr-access-account-page{
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--pad300-xs);
+}
+
+.qr-image-size{
+  width: 41rem;
+  height: 41rem;
+  object-fit: cover;
+}
+
+@media (max-width: 730px){
+  .qr-image-size{
+    width: 95vw;
+    height: 95vw;
+    object-fit: cover;
+  }
+}
