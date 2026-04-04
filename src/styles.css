@@ -486,10 +486,23 @@ html, body {
 }
 
 
+.padding-left-right-pad200-xl{
+  padding-left: var(--pad200-xl);
+  padding-right: var(--pad200-xl);
+}
+.padding-top-bottom-pad200-xl{
+  padding-top: var(--pad200-xl);
+  padding-bottom: var(--pad200-xl);
+}
+
+
 
 
 .gap-pad100-xs{
   gap: var(--pad100-xs);
+}
+.gap-pad100-md{
+  gap: var(--pad100-md);
 }
 .gap-pad300-xs{
   gap: var(--pad300-xs);
@@ -519,6 +532,11 @@ html, body {
 }
 
 
+.fit-content{
+  max-width: fit-content;
+}
+
+
 .text-wrap-370px-max-width{
   word-wrap: break-word;
   max-width: 21.8rem;
@@ -537,6 +555,10 @@ html, body {
 .flex-row{
   display: flex;
   flex-direction: row;
+}
+.flex-column{
+  display: flex;
+  flex-direction: column;
 }
 .flex-column-stretch{
   display: flex;
