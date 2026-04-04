@@ -73,4 +73,16 @@ export class ApiFile {
       }
     )
   }
+  public async getQRAccessAccountCode(): Promise<SafeUrl>{
+    const imgBlob: Blob= await firstValueFrom(this.http.get(
+      `${env.API_DOMAIN}api/token/qr/`,
+      {
+        observe: 'body',
+        responseType: 'blob',
+        context: AddAuthTokenHttpIntercept
+      }
+    ));
+
+    return this.imgBlob2SafeUrl(imgBlob);
+  }
 }

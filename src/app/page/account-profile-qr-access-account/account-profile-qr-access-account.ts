@@ -1,4 +1,4 @@
-import { Component, inject, signal, WritableSignal } from '@angular/core';
+import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { SafeUrl } from '@angular/platform-browser';
 
@@ -6,6 +6,7 @@ import { SafeUrl } from '@angular/platform-browser';
 import { AuthUser } from '../../api-service/auth-user';
 import { environment as env } from '../../../environment/environment';
 import { sleepAsync } from '../../model/tools';
+import { ApiFile } from '../../api-service/api-file';
 
 
 @Component({
@@ -14,8 +15,9 @@ import { sleepAsync } from '../../model/tools';
   templateUrl: './account-profile-qr-access-account.html',
   styleUrl: './account-profile-qr-access-account.css'
 })
-export class AccountProfileQrAccessAccount {
+export class AccountProfileQrAccessAccount implements OnInit{
   protected authUser: AuthUser= inject(AuthUser);
+  private apiFile: ApiFile= inject(ApiFile);
 
   protected password2confirm: WritableSignal<string>= signal('');
   protected iunderstand2confirm: WritableSignal<string>= signal('');
@@ -25,6 +27,12 @@ export class AccountProfileQrAccessAccount {
 
   protected warningInputText: WritableSignal<string>= signal('');
   protected qrImageSafeUrl: WritableSignal<SafeUrl>= signal('/user_default_profile.svg');
+
+
+  ngOnInit(): void{
+    this.apiFile.getQRAccessAccountCode()
+        .then((imgSafeUrl)=>{ this.qrImageSafeUrl.set(imgSafeUrl); });
+  }
 
 
   protected async checkGate1(): Promise<void>{
