@@ -33,6 +33,7 @@ import { AccountProfile } from './page/account-profile/account-profile';
 import { authTokenHttpInterceptInterceptor } from './services/auth-token-http-intercept-interceptor';
 import { authQrAccessHttpInterceptor } from './services/auth-qr-access-http-interceptor';
 import { AccountProfileQrAccessAccount } from './page/account-profile-qr-access-account/account-profile-qr-access-account';
+import { PageNotFound } from './page/page-not-found/page-not-found';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { AccountProfileQrAccessAccount } from './page/account-profile-qr-access-
     HomeSentence,
     AccountProfile,
     AccountProfileQrAccessAccount,
+    PageNotFound,
   ],
   imports: [
     BrowserModule,

@@ -17,6 +17,7 @@ import { Register } from './page/register/register';
 import { ResetPassword } from './page/reset-password/reset-password';
 import { VerifyToRegister } from './page/verify-to-register/verify-to-register';
 import { AccountProfileQrAccessAccount } from './page/account-profile-qr-access-account/account-profile-qr-access-account';
+import { PageNotFound } from './page/page-not-found/page-not-found';
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -43,6 +44,9 @@ const routes: Routes = [
 
   {path: 'account-profile', component: AccountProfile, title: 'Account Hearo Team'},
   {path: 'account-profile/qr-access-account', component: AccountProfileQrAccessAccount, title: 'Account Hearo - QR'},
+
+
+  {path: '**', component: PageNotFound, title: 'Hearo - Page Not Found'},
 ];
 
 @NgModule({
