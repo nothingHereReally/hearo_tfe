@@ -8,13 +8,12 @@ describe('AccountProfile', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AccountProfile]
-    })
-    .compileComponents();
+      imports: [AccountProfile],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(AccountProfile);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    await fixture.whenStable();
   });
 
   it('should create', () => {

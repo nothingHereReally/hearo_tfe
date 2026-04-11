@@ -9,6 +9,9 @@ import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 
 
+import { Button } from '../../essential/button/button';
+
+
 import { AuthUser } from '../../api-service/auth-user';
 import { environment as env } from '../../../environment/environment';
 import { Token } from '../../model/token';
@@ -17,7 +20,9 @@ import { sleepAsync } from '../../model/tools';
 
 @Component({
   selector: 'app-verify-to-register',
-  standalone: false,
+  imports: [
+    Button,
+  ],
   templateUrl: './verify-to-register.html',
   styleUrl: './verify-to-register.css'
 })

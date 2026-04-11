@@ -8,13 +8,12 @@ describe('HomeGloss', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [HomeGloss]
-    })
-    .compileComponents();
+      imports: [HomeGloss],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(HomeGloss);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    await fixture.whenStable();
   });
 
   it('should create', () => {

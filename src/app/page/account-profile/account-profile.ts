@@ -6,6 +6,11 @@ import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 
 
+import { Button } from '../../essential/button/button';
+import { Header } from '../../essential/header/header';
+import { Input } from '../../essential/input/input';
+
+
 import { AuthUser } from '../../api-service/auth-user';
 import { ApiFile } from '../../api-service/api-file';
 import { environment as env } from '../../../environment/environment';
@@ -14,7 +19,11 @@ import { allAreSpace, hasSpace, sleepAsync } from '../../model/tools';
 
 @Component({
   selector: 'app-account-profile',
-  standalone: false,
+  imports: [
+    Button,
+    Input,
+    Header,
+  ],
   templateUrl: './account-profile.html',
   styleUrl: './account-profile.css'
 })

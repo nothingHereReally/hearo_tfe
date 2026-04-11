@@ -8,13 +8,12 @@ describe('Hospitals', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [Hospitals]
-    })
-    .compileComponents();
+      imports: [Hospitals],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(Hospitals);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    await fixture.whenStable();
   });
 
   it('should create', () => {

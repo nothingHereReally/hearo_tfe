@@ -1,8 +1,14 @@
 import { Component } from '@angular/core';
 
+
+import { Header } from '../../essential/header/header';
+
+
 @Component({
   selector: 'app-home-gloss',
-  standalone: false,
+  imports: [
+    Header,
+  ],
   templateUrl: './home-gloss.html',
   styleUrl: './home-gloss.css'
 })
