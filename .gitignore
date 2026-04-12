@@ -1,5 +1,10 @@
 # See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
 
+
+# for ssl/tls https be made available
+/localhost_tls_ng.*
+
+
 # Compiled output
 /dist
 /tmp
