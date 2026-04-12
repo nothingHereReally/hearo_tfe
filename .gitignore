@@ -3,6 +3,8 @@
 
 # for ssl/tls https be made available
 /localhost_tls_ng.*
+/my_boss_*.*
+/ext_development_ssl_tls.conf
 
 
 # Compiled output
