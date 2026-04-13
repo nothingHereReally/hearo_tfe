@@ -5,6 +5,10 @@ import { ActivatedRoute } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 
 
+import { Button } from '../../essential/button/button';
+import { Input } from '../../essential/input/input';
+
+
 import { AuthUser } from '../../api-service/auth-user';
 import { environment as env } from '../../../environment/environment';
 import { ResetPasswordField, ResetPasswordResponse } from '../../model/account';
@@ -12,7 +16,10 @@ import { sleepAsync } from '../../model/tools';
 
 @Component({
   selector: 'app-reset-password',
-  standalone: false,
+  imports: [
+    Button,
+    Input,
+  ],
   templateUrl: './reset-password.html',
   styleUrl: './reset-password.css'
 })

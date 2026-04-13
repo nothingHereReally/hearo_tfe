@@ -1,8 +1,8 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 
 
 import { AccountProfile } from './page/account-profile/account-profile';
+import { AccountProfileQrAccessAccount } from './page/account-profile-qr-access-account/account-profile-qr-access-account';
 import { ForgotPassword } from './page/forgot-password/forgot-password';
 import { HomeGloss } from './page/home-gloss/home-gloss';
 import { HomeSentence } from './page/home-sentence/home-sentence';
@@ -13,13 +13,13 @@ import { Login } from './page/login/login';
 import { ModelAslRecognition } from './page/model-asl-recognition/model-asl-recognition';
 import { ModelGloss } from './page/model-gloss/model-gloss';
 import { ModelPatientVideo } from './page/model-patient-video/model-patient-video';
+import { PageNotFound } from './page/page-not-found/page-not-found';
 import { Register } from './page/register/register';
 import { ResetPassword } from './page/reset-password/reset-password';
 import { VerifyToRegister } from './page/verify-to-register/verify-to-register';
-import { AccountProfileQrAccessAccount } from './page/account-profile-qr-access-account/account-profile-qr-access-account';
-import { PageNotFound } from './page/page-not-found/page-not-found';
 
-const routes: Routes = [
+
+export const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
   {path: 'login', component: Login, title: 'Hearo Team Login'},
 
@@ -48,9 +48,3 @@ const routes: Routes = [
 
   {path: '**', component: PageNotFound, title: 'Hearo - Page Not Found'},
 ];
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes, {bindToComponentInputs: true})],
-  exports: [RouterModule]
-})
-export class AppRoutingModule { }

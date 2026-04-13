@@ -4,11 +4,14 @@ import { Router } from '@angular/router';
 
 import { AuthUser } from '../../api-service/auth-user';
 import { ApiFile } from '../../api-service/api-file';
+import { Button } from '../button/button';
 
 
 @Component({
   selector: 'app-header',
-  standalone: false,
+  imports: [
+    Button,
+  ],
   templateUrl: './header.html',
   styleUrl: './header.css'
 })

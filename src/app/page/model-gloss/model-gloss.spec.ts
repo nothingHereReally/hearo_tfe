@@ -8,13 +8,12 @@ describe('ModelGloss', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ModelGloss]
-    })
-    .compileComponents();
+      imports: [ModelGloss],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ModelGloss);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    await fixture.whenStable();
   });
 
   it('should create', () => {

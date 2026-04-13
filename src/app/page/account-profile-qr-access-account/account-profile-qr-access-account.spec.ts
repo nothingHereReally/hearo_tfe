@@ -8,13 +8,12 @@ describe('AccountProfileQrAccessAccount', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AccountProfileQrAccessAccount]
-    })
-    .compileComponents();
+      imports: [AccountProfileQrAccessAccount],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(AccountProfileQrAccessAccount);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    await fixture.whenStable();
   });
 
   it('should create', () => {

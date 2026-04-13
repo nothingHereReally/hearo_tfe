@@ -8,13 +8,12 @@ describe('DataTable', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [DataTable]
-    })
-    .compileComponents();
+      imports: [DataTable],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(DataTable);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    await fixture.whenStable();
   });
 
   it('should create', () => {

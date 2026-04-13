@@ -464,8 +464,10 @@ export class AuthUser {
   }
   public async goTo_login_pageIfNotValidAuthTokenAsync(): Promise<boolean>{
     let authToken: Token|null= this.getAccountToken();
-    if( authToken!=null &&
-        await this.isTokenValidAsync(authToken.access) ||
+    if(
+      ( authToken!=null &&
+        await this.isTokenValidAsync(authToken.access) )
+        ||
       ( authToken!=null &&
         await this.isTokenValidAsync(authToken.refresh) &&
         await this.refreshAuthUserTokenOnCookieAsync() )  ){

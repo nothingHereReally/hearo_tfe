@@ -1,6 +1,10 @@
 import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
 
 
+import { Input } from '../../essential/input/input';
+import { Button } from '../../essential/button/button';
+
+
 import { AuthUser } from '../../api-service/auth-user';
 import { environment as env } from '../../../environment/environment';
 import { sleepAsync } from '../../model/tools';
@@ -9,7 +13,10 @@ import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-forgot-password',
-  standalone: false,
+  imports: [
+    Input,
+    Button,
+  ],
   templateUrl: './forgot-password.html',
   styleUrl: './forgot-password.css'
 })

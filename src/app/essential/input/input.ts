@@ -1,10 +1,16 @@
 import { Component, input, signal, OnInit, model, output } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { NgClass } from '@angular/common';
+
 
 @Component({
   selector: 'app-input',
-  standalone: false,
+  imports: [
+    FormsModule,
+    NgClass
+  ],
   templateUrl: './input.html',
-  styleUrl: './input.css'
+  styleUrl: './input.css',
 })
 export class Input implements OnInit{
   readonly isReadOnly= input<string>('is-not-readonly');

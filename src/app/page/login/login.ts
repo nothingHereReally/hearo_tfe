@@ -5,15 +5,22 @@ import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 
 
+import { Input } from '../../essential/input/input';
+
+
 import { LoginField } from '../../model/login-field';
 import { environment as env } from '../../../environment/environment';
 import { AuthUser } from '../../api-service/auth-user';
 import { Token } from '../../model/token';
 import { sleepAsync } from '../../model/tools';
+import { Button } from '../../essential/button/button';
 
 @Component({
   selector: 'app-login',
-  standalone: false,
+  imports: [
+    Input,
+    Button,
+  ],
   templateUrl: './login.html',
   styleUrl: './login.css'
 })

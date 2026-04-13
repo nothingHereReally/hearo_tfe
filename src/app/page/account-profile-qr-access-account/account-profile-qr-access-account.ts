@@ -3,6 +3,11 @@ import { firstValueFrom } from 'rxjs';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 
+import { Button } from '../../essential/button/button';
+import { Header } from '../../essential/header/header';
+import { Input } from '../../essential/input/input';
+
+
 import { AuthUser } from '../../api-service/auth-user';
 import { environment as env } from '../../../environment/environment';
 import { sleepAsync } from '../../model/tools';
@@ -11,7 +16,11 @@ import { ApiFile } from '../../api-service/api-file';
 
 @Component({
   selector: 'app-account-profile-qr-access-account',
-  standalone: false,
+  imports: [
+    Button,
+    Header,
+    Input,
+  ],
   templateUrl: './account-profile-qr-access-account.html',
   styleUrl: './account-profile-qr-access-account.css'
 })

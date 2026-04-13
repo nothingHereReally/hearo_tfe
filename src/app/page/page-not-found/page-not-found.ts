@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 
+
+import { Button } from '../../essential/button/button';
+
+
 @Component({
   selector: 'app-page-not-found',
-  standalone: false,
+  imports: [Button],
   templateUrl: './page-not-found.html',
-  styleUrl: './page-not-found.css'
+  styleUrl: './page-not-found.css',
 })
-export class PageNotFound {
-
-}
+export class PageNotFound {}

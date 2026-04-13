@@ -1,13 +1,20 @@
 import { Component, inject, OnInit } from '@angular/core';
 
 
+import { Header } from '../../essential/header/header';
+import { DataTable } from '../../essential/data-table/data-table';
+
+
 import { AuthUser } from '../../api-service/auth-user';
 import { TableHospitalHead } from '../../model/table-hospital-head';
 
 
 @Component({
   selector: 'app-home-sentence',
-  standalone: false,
+  imports: [
+    DataTable,
+    Header,
+  ],
   templateUrl: './home-sentence.html',
   styleUrl: './home-sentence.css'
 })

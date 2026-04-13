@@ -8,13 +8,12 @@ describe('HomeUsage', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [HomeUsage]
-    })
-    .compileComponents();
+      imports: [HomeUsage],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(HomeUsage);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    await fixture.whenStable();
   });
 
   it('should create', () => {

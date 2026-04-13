@@ -8,13 +8,12 @@ describe('ModelPatientVideo', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ModelPatientVideo]
-    })
-    .compileComponents();
+      imports: [ModelPatientVideo],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ModelPatientVideo);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    await fixture.whenStable();
   });
 
   it('should create', () => {

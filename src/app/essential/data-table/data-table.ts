@@ -1,4 +1,8 @@
 import { Component, input, InputSignal, OnInit, signal, WritableSignal } from '@angular/core';
+import { NgClass } from '@angular/common';
+
+
+import { Button } from '../button/button';
 
 
 import { TableHospitalHead } from '../../model/table-hospital-head';
@@ -6,7 +10,10 @@ import { TableNewSign } from '../../model/table-new-sign';
 
 @Component({
   selector: 'app-data-table',
-  standalone: false,
+  imports: [
+    Button,
+    NgClass,
+  ],
   templateUrl: './data-table.html',
   styleUrl: './data-table.css'
 })

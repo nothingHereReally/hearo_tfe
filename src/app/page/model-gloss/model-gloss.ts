@@ -1,8 +1,14 @@
 import { Component } from '@angular/core';
 
+
+import { Header } from '../../essential/header/header';
+
+
 @Component({
   selector: 'app-model-gloss',
-  standalone: false,
+  imports: [
+    Header,
+  ],
   templateUrl: './model-gloss.html',
   styleUrl: './model-gloss.css'
 })

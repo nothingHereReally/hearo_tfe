@@ -5,6 +5,10 @@ import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core
 import { firstValueFrom } from 'rxjs';
 
 
+import { Input } from '../../essential/input/input';
+import { Button } from '../../essential/button/button';
+
+
 import { environment as env } from '../../../environment/environment';
 import { AuthUser } from '../../api-service/auth-user';
 import { RegisterUser, RegisterUserWarnings } from '../../model/account';
@@ -12,7 +16,10 @@ import { sleepAsync } from '../../model/tools';
 
 @Component({
   selector: 'app-register',
-  standalone: false,
+  imports: [
+    Button,
+    Input,
+  ],
   templateUrl: './register.html',
   styleUrl: './register.css'
 })

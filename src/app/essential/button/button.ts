@@ -1,10 +1,18 @@
-import { Component, signal, input, OnInit, output, InputSignal, WritableSignal } from '@angular/core';
+import {
+  Component, signal, input, OnInit,
+  output, InputSignal, WritableSignal
+} from '@angular/core';
+import { NgClass } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-button',
-  standalone: false,
+  imports: [
+    NgClass,
+    RouterLink
+  ],
   templateUrl: './button.html',
-  styleUrl: './button.css'
+  styleUrl: './button.css',
 })
 export class Button implements OnInit{
   public outOnClick= output();

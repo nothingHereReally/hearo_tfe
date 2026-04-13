@@ -8,13 +8,12 @@ describe('ModelAslRecognition', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ModelAslRecognition]
-    })
-    .compileComponents();
+      imports: [ModelAslRecognition],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ModelAslRecognition);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    await fixture.whenStable();
   });
 
   it('should create', () => {
