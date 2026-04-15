@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 
 import { AuthUser } from '../../api-service/auth-user';
@@ -11,6 +11,7 @@ import { Button } from '../button/button';
   selector: 'app-header',
   imports: [
     Button,
+    RouterLink,
   ],
   templateUrl: './header.html',
   styleUrl: './header.css'
