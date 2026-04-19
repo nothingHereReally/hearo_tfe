@@ -1,4 +1,4 @@
-import { Component, inject, input, InputSignal, OnInit } from '@angular/core';
+import { Component, inject, input, InputSignal, OnChanges, OnInit, signal, SimpleChanges, WritableSignal } from '@angular/core';
 import { ChartData } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { ColorService } from '../../services/color-service';
@@ -11,11 +11,11 @@ import { ColorService } from '../../services/color-service';
   templateUrl: './doughnut-graph.html',
   styleUrl: './doughnut-graph.css',
 })
-export class DoughnutGraph implements OnInit{
+export class DoughnutGraph implements OnInit, OnChanges{
   private color: ColorService= inject(ColorService);
   public dataSet: InputSignal<Array<number>>= input.required<Array<number>>();
 
-  protected doughnutChartData: ChartData<'doughnut'>= {
+  protected doughnutChartData: WritableSignal<ChartData<'doughnut'>>= signal({
     labels: [],
     datasets: [
       {
@@ -53,24 +53,56 @@ export class DoughnutGraph implements OnInit{
         backgroundColor: []
       }
     ],
-  };
+  });
 
 
-  ngOnInit(): void {
+  private provideData2doughnutChart(): void{
     if( 1==this.dataSet().length && 0.0<=this.dataSet()[0] && this.dataSet()[0]<=1.0 ){
-      this.doughnutChartData.datasets[0].data= [this.dataSet()[0]*100, 100-this.dataSet()[0]*100];
-      this.doughnutChartData.datasets[0].hoverBackgroundColor= [
-        this.color.pc1_500_rgb(),
-        'transparent'
-      ]
-      this.doughnutChartData.datasets[0].backgroundColor= [
-        this.color.pc1_300_rgb(),
-        'transparent'
-      ]
+      this.doughnutChartData.update(value=>({
+        ...value,
+        datasets: [
+          {
+            ...value.datasets[0],
+            data: [this.dataSet()[0]*100, 100-this.dataSet()[0]*100],
+            hoverBackgroundColor: [
+              this.color.pc1_500_rgb(),
+              'transparent'
+            ],
+            backgroundColor: [
+              this.color.pc1_300_rgb(),
+              'transparent'
+            ]
+          },
+          value.datasets[1]
+        ],
+      }));
+
+
     }else if( 1==this.dataSet().length && this.dataSet()[0]<0.0 && 1.0<this.dataSet()[0] ){
       throw new Error('Incorrect implementation of using app-doughnut-graph on `dataSet` parameter, accuracy must be between 0.0 and 1.0.')
     }else{
-      this.doughnutChartData.datasets[0].data= this.dataSet();
+      this.doughnutChartData.update(value=>({
+        ...value,
+        datasets: [
+          {
+            ...value.datasets[0],
+            data: this.dataSet(),
+          },
+          value.datasets[1]
+        ]
+      }));
     }
+  }
+  ngOnInit(): void {
+    this.provideData2doughnutChart();
+  }
+  ngOnChanges(changes: SimpleChanges<DoughnutGraph>): void {
+    /*
+     * changes.dataSet?.previousValue -- data itself
+     * changes.dataSet?.currentValue -- data itself
+     * changes.dataSet?.isFirstChange() -- boolean
+     * changes.dataSet?.firstChange -- boolean
+     * */
+    this.provideData2doughnutChart();
   }
 }
