@@ -24,6 +24,13 @@ export async function sleepAsync(ms: number, callback?: ()=>void): Promise<void>
 
 
 
+export function sumArray(arr: Array<number>): number{
+  return arr.reduce((a, b)=> a+b, 0);
+}
+
+
+
+
 export function isEmailFormat(email: string): boolean{
   const emailRegex: RegExp= /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   if(!email) return false;
