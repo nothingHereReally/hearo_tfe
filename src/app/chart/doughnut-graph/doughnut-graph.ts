@@ -45,7 +45,7 @@ export class DoughnutGraph implements OnInit, OnChanges{
             this.color.pc3_600_rgb(),
             this.color.pc2_300_rgb(),
             this.color.pc2_400_rgb(),
-            this.color.pc3_600_rgb()
+            this.color.pc2_600_rgb()
         ]
       },{
         data: [],
