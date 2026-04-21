@@ -1,11 +1,10 @@
-.container-home-login{
+.container-home-sentence{
   display: flex;
   flex-direction: column;
   gap: 64px;
-  align-items: center;
+  align-items: stretch;
 }
-.container-home-login > div:nth-child(1){
-  display: grid;
-  grid-template-columns: 100vw;
+.container-home-sentence-body{
+  width: 95vw;
+  padding-bottom: var(--pad200-xl);
 }
-
