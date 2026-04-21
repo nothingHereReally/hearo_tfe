@@ -65,7 +65,7 @@ export class DoughnutGraph implements OnInit, OnChanges{
             ...value.datasets[0],
             data: [this.dataSet()[0]*100, 100-this.dataSet()[0]*100],
             hoverBackgroundColor: [
-              this.color.pc1_500_rgb(),
+              this.color.pc2_700_rgb(),
               'transparent'
             ],
             backgroundColor: [
