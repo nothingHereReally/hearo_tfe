@@ -33,7 +33,7 @@ export class DoughnutGraph implements OnInit, OnChanges{
             this.color.pc3_700_rgb(),
             this.color.pc2_400_rgb(),
             this.color.pc2_500_rgb(),
-            this.color.pc3_700_rgb()
+            this.color.pc2_700_rgb()
         ],
         backgroundColor: [
             this.color.pc1_200_rgb(),
@@ -69,7 +69,7 @@ export class DoughnutGraph implements OnInit, OnChanges{
               'transparent'
             ],
             backgroundColor: [
-              this.color.pc1_300_rgb(),
+              this.color.pc2_600_rgb(),
               'transparent'
             ]
           },
