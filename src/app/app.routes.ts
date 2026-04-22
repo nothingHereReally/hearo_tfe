@@ -37,7 +37,7 @@ export const routes: Routes = [
   {path: 'home/usage', component: HomeUsage, title: 'Hearo Home - usage'},
 
   {path: 'home/sentence/frequent-sentence', component: HomeSentenceFrequentSentence, title: 'Frequent Sentences - Hearo'},
-  {path: 'home/sentence/mistaken-sentence', component: HomeSentenceMistakenSentence, title: 'Frequent Sentences - Hearo'},
+  {path: 'home/sentence/mistaken-sentence', component: HomeSentenceMistakenSentence, title: 'Frequent Mistaken Sentences - Hearo'},
 
   {path: 'hospital-head', component: HospitalHead, title: 'Hearo Hospital Heads'},
 
