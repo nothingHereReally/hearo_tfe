@@ -18,6 +18,7 @@ import { Register } from './page/register/register';
 import { ResetPassword } from './page/reset-password/reset-password';
 import { VerifyToRegister } from './page/verify-to-register/verify-to-register';
 import { HomeSentenceFrequentSentence } from './page/home-sentence-frequent-sentence/home-sentence-frequent-sentence';
+import { HomeSentenceMistakenSentence } from './page/home-sentence-mistaken-sentence/home-sentence-mistaken-sentence';
 
 
 export const routes: Routes = [
@@ -36,6 +37,7 @@ export const routes: Routes = [
   {path: 'home/usage', component: HomeUsage, title: 'Hearo Home - usage'},
 
   {path: 'home/sentence/frequent-sentence', component: HomeSentenceFrequentSentence, title: 'Frequent Sentences - Hearo'},
+  {path: 'home/sentence/mistaken-sentence', component: HomeSentenceMistakenSentence, title: 'Frequent Sentences - Hearo'},
 
   {path: 'hospital-head', component: HospitalHead, title: 'Hearo Hospital Heads'},
 
