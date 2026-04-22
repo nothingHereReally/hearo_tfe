@@ -848,6 +848,20 @@ html, body {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+/* -------------------------------------------- */
+/* flex justify-content configs */
 .flex-justify-start{
   justify-content: flex-start;
 }
@@ -863,10 +877,14 @@ html, body {
 .flex-justify-space-between{
   justify-content: space-between;
 }
+/* flex justify-content configs end */
+/* -------------------------------------------- */
 
 
 
 
+/* -------------------------------------------- */
+/* flex align-items configs */
 .flex-align-start{
   align-items: flex-start;
 }
@@ -879,6 +897,20 @@ html, body {
 .flex-align-strech{
   align-items: stretch;
 }
+/* flex align-items configs end */
+/* -------------------------------------------- */
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
