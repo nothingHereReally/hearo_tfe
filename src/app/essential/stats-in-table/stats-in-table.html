@@ -1,0 +1,151 @@
+<div class="table-container">
+  <table class="table-styles">
+    <thead>
+      <tr>
+        @for( title of dataSource(); track $index){
+          <th><div class="
+              font-color-pc1-300
+              font-bold-regular
+              padding-top-bottom-pad200-xs
+              padding-left-right-pad200-xs
+              ">{{ title.name }}</div></th>
+        }
+      </tr>
+    </thead>
+    <tbody>
+      @for(row_not_use_this_var of dataSource()[0].data; track $index; let idxRow= $index, isEvenRow= $even){
+        @if( isEvenRow ){
+          <tr>
+            @for(column of dataSource(); track column.name; let isFirstCol= $first, isLastCol= $last){
+              @if( isFirstCol ){
+                @if( column.type=='string' ){
+                  <td><div class="
+                      font-color-sc-100
+                      font-normal-regular
+                      border-left
+                      background-color-pc1-800
+                      ">{{ column.data[idxRow] }}</div></td>
+
+                }@else if( column.type=='accuracy' ){
+                  <td><div class="
+                      font-color-sc-100
+                      font-normal-regular
+                      border-left
+                      background-color-pc1-800
+                      ">{{ column.data[idxRow] }}</div></td>
+
+                }@else if( column.type=='statusPatientVideo' ){
+                  <td><div class="
+                      font-color-sc-100
+                      font-normal-regular
+                      border-left
+                      background-color-pc1-800
+                      ">{{ column.data[idxRow] }}</div></td>
+
+                }@else if( column.type=='urlLink' ){
+                  <td><div class="
+                      font-color-sc-100
+                      font-normal-regular
+                      border-left
+                      background-color-pc1-800
+                      ">{{ column.data[idxRow].label }} - {{ column.data[idxRow].link }}</div></td>
+                }
+              }@else if( isLastCol ){
+                @if( column.type=='string' ){
+                  <td><div class="
+                      font-color-sc-100
+                      font-normal-regular
+                      border-right
+                      background-color-pc1-800
+                      ">{{ column.data[idxRow] }}</div></td>
+
+                }@else if( column.type=='accuracy' ){
+                  <td><div class="
+                      font-color-sc-100
+                      font-normal-regular
+                      border-right
+                      background-color-pc1-800
+                      ">{{ column.data[idxRow] }}</div></td>
+
+                }@else if( column.type=='statusPatientVideo' ){
+                  <td><div class="
+                      font-color-sc-100
+                      font-normal-regular
+                      border-right
+                      background-color-pc1-800
+                      ">{{ column.data[idxRow] }}</div></td>
+
+                }@else if( column.type=='urlLink' ){
+                  <td><div class="
+                      font-color-sc-100
+                      font-normal-regular
+                      border-right
+                      background-color-pc1-800
+                      ">{{ column.data[idxRow].label }} - {{ column.data[idxRow].link }}</div></td>
+                }
+              }@else{
+                @if( column.type=='string' ){
+                  <td><div class="
+                      font-color-sc-100
+                      font-normal-regular
+                      background-color-pc1-800
+                      ">{{ column.data[idxRow] }}</div></td>
+
+                }@else if( column.type=='accuracy' ){
+                  <td><div class="
+                      font-color-sc-100
+                      font-normal-regular
+                      background-color-pc1-800
+                      ">{{ column.data[idxRow] }}</div></td>
+
+                }@else if( column.type=='statusPatientVideo' ){
+                  <td><div class="
+                      font-color-sc-100
+                      font-normal-regular
+                      background-color-pc1-800
+                      ">{{ column.data[idxRow] }}</div></td>
+
+                }@else if( column.type=='urlLink' ){
+                  <td><div class="
+                      font-color-sc-100
+                      font-normal-regular
+                      background-color-pc1-800
+                      ">{{ column.data[idxRow].label }} - {{ column.data[idxRow].link }}</div></td>
+                }
+              }
+            }
+          </tr>
+        }@else{
+          <tr>
+            @for(column of dataSource(); track column.name){
+              @if( column.type=='string'){
+                <td><div class="
+                    font-color-sc-100
+                    font-normal-regular
+                    ">{{ column.data[idxRow] }}</div></td>
+
+              }@else if( column.type=='accuracy' ){
+                <td><div class="
+                    font-color-sc-100
+                    font-normal-regular
+                    ">{{ column.data[idxRow] }}</div></td>
+
+              }@else if( column.type=='statusPatientVideo' ){
+                <td><div class="
+                    font-color-sc-100
+                    font-normal-regular
+                    ">{{ column.data[idxRow] }}</div></td>
+
+              }@else if( column.type=='urlLink' ){
+                <td><div class="
+                    font-color-sc-100
+                    font-normal-regular
+                    ">{{ column.data[idxRow].label }} - {{ column.data[idxRow].link }}</div></td>
+              }
+            }
+          </tr>
+        }
+      }
+    </tbody>
+  </table>
+</div>

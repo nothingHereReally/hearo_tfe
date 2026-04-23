@@ -1,0 +1,39 @@
+.table-styles{
+  border-spacing: 0px;
+}
+
+
+/* do css on cells,
+ * includes headers/titlesOnColumns and
+ * body cell
+ */
+.table-styles > thead > tr > th,
+.table-styles > tbody > tr > td{
+  padding: 0px;
+}
+.table-styles > thead > tr > th > div,
+.table-styles > tbody > tr > td > div{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  max-width: 19rem;
+}
+.table-styles > tbody > tr > td > div{
+  padding-top: var(--pad100-xs);
+  padding-bottom: var(--pad100-xs);
+  padding-left: var(--pad100-lg);
+  padding-right: var(--pad100-lg);
+}
+
+
+
+
+.border-left{
+  border-top-left-radius: 24px;;
+  border-bottom-left-radius: 24px;;
+}
+.border-right{
+  border-top-right-radius: 24px;;
+  border-bottom-right-radius: 24px;;
+}
