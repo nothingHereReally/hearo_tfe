@@ -40,9 +40,6 @@ export class Header implements OnInit {
    *  -- /model/gloss
    *  -- /model/asl-recognition
    */
-  /* TODO
-   * do /account-profile page
-  */
   protected lowerHeaderButton: WritableSignal<Array<string>>= signal(['', '', '']);
   protected lowerHeaderStyle: WritableSignal<Array<string>>= signal(['style-outline', 'style-outline', 'style-outline']);
 
