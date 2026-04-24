@@ -13,10 +13,12 @@
       </tr>
     </thead>
     <tbody>
-      @for(row_not_use_this_var of dataSource()[0].data; track $index; let idxRow= $index, isEvenRow= $even){
-        @if( isEvenRow ){
-          <tr>
+      @for(row_not_use_this_var of dataSource()[0].data; track $index; let idxRow= $index, isOddRowIdx= $odd){
+        <tr>
+          <!-- odd index means has background color -->
+          @if( isOddRowIdx ){
             @for(column of dataSource(); track column.name; let isFirstCol= $first, isLastCol= $last){
+              <!-- 1st column be border on left -->
               @if( isFirstCol ){
                 @if( column.type=='string' ){
                   <td><div class="
@@ -50,6 +52,15 @@
                       background-color-pc1-800
                       ">{{ column.data[idxRow].label }} - {{ column.data[idxRow].link }}</div></td>
                 }
+
+
+
+
+
+
+
+
+              <!-- last column be border on right -->
               }@else if( isLastCol ){
                 @if( column.type=='string' ){
                   <td><div class="
@@ -83,6 +94,15 @@
                       background-color-pc1-800
                       ">{{ column.data[idxRow].label }} - {{ column.data[idxRow].link }}</div></td>
                 }
+
+
+
+
+
+
+
+
+              <!-- since NOT 1st/last column be NO border -->
               }@else{
                 @if( column.type=='string' ){
                   <td><div class="
@@ -114,9 +134,24 @@
                 }
               }
             }
-          </tr>
-        }@else{
-          <tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          <!-- NOT odd index means has NO background color -->
+          }@else{
             @for(column of dataSource(); track column.name){
               @if( column.type=='string'){
                 <td><div class="
@@ -143,8 +178,8 @@
                     ">{{ column.data[idxRow].label }} - {{ column.data[idxRow].link }}</div></td>
               }
             }
-          </tr>
-        }
+          }
+        </tr>
       }
     </tbody>
   </table>
