@@ -1,5 +1,5 @@
 <div class="stats-in-table-styles-container">
-  <table class="stats-in-table-styles">
+  <table [class]="`stats-in-table-styles stats-in-table-column-hide-cols${dataOnTable().length}`">
     <thead>
       <tr>
         @for( title of dataOnTable(); track $index){
