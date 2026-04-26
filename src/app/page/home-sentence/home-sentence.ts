@@ -2,7 +2,6 @@ import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core
 
 
 import { Header } from '../../essential/header/header';
-// import { DataTable } from '../../essential/data-table/data-table';
 
 
 import { AuthUser } from '../../api-service/auth-user';
@@ -12,13 +11,11 @@ import { firstValueFrom } from 'rxjs';
 import { ChartDoughnutHomeSentence } from '../../model/chart-doughnut-home-sentence';
 import { sumArray } from '../../model/tools';
 import { Button } from '../../essential/button/button';
-// import { TableHospitalHead } from '../../model/table-hospital-head';
 
 
 @Component({
   selector: 'app-home-sentence',
   imports: [
-    // DataTable,
     DoughnutGraph,
     Button,
     Header,
@@ -45,40 +42,6 @@ export class HomeSentence implements OnInit{
   protected doughnut4mistakenSentence: WritableSignal<Array<number>>= signal([]);
   protected mostFrequentQuantityPercent: WritableSignal<Array<number>>= signal([]);
   protected mostMistakenQuantityPercent: WritableSignal<Array<number>>= signal([]);
-
-
-  // protected contents: Array< TableHospitalHead >= [
-  //   {
-  //     name: 'Liza Mae Villanueva',
-  //     hospital: 'Cebu City Medical Center',
-  //     datetime: 'July 4, 2025 8:50am',
-  //     linkreview: '/login'
-  //   },
-  //   {
-  //     name: 'Jessica Bautista',
-  //     hospital: 'Camp Lapu-Lapu Station Hospital',
-  //     datetime: 'July 6, 2025 8:30am',
-  //     linkreview: '/login'
-  //   },
-  //   {
-  //     name: 'Maria Clara Santos',
-  //     hospital: 'Adventist Hospital - Cebu, Inc.',
-  //     datetime: 'July 9, 2025 9:55am',
-  //     linkreview: '/login'
-  //   },
-  //   {
-  //     name: 'Lisa Garcia',
-  //     hospital: 'Barili District Hospital',
-  //     datetime: 'July 10, 2025 9:10am',
-  //     linkreview: '/login'
-  //   },
-  //   {
-  //     name: 'Anna Cruz',
-  //     hospital: 'Cebu South Medical Center',
-  //     datetime: 'July 11, 2025 9:50am',
-  //     linkreview: '/login'
-  //   }
-  // ]
 
 
 
