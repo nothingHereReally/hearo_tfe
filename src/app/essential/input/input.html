@@ -40,8 +40,17 @@
           type="button"
           (click)="eyeClick()">
         <img
-            [src]="eyefile()"
-            [alt]="eyefile()"
+            [src]="iconOnRight()"
+            [alt]="iconOnRight()"
+            class="icon-botton-size">
+      </button>
+    }@else if( hasSearch()=='search' ){
+      <button
+          type="button"
+          (click)="onEnterClick()">
+        <img
+            [src]="iconOnRight()"
+            [alt]="iconOnRight()"
             class="icon-botton-size">
       </button>
     }
