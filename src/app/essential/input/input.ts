@@ -1,4 +1,4 @@
-import { Component, input, signal, OnInit, model, output, InputSignal } from '@angular/core';
+import { Component, input, signal, OnInit, model, output, InputSignal, OutputEmitterRef, ModelSignal, WritableSignal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgClass } from '@angular/common';
 
@@ -14,19 +14,19 @@ import { NgClass } from '@angular/common';
 })
 export class Input implements OnInit{
   readonly isReadOnly: InputSignal<'is-readonly'|'is-not-readonly'>= input<'is-readonly'|'is-not-readonly'>('is-not-readonly');
-  public outWant2Run= output();
+  public outWant2Run: OutputEmitterRef<void>= output<void>();
 
-  readonly nameInput= input<string>('');
-  readonly labelText= input<string>('');
+  readonly nameInput: InputSignal<string>= input<string>('');
+  readonly labelText: InputSignal<string>= input<string>('');
 
-  readonly iconNameLeft= input<string>('');
-  readonly placeholderText= input<string>('');
-  public inputValue= model<string>('');
+  readonly iconNameLeft: InputSignal<string>= input<string>('');
+  readonly placeholderText: InputSignal<string>= input<string>('');
+  public inputValue: ModelSignal<string>= model<string>('');
   readonly hasEye: InputSignal<''|'eye'>= input<''|'eye'>('');
   readonly hasSearch: InputSignal<''|'search'>= input<''|'search'>('');
 
-  protected iconOnRight= signal<string>('');
-  protected textType= signal<string>('text');
+  protected iconOnRight: WritableSignal<string>= signal<string>('');
+  protected textType: WritableSignal<string>= signal<string>('text');
 
   ngOnInit(): void{
     if( this.hasSearch()=='search' && this.hasEye()=='eye' ){
