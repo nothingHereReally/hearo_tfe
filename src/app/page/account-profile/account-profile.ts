@@ -84,8 +84,8 @@ export class AccountProfile implements OnInit{
     password: [],
     retype_password: [],
   });
-  protected readonly profileReadOrAndEdit: Signal<Array<string>>= signal(['is-readonly', 'is-not-readonly']);
-  protected readOrWithEdit: WritableSignal<string>= signal(this.profileReadOrAndEdit()[0]);
+  /* protected readonly profileReadOrAndEdit: Signal<Array<string>>= signal(['is-readonly', 'is-not-readonly']); */
+  protected readOrWithEdit: WritableSignal<"is-readonly"|"is-not-readonly">= signal<"is-readonly"|"is-not-readonly">('is-readonly');
 
 
   protected deleteAccountWritePassword: WritableSignal<string>= signal('');
@@ -147,7 +147,7 @@ export class AccountProfile implements OnInit{
 
 
   protected clickedEdit(): void{
-    this.readOrWithEdit.set( this.profileReadOrAndEdit()[1] );
+    this.readOrWithEdit.set( 'is-not-readonly' );
   }
   private __clearAllWarnings(): void{
     this.userHTWarnings.set({
@@ -160,7 +160,7 @@ export class AccountProfile implements OnInit{
     });
   }
   protected clickedCancelEdit(): void{
-    this.readOrWithEdit.set( this.profileReadOrAndEdit()[0] );
+    this.readOrWithEdit.set(  'is-readonly' );
     this.userHT.update(currentValue=>({
       ...currentValue,
       user: {
@@ -480,13 +480,13 @@ export class AccountProfile implements OnInit{
     return false;
   }
   protected async clickedUpdateInfo(): Promise<void>{
-    if( this.readOrWithEdit()==this.profileReadOrAndEdit()[1] &&
+    if( this.readOrWithEdit()=='is-not-readonly' &&
         this.__allAreFilledWithRightChars() &&
         this.__hasChangeAtLeastOne() ){
 
       if( await this.__updateInfoViaHttpPatch() ){
         this.__clearAllWarnings();
-        this.readOrWithEdit.set( this.profileReadOrAndEdit()[0] );
+        this.readOrWithEdit.set( 'is-readonly' );
       }
 
     }

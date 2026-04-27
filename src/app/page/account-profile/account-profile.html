@@ -144,7 +144,7 @@
             ">{{ success_username }}</span>
             }
           </div>
-          @if(readOrWithEdit()==profileReadOrAndEdit()[0]){
+          @if(readOrWithEdit()=='is-readonly'){
           <app-button
               [text]="'Edit'"
               [styleButton]="'style-solid'"
