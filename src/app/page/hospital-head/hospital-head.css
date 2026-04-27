@@ -1,0 +1,24 @@
+.body-hospital-head-page{
+  width: 98vw;
+}
+
+
+
+
+.search-container-hh{
+  width: 45%;
+}
+
+
+
+
+@media (max-width: 1400px) and (min-width: 650px){
+  .search-container-hh{
+    width: 95%;
+  }
+}
+@media (max-width: 649px){
+  .search-container-hh{
+    width: 98%;
+  }
+}
