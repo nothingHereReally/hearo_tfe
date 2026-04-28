@@ -1,5 +1,5 @@
-import { HttpInterceptorFn, HttpErrorResponse, HttpRequest, HttpContextToken, HttpContext } from '@angular/common/http';
-import { catchError, switchMap, throwError, from } from 'rxjs';
+import { HttpInterceptorFn, HttpErrorResponse, HttpRequest, HttpContextToken, HttpContext, HttpResponse } from '@angular/common/http';
+import { catchError, switchMap, from, of } from 'rxjs';
 import { AuthUser } from '../api-service/auth-user';
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
@@ -35,17 +35,26 @@ export const authQrAccessHttpInterceptor: HttpInterceptorFn = (req, next) => {
 
             authUserService.deleteTokenAccessQRAccount();
             router.navigate(['/verify-to-register']);
-            return throwError(()=> new Error('Session expired, need to scan QR code again'));
+            return of(new HttpResponse({
+              status: 200,
+              body: null
+            }));
           }),
           catchError((refreshErr)=> {
             authUserService.deleteTokenAccessQRAccount();
             router.navigate(['/verify-to-register']);
-            return throwError(()=> refreshErr);
+            return of(new HttpResponse({
+              status: 200,
+              body: null
+            }));
           })
         );
 
       }
-      return throwError(()=>error);
+      return of(new HttpResponse({
+        status: 200,
+        body: null
+      }));
     })
   );
 };
