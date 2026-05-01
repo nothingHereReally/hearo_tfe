@@ -8,68 +8,88 @@
 
 
 
-  <div class="
-    flex-row
-    flex-justify-center
-    ">
+  @if( dataSource()[0].data.length==0 ){
     <div class="
       flex-column
-      flex-align-stretch
-      gap-pad200-xl
-      body-hospital-head-page
+      flex-align-center
+      gap-pad100-md
       ">
-      <div class="
-        flex-row
-        flex-justify-center
-        ">
-        <div class="
-          search-container-hh
-          ">
-          <app-input
-              [nameInput]="'search_bar'"
-              [labelText]="''"
-              [placeholderText]="'Hospital or account name ...'"
-              [hasSearch]="'search'"
-              [(inputValue)]="searchHospitalOrAccountName"
-              (outWant2Run)="clickedSearch()"
-              />
-        </div>
-      </div>
+      <span class="
+        font-normal-title
+        font-color-pc1-300
+        ">No Hospital Head Account</span>
+      <img
+          class="human-lost-hospital-head"
+          src="/background/human_lost.svg"
+          alt="human lost image"
+          >
+    </div>
+
+
+  }@else{
+    <div class="
+      flex-row
+      flex-justify-center
+      ">
       <div class="
         flex-column
         flex-align-stretch
-        gap-pad100-lg
+        gap-pad200-xl
+        body-hospital-head-page
         ">
-        <span class="
-          font-bold-title
-          font-color-pc1-300
+        <div class="
           flex-row
           flex-justify-center
-          ">Hospital Head Accounts</span>
-        <app-stats-in-table
-            [dataOnTable]="dataSource()"
-            />
-      </div>
-      <div class="
-        flex-row
-        gap-pad200-xl
-        flex-justify-center
-        flex-align-center
-        ">
-        <app-button
-            [text]="''"
-            [styleButton]="'style-outline'"
-            [iconname]="'arrow_left'"
-            (outOnClick)="clickedPrevPagination()"
-            />
-        <span>2/3</span>
-        <app-button
-            [text]="''"
-            [styleButton]="'style-outline'"
-            [iconname]="'arrow_right'"
-            (outOnClick)="clickedNextPagination()"
-            />
+          ">
+          <div class="
+            search-container-hh
+            ">
+            <app-input
+                [nameInput]="'search_bar'"
+                [labelText]="''"
+                [placeholderText]="'Hospital or account name ...'"
+                [hasSearch]="'search'"
+                [(inputValue)]="searchHospitalOrAccountName"
+                (outWant2Run)="clickedSearch()"
+                />
+          </div>
+        </div>
+        <div class="
+          flex-column
+          flex-align-stretch
+          gap-pad100-lg
+          ">
+          <span class="
+            font-bold-title
+            font-color-pc1-300
+            flex-row
+            flex-justify-center
+            ">Hospital Head Accounts</span>
+          <app-stats-in-table
+              [dataOnTable]="dataSource()"
+              />
+        </div>
+        <div class="
+          flex-row
+          gap-pad200-xl
+          flex-justify-center
+          flex-align-center
+          ">
+          <app-button
+              [text]="''"
+              [styleButton]="'style-outline'"
+              [iconname]="'arrow_left'"
+              (outOnClick)="clickedPrevPagination()"
+              />
+          <span>2/3</span>
+          <app-button
+              [text]="''"
+              [styleButton]="'style-outline'"
+              [iconname]="'arrow_right'"
+              (outOnClick)="clickedNextPagination()"
+              />
+        </div>
       </div>
     </div>
-  </div>
+  }
 </div>
