@@ -1,20 +1,56 @@
 export interface RowUserHospitalHead{
-  date_joined: string;
-  email: string;
-  first_name: string;
   id: number;
-  last_login: string;
-  last_name: string;
-  password_last_modified: string;
+  email: string;
   username: string;
+  password_last_modified: string;
+  first_name: string;
+  last_name: string;
+  date_joined: string;
+  last_login: string;
 }
 export interface RowHospitalHead{
-  account_approved: boolean;
-  email_verified: boolean;
-  hospital_facility: number;
-  is_active: boolean;
-  last_update: string;
-  other_hospital: string|null;
-  profile_picture: string|null;
   user: RowUserHospitalHead;
+  hospital_facility: number;
+  other_hospital: string|null;
+  account_approved: boolean;
+  is_active: boolean;
+  email_verified: boolean;
+  profile_picture: string|null;
+  last_update: string;
+}
+export interface RowResponseHospitalHead{
+  count: number;
+  next: string|null;
+  previous: string|null;
+  results: Array<RowHospitalHead>;
+}
+
+
+
+
+export interface UserHospitalHead{
+  id: number;
+  email: string;
+  username: string;
+  password_last_modified: Date;
+  first_name: string;
+  last_name: string;
+  date_joined: Date;
+  last_login: Date;
+}
+export interface HospitalHead{
+  user: UserHospitalHead;
+  hospital_facility: number;
+  other_hospital: string|null;
+  account_approved: boolean;
+  is_active: boolean;
+  email_verified: boolean;
+  profile_picture: string|null;
+  last_update: Date;
+}
+export interface ResponseHospitalHead{
+  count: number;
+  next: boolean;
+  previous: boolean;
+  results: Array<HospitalHead>;
 }
