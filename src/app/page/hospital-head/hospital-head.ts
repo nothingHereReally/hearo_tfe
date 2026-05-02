@@ -29,7 +29,7 @@ export class HospitalHead implements OnInit{
   protected searchHospitalOrAccountName: WritableSignal<string>= signal('');
   protected dataSource: WritableSignal<Array<
     TableColumnString|TableColumnAccuracy|TableColumnStatusPatientVideo|TableColumnURLLink
-  >>= signal([])
+  >>= signal([]);
   protected pageCurrentWhat: WritableSignal<number>= signal(0);
   protected pageTotalWhat: WritableSignal<number>= signal(0);
 
@@ -38,51 +38,53 @@ export class HospitalHead implements OnInit{
 
 
   private async loadHospitalHeads(pageWhat2Add: number=0): Promise<void>{
-    const readHospitaHeads: ResponseHospitalHead= await this.userHospitalHead.getHospitalHeads();
+    const readHospitaHeads: ResponseHospitalHead|null= await this.userHospitalHead.getHospitalHeads();
+    if( readHospitaHeads ){
 
 
-    this.pageCurrentWhat.update(value=>value+pageWhat2Add);
-    this.pageTotalWhat.set(Math.ceil(readHospitaHeads.count/readHospitaHeads.results.length));
+      this.pageCurrentWhat.update(value=>value+pageWhat2Add);
+      this.pageTotalWhat.set(Math.ceil(readHospitaHeads.count/readHospitaHeads.results.length));
 
 
-    if( readHospitaHeads.count!=0 ){
-      this.dataSource.set([
-        {
-          name: 'Name',
-          type: 'string',
-          data: readHospitaHeads.results.map(
-            el=>`${el.user.first_name} ${el.user.last_name}`
-          )
-        },
-        {
-          name: 'Hospital',
-          type: 'string',
-          data: readHospitaHeads.results.map(
-            el=>`${el.hospital_facility_name}`
-          )
-        },
-        {
-          name: 'Joined',
-          type: 'string',
-          data: readHospitaHeads.results.map(
-            el=>`${el.user.date_joined.toLocaleString('en-US', dateTimeFormatOption)}`
-          )
-        },
-        {
-          name: 'Review',
-          type: 'urlLink',
-          data: readHospitaHeads.results.map(
-            el=>{
-              return {
-                link: '/account-profile',
-                label: el.account_approved? 'View Details':'Approval',
-                colorButton: el.account_approved? 'blue':'red',
+      if( readHospitaHeads.count!=0 ){
+        this.dataSource.set([
+          {
+            name: 'Name',
+            type: 'string',
+            data: readHospitaHeads.results.map(
+              el=>`${el.user.first_name} ${el.user.last_name}`
+            )
+          },
+          {
+            name: 'Hospital',
+            type: 'string',
+            data: readHospitaHeads.results.map(
+              el=>`${el.hospital_facility_name}`
+            )
+          },
+          {
+            name: 'Joined',
+            type: 'string',
+            data: readHospitaHeads.results.map(
+              el=>`${el.user.date_joined.toLocaleString('en-US', dateTimeFormatOption)}`
+            )
+          },
+          {
+            name: 'Review',
+            type: 'urlLink',
+            data: readHospitaHeads.results.map(
+              el=>{
+                return {
+                  link: '/account-profile',
+                  label: el.account_approved? 'View Details':'Approval',
+                  colorButton: el.account_approved? 'blue':'red',
+                }
               }
-            }
-          )
-        },
-      ]);
-}
+            )
+          },
+        ]);
+      }
+    }
   }
   ngOnInit(): void {
     this.loadHospitalHeads(1);
@@ -93,7 +95,7 @@ export class HospitalHead implements OnInit{
     console.log(`hello search: ${this.searchHospitalOrAccountName()} -- ${Math.random()}`)
   }
   protected async clickedPrevPagination(): Promise<void>{
-    if( this.pageCurrentWhat()!=1 ){
+    if( this.pageCurrentWhat()!=1 && this.pageCurrentWhat()!=0 ){
       await this.userHospitalHead.goPrevHospitalHeads();
       this.loadHospitalHeads(-1);
     }

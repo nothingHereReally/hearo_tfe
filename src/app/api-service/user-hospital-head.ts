@@ -50,27 +50,32 @@ export class UserHospitalHead{
       this.readHospitalHeads= await firstValueFrom(this.getHospitalHeadHttpGet());
     }
   }
-  public async getHospitalHeads(forceUpdateInit: boolean=false): Promise<ResponseHospitalHead>{
+  public async getHospitalHeads(forceUpdateInit: boolean=false): Promise<ResponseHospitalHead|null>{
     if( ! this.readHospitalHeads || forceUpdateInit ){
       await this.updateListOfHospitalHeads();
     }
-    let outResponse: ResponseHospitalHead= {
-      count: this.readHospitalHeads!.count,
-      previous: this.readHospitalHeads?.previous!=null,
-      next: this.readHospitalHeads?.next!=null,
-      results: []
-    };
-    if( 0<this.readHospitalHeads!.count ){
-      outResponse.results= this.readHospitalHeads!.results.map(el=>({
-        ...el,
-        last_update: new Date(el.last_update),
-        user: {
-          ...el.user,
-          password_last_modified: new Date(el.user.password_last_modified),
-          date_joined: new Date(el.user.date_joined),
-          last_login: new Date(el.user.last_login)
-        }
-      }));
+
+
+    let outResponse: ResponseHospitalHead|null= null;
+    if( this.readHospitalHeads ){
+      outResponse= {
+        count: this.readHospitalHeads!.count,
+        previous: this.readHospitalHeads?.previous!=null,
+        next: this.readHospitalHeads?.next!=null,
+        results: []
+      };
+      if( 0<this.readHospitalHeads!.count ){
+        outResponse.results= this.readHospitalHeads!.results.map(el=>({
+          ...el,
+          last_update: new Date(el.last_update),
+          user: {
+            ...el.user,
+            password_last_modified: new Date(el.user.password_last_modified),
+            date_joined: new Date(el.user.date_joined),
+            last_login: new Date(el.user.last_login)
+          }
+        }));
+      }
     }
 
 
