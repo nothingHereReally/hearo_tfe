@@ -1,4 +1,4 @@
-import { Component, signal, WritableSignal } from '@angular/core';
+import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
 
 
 import { Header } from '../../essential/header/header';
@@ -6,6 +6,9 @@ import { TableColumnAccuracy, TableColumnStatusPatientVideo, TableColumnString, 
 import { StatsInTable } from '../../essential/stats-in-table/stats-in-table';
 import { Input } from '../../essential/input/input';
 import { Button } from '../../essential/button/button';
+import { UserHospitalHead } from '../../api-service/user-hospital-head';
+import { ResponseHospitalHead } from '../../model/hospital-head';
+import { dateTimeFormatOption } from '../../model/tools';
 
 
 @Component({
@@ -19,83 +22,86 @@ import { Button } from '../../essential/button/button';
   templateUrl: './hospital-head.html',
   styleUrl: './hospital-head.css'
 })
-export class HospitalHead {
+export class HospitalHead implements OnInit{
+  private userHospitalHead: UserHospitalHead= inject(UserHospitalHead);
+
+
   protected searchHospitalOrAccountName: WritableSignal<string>= signal('');
-  protected dataSource: WritableSignal<Array<TableColumnString|TableColumnAccuracy|TableColumnStatusPatientVideo|TableColumnURLLink>>= signal([
-    {
-      name: 'Name',
-      data: [
-        'Liza Mae Villanueva',
-        'Jessica Bautista',
-        'Maria Clara Santos',
-        'Lisa Garcia',
-        'Anna Cruz',
-      ],
-      type: 'string'
-    },
-    {
-      name: 'Hospital',
-      data: [
-        'Cebu City Medical Center',
-        'Camp Lapu-Lapu Station Hospital ',
-        'Adventist Hospital - Cebu, Inc.',
-        'Barili District Hospital',
-        'Cebu South Medical Center',
-      ],
-      type: 'string'
-    },
-    {
-      name: 'Joined',
-      data: [
-        'July 4, 2025 8:50am',
-        'July 6, 2025 8:30am',
-        'July 9, 2025 9:55am',
-        'July 10, 2025 9:10am',
-        'July 11, 2025 9:50am',
-      ],
-      type: 'string'
-    },
-    {
-      name: 'Review',
-      data: [
+  protected dataSource: WritableSignal<Array<
+    TableColumnString|TableColumnAccuracy|TableColumnStatusPatientVideo|TableColumnURLLink
+  >>= signal([])
+  protected pageCurrentWhat: WritableSignal<number>= signal(0);
+  protected pageTotalWhat: WritableSignal<number>= signal(0);
+
+
+
+
+
+  private async loadHospitalHeads(pageWhat2Add: number=0): Promise<void>{
+    const readHospitaHeads: ResponseHospitalHead= await this.userHospitalHead.getHospitalHeads();
+
+
+    this.pageCurrentWhat.update(value=>value+pageWhat2Add);
+    this.pageTotalWhat.set(Math.ceil(readHospitaHeads.count/readHospitaHeads.results.length));
+
+
+    if( readHospitaHeads.count!=0 ){
+      this.dataSource.set([
         {
-          link: '/account-profile',
-          label: 'Approval',
-          colorButton: 'red'
+          name: 'Name',
+          type: 'string',
+          data: readHospitaHeads.results.map(
+            el=>`${el.user.first_name} ${el.user.last_name}`
+          )
         },
         {
-          link: '/account-profile',
-          label: 'Approval',
-          colorButton: 'red'
+          name: 'Hospital',
+          type: 'string',
+          data: readHospitaHeads.results.map(
+            el=>`${el.hospital_facility_name}`
+          )
         },
         {
-          link: '/account-profile',
-          label: 'View Details',
-          colorButton: 'blue'
+          name: 'Joined',
+          type: 'string',
+          data: readHospitaHeads.results.map(
+            el=>`${el.user.date_joined.toLocaleString('en-US', dateTimeFormatOption)}`
+          )
         },
         {
-          link: '/account-profile',
-          label: 'View Details',
-          colorButton: 'blue'
+          name: 'Review',
+          type: 'urlLink',
+          data: readHospitaHeads.results.map(
+            el=>{
+              return {
+                link: '/account-profile',
+                label: el.account_approved? 'View Details':'Approval',
+                colorButton: el.account_approved? 'blue':'red',
+              }
+            }
+          )
         },
-        {
-          link: '/account-profile',
-          label: 'View Details',
-          colorButton: 'blue'
-        },
-      ],
-      type: 'urlLink'
-    }
-  ]);
+      ]);
+}
+  }
+  ngOnInit(): void {
+    this.loadHospitalHeads(1);
+  }
 
 
   protected clickedSearch(): void{
     console.log(`hello search: ${this.searchHospitalOrAccountName()} -- ${Math.random()}`)
   }
-  protected clickedPrevPagination(): void{
-    console.log(`clicked previous pagination -- ${Math.random()}`)
+  protected async clickedPrevPagination(): Promise<void>{
+    if( this.pageCurrentWhat()!=1 ){
+      await this.userHospitalHead.goPrevHospitalHeads();
+      this.loadHospitalHeads(-1);
+    }
   }
-  protected clickedNextPagination(): void{
-    console.log(`clicked next pagination -- ${Math.random()}`)
+  protected async clickedNextPagination(): Promise<void>{
+    if( this.pageCurrentWhat()!=this.pageTotalWhat() ){
+      await this.userHospitalHead.goNextHospitalHeads();
+      this.loadHospitalHeads(1);
+    }
   }
 }

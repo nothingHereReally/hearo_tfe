@@ -8,7 +8,7 @@
 
 
 
-  @if( dataSource()[0].data.length==0 ){
+  @if( dataSource().length==0 ){
     <div class="
       flex-column
       flex-align-center
@@ -81,7 +81,10 @@
               [iconname]="'arrow_left'"
               (outOnClick)="clickedPrevPagination()"
               />
-          <span>2/3</span>
+          <span class="
+          font-normal-regular
+          font-color-sc-100
+          ">{{ this.pageCurrentWhat() }}/{{ this.pageTotalWhat() }}</span>
           <app-button
               [text]="''"
               [styleButton]="'style-outline'"
