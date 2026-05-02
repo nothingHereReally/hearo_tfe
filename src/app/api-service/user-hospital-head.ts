@@ -13,17 +13,17 @@ import { ResponseHospitalHead, RowResponseHospitalHead } from '../model/hospital
   providedIn: 'root',
 })
 export class UserHospitalHead{
-  private http: HttpClient= inject(HttpClient);
+  private __http: HttpClient= inject(HttpClient);
 
 
-  private readHospitalHeads: RowResponseHospitalHead|null= null;
-  private readonly initHospitalHeadUrl: string= `${env.API_DOMAIN}api/v1/hospital-heads/`;
-  private hospitalHeadUrl: string= `${this.initHospitalHeadUrl}`;
+  private __readHospitalHeads: RowResponseHospitalHead|null= null;
+  private readonly __initHospitalHeadUrl: string= `${env.API_DOMAIN}api/v1/hospital-heads/`;
+  private __hospitalHeadUrl: string= `${this.__initHospitalHeadUrl}`;
 
 
-  private getHospitalHeadHttpGet(): Observable<RowResponseHospitalHead>{
-    return this.http.get<RowResponseHospitalHead>(
-      this.hospitalHeadUrl,
+  private __getHospitalHeadHttpGet(): Observable<RowResponseHospitalHead|null>{
+    return this.__http.get<RowResponseHospitalHead>(
+      this.__hospitalHeadUrl,
       {
         headers: httpRequestHeadersSendReceiveJson,
         observe: 'body',
@@ -34,38 +34,17 @@ export class UserHospitalHead{
   }
 
 
-  private async updateListOfHospitalHeads(): Promise<void>{
-    this.hospitalHeadUrl= this.initHospitalHeadUrl;
-    this.readHospitalHeads= await firstValueFrom(this.getHospitalHeadHttpGet());
-  }
-  public async goPrevHospitalHeads(): Promise<void>{
-    if( this.readHospitalHeads?.previous ){
-      this.hospitalHeadUrl= this.readHospitalHeads.previous;
-      this.readHospitalHeads= await firstValueFrom(this.getHospitalHeadHttpGet());
-    }
-  }
-  public async goNextHospitalHeads(): Promise<void>{
-    if( this.readHospitalHeads?.next ){
-      this.hospitalHeadUrl= this.readHospitalHeads.next;
-      this.readHospitalHeads= await firstValueFrom(this.getHospitalHeadHttpGet());
-    }
-  }
-  public async getHospitalHeads(forceUpdateInit: boolean=false): Promise<ResponseHospitalHead|null>{
-    if( ! this.readHospitalHeads || forceUpdateInit ){
-      await this.updateListOfHospitalHeads();
-    }
-
-
+  private __getTransformedDataFromReadHospitalHeads(): ResponseHospitalHead|null{
     let outResponse: ResponseHospitalHead|null= null;
-    if( this.readHospitalHeads ){
+    if( this.__readHospitalHeads ){
       outResponse= {
-        count: this.readHospitalHeads!.count,
-        previous: this.readHospitalHeads?.previous!=null,
-        next: this.readHospitalHeads?.next!=null,
+        count: this.__readHospitalHeads!.count,
+        previous: this.__readHospitalHeads?.previous!=null,
+        next: this.__readHospitalHeads?.next!=null,
         results: []
       };
-      if( 0<this.readHospitalHeads!.count ){
-        outResponse.results= this.readHospitalHeads!.results.map(el=>({
+      if( 0<this.__readHospitalHeads!.count ){
+        outResponse.results= this.__readHospitalHeads!.results.map(el=>({
           ...el,
           last_update: new Date(el.last_update),
           user: {
@@ -80,5 +59,44 @@ export class UserHospitalHead{
 
 
     return outResponse;
+  }
+
+
+  private async __updateListOfHospitalHeads(): Promise<void>{
+    this.__hospitalHeadUrl= this.__initHospitalHeadUrl;
+    this.__readHospitalHeads= await firstValueFrom(this.__getHospitalHeadHttpGet());
+  }
+  public async goPrevHospitalHeads(): Promise<void>{
+    if( this.__readHospitalHeads?.previous ){
+      this.__hospitalHeadUrl= this.__readHospitalHeads.previous;
+      this.__readHospitalHeads= await firstValueFrom(this.__getHospitalHeadHttpGet());
+    }
+  }
+  public async goNextHospitalHeads(): Promise<void>{
+    if( this.__readHospitalHeads?.next ){
+      this.__hospitalHeadUrl= this.__readHospitalHeads.next;
+      this.__readHospitalHeads= await firstValueFrom(this.__getHospitalHeadHttpGet());
+    }
+  }
+  public async getHospitalHeads(forceUpdateInit: boolean=false): Promise<ResponseHospitalHead|null>{
+    if( ! this.__readHospitalHeads || forceUpdateInit ){
+      await this.__updateListOfHospitalHeads();
+    }
+
+
+    return this.__getTransformedDataFromReadHospitalHeads();
+  }
+  public async searchHospitalHeads(hospitalHeadNameOrHospitalFacilityName: string): Promise<
+    ResponseHospitalHead|null
+  >{
+    if(hospitalHeadNameOrHospitalFacilityName==''){
+      return await this.getHospitalHeads();  }
+
+
+    this.__hospitalHeadUrl= `${this.__initHospitalHeadUrl}?search=${hospitalHeadNameOrHospitalFacilityName}`;
+    this.__readHospitalHeads= await firstValueFrom(this.__getHospitalHeadHttpGet());
+
+
+    return this.__getTransformedDataFromReadHospitalHeads();
   }
 }

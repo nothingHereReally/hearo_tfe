@@ -8,7 +8,7 @@ import { Input } from '../../essential/input/input';
 import { Button } from '../../essential/button/button';
 import { UserHospitalHead } from '../../api-service/user-hospital-head';
 import { ResponseHospitalHead } from '../../model/hospital-head';
-import { dateTimeFormatOption } from '../../model/tools';
+import { dateTimeFormatOption, isEmptyOrAllSpace } from '../../model/tools';
 
 
 @Component({
@@ -37,7 +37,19 @@ export class HospitalHead implements OnInit{
 
 
 
-  private async loadHospitalHeads(pageWhat2Add: number=0): Promise<void>{
+  private async __loadInitHospitalHeads(): Promise<void>{
+    const readHospitaHeads: ResponseHospitalHead|null= await this.userHospitalHead.getHospitalHeads(true);
+    if( readHospitaHeads && readHospitaHeads.count!=0 ){
+
+
+      this.pageCurrentWhat.set(1);
+      this.pageTotalWhat.set(Math.ceil(readHospitaHeads.count/readHospitaHeads.results.length));
+
+
+      this.write2dataSource(readHospitaHeads);
+    }
+  }
+  private async __loadHospitalHeads(pageWhat2Add: number=0): Promise<void>{
     const readHospitaHeads: ResponseHospitalHead|null= await this.userHospitalHead.getHospitalHeads();
     if( readHospitaHeads ){
 
@@ -46,64 +58,86 @@ export class HospitalHead implements OnInit{
       this.pageTotalWhat.set(Math.ceil(readHospitaHeads.count/readHospitaHeads.results.length));
 
 
-      if( readHospitaHeads.count!=0 ){
-        this.dataSource.set([
-          {
-            name: 'Name',
-            type: 'string',
-            data: readHospitaHeads.results.map(
-              el=>`${el.user.first_name} ${el.user.last_name}`
-            )
-          },
-          {
-            name: 'Hospital',
-            type: 'string',
-            data: readHospitaHeads.results.map(
-              el=>`${el.hospital_facility_name}`
-            )
-          },
-          {
-            name: 'Joined',
-            type: 'string',
-            data: readHospitaHeads.results.map(
-              el=>`${el.user.date_joined.toLocaleString('en-US', dateTimeFormatOption)}`
-            )
-          },
-          {
-            name: 'Review',
-            type: 'urlLink',
-            data: readHospitaHeads.results.map(
-              el=>{
-                return {
-                  link: '/account-profile',
-                  label: el.account_approved? 'View Details':'Approval',
-                  colorButton: el.account_approved? 'blue':'red',
-                }
-              }
-            )
-          },
-        ]);
-      }
+      this.write2dataSource(readHospitaHeads);
     }
   }
   ngOnInit(): void {
-    this.loadHospitalHeads(1);
+    this.__loadInitHospitalHeads();
   }
 
 
-  protected clickedSearch(): void{
-    console.log(`hello search: ${this.searchHospitalOrAccountName()} -- ${Math.random()}`)
+  protected async clickedSearch(): Promise<void>{
+    if( ! isEmptyOrAllSpace(this.searchHospitalOrAccountName()) ){
+      const readHospitaHeads: ResponseHospitalHead|null= await this.userHospitalHead.searchHospitalHeads(
+        this.searchHospitalOrAccountName()
+      )
+      if( readHospitaHeads && readHospitaHeads.count!=0 ){
+        this.pageCurrentWhat.set(1);
+        this.pageTotalWhat.set(Math.ceil(
+          readHospitaHeads.results.length/readHospitaHeads.count
+        ));
+        this.write2dataSource(readHospitaHeads);
+      }
+
+
+    }else{
+      await this.__loadInitHospitalHeads();
+    }
   }
   protected async clickedPrevPagination(): Promise<void>{
     if( this.pageCurrentWhat()!=1 && this.pageCurrentWhat()!=0 ){
       await this.userHospitalHead.goPrevHospitalHeads();
-      this.loadHospitalHeads(-1);
+      this.__loadHospitalHeads(-1);
     }
   }
   protected async clickedNextPagination(): Promise<void>{
     if( this.pageCurrentWhat()!=this.pageTotalWhat() ){
       await this.userHospitalHead.goNextHospitalHeads();
-      this.loadHospitalHeads(1);
+      this.__loadHospitalHeads(1);
+    }
+  }
+
+
+
+
+  private write2dataSource(readHospitaHeads: ResponseHospitalHead): void{
+    if( readHospitaHeads.count!=0 ){
+      this.dataSource.set([
+        {
+          name: 'Name',
+          type: 'string',
+          data: readHospitaHeads.results.map(
+            el=>`${el.user.first_name} ${el.user.last_name}`
+          )
+        },
+        {
+          name: 'Hospital',
+          type: 'string',
+          data: readHospitaHeads.results.map(
+            el=>`${el.hospital_facility_name}`
+          )
+        },
+        {
+          name: 'Joined',
+          type: 'string',
+          data: readHospitaHeads.results.map(
+            el=>`${el.user.date_joined.toLocaleString('en-US', dateTimeFormatOption)}`
+          )
+        },
+        {
+          name: 'Review',
+          type: 'urlLink',
+          data: readHospitaHeads.results.map(
+            el=>{
+              return {
+                link: '/account-profile',
+                label: el.account_approved? 'View Details':'Approval',
+                colorButton: el.account_approved? 'blue':'red',
+              }
+            }
+          )
+        },
+      ]);
     }
   }
 }
