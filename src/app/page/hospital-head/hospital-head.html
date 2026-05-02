@@ -43,6 +43,9 @@
           ">
           <div class="
             search-container-hh
+            flex-column
+            flex-align-strech
+            gap-pad100-md
             ">
             <app-input
                 [nameInput]="'search_bar'"
@@ -52,6 +55,12 @@
                 [(inputValue)]="searchHospitalOrAccountName"
                 (outWant2Run)="clickedSearch()"
                 />
+            <span class="
+            font-normal-regular
+            font-color-fail
+            flex-row
+            flex-justify-center
+            ">{{ searchWarning() }}</span>
           </div>
         </div>
         <div class="

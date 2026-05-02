@@ -8,7 +8,8 @@ import { Input } from '../../essential/input/input';
 import { Button } from '../../essential/button/button';
 import { UserHospitalHead } from '../../api-service/user-hospital-head';
 import { ResponseHospitalHead } from '../../model/hospital-head';
-import { dateTimeFormatOption, isEmptyOrAllSpace } from '../../model/tools';
+import { dateTimeFormatOption, isEmptyOrAllSpace, sleepAsync } from '../../model/tools';
+import { environment as env } from '../../../environment/environment';
 
 
 @Component({
@@ -27,6 +28,7 @@ export class HospitalHead implements OnInit{
 
 
   protected searchHospitalOrAccountName: WritableSignal<string>= signal('');
+  protected searchWarning: WritableSignal<string>= signal('');
   protected dataSource: WritableSignal<Array<
     TableColumnString|TableColumnAccuracy|TableColumnStatusPatientVideo|TableColumnURLLink
   >>= signal([]);
@@ -77,6 +79,9 @@ export class HospitalHead implements OnInit{
           readHospitaHeads.results.length/readHospitaHeads.count
         ));
         this.write2dataSource(readHospitaHeads);
+      }else{
+        this.searchWarning.set('No match found');
+        sleepAsync(env.TIME_ERROR_DISPLAY, ()=>{this.searchWarning.set('');});
       }
 
 
