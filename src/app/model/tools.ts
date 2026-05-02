@@ -51,6 +51,15 @@ export function isEmailFormat(email: string): boolean{
 
 
 
+export function isEmptyOrAllSpace(wordStr: string): boolean{
+  const allSpaceOrEmpty: RegExp= /^\s*$/;
+
+  return allSpaceOrEmpty.test(wordStr);
+}
+
+
+
+
 export function hasSpace(wordStr: string): boolean{
   const hasSpaceRegExp: RegExp= /\s/;
   if(!wordStr) return false;
