@@ -34,7 +34,7 @@ export class UserHospitalHead{
   }
 
 
-  public async updateListOfHospitalHeads(): Promise<void>{
+  private async updateListOfHospitalHeads(): Promise<void>{
     this.hospitalHeadUrl= this.initHospitalHeadUrl;
     this.readHospitalHeads= await firstValueFrom(this.getHospitalHeadHttpGet());
   }
@@ -50,8 +50,8 @@ export class UserHospitalHead{
       this.readHospitalHeads= await firstValueFrom(this.getHospitalHeadHttpGet());
     }
   }
-  public async getHospitalHeads(): Promise<ResponseHospitalHead>{
-    if( ! this.readHospitalHeads ){
+  public async getHospitalHeads(forceUpdateInit: boolean=false): Promise<ResponseHospitalHead>{
+    if( ! this.readHospitalHeads || forceUpdateInit ){
       await this.updateListOfHospitalHeads();
     }
     let outResponse: ResponseHospitalHead= {
