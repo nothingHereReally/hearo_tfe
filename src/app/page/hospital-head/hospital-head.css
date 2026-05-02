@@ -1,4 +1,5 @@
 .body-hospital-head-page{
+  padding-bottom: var(--pad200-md);
   width: 98vw;
 }
 .human-lost-hospital-head{
