@@ -135,7 +135,7 @@ export class HospitalHead implements OnInit{
           data: readHospitaHeads.results.map(
             el=>{
               return {
-                link: '/account-profile',
+                link: `/hospital-head/${el.user.id}`,
                 label: el.account_approved? 'View Details':'Approval',
                 colorButton: el.account_approved? 'blue':'red',
               }
