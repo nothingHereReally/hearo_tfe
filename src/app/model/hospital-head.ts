@@ -11,6 +11,7 @@ export interface RowUserHospitalHead{
 export interface RowHospitalHead{
   user: RowUserHospitalHead;
   hospital_facility: number;
+  hospital_facility_name: string;
   other_hospital: string|null;
   account_approved: boolean;
   is_active: boolean;
@@ -41,6 +42,7 @@ export interface UserHospitalHead{
 export interface HospitalHead{
   user: UserHospitalHead;
   hospital_facility: number;
+  hospital_facility_name: string;
   other_hospital: string|null;
   account_approved: boolean;
   is_active: boolean;
