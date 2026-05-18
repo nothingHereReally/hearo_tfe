@@ -66,6 +66,11 @@ export const authTokenHttpInterceptInterceptor: HttpInterceptorFn= (req, next)=>
           })
         );
 
+      }else if( error.status==404 ){
+        return of(new HttpResponse({
+          status: 404,
+          body: null
+        }));
       }
       return of(new HttpResponse({
         status: 200,
