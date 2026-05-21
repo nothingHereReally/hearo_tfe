@@ -4,8 +4,141 @@
   gap-pad100-lg
   ">
   <app-header/>
+  <div class="
+    flex-column
+    flex-align-stretch
+    gap-pad300-xs
+
+    padding-left-right-pad100-lg
+    padding-top-bottom-pad100-lg
+    ">
+    <app-button
+        [text]="'Back'"
+        [styleButton]="'style-outline'"
+        [iconname]="'arrow_left'"
+        (outOnClick)="goBack()"
+        />
+    <div class="
+      flex-row
+      flex-justify-center
+      ">
+      <h1 class="
+        font-bold-title
+        font-color-pc1-300
+        ">Hospital Head Request</h1>
+    </div>
+    <div class="
+      flex-row
+      flex-justify-center
+      ">
+      <div class="
+        flex-column
+        gap-pad200-xs
+        ">
+        <div>
+          <table class="
+            font-normal-regular
+            ">
+            <tbody>
+              <tr>
+                <td><span class="
+                    font-color-pc1-300
+                    ">Name</span></td>
+                <td><span>Liza Mae Villanueva</span></td>
+              </tr>
+              <tr>
+                <td><span class="
+                    font-color-pc1-300
+                    ">Email</span></td>
+                <td><span>liza.mae.villanueva911@gmail.com</span></td>
+              </tr>
+              <tr>
+                <td><span class="
+                    font-color-pc1-300
+                    ">Hospital Name</span></td>
+                <td><span>Cebu City Medical Center</span></td>
+              </tr>
+              <tr>
+                <td><span class="
+                    font-color-pc1-300
+                    ">Hospital Address</span></td>
+                <td><span>N. Bacalso Avenue Corner Panganiban Street. Pahina Central, 6000</span></td>
+              </tr>
+              <tr>
+                <td><span class="
+                    font-color-pc1-300
+                    ">Request Made</span></td>
+                <td><span>July 4, 2025 8:50am</span></td>
+              </tr>
+              <tr>
+                <td><span class="
+                    font-color-pc1-300
+                    ">Document Files</span></td>
+                <td>
+                  <span>
+                    <app-button
+                        [text]="'Download All Files'"
+                        [styleButton]="'style-outline'"
+                        [iconname]="'download'"
+                        (outOnClick)="goBack()"
+                        />
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
 
 
 
+
+
+
+
+        <div class="
+          flex-row
+          flex-justify-space-between
+          ">
+          <app-button
+              [text]="'Approve Account'"
+              [styleButton]="'style-solid'"
+              [iconname]="''"
+              (outOnClick)="goBack()"
+              />
+          <div class="
+            flex-column
+            gap-pad100-xs
+            ">
+            <div class="
+              flex-row
+              flex-align-center
+              text-wrap-370px-max-width
+              background-color-tc3-900
+              padding-left-right-pad100-xl
+              padding-top-bottom-pad100-xl
+              border-radius
+              gap-pad100-xs
+              ">
+              <img
+                src="icon_tc3_500/info.svg"
+                alt="info image"
+                class="
+                  image-48px-size
+                ">
+              <span class="
+                font-color-fail
+                ">By clicking “REJECT” this hospital head account will be deleted, kindly contact the account first before rejecting via Email that is provided above.</span>
+            </div>
+            <app-button
+                [text]="'REJECT'"
+                [styleButton]="'style-danger-solid'"
+                [iconname]="'delete'"
+                (outOnClick)="goBack()"
+                />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
