@@ -36,7 +36,6 @@ export class HospitalHeadInstance implements OnInit{
           )
         )
       );
-      console.log(this.hospitalHeadUser());
     }catch(err){}
   }
 
