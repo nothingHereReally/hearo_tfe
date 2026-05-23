@@ -4,9 +4,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { Header } from '../../essential/header/header';
 import { Button } from '../../essential/button/button';
-import { HospitalHead as HospitalHeadModel } from '../../model/hospital-head';
+import { HospitalHead as HospitalHeadModel, RowHospitalHead } from '../../model/hospital-head';
 import { UserHospitalHead } from '../../api-service/user-hospital-head';
 import { firstValueFrom } from 'rxjs';
+import { HospitalFacility } from '../../api-service/hospital-facility';
+import { RowHospitalFacility } from '../../model/hospital-facility';
+import { dateTimeFormatOption } from '../../model/tools';
 
 
 @Component({
@@ -19,24 +22,37 @@ import { firstValueFrom } from 'rxjs';
   styleUrl: './hospital-head-instance.css',
 })
 export class HospitalHeadInstance implements OnInit{
+  private hospitalFacilityService: HospitalFacility= inject(HospitalFacility);
   private userHospitalHeadService: UserHospitalHead= inject(UserHospitalHead);
+
+
   private activatedRoute: ActivatedRoute= inject(ActivatedRoute);
   private route: Router= inject(Router);
   protected hospitalHeadUser: WritableSignal<HospitalHeadModel|null>= signal(null);
+  protected dateJoined: WritableSignal<string>= signal("");
+  protected hospitalAddress: WritableSignal<string>= signal("");
 
 
 
 
   async ngOnInit(): Promise<void> {
+    let userHH: RowHospitalHead|null= null;
     try{
-      this.hospitalHeadUser.set(
-        await firstValueFrom(
-          this.userHospitalHeadService.getHospitalHeadById(
-            Number(this.activatedRoute.snapshot.params['hhid'])
-          )
+      userHH= await firstValueFrom(
+        this.userHospitalHeadService.getHospitalHeadById(
+          Number(this.activatedRoute.snapshot.params['hhid'])
         )
       );
     }catch(err){}
+    if( userHH )
+      this.hospitalHeadUser.set(this.userHospitalHeadService.getHospitalHeadFromRow(userHH));
+      this.dateJoined.set(`${this.hospitalHeadUser()?.user?.date_joined.toLocaleString('en-US', dateTimeFormatOption)}`)
+    if( this.hospitalHeadUser() && this.hospitalHeadUser()?.hospital_facility ){
+      let hospitalFacility: RowHospitalFacility|null= await firstValueFrom(this.hospitalFacilityService.getHospitalFacilityById(this.hospitalHeadUser()?.hospital_facility!));
+      if(hospitalFacility){
+        this.hospitalAddress.set(`${hospitalFacility.street} ${hospitalFacility.municipality}`);
+      }
+    }
   }
 
 
