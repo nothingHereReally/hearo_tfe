@@ -115,12 +115,14 @@
           flex-row
           flex-justify-space-between
           ">
+          @if( ! hospitalHeadUser()?.account_approved ){
           <app-button
               [text]="'Approve Account'"
               [styleButton]="'style-solid'"
               [iconname]="''"
               (outOnClick)="goBack()"
               />
+          }@else{
           <div class="
             flex-column
             gap-pad100-xs
@@ -128,7 +130,49 @@
             <div class="
               flex-row
               flex-align-center
-              text-wrap-370px-max-width
+              text-wrap-284px-max-width
+              background-color-tc2-800
+              padding-left-right-pad100-xl
+              padding-top-bottom-pad100-xl
+              border-radius
+              gap-pad100-xs
+              ">
+              <img
+                src="icon_tc2_400/info.svg"
+                alt="info image"
+                class="
+                  image-48px-size
+                ">
+              <span class="
+                font-color-info
+                ">Toggle active/deactivated account, please email the user if you have deactivated the account, as to the reason why.</span>
+            </div>
+            <div class="
+            flex-row
+            flex-justify-space-between
+            flex-align-center
+            ">
+              <span class="
+                  font-normal-regular
+                  ">Account Status</span>
+              <app-button
+                  [text]="'Deactivated'"
+                  [styleButton]="'style-danger-outline'"
+                  [iconname]="''"
+                  (outOnClick)="goBack()"
+                  />
+            </div>
+          </div>
+          }
+          @if( ! hospitalHeadUser()?.account_approved || hospitalHeadUser()?.is_active ){
+          <div class="
+            flex-column
+            gap-pad100-xs
+            ">
+            <div class="
+              flex-row
+              flex-align-center
+              text-wrap-284px-max-width
               background-color-tc3-900
               padding-left-right-pad100-xl
               padding-top-bottom-pad100-xl
@@ -152,6 +196,7 @@
                 (outOnClick)="goBack()"
                 />
           </div>
+          }
         </div>
       </div>
     </div>
