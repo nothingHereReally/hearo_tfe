@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 
 
-import { AddHospitalFacility, ResponseHospitalFacility, RowResponseHospitalFacility } from '../model/hospital-facility';
+import { AddHospitalFacility, ResponseHospitalFacility, RowHospitalFacility, RowResponseHospitalFacility } from '../model/hospital-facility';
 import { environment as env } from '../../environment/environment';
 import { firstValueFrom, Observable } from 'rxjs';
 import { httpRequestHeadersSendReceiveJson } from '../model/tools';
@@ -95,8 +95,8 @@ export class HospitalFacility {
 
     return this.__getTransformedDataFromReadHospitalFaclities();
   }
-  public getHospitalFacilityById(hospitalFacilityId: number): Observable<HospitalFacility|null>{
-    return this.__http.get<HospitalFacility>(
+  public getHospitalFacilityById(hospitalFacilityId: number): Observable<RowHospitalFacility|null>{
+    return this.__http.get<RowHospitalFacility|null>(
       `${this.__initHospitalFacilityUrl}${hospitalFacilityId}/`,
       {
         headers: httpRequestHeadersSendReceiveJson,
@@ -108,8 +108,8 @@ export class HospitalFacility {
   }
 
 
-  public addHospitalFacility(newHospitalFacility: AddHospitalFacility): Observable<HospitalFacility>{
-    return this.__http.post<HospitalFacility>(
+  public addHospitalFacility(newHospitalFacility: AddHospitalFacility): Observable<RowHospitalFacility>{
+    return this.__http.post<RowHospitalFacility>(
       `${this.__initHospitalFacilityUrl}`,
       newHospitalFacility,
       {
