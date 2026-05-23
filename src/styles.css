@@ -437,6 +437,7 @@ html, body {
 
 
 .font-color-success{ color: var(--tc1-400); }
+.font-color-info{ color: var(--tc2-400); }
 .font-color-fail{ color: var(--tc3-500); }
 .background-color-success{ background-color: var(--tc1-900); }
 .background-color-fail{ background-color: var(--tc3-900); }
@@ -776,6 +777,10 @@ html, body {
 
 
 
+.text-wrap-284px-max-width{
+  word-wrap: break-word;
+  max-width: 16.7rem;
+}
 .text-wrap-370px-max-width{
   word-wrap: break-word;
   max-width: 21.8rem;
