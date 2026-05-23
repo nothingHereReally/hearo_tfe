@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 
 
-import { ResponseHospitalFacility, RowResponseHospitalFacility } from '../model/hospital-facility';
+import { AddHospitalFacility, ResponseHospitalFacility, RowResponseHospitalFacility } from '../model/hospital-facility';
 import { environment as env } from '../../environment/environment';
 import { firstValueFrom, Observable } from 'rxjs';
 import { httpRequestHeadersSendReceiveJson } from '../model/tools';
@@ -98,6 +98,20 @@ export class HospitalFacility {
   public getHospitalFacilityById(hospitalFacilityId: number): Observable<HospitalFacility|null>{
     return this.__http.get<HospitalFacility>(
       `${this.__initHospitalFacilityUrl}${hospitalFacilityId}/`,
+      {
+        headers: httpRequestHeadersSendReceiveJson,
+        observe: 'body',
+        credentials: 'include',
+        context: AddAuthTokenHttpIntercept
+      }
+    );
+  }
+
+
+  public addHospitalFacility(newHospitalFacility: AddHospitalFacility): Observable<HospitalFacility>{
+    return this.__http.post<HospitalFacility>(
+      `${this.__initHospitalFacilityUrl}`,
+      newHospitalFacility,
       {
         headers: httpRequestHeadersSendReceiveJson,
         observe: 'body',
