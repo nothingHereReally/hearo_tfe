@@ -30,3 +30,12 @@ export interface ResponseHospitalFacility{
   previous: boolean;
   results: Array<HospitalFacility>;
 }
+
+
+
+
+export interface AddHospitalFacility{
+  name: string;
+  street: string;
+  municipality: string;
+}
