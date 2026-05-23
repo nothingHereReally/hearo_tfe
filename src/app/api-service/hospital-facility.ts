@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 
 
-import { AddHospitalFacility, ResponseHospitalFacility, RowHospitalFacility, RowResponseHospitalFacility } from '../model/hospital-facility';
+import { AddHospitalFacility, HospitalFacility as HospitalFacilityModel, ResponseHospitalFacility, RowHospitalFacility, RowResponseHospitalFacility } from '../model/hospital-facility';
 import { environment as env } from '../../environment/environment';
 import { firstValueFrom, Observable } from 'rxjs';
 import { httpRequestHeadersSendReceiveJson } from '../model/tools';
@@ -119,5 +119,14 @@ export class HospitalFacility {
         context: AddAuthTokenHttpIntercept
       }
     );
+  }
+
+
+  public getHospitalFacilityFromRow(hospitalFacility: RowHospitalFacility): HospitalFacilityModel{
+    return {
+      ...hospitalFacility,
+      date_added: new Date(hospitalFacility.date_added),
+      last_update: new Date(hospitalFacility.last_update)
+    }
   }
 }
