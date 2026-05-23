@@ -57,7 +57,8 @@ export class HospitalHead implements OnInit{
 
 
       this.pageCurrentWhat.update(value=>value+pageWhat2Add);
-      this.pageTotalWhat.set(Math.ceil(readHospitaHeads.count/readHospitaHeads.results.length));
+      if( this.pageCurrentWhat()!=this.pageTotalWhat() )
+        this.pageTotalWhat.set(Math.ceil(readHospitaHeads.count/readHospitaHeads.results.length));
 
 
       this.write2dataSource(readHospitaHeads);
