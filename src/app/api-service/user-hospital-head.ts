@@ -111,4 +111,18 @@ export class UserHospitalHead{
       }
     );
   }
+
+
+  public getHospitalHeadFromRow(hospitalHeadUser: RowHospitalHead): HospitalHead{
+    return {
+      ...hospitalHeadUser,
+      user: {
+        ...hospitalHeadUser.user,
+        password_last_modified: new Date(hospitalHeadUser.user.password_last_modified),
+        date_joined: new Date(hospitalHeadUser.user.date_joined),
+        last_login: new Date(hospitalHeadUser.user.last_login),
+      },
+      last_update: new Date(hospitalHeadUser.last_update)
+    }
+  }
 }
