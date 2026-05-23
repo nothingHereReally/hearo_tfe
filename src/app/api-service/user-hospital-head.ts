@@ -6,7 +6,7 @@ import { environment as env } from '../../environment/environment';
 import { httpRequestHeadersSendReceiveJson } from '../model/tools';
 import { AddAuthTokenHttpIntercept } from '../services/auth-token-http-intercept-interceptor';
 import { firstValueFrom, Observable } from 'rxjs';
-import { HospitalHead, ResponseHospitalHead, RowResponseHospitalHead } from '../model/hospital-head';
+import { HospitalHead, ResponseHospitalHead, RowHospitalHead, RowResponseHospitalHead } from '../model/hospital-head';
 
 
 @Injectable({
@@ -99,8 +99,8 @@ export class UserHospitalHead{
 
     return this.__getTransformedDataFromReadHospitalHeads();
   }
-  public getHospitalHeadById(userId: number): Observable<HospitalHead|null>{
-    return this.__http.get<HospitalHead>(
+  public getHospitalHeadById(userId: number): Observable<RowHospitalHead|null>{
+    return this.__http.get<RowHospitalHead|null>(
       `${this.__initHospitalHeadUrl}${userId}/`,
       {
         headers: httpRequestHeadersSendReceiveJson,
