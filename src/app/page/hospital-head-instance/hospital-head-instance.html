@@ -56,6 +56,7 @@
                     ">Email</span></td>
                 <td><span>{{ hospitalHeadUser()?.user?.email }}</span></td>
               </tr>
+              @if( hospitalHeadUser()?.hospital_facility_name ){
               <tr>
                 <td><span class="
                     font-color-pc1-300
@@ -68,6 +69,14 @@
                     ">Hospital Address</span></td>
                 <td><span>{{ hospitalAddress() }}</span></td>
               </tr>
+              }@else{
+              <tr>
+                <td><span class="
+                    font-color-pc1-300
+                    ">Other Hospital</span></td>
+                <td><span>{{ hospitalHeadUser()?.other_hospital }}</span></td>
+              </tr>
+              }
               <tr>
                 <td><span class="
                     font-color-pc1-300
