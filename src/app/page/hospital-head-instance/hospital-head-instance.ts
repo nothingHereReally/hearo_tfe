@@ -10,7 +10,8 @@ import { UserHospitalHead } from '../../api-service/user-hospital-head';
 import { firstValueFrom } from 'rxjs';
 import { HospitalFacility } from '../../api-service/hospital-facility';
 import { RowHospitalFacility } from '../../model/hospital-facility';
-import { dateTimeFormatOption } from '../../model/tools';
+import { dateTimeFormatOption, sleepAsync } from '../../model/tools';
+import { environment as env } from '../../../environment/environment';
 
 
 @Component({
@@ -103,15 +104,20 @@ export class HospitalHeadInstance implements OnInit{
     this.deleteConfirmationInput.set("");
   }
 
-  protected deleteHospitalHeadAccont(){
+  protected async deleteHospitalHeadAccont(): Promise<void>{
     if( this.deleteConfirmationStep() == 0 ){
       this.deleteConfirmationStep.set(1);
     }else if( this.deleteConfirmationStep() == 1 ){
       this.deleteConfirmationStep.set(2);
     }else if( this.deleteConfirmationStep() == 2 ){
       if( this.deleteConfirmationInput() === "DELETE HOSPITAL HEAD USER" ){
-        console.log(`clicked delete hospital head account ${Math.random()}`);
-        this.cancelDeleteConfirmation();
+        try{
+          await firstValueFrom(this.userHospitalHeadService.deleteHospitalHead(this.hospitalHeadUser()!.user.id))
+          this.deleteConfirmationStep.set(3);
+          await sleepAsync(env.TIME_ERROR_DISPLAY);
+          this.route.navigate(['/hospital-head']);
+        }catch{}
+
       }
     }
   }
