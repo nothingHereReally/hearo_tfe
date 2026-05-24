@@ -178,6 +178,7 @@
             flex-column
             gap-pad100-xs
             ">
+            @if( deleteConfirmationStep() === 0 ){
             <div class="
               flex-row
               flex-align-center
@@ -198,20 +199,74 @@
                 font-color-fail
                 ">By clicking <span>@if( ! hospitalHeadUser()?.account_approved ){ “REJECT” }@else{ “DELETE” }</span>this hospital head account will be deleted, kindly contact the account first before rejecting via Email that is provided above.</span>
             </div>
-            @if( ! hospitalHeadUser()?.account_approved ){
             <app-button
-                [text]="'REJECT'"
+                [text]="hospitalHeadUser()?.account_approved ? 'DELETE' : 'REJECT'"
                 [styleButton]="'style-danger-solid'"
                 [iconname]="'delete'"
-                (outOnClick)="goBack()"
+                (outOnClick)="deleteHospitalHeadAccont()"
                 />
-            }@else{
-            <app-button
-                [text]="'DELETE'"
-                [styleButton]="'style-danger-solid'"
-                [iconname]="'delete'"
-                (outOnClick)="goBack()"
-                />
+            }@else if( deleteConfirmationStep() === 1 ){
+              <div class="
+                flex-column
+                gap-pad100-xs
+                text-wrap-370px-max-width
+                background-color-tc3-900
+                padding-left-right-pad100-xl
+                padding-top-bottom-pad100-xl
+                border-radius
+                ">
+                <span class="font-bold-regular font-color-fail">Are you sure? DELETE USER?</span>
+                <div class="flex-row flex-justify-space-between">
+                  <app-button
+                      [text]="'YES'"
+                      [styleButton]="'style-danger-solid'"
+                      [iconname]="'check'"
+                      (outOnClick)="deleteHospitalHeadAccont()"
+                      />
+                  <app-button
+                      [text]="'CANCEL'"
+                      [styleButton]="'style-outline'"
+                      [iconname]="''"
+                      (outOnClick)="cancelDeleteConfirmation()"
+                      />
+                </div>
+              </div>
+            }@else if( deleteConfirmationStep() === 2 ){
+              <div class="
+                flex-column
+                gap-pad100-xs
+                text-wrap-370px-max-width
+                background-color-tc3-900
+                padding-left-right-pad100-xl
+                padding-top-bottom-pad100-xl
+                border-radius
+                ">
+                <span class="font-normal-regular">Please type <b class="font-color-fail">DELETE HOSPITAL HEAD USER</b> to confirm.</span>
+                <app-input
+                    [nameInput]="'deletehospitalheadusername'"
+                    [(inputValue)]="deleteConfirmationInput"
+                    [iconNameLeft]="''"
+                    [placeholderText]="'Type here...'"
+                    (outWant2Run)="deleteHospitalHeadAccont()"
+                    />
+                <div class="
+                flex-row
+                flex-justify-space-between
+                ">
+                  <app-button
+                      [text]="'CONFIRM'"
+                      [iconname]="''"
+                      [styleButton]="deleteConfirmationInput() === 'DELETE HOSPITAL HEAD USER' ? 'style-danger-solid' : 'style-outline'"
+                      (outOnClick)="deleteHospitalHeadAccont()"
+                      />
+                  <app-button
+                      [text]="'CANCEL'"
+                      [iconname]="''"
+                      [styleButton]="'style-outline'"
+                      (outOnClick)="cancelDeleteConfirmation()"
+                      />
+                </div>
+              </div>
             }
           </div>
           }

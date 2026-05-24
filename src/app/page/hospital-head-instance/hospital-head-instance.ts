@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { Header } from '../../essential/header/header';
 import { Button } from '../../essential/button/button';
+import { Input } from '../../essential/input/input';
 import { EditHospitalHead, HospitalHead as HospitalHeadModel, RowHospitalHead } from '../../model/hospital-head';
 import { UserHospitalHead } from '../../api-service/user-hospital-head';
 import { firstValueFrom } from 'rxjs';
@@ -16,7 +17,8 @@ import { dateTimeFormatOption } from '../../model/tools';
   selector: 'app-hospital-head-instance',
   imports: [
     Header,
-    Button
+    Button,
+    Input
   ],
   templateUrl: './hospital-head-instance.html',
   styleUrl: './hospital-head-instance.css',
@@ -31,6 +33,9 @@ export class HospitalHeadInstance implements OnInit{
   protected hospitalHeadUser: WritableSignal<HospitalHeadModel|null>= signal(null);
   protected dateJoined: WritableSignal<string>= signal("");
   protected hospitalAddress: WritableSignal<string>= signal("");
+
+  protected deleteConfirmationStep: WritableSignal<number>= signal(0);
+  protected deleteConfirmationInput: WritableSignal<string>= signal("");
 
 
 
@@ -92,7 +97,23 @@ export class HospitalHeadInstance implements OnInit{
       }
     }
   }
+
+  protected cancelDeleteConfirmation(){
+    this.deleteConfirmationStep.set(0);
+    this.deleteConfirmationInput.set("");
+  }
+
   protected deleteHospitalHeadAccont(){
-    console.log(`clicked delete hospital head account ${Math.random()}`);
+    if( this.deleteConfirmationStep() == 0 ){
+      this.deleteConfirmationStep.set(1);
+    }else if( this.deleteConfirmationStep() == 1 ){
+      this.deleteConfirmationStep.set(2);
+    }else if( this.deleteConfirmationStep() == 2 ){
+      if( this.deleteConfirmationInput() === "DELETE HOSPITAL HEAD USER" ){
+        console.log(`clicked delete hospital head account ${Math.random()}`);
+        this.cancelDeleteConfirmation();
+      }
+    }
   }
 }
+
