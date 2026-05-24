@@ -15,7 +15,7 @@ import { AuthUser } from './auth-user';
   providedIn: 'root'
 })
 export class ApiFile {
-  private http= inject(HttpClient);
+  private __http= inject(HttpClient);
   private sanitizer: DomSanitizer= inject(DomSanitizer);
 
 
@@ -28,7 +28,7 @@ export class ApiFile {
     return this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(imgBlob));
   }
   private async __getProfilePictureViaSafeUrlAsync(): Promise<SafeUrl>{
-    const imgBlob= await firstValueFrom(this.http.get(
+    const imgBlob= await firstValueFrom(this.__http.get(
       `${env.API_DOMAIN}api/v1/get-profile-picture/`,
       {
         observe: 'body',
@@ -64,7 +64,7 @@ export class ApiFile {
     const formData= new FormData();
     formData.append('profile_picture', image_blob, image_blob.name);
 
-    return this.http.patch<HearoTeamDataStruct>(
+    return this.__http.patch<HearoTeamDataStruct>(
       `${env.API_DOMAIN}api/v1/hearo-teams/${this.authUser.getUserIdViaTokenAuth()}/`,
       formData,{
         headers: httpRequestHeadersReceiveJson,
@@ -74,7 +74,7 @@ export class ApiFile {
     )
   }
   public async getQRAccessAccountCode(): Promise<SafeUrl>{
-    const imgBlob: Blob= await firstValueFrom(this.http.get(
+    const imgBlob: Blob= await firstValueFrom(this.__http.get(
       `${env.API_DOMAIN}api/token/qr/`,
       {
         observe: 'body',
