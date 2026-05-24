@@ -56,3 +56,12 @@ export interface ResponseHospitalHead{
   previous: boolean;
   results: Array<HospitalHead>;
 }
+
+
+
+
+export interface EditHospitalHead{
+  hospital_facility: number;
+  account_approved: boolean;
+  is_active: boolean;
+}
