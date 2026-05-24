@@ -18,7 +18,7 @@
         [iconname]="'arrow_left'"
         (outOnClick)="goBack()"
         />
-    @if( hospitalHeadUser()!=null ){
+    @if( hospitalHeadUser() ){
     <div class="
       flex-row
       flex-justify-center
@@ -95,7 +95,7 @@
                         [text]="'Download All Files'"
                         [styleButton]="'style-outline'"
                         [iconname]="'download'"
-                        (outOnClick)="goBack()"
+                        (outOnClick)="clickedDownloadAllFilesFromHospitalHead()"
                         />
                   </span>
                 </td>
@@ -120,7 +120,7 @@
               [text]="'Approve Account'"
               [styleButton]="'style-solid'"
               [iconname]="''"
-              (outOnClick)="goBack()"
+              (outOnClick)="clickedApproveAccount()"
               />
           }@else{
           <div class="
@@ -155,16 +155,25 @@
               <span class="
                   font-normal-regular
                   ">Account Status</span>
+              @if( hospitalHeadUser()?.is_active ){
+              <app-button
+                  [text]="'Account Active'"
+                  [styleButton]="'style-solid'"
+                  [iconname]="''"
+                  (outOnClick)="clickedToggleAccountActiveDeactivated()"
+                  />
+              }@else{
               <app-button
                   [text]="'Deactivated'"
                   [styleButton]="'style-danger-outline'"
                   [iconname]="''"
-                  (outOnClick)="goBack()"
+                  (outOnClick)="clickedToggleAccountActiveDeactivated()"
                   />
+              }
             </div>
           </div>
           }
-          @if( ! hospitalHeadUser()?.account_approved || hospitalHeadUser()?.is_active ){
+          @if( ! hospitalHeadUser()?.account_approved || ! hospitalHeadUser()?.is_active ){
           <div class="
             flex-column
             gap-pad100-xs

@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { Header } from '../../essential/header/header';
 import { Button } from '../../essential/button/button';
-import { HospitalHead as HospitalHeadModel, RowHospitalHead } from '../../model/hospital-head';
+import { EditHospitalHead, HospitalHead as HospitalHeadModel, RowHospitalHead } from '../../model/hospital-head';
 import { UserHospitalHead } from '../../api-service/user-hospital-head';
 import { firstValueFrom } from 'rxjs';
 import { HospitalFacility } from '../../api-service/hospital-facility';
@@ -58,5 +58,27 @@ export class HospitalHeadInstance implements OnInit{
 
   protected goBack(){
     this.route.navigate(['/hospital-head']);
+  }
+  protected clickedDownloadAllFilesFromHospitalHead(){
+    console.log(`clicked download all files ${Math.random()}`);
+  }
+  protected async clickedApproveAccount(): Promise<void>{
+    if( this.hospitalHeadUser()!=null ){
+      let approveAccount: EditHospitalHead= {
+        account_approved: true,
+        is_active: this.hospitalHeadUser()!.is_active,
+        hospital_facility: this.hospitalHeadUser()!.hospital_facility
+      };
+      let editedUserHospitalHead: RowHospitalHead|null=await firstValueFrom(this.userHospitalHeadService.editHospitalHead(this.hospitalHeadUser()!.user.id, approveAccount));
+      if( editedUserHospitalHead ){
+        this.hospitalHeadUser.set(this.userHospitalHeadService.getHospitalHeadFromRow(editedUserHospitalHead));
+      }
+    }
+  }
+  protected clickedToggleAccountActiveDeactivated(){
+    console.log(`clicked toggle active/deactivate account ${Math.random()}`);
+  }
+  protected deleteHospitalHeadAccont(){
+    console.log(`clicked delete hospital head account ${Math.random()}`);
   }
 }
