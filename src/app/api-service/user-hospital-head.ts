@@ -127,6 +127,19 @@ export class UserHospitalHead{
   }
 
 
+  public deleteHospitalHead(userId: number): Observable<null>{
+    return this.__http.delete<null>(
+      `${this.__initHospitalHeadUrl}${userId}`,
+      {
+        headers: httpRequestHeadersSendReceiveJson,
+        observe: 'body',
+        credentials: 'include',
+        context: AddAuthTokenHttpIntercept
+      }
+    );
+  }
+
+
   public getHospitalHeadFromRow(hospitalHeadUser: RowHospitalHead): HospitalHead{
     return {
       ...hospitalHeadUser,
