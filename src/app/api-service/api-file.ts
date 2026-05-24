@@ -85,4 +85,16 @@ export class ApiFile {
 
     return this.imgBlob2SafeUrl(imgBlob);
   }
+
+
+  public getHospitalHeadDocumentsViaZipFile(hospitalHeadId: number): Observable<Blob|null>{
+    return this.__http.get(
+      `${env.API_DOMAIN}api/v1/get-hospital-head-documents-zip/${hospitalHeadId}/`,
+      {
+        observe: 'body',
+        responseType: 'blob',
+        context: AddAuthTokenHttpIntercept
+      }
+    )
+  }
 }
