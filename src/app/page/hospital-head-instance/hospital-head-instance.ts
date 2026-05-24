@@ -75,8 +75,22 @@ export class HospitalHeadInstance implements OnInit{
       }
     }
   }
-  protected clickedToggleAccountActiveDeactivated(){
-    console.log(`clicked toggle active/deactivate account ${Math.random()}`);
+  protected async clickedToggleAccountActiveDeactivated(): Promise<void>{
+    if( this.hospitalHeadUser() ){
+      const toggleActiveDeactivatedAccount: EditHospitalHead= {
+        account_approved: this.hospitalHeadUser()!.account_approved,
+        is_active: this.hospitalHeadUser()!.is_active? false : true,
+        hospital_facility: this.hospitalHeadUser()!.hospital_facility
+      }
+      let editedUserHospitalHead: RowHospitalHead|null= await firstValueFrom(
+        this.userHospitalHeadService.editHospitalHead(
+          this.hospitalHeadUser()!.user.id, toggleActiveDeactivatedAccount
+        )
+      );
+      if( editedUserHospitalHead ){
+        this.hospitalHeadUser.set(this.userHospitalHeadService.getHospitalHeadFromRow(editedUserHospitalHead));
+      }
+    }
   }
   protected deleteHospitalHeadAccont(){
     console.log(`clicked delete hospital head account ${Math.random()}`);
