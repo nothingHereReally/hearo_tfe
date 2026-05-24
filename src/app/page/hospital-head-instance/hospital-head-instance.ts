@@ -12,6 +12,7 @@ import { HospitalFacility } from '../../api-service/hospital-facility';
 import { RowHospitalFacility } from '../../model/hospital-facility';
 import { dateTimeFormatOption, sleepAsync } from '../../model/tools';
 import { environment as env } from '../../../environment/environment';
+import { ApiFile } from '../../api-service/api-file';
 
 
 @Component({
@@ -27,6 +28,7 @@ import { environment as env } from '../../../environment/environment';
 export class HospitalHeadInstance implements OnInit{
   private hospitalFacilityService: HospitalFacility= inject(HospitalFacility);
   private userHospitalHeadService: UserHospitalHead= inject(UserHospitalHead);
+  private apiFile: ApiFile= inject(ApiFile);
 
 
   private activatedRoute: ActivatedRoute= inject(ActivatedRoute);
@@ -65,8 +67,21 @@ export class HospitalHeadInstance implements OnInit{
   protected goBack(){
     this.route.navigate(['/hospital-head']);
   }
-  protected clickedDownloadAllFilesFromHospitalHead(){
-    console.log(`clicked download all files ${Math.random()}`);
+  protected async clickedDownloadAllFilesFromHospitalHead(){
+    if( this.hospitalHeadUser() ){
+      const zipBlob: Blob|null= await firstValueFrom(this.apiFile.getHospitalHeadDocumentsViaZipFile(this.hospitalHeadUser()!.user.id));
+      if( zipBlob ){
+        const url= window.URL.createObjectURL(zipBlob);
+        const a= document.createElement('a');
+        a.href= url;
+        a.download= `hospital_head_${this.hospitalHeadUser()?.user.id}__${this.hospitalHeadUser()?.user.first_name}_${this.hospitalHeadUser()?.user.last_name}____documents.zip`;
+        a.click();
+        await sleepAsync(env.TIME_ERROR_DISPLAY/2.0);
+        window.URL.revokeObjectURL(url);
+      }else{
+        console.log('no document files');
+      }
+    }
   }
   protected async clickedApproveAccount(): Promise<void>{
     if( this.hospitalHeadUser()!=null ){
