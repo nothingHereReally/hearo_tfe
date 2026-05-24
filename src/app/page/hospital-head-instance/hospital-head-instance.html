@@ -196,14 +196,23 @@
                 ">
               <span class="
                 font-color-fail
-                ">By clicking “REJECT” this hospital head account will be deleted, kindly contact the account first before rejecting via Email that is provided above.</span>
+                ">By clicking <span>@if( ! hospitalHeadUser()?.account_approved ){ “REJECT” }@else{ “DELETE” }</span>this hospital head account will be deleted, kindly contact the account first before rejecting via Email that is provided above.</span>
             </div>
+            @if( ! hospitalHeadUser()?.account_approved ){
             <app-button
                 [text]="'REJECT'"
                 [styleButton]="'style-danger-solid'"
                 [iconname]="'delete'"
                 (outOnClick)="goBack()"
                 />
+            }@else{
+            <app-button
+                [text]="'DELETE'"
+                [styleButton]="'style-danger-solid'"
+                [iconname]="'delete'"
+                (outOnClick)="goBack()"
+                />
+            }
           </div>
           }
         </div>
