@@ -96,8 +96,6 @@ export class HospitalHeadInstance implements OnInit{
         a.click();
         await sleepAsync(env.TIME_ERROR_DISPLAY/2.0);
         window.URL.revokeObjectURL(url);
-      }else{
-        console.log('no document files');
       }
     }
   }
