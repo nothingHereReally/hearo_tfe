@@ -10,9 +10,11 @@ import { UserHospitalHead } from '../../api-service/user-hospital-head';
 import { firstValueFrom } from 'rxjs';
 import { HospitalFacility } from '../../api-service/hospital-facility';
 import { RowHospitalFacility } from '../../model/hospital-facility';
+import { RowPageDocumentFile } from '../../model/document-file';
 import { dateTimeFormatOption, sleepAsync } from '../../model/tools';
 import { environment as env } from '../../../environment/environment';
 import { ApiFile } from '../../api-service/api-file';
+import { HospitalHeadDocument } from '../../api-service/hospital-head-document';
 
 
 @Component({
@@ -29,6 +31,7 @@ export class HospitalHeadInstance implements OnInit{
   private hospitalFacilityService: HospitalFacility= inject(HospitalFacility);
   private userHospitalHeadService: UserHospitalHead= inject(UserHospitalHead);
   private apiFile: ApiFile= inject(ApiFile);
+  private hospitalHeadDocumentService: HospitalHeadDocument= inject(HospitalHeadDocument);
 
 
   private activatedRoute: ActivatedRoute= inject(ActivatedRoute);
@@ -36,6 +39,7 @@ export class HospitalHeadInstance implements OnInit{
   protected hospitalHeadUser: WritableSignal<HospitalHeadModel|null>= signal(null);
   protected dateJoined: WritableSignal<string>= signal("");
   protected hospitalAddress: WritableSignal<string>= signal("");
+  protected isDownloadAvailable: WritableSignal<boolean>= signal(false);
 
   protected deleteConfirmationStep: WritableSignal<number>= signal(0);
   protected deleteConfirmationInput: WritableSignal<string>= signal("");
@@ -52,9 +56,23 @@ export class HospitalHeadInstance implements OnInit{
         )
       );
     }catch(err){}
-    if( userHH )
+    if( userHH!=null ){
       this.hospitalHeadUser.set(this.userHospitalHeadService.getHospitalHeadFromRow(userHH));
-      this.dateJoined.set(`${this.hospitalHeadUser()?.user?.date_joined.toLocaleString('en-US', dateTimeFormatOption)}`)
+    }
+    if( this.hospitalHeadUser()!=null ){
+      this.dateJoined.set(`${this.hospitalHeadUser()!.user.date_joined.toLocaleString('en-US', dateTimeFormatOption)}`)
+      let docs: RowPageDocumentFile= await firstValueFrom(
+        this.hospitalHeadDocumentService
+            .getPageDocumentsByHospitalHeadId(
+               this.hospitalHeadUser()!.user.id
+            )
+      )
+      if( 0<docs.count ){
+        this.isDownloadAvailable.set(true);
+      }else{
+        this.isDownloadAvailable.set(false);
+      }
+    }
     if( this.hospitalHeadUser() && this.hospitalHeadUser()?.hospital_facility ){
       let hospitalFacility: RowHospitalFacility|null= await firstValueFrom(this.hospitalFacilityService.getHospitalFacilityById(this.hospitalHeadUser()?.hospital_facility!));
       if(hospitalFacility){

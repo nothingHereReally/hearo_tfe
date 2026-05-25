@@ -91,12 +91,21 @@
                     ">Document Files</span></td>
                 <td>
                   <span>
+                    @if( isDownloadAvailable() ){
                     <app-button
                         [text]="'Download All Files'"
                         [styleButton]="'style-outline'"
                         [iconname]="'download'"
                         (outOnClick)="clickedDownloadAllFilesFromHospitalHead()"
                         />
+                    }@else{
+                    <p class="
+                    font-bold-regular
+                    font-color-fail
+                    ">
+                      No Documents uploaded by user yet
+                    </p>
+                    }
                   </span>
                 </td>
               </tr>
