@@ -10,6 +10,7 @@ import { HospitalFacility } from '../../api-service/hospital-facility';
 import { environment as env } from '../../../environment/environment';
 import { ResponseHospitalFacility } from '../../model/hospital-facility';
 import { dateTimeFormatOption, isEmptyOrAllSpace, sleepAsync } from '../../model/tools';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -30,6 +31,9 @@ export class Hospitals {
 
 
 /* ----------------------------------- */
+  private route: Router= inject(Router);
+
+
   private hospitalFacility: HospitalFacility= inject(HospitalFacility);
 
 
@@ -151,5 +155,12 @@ export class Hospitals {
         },
       ]);
     }
+  }
+
+
+
+
+  protected clickedAdd(): void{
+    this.route.navigate(['/hospitals/new']);
   }
 }
