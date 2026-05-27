@@ -20,6 +20,7 @@ import { VerifyToRegister } from './page/verify-to-register/verify-to-register';
 import { HomeSentenceFrequentSentence } from './page/home-sentence-frequent-sentence/home-sentence-frequent-sentence';
 import { HomeSentenceMistakenSentence } from './page/home-sentence-mistaken-sentence/home-sentence-mistaken-sentence';
 import { HospitalHeadInstance } from './page/hospital-head-instance/hospital-head-instance';
+import { HospitalsNew } from './page/hospitals-new/hospitals-new';
 
 
 export const routes: Routes = [
@@ -44,6 +45,7 @@ export const routes: Routes = [
   {path: 'hospital-head/:hhid', component: HospitalHeadInstance, title: 'Hearo - A Hospital Head'},
 
   {path: 'hospitals', component: Hospitals, title: 'Hearo Hospitals'},
+  {path: 'hospitals/new', component: HospitalsNew, title: 'Hearo - Add a Hospital'},
 
   {path: 'model/patient-video', component: ModelPatientVideo, title: 'Hearo Model - Patient Video'},
   {path: 'model/gloss', component: ModelGloss, title: 'Hearo Model - Gloss Record'},
