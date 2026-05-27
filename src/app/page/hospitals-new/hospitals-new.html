@@ -44,6 +44,12 @@
                 [hasEye]="''"
                 (outWant2Run)="clickedAddHospital()"
                 />
+            <div class="
+              font-normal-regular
+              font-color-fail
+              flex-row
+              flex-justify-center
+              "><span>{{ warnings().name }}</span></div>
             <app-input
                 [nameInput]="'hospital_street'"
                 [(inputValue)]="newHospitalFacility().street"
@@ -52,6 +58,12 @@
                 [hasEye]="''"
                 (outWant2Run)="clickedAddHospital()"
                 />
+            <div class="
+              font-normal-regular
+              font-color-fail
+              flex-row
+              flex-justify-center
+              "><span>{{ warnings().street }}</span></div>
             <app-input
                 [nameInput]="'hospital_municipality'"
                 [(inputValue)]="newHospitalFacility().municipality"
@@ -60,7 +72,19 @@
                 [hasEye]="''"
                 (outWant2Run)="clickedAddHospital()"
                 />
+            <div class="
+              font-normal-regular
+              font-color-fail
+              flex-row
+              flex-justify-center
+              "><span>{{ warnings().municipality }}</span></div>
         </div>
+        <div class="
+          font-normal-regular
+          font-color-success
+          flex-row
+          flex-justify-center
+          "><span>{{ addedSuccessMsg() }}</span></div>
         <div class="
           flex-row
           flex-justify-space-between
