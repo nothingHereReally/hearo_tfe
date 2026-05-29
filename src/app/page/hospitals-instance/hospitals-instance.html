@@ -1,1 +1,97 @@
-<p>hospitals-instance works!</p>
+<div class="
+  flex-column
+  flex-align-stretch
+  gap-pad100-lg
+  ">
+  <app-header/>
+
+
+
+
+  <div class="
+    flex-column
+    flex-align-strech
+    gap-pad300-xs
+    padding-left-right-pad100-lg
+    padding-top-bottom-pad100-lg
+    ">
+    <div>
+        <app-button
+            [text]="'Back'"
+            [styleButton]="'style-outline'"
+            [iconname]="'arrow_left'"
+            (outOnClick)="clickedBack()"
+            />
+    </div>
+    <div class="
+      flex-row
+      flex-justify-center
+      ">
+      <div class="
+        flex-column
+        gap-pad200-xs
+        hospital-new-add-form
+        ">
+        <div class="
+          flex-column
+          gap-pad100-md
+          ">
+            <app-input
+                [nameInput]="'hospital_name'"
+                [(inputValue)]="editHospitalFacility().name"
+                [iconNameLeft]="''"
+                [labelText]="'Hospital Name'"
+                [hasEye]="''"
+                (outWant2Run)="clickedUpdate()"
+                />
+            <div class="
+              font-normal-regular
+              font-color-fail
+              flex-row
+              flex-justify-center
+              "><span>{{ warnings().name }}</span></div>
+            <app-input
+                [nameInput]="'hospital_street'"
+                [(inputValue)]="editHospitalFacility().street"
+                [iconNameLeft]="''"
+                [labelText]="'Street Address'"
+                [hasEye]="''"
+                (outWant2Run)="clickedUpdate()"
+                />
+            <div class="
+              font-normal-regular
+              font-color-fail
+              flex-row
+              flex-justify-center
+              "><span>{{ warnings().street }}</span></div>
+            <app-input
+                [nameInput]="'hospital_municipality'"
+                [(inputValue)]="editHospitalFacility().municipality"
+                [iconNameLeft]="''"
+                [labelText]="'Municipality'"
+                [hasEye]="''"
+                (outWant2Run)="clickedUpdate()"
+                />
+            <div class="
+              font-normal-regular
+              font-color-fail
+              flex-row
+              flex-justify-center
+              "><span>{{ warnings().municipality }}</span></div>
+        </div>
+        <div class="
+          font-normal-regular
+          font-color-success
+          flex-row
+          flex-justify-center
+          "><span>{{ editSuccessMsg() }}</span></div>
+          <app-button
+              [text]="'Edit'"
+              [styleButton]="'style-outline'"
+              [iconname]="''"
+              (outOnClick)="clickedBack()"
+              />
+      </div>
+    </div>
+  </div>
+</div>
