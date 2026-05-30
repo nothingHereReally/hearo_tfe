@@ -3,6 +3,7 @@ export interface RowHospitalFacility{
   name: string;
   street: string;
   municipality: string;
+  hospital_head: number|null;
   date_added: string;
   last_update: string;
 }
@@ -21,6 +22,7 @@ export interface HospitalFacility{
   name: string;
   street: string;
   municipality: string;
+  hospital_head: number|null;
   date_added: Date;
   last_update: Date;
 }
