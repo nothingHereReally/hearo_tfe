@@ -124,6 +124,29 @@
             </div>
             }
         </div>
+        @if( editHospitalFacility().hospital_head!=null ){
+        <div class="
+        flex-row
+        flex-justify-start
+        flex-align-center
+        gap-pad100-xs
+        ">
+          <span class="font-normal-regular">Hospital Head</span>
+          <app-button
+              [text]="hospitalHeadName()"
+              [styleButton]="'style-link'"
+              [linkURL]="`/hospital-head/${editHospitalFacility().hospital_head}`"
+              [linkTarget]="'_self'"
+              />
+        </div>
+        }@else{
+        <div class="
+          font-bold-regular
+          font-color-fail
+          ">
+          No Assigned Hospital Head
+        </div>
+        }
         @if( deleteConfirmationStep() === 0 ){
         <div class="
           flex-row

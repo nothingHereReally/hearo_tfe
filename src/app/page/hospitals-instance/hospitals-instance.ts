@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
+import { Component, inject, OnInit, Signal, signal, WritableSignal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 
@@ -12,6 +12,8 @@ import { AddHospitalFacility, HospitalFacility, RowHospitalFacility } from '../.
 import { HospitalFacility as HospitalFacilityService } from '../../api-service/hospital-facility';
 import { environment as env } from '../../../environment/environment';
 import { sleepAsync } from '../../model/tools';
+import { UserHospitalHead } from '../../api-service/user-hospital-head';
+import { RowHospitalHead } from '../../model/hospital-head';
 
 
 @Component({
@@ -29,12 +31,14 @@ export class HospitalsInstance implements OnInit{
 
 
   private hospitalFacilityService: HospitalFacilityService= inject(HospitalFacilityService);
+  private userHospitalHeadService: UserHospitalHead= inject(UserHospitalHead);
   private route: Router= inject(Router);
   protected editHospitalFacility: WritableSignal<HospitalFacility>= signal({
     id: -1,
     name: '',
     street: '',
     municipality: '',
+    hospital_head: null,
     date_added: new Date(),
     last_update: new Date()
   });
@@ -47,6 +51,7 @@ export class HospitalsInstance implements OnInit{
   protected readOnlyOrEdit: WritableSignal<'is-readonly'|'is-not-readonly'>= signal('is-readonly');
   protected deleteConfirmationStep: WritableSignal<number>= signal(0);
   protected deleteConfirmationInput: WritableSignal<string>= signal('');
+  protected hospitalHeadName: WritableSignal<string>= signal('');
 
 
   public async ngOnInit(): Promise<void> {
@@ -162,6 +167,16 @@ export class HospitalsInstance implements OnInit{
         this.editHospitalFacility.set(
           this.hospitalFacilityService.getHospitalFacilityFromRow(rawHospitalFacility)
         );
+        if( this.editHospitalFacility().hospital_head!=null &&
+            ! Number.isNaN(this.editHospitalFacility().hospital_head) ){
+          const userHospitalHead: RowHospitalHead|null= await firstValueFrom(this.userHospitalHeadService
+              .getHospitalHeadById(this.editHospitalFacility().hospital_head!));
+          if( userHospitalHead && (userHospitalHead.user.first_name!='' || userHospitalHead.user.last_name!='') ){
+            this.hospitalHeadName.set(`${userHospitalHead.user.first_name} ${userHospitalHead.user.last_name}`);
+          }else{
+            this.hospitalHeadName.set(`Hospital Head User`);
+          }
+        }
       }else{
         this.editHospitalFacility.update(val=>({
           ...val,
