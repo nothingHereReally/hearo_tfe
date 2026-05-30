@@ -127,7 +127,16 @@ export class HospitalFacility {
       {
         headers: httpRequestHeadersSendReceiveJson,
         observe: 'body',
-        credentials: 'include',
+        context: AddAuthTokenHttpIntercept
+      }
+    );
+  }
+  public deleteHospitalFacility(id: number): Observable<null>{
+    return this.__http.delete<null>(
+      `${this.__initHospitalFacilityUrl}${id}/`,
+      {
+        headers: httpRequestHeadersSendReceiveJson,
+        observe: 'body',
         context: AddAuthTokenHttpIntercept
       }
     );
