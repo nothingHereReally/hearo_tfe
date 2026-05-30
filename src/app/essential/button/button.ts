@@ -27,7 +27,7 @@ export class Button implements OnInit{
   readonly iconname: InputSignal<string>= input<string>('');
   readonly isUnderlined: InputSignal<string>= input<string>('not-underlined');
   readonly linkURL: InputSignal<string>= input<string>('');
-  readonly linkTarget: InputSignal<string>= input<string>('_blank');
+  readonly linkTarget: InputSignal<'_blank'|'_self'>= input<'_blank'|'_self'>('_blank');
   protected iconfiledir: WritableSignal<string>= signal<string>('');
   private iconfile_init: string= '';
   private iconfile_hover: string= '';
