@@ -45,6 +45,8 @@ export class HospitalsInstance implements OnInit{
   });
   protected editSuccessMsg: WritableSignal<string>= signal('');
   protected readOnlyOrEdit: WritableSignal<'is-readonly'|'is-not-readonly'>= signal('is-readonly');
+  protected deleteConfirmationStep: WritableSignal<number>= signal(0);
+  protected deleteConfirmationInput: WritableSignal<string>= signal('');
 
 
   public async ngOnInit(): Promise<void> {
@@ -170,7 +172,25 @@ export class HospitalsInstance implements OnInit{
   }
 
 
-  protected clickedDelete(): void{
-    console.log(`delete --> ${this.editHospitalFacility().name}`);
+  protected clickedCancelDelete(): void{
+    this.deleteConfirmationStep.set(0);
+  }
+  protected async clickedDelete(): Promise<void>{
+    if( this.deleteConfirmationStep()==0 ){
+      this.deleteConfirmationStep.set(1);
+    }else if( this.deleteConfirmationStep()==1 ){
+      this.deleteConfirmationStep.set(2);
+    }else if( this.deleteConfirmationStep()==2 &&
+        this.deleteConfirmationInput()==='DELETE HOSPITAL FACILITY' ){
+        this.deleteConfirmationInput.set('');
+
+
+        try{
+          await firstValueFrom(this.hospitalFacilityService.deleteHospitalFacility(this.editHospitalFacility().id));
+          this.deleteConfirmationStep.set(3);
+          await sleepAsync(env.TIME_ERROR_DISPLAY/2);
+          this.route.navigate(['/hospitals']);
+        }catch(err){}
+    }
   }
 }

@@ -124,6 +124,7 @@
             </div>
             }
         </div>
+        @if( deleteConfirmationStep() === 0 ){
         <div class="
           flex-row
           gap-pad100-xs
@@ -141,6 +142,97 @@
               (outOnClick)="clickedDelete()"
               />
         </div>
+        }@else if( deleteConfirmationStep() === 1 ){
+          <div class="
+            flex-column
+            gap-pad100-xs
+            text-wrap-370px-max-width
+            background-color-tc3-900
+            padding-left-right-pad100-xl
+            padding-top-bottom-pad100-xl
+            border-radius
+            ">
+            <span class="font-bold-regular font-color-fail">Are you sure? DELETE Hospital Facility?</span>
+            <div class="flex-row flex-justify-space-between">
+              <app-button
+                  [text]="'YES'"
+                  [styleButton]="'style-danger-solid'"
+                  [iconname]="'check'"
+                  (outOnClick)="clickedDelete()"
+                  />
+              <app-button
+                  [text]="'CANCEL'"
+                  [styleButton]="'style-outline'"
+                  [iconname]="''"
+                  (outOnClick)="clickedCancelDelete()"
+                  />
+            </div>
+          </div>
+        }@else if( deleteConfirmationStep() === 2 ){
+          <div class="
+            flex-column
+            gap-pad100-xs
+            text-wrap-370px-max-width
+            background-color-tc3-900
+            padding-left-right-pad100-xl
+            padding-top-bottom-pad100-xl
+            border-radius
+            ">
+            <span class="font-normal-regular">Please type <b class="font-color-fail">DELETE HOSPITAL FACILITY</b> to confirm.</span>
+            <app-input
+                [nameInput]="'deletehospitalheadusername'"
+                [(inputValue)]="deleteConfirmationInput"
+                [iconNameLeft]="''"
+                [placeholderText]="'Type here...'"
+                (outWant2Run)="clickedDelete()"
+                />
+            <div class="
+            flex-row
+            flex-justify-space-between
+            ">
+              <app-button
+                  [text]="'CONFIRM'"
+                  [iconname]="''"
+                  [styleButton]="deleteConfirmationInput() === 'DELETE HOSPITAL FACILITY' ? 'style-danger-solid' : 'style-outline'"
+                  (outOnClick)="clickedDelete()"
+                  />
+              <app-button
+                  [text]="'CANCEL'"
+                  [iconname]="''"
+                  [styleButton]="'style-outline'"
+                  (outOnClick)="clickedCancelDelete()"
+                  />
+            </div>
+          </div>
+        }@else if( deleteConfirmationStep() === 3 ){
+        <div class="
+          flex-row
+          flex-align-center
+          text-wrap-284px-max-width
+          background-color-tc3-900
+          padding-left-right-pad100-xl
+          padding-top-bottom-pad100-xl
+          border-radius
+          gap-pad100-xs
+          ">
+          <img
+            src="icon_tc1_500/check.svg"
+            alt="info image"
+            class="
+              image-48px-size
+            ">
+          <img
+            src="icon_tc3_500/delete.svg"
+            alt="info image"
+            class="
+              image-48px-size
+            ">
+          <span class="
+            font-bold-regular
+            font-color-fail
+            ">Hospital Facility sucessfully DELETED.</span>
+        </div>
+        }
       </div>
       }@else{
       <div class="
