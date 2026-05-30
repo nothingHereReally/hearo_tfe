@@ -1,9 +1,10 @@
 import {
   Component, signal, input, OnInit,
-  output, InputSignal, WritableSignal
+  output, InputSignal, WritableSignal,
+  inject, Signal
 } from '@angular/core';
 import { NgClass } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-button',
@@ -16,6 +17,8 @@ import { RouterLink } from '@angular/router';
 })
 export class Button implements OnInit{
   public outOnClick= output();
+  private route: Router= inject(Router);
+  protected currentPath: Signal<string>= signal(String(this.route.url));
 
   readonly text: InputSignal<string>= input.required<string>();
   readonly styleButton: InputSignal<string>= input.required<string>(); /*
