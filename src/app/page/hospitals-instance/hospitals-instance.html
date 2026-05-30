@@ -27,71 +27,111 @@
       flex-row
       flex-justify-center
       ">
+      @if( 0<editHospitalFacility().id ){
       <div class="
         flex-column
-        gap-pad200-xs
-        hospital-new-add-form
+        gap-pad300-xl
         ">
         <div class="
           flex-column
-          gap-pad100-md
+          gap-pad200-xs
+          hospital-new-add-form
           ">
-            <app-input
-                [nameInput]="'hospital_name'"
-                [(inputValue)]="editHospitalFacility().name"
-                [iconNameLeft]="''"
-                [labelText]="'Hospital Name'"
-                [hasEye]="''"
-                (outWant2Run)="clickedUpdate()"
+          <div class="
+            flex-column
+            gap-pad100-md
+            ">
+              <app-input
+                  [nameInput]="'hospital_name'"
+                  [(inputValue)]="editHospitalFacility().name"
+                  [iconNameLeft]="''"
+                  [labelText]="'Hospital Name'"
+                  [hasEye]="''"
+                  (outWant2Run)="clickedUpdate()"
+                  />
+              <div class="
+                font-normal-regular
+                font-color-fail
+                flex-row
+                flex-justify-center
+                "><span>{{ warnings().name }}</span></div>
+              <app-input
+                  [nameInput]="'hospital_street'"
+                  [(inputValue)]="editHospitalFacility().street"
+                  [iconNameLeft]="''"
+                  [labelText]="'Street Address'"
+                  [hasEye]="''"
+                  (outWant2Run)="clickedUpdate()"
+                  />
+              <div class="
+                font-normal-regular
+                font-color-fail
+                flex-row
+                flex-justify-center
+                "><span>{{ warnings().street }}</span></div>
+              <app-input
+                  [nameInput]="'hospital_municipality'"
+                  [(inputValue)]="editHospitalFacility().municipality"
+                  [iconNameLeft]="''"
+                  [labelText]="'Municipality'"
+                  [hasEye]="''"
+                  (outWant2Run)="clickedUpdate()"
+                  />
+              <div class="
+                font-normal-regular
+                font-color-fail
+                flex-row
+                flex-justify-center
+                "><span>{{ warnings().municipality }}</span></div>
+          </div>
+          <div class="
+            font-normal-regular
+            font-color-success
+            flex-row
+            flex-justify-center
+            "><span>{{ editSuccessMsg() }}</span></div>
+            <app-button
+                [text]="'Edit'"
+                [styleButton]="'style-solid'"
+                [iconname]="'pen'"
+                (outOnClick)="clickedUpdate()"
                 />
-            <div class="
-              font-normal-regular
-              font-color-fail
-              flex-row
-              flex-justify-center
-              "><span>{{ warnings().name }}</span></div>
-            <app-input
-                [nameInput]="'hospital_street'"
-                [(inputValue)]="editHospitalFacility().street"
-                [iconNameLeft]="''"
-                [labelText]="'Street Address'"
-                [hasEye]="''"
-                (outWant2Run)="clickedUpdate()"
-                />
-            <div class="
-              font-normal-regular
-              font-color-fail
-              flex-row
-              flex-justify-center
-              "><span>{{ warnings().street }}</span></div>
-            <app-input
-                [nameInput]="'hospital_municipality'"
-                [(inputValue)]="editHospitalFacility().municipality"
-                [iconNameLeft]="''"
-                [labelText]="'Municipality'"
-                [hasEye]="''"
-                (outWant2Run)="clickedUpdate()"
-                />
-            <div class="
-              font-normal-regular
-              font-color-fail
-              flex-row
-              flex-justify-center
-              "><span>{{ warnings().municipality }}</span></div>
         </div>
         <div class="
-          font-normal-regular
-          font-color-success
           flex-row
-          flex-justify-center
-          "><span>{{ editSuccessMsg() }}</span></div>
+          gap-pad100-xs
+          flex-justify-start
+          flex-align-center
+          ">
+          <p class="
+          font-bold-regular
+          font-color-fail
+          ">DANGER</p>
           <app-button
-              [text]="'Edit'"
-              [styleButton]="'style-outline'"
-              [iconname]="''"
-              (outOnClick)="clickedBack()"
+              [text]="'DELETE'"
+              [styleButton]="'style-danger-solid'"
+              [iconname]="'delete'"
+              (outOnClick)="clickedDelete()"
               />
+        </div>
       </div>
+      }@else{
+      <div class="
+        flex-column
+        flex-align-center
+        gap-pad100-md
+        ">
+        <span class="
+          font-normal-title
+          font-color-pc1-300
+          ">No such Hospital Facility</span>
+        <img
+            class="human-lost-hospital-head"
+            src="/background/human_lost.svg"
+            alt="human lost image"
+            >
+      </div>
+      }
     </div>
   </div>
 </div>
