@@ -1,11 +1,18 @@
 import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+
+
+import { firstValueFrom } from 'rxjs';
+
+
 import { Header } from '../../essential/header/header';
 import { Button } from '../../essential/button/button';
 import { Input } from '../../essential/input/input';
 import { AddHospitalFacility, HospitalFacility, RowHospitalFacility } from '../../model/hospital-facility';
 import { HospitalFacility as HospitalFacilityService } from '../../api-service/hospital-facility';
-import { firstValueFrom } from 'rxjs';
+import { environment as env } from '../../../environment/environment';
+import { sleepAsync } from '../../model/tools';
+
 
 @Component({
   selector: 'app-hospitals-instance',
@@ -37,21 +44,18 @@ export class HospitalsInstance implements OnInit{
     municipality: ''
   });
   protected editSuccessMsg: WritableSignal<string>= signal('');
+  protected readOnlyOrEdit: WritableSignal<'is-readonly'|'is-not-readonly'>= signal('is-readonly');
 
 
   public async ngOnInit(): Promise<void> {
     try{
       const hospitalFacilityId: number= Number(this.activatedRoute.snapshot.params['hfid']);
       if( ! Number.isNaN(hospitalFacilityId) ){
-        console.log('asdfasdf asdasd');
-        const rawHospitalFacility: RowHospitalFacility|null= await firstValueFrom(
-          this.hospitalFacilityService.getHospitalFacilityById(hospitalFacilityId)
-        );
-        if( rawHospitalFacility ){
-          this.editHospitalFacility.set(
-            this.hospitalFacilityService.getHospitalFacilityFromRow(rawHospitalFacility)
-          );
-        }
+        this.editHospitalFacility.update(val=>({
+          ...val,
+          id: hospitalFacilityId
+        }));
+        this.__loadHospitalFacility();
       }
     }catch(err){}
   }
@@ -60,10 +64,112 @@ export class HospitalsInstance implements OnInit{
   protected clickedBack(): void{
     this.route.navigate(['/hospitals']);
   }
-  protected clickedUpdate(): void{
-    console.log(`update -->`);
-    console.log(this.editHospitalFacility());
+  protected async clickedEditOrUpdate(): Promise<void>{
+    if( this.readOnlyOrEdit()==='is-readonly' ){
+      this.readOnlyOrEdit.set('is-not-readonly');
+    }else if( await this.__updateHospitalFacility() ){
+      this.readOnlyOrEdit.set('is-readonly');
+    }
   }
+  protected clickedCancelEdit(): void{
+    this.readOnlyOrEdit.set('is-readonly');
+    this.__loadHospitalFacility();
+  }
+
+
+  private async __updateHospitalFacility(): Promise<boolean>{
+    if( this.editHospitalFacility().id!=-1 ){
+      let isUpdateAllowed: boolean= true;
+      if( this.editHospitalFacility().name=='' ){
+        this.warnings.update(val=>({
+          ...val,
+          name: "Hospital Name can't be emtpy"
+        }));
+        sleepAsync(
+          env.TIME_ERROR_DISPLAY,
+          ()=>{
+            this.warnings.update(val=>({
+              ...val,
+              name: ''
+            }))
+          }
+        )
+        isUpdateAllowed= false;
+      }
+
+      if( this.editHospitalFacility().street=='' ){
+        this.warnings.update(val=>({
+          ...val,
+          street: "Hospital Street can't be emtpy"
+        }));
+        sleepAsync(
+          env.TIME_ERROR_DISPLAY,
+          ()=>{
+            this.warnings.update(val=>({
+              ...val,
+              street: ''
+            }))
+          }
+        )
+        isUpdateAllowed= false;
+      }
+
+      if( this.editHospitalFacility().municipality=='' ){
+        this.warnings.update(val=>({
+          ...val,
+          municipality: "Hospital Municipality can't be emtpy"
+        }));
+        sleepAsync(
+          env.TIME_ERROR_DISPLAY,
+          ()=>{
+            this.warnings.update(val=>({
+              ...val,
+              municipality: ''
+            }))
+          }
+        )
+        isUpdateAllowed= false;
+      }
+
+
+      if( isUpdateAllowed ){
+        const updated: RowHospitalFacility= await firstValueFrom(this.hospitalFacilityService.updateHospitalFacility(
+          this.editHospitalFacility().id,
+          {
+            name: this.editHospitalFacility().name,
+            street: this.editHospitalFacility().street,
+            municipality: this.editHospitalFacility().municipality
+          }
+        ));
+        if( updated.id==this.editHospitalFacility().id ){
+          this.editHospitalFacility.set(
+            this.hospitalFacilityService.getHospitalFacilityFromRow(updated)
+          );
+        }
+      }
+      return isUpdateAllowed;
+    }
+    return false;
+  }
+  private async __loadHospitalFacility(): Promise<void>{
+    if( this.editHospitalFacility().id!=-1 ){
+      const rawHospitalFacility: RowHospitalFacility|null= await firstValueFrom(
+        this.hospitalFacilityService.getHospitalFacilityById(this.editHospitalFacility().id)
+      );
+      if( rawHospitalFacility ){
+        this.editHospitalFacility.set(
+          this.hospitalFacilityService.getHospitalFacilityFromRow(rawHospitalFacility)
+        );
+      }else{
+        this.editHospitalFacility.update(val=>({
+          ...val,
+          id: -1
+        }));
+      }
+    }
+  }
+
+
   protected clickedDelete(): void{
     console.log(`delete --> ${this.editHospitalFacility().name}`);
   }

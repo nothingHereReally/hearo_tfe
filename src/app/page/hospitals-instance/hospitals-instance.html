@@ -31,6 +31,7 @@
       <div class="
         flex-column
         gap-pad300-xl
+        hospital-edit-form
         ">
         <div class="
           flex-column
@@ -44,10 +45,12 @@
               <app-input
                   [nameInput]="'hospital_name'"
                   [(inputValue)]="editHospitalFacility().name"
+                  [placeholderText]="'Hospital Name'"
+                  [isReadOnly]="readOnlyOrEdit()"
                   [iconNameLeft]="''"
                   [labelText]="'Hospital Name'"
                   [hasEye]="''"
-                  (outWant2Run)="clickedUpdate()"
+                  (outWant2Run)="clickedEditOrUpdate()"
                   />
               <div class="
                 font-normal-regular
@@ -58,10 +61,12 @@
               <app-input
                   [nameInput]="'hospital_street'"
                   [(inputValue)]="editHospitalFacility().street"
+                  [placeholderText]="'Hospital Street at'"
+                  [isReadOnly]="readOnlyOrEdit()"
                   [iconNameLeft]="''"
                   [labelText]="'Street Address'"
                   [hasEye]="''"
-                  (outWant2Run)="clickedUpdate()"
+                  (outWant2Run)="clickedEditOrUpdate()"
                   />
               <div class="
                 font-normal-regular
@@ -72,10 +77,12 @@
               <app-input
                   [nameInput]="'hospital_municipality'"
                   [(inputValue)]="editHospitalFacility().municipality"
+                  [placeholderText]="'Hospital Municipality at'"
+                  [isReadOnly]="readOnlyOrEdit()"
                   [iconNameLeft]="''"
                   [labelText]="'Municipality'"
                   [hasEye]="''"
-                  (outWant2Run)="clickedUpdate()"
+                  (outWant2Run)="clickedEditOrUpdate()"
                   />
               <div class="
                 font-normal-regular
@@ -90,12 +97,32 @@
             flex-row
             flex-justify-center
             "><span>{{ editSuccessMsg() }}</span></div>
+            @if( readOnlyOrEdit()=='is-readonly' ){
             <app-button
                 [text]="'Edit'"
                 [styleButton]="'style-solid'"
                 [iconname]="'pen'"
-                (outOnClick)="clickedUpdate()"
+                (outOnClick)="clickedEditOrUpdate()"
                 />
+            }@else{
+            <div class="
+              flex-row
+              flex-justify-space-between
+              ">
+              <app-button
+                  [text]="'Done'"
+                  [styleButton]="'style-outline'"
+                  [iconname]="'check'"
+                  (outOnClick)="clickedEditOrUpdate()"
+                  />
+              <app-button
+                  [text]="'Cancel'"
+                  [styleButton]="'style-solid'"
+                  [iconname]="''"
+                  (outOnClick)="clickedCancelEdit()"
+                  />
+            </div>
+            }
         </div>
         <div class="
           flex-row
