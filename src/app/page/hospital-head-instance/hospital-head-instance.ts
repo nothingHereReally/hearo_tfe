@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
+import { Component, inject, OnInit, Signal, signal, WritableSignal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 
@@ -36,6 +36,9 @@ export class HospitalHeadInstance implements OnInit{
 
   private activatedRoute: ActivatedRoute= inject(ActivatedRoute);
   private route: Router= inject(Router);
+  private readonly prevPath: Signal<string>= signal(String(
+    this.route.currentNavigation()?.extras.state?.['past_path'] ?? '/hospital-head'
+  ));
   protected hospitalHeadUser: WritableSignal<HospitalHeadModel|null>= signal(null);
   protected dateJoined: WritableSignal<string>= signal("");
   protected hospitalAddress: WritableSignal<string>= signal("");
@@ -83,7 +86,7 @@ export class HospitalHeadInstance implements OnInit{
 
 
   protected goBack(){
-    this.route.navigate(['/hospital-head']);
+    this.route.navigate([this.prevPath()]);
   }
   protected async clickedDownloadAllFilesFromHospitalHead(){
     if( this.hospitalHeadUser() ){
