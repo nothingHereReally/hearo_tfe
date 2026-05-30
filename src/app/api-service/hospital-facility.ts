@@ -120,6 +120,18 @@ export class HospitalFacility {
       }
     );
   }
+  public updateHospitalFacility(id: number, newHospitalFacility: AddHospitalFacility): Observable<RowHospitalFacility>{
+    return this.__http.patch<RowHospitalFacility>(
+      `${this.__initHospitalFacilityUrl}${id}/`,
+      newHospitalFacility,
+      {
+        headers: httpRequestHeadersSendReceiveJson,
+        observe: 'body',
+        credentials: 'include',
+        context: AddAuthTokenHttpIntercept
+      }
+    );
+  }
 
 
   public getHospitalFacilityFromRow(hospitalFacility: RowHospitalFacility): HospitalFacilityModel{
