@@ -2,3 +2,6 @@
   width: 46rem;
   max-width: 98vw;
 }
+.data-table-hospital-head{
+  border-collapse: collapse;
+}

@@ -41,56 +41,105 @@
         <div>
           <table class="
             font-normal-regular
+            data-table-hospital-head
             ">
             <tbody>
               <tr>
-                <td><span class="
+                <td><div class="
                     font-color-pc1-300
-                    ">Name</span></td>
-                <td><span>
+                    padding-left-right-pad100-md
+                    padding-top-bottom-pad100-lg
+                    ">Name</div></td>
+                <td><div class="
+                    padding-left-right-pad100-md
+                    padding-top-bottom-pad100-lg
+                ">
                     {{ hospitalHeadUser()?.user?.first_name }}
                     {{ hospitalHeadUser()?.user?.last_name }}
-                  </span></td>
+                  </div></td>
               </tr>
               <tr>
-                <td><span class="
+                <td><div class="
                     font-color-pc1-300
-                    ">Email</span></td>
-                <td><span>{{ hospitalHeadUser()?.user?.email }}</span></td>
+                    padding-left-right-pad100-md
+                    padding-top-bottom-pad100-lg
+                    ">Email</div></td>
+                <td><div class="
+                    padding-left-right-pad100-md
+                    padding-top-bottom-pad100-lg
+                ">{{ hospitalHeadUser()?.user?.email }}</div></td>
               </tr>
               @if( hospitalHeadUser()?.hospital_facility_name ){
               <tr>
-                <td><span class="
+                <td><div class="
                     font-color-pc1-300
-                    ">Hospital Name</span></td>
-                <td><span>{{ hospitalHeadUser()?.hospital_facility_name }}</span></td>
+                    padding-left-right-pad100-md
+                    padding-top-bottom-pad100-lg
+                    ">Hospital Name</div></td>
+                <td><div class="
+                    padding-left-right-pad100-md
+                    padding-top-bottom-pad100-lg
+                ">{{ hospitalHeadUser()?.hospital_facility_name }}</div></td>
               </tr>
               <tr>
-                <td><span class="
+                <td><div class="
                     font-color-pc1-300
-                    ">Hospital Address</span></td>
-                <td><span>{{ hospitalAddress() }}</span></td>
+                    padding-left-right-pad100-md
+                    padding-top-bottom-pad100-lg
+                    ">Hospital Address</div></td>
+                <td><div class="
+                    padding-left-right-pad100-md
+                    padding-top-bottom-pad100-lg
+                ">{{ hospitalAddress() }}</div></td>
+              </tr>
+              <tr>
+                <td><div class="
+                    padding-left-right-pad100-md
+                    padding-top-bottom-pad100-lg
+                    ">
+                      <app-button
+                          [text]="'Hospital Facility'"
+                          [styleButton]="'style-link'"
+                          [linkURL]="`/hospitals/${hospitalHeadUser()?.hospital_facility}`"
+                          [linkTarget]="'_self'"
+                          />
+                    </div></td>
               </tr>
               }@else{
               <tr>
-                <td><span class="
+                <td><div class="
                     font-color-pc1-300
-                    ">Other Hospital</span></td>
-                <td><span>{{ hospitalHeadUser()?.other_hospital }}</span></td>
+                    padding-left-right-pad100-md
+                    padding-top-bottom-pad100-lg
+                    ">Other Hospital</div></td>
+                <td><div class="
+                    padding-left-right-pad100-md
+                    padding-top-bottom-pad100-lg
+                ">{{ hospitalHeadUser()?.other_hospital }}</div></td>
               </tr>
               }
               <tr>
-                <td><span class="
+                <td><div class="
                     font-color-pc1-300
-                    ">Request Made</span></td>
-                <td><span>{{ dateJoined() }}</span></td>
+                    padding-left-right-pad100-md
+                    padding-top-bottom-pad100-lg
+                    ">Request Made</div></td>
+                <td><div class="
+                    padding-left-right-pad100-md
+                    padding-top-bottom-pad100-lg
+                ">{{ dateJoined() }}</div></td>
               </tr>
               <tr>
-                <td><span class="
+                <td><div class="
                     font-color-pc1-300
-                    ">Document Files</span></td>
+                    padding-left-right-pad100-md
+                    padding-top-bottom-pad100-lg
+                    ">Document Files</div></td>
                 <td>
-                  <span>
+                  <div class="
+                    padding-left-right-pad100-md
+                    padding-top-bottom-pad100-lg
+                  ">
                     @if( isDownloadAvailable() ){
                     <app-button
                         [text]="'Download All Files'"
@@ -106,7 +155,7 @@
                       No Documents uploaded by user yet
                     </p>
                     }
-                  </span>
+                  </div>
                 </td>
               </tr>
             </tbody>
