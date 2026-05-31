@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 
 
-import { HospitalFacility as HospitalFacilityModel, ResponseHospitalFacility, RowHospitalFacility, RowResponseHospitalFacility } from '../model/hospital-facility';
+import { ResponseHospitalFacility, RowResponseHospitalFacility } from '../model/hospital-facility';
 import { environment as env } from '../../environment/environment';
 import { firstValueFrom, Observable } from 'rxjs';
 import { httpRequestHeadersSendReceiveJson } from '../model/tools';
