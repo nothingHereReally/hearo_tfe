@@ -95,7 +95,7 @@ export class AssignHospitalFacility{
   }
   public assignHospitalFacility2hospitalHead(hospitalFacilityId: number, hospitalHeadId: number): Observable<RowHospitalHead>{
     return this.__http.patch<RowHospitalHead>(
-      `${this.__initHospitalFacilityUrl}${hospitalHeadId}/`,
+      `${env.API_DOMAIN}api/v1/hospital-heads/${hospitalHeadId}/`,
       {
         hospital_facility: hospitalFacilityId
       },
