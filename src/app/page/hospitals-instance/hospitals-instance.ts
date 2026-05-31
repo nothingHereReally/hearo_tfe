@@ -33,6 +33,9 @@ export class HospitalsInstance implements OnInit{
   private hospitalFacilityService: HospitalFacilityService= inject(HospitalFacilityService);
   private userHospitalHeadService: UserHospitalHead= inject(UserHospitalHead);
   private route: Router= inject(Router);
+  private readonly prevPath: Signal<string>= signal(String(
+    this.route.currentNavigation()?.extras.state?.['past_path'] ?? '/hospitals'
+  ));
   protected editHospitalFacility: WritableSignal<HospitalFacility>= signal({
     id: -1,
     name: '',
@@ -69,7 +72,7 @@ export class HospitalsInstance implements OnInit{
 
 
   protected clickedBack(): void{
-    this.route.navigate(['/hospitals']);
+    this.route.navigate([this.prevPath()]);
   }
   protected async clickedEditOrUpdate(): Promise<void>{
     if( this.readOnlyOrEdit()==='is-readonly' ){
