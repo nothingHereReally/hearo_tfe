@@ -15,6 +15,7 @@ import { dateTimeFormatOption, sleepAsync } from '../../model/tools';
 import { environment as env } from '../../../environment/environment';
 import { ApiFile } from '../../api-service/api-file';
 import { HospitalHeadDocument } from '../../api-service/hospital-head-document';
+import { AssignHospitalFacilityCard } from '../../essential/assign-hospital-facility-card/assign-hospital-facility-card';
 
 
 @Component({
@@ -22,7 +23,8 @@ import { HospitalHeadDocument } from '../../api-service/hospital-head-document';
   imports: [
     Header,
     Button,
-    Input
+    Input,
+    AssignHospitalFacilityCard
   ],
   templateUrl: './hospital-head-instance.html',
   styleUrl: './hospital-head-instance.css',
@@ -46,6 +48,7 @@ export class HospitalHeadInstance implements OnInit{
 
   protected deleteConfirmationStep: WritableSignal<number>= signal(0);
   protected deleteConfirmationInput: WritableSignal<string>= signal("");
+  protected showAssignPopup: WritableSignal<boolean>= signal(false);
 
 
 
@@ -87,6 +90,18 @@ export class HospitalHeadInstance implements OnInit{
 
   protected goBack(){
     this.route.navigate([this.prevPath()]);
+  }
+  protected clickedAssignHospitalFacility(): void{
+    this.showAssignPopup.set(true);
+  }
+  protected async onHospitalAssigned(updatedHospitalFacility: RowHospitalHead): Promise<void> {
+    this.hospitalHeadUser.set(this.userHospitalHeadService.getHospitalHeadFromRow(updatedHospitalFacility));
+    const updatedHF: RowHospitalFacility|null= await firstValueFrom(
+      this.hospitalFacilityService.getHospitalFacilityById(this.hospitalHeadUser()!.hospital_facility)
+    );
+    if( updatedHF )
+      this.hospitalAddress.set(`${updatedHF.street} ${updatedHF.municipality}`);
+    this.showAssignPopup.set(false);
   }
   protected async clickedDownloadAllFilesFromHospitalHead(){
     if( this.hospitalHeadUser() ){

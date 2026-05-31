@@ -117,6 +117,20 @@
                     padding-top-bottom-pad100-lg
                 ">{{ hospitalHeadUser()?.other_hospital }}</div></td>
               </tr>
+              <tr>
+                <td></td>
+                <td><div class="
+                    padding-left-right-pad100-md
+                    padding-top-bottom-pad100-lg
+                ">
+                    <app-button
+                        [text]="'Assign Hospital Facility'"
+                        [styleButton]="'style-outline'"
+                        [iconname]="'hospital_location'"
+                        (outOnClick)="clickedAssignHospitalFacility()"
+                        />
+                </div></td>
+              </tr>
               }
               <tr>
                 <td><div class="
@@ -377,4 +391,16 @@
     </div>
     }
   </div>
+
+  @if( showAssignPopup() && hospitalHeadUser() ){
+    <div class="popup-overlay">
+      <div class="popup-content">
+        <app-assign-hospital-facility-card
+          [hospitalHeadId]="hospitalHeadUser()!.user.id"
+          (outCancel)="showAssignPopup.set(false)"
+          (outAssign)="onHospitalAssigned($event)"
+        />
+      </div>
+    </div>
+  }
 </div>
