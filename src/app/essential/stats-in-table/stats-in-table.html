@@ -22,11 +22,21 @@
               @if( isFirstCol ){
                 @if( column.type=='string' ){
                   <td><div class="
-                      font-color-sc-100
-                      font-normal-regular
                       border-left
                       background-color-pc1-800
-                      ">{{ column.data[idxRow] }}</div></td>
+                      ">
+                      @if( column.data[idxRow]!=null && column.data[idxRow]!='undefined' ){
+                      <span class="
+                      font-color-sc-100
+                      font-normal-regular
+                      ">{{ column.data[idxRow] }}</span>
+                      }@else{
+                      <span class="
+                      font-color-fail
+                      font-bold-regular
+                      ">NOTHING</span>
+                      }
+                  </div></td>
 
                 }@else if( column.type=='accuracy' ){
                   <td>
@@ -114,11 +124,21 @@
               }@else if( isLastCol ){
                 @if( column.type=='string' ){
                   <td><div class="
-                      font-color-sc-100
-                      font-normal-regular
                       border-right
                       background-color-pc1-800
-                      ">{{ column.data[idxRow] }}</div></td>
+                      ">
+                      @if( column.data[idxRow]!=null && column.data[idxRow]!='undefined' ){
+                      <span class="
+                      font-color-sc-100
+                      font-normal-regular
+                      ">{{ column.data[idxRow] }}</span>
+                      }@else{
+                      <span class="
+                      font-color-fail
+                      font-bold-regular
+                      ">NOTHING</span>
+                      }
+                  </div></td>
 
                 }@else if( column.type=='accuracy' ){
                   <td>
@@ -205,10 +225,20 @@
               }@else{
                 @if( column.type=='string' ){
                   <td><div class="
+                      background-color-pc1-800
+                      ">
+                      @if( column.data[idxRow]!=null && column.data[idxRow]!='undefined' ){
+                      <span class="
                       font-color-sc-100
                       font-normal-regular
-                      background-color-pc1-800
-                      ">{{ column.data[idxRow] }}</div></td>
+                      ">{{ column.data[idxRow] }}</span>
+                      }@else{
+                      <span class="
+                      font-color-fail
+                      font-bold-regular
+                      ">NOTHING</span>
+                      }
+                  </div></td>
 
                 }@else if( column.type=='accuracy' ){
                   <td>
@@ -302,10 +332,19 @@
           }@else{
             @for(column of dataOnTable(); track column.name){
               @if( column.type=='string'){
-                <td><div class="
-                    font-color-sc-100
-                    font-normal-regular
-                    ">{{ column.data[idxRow] }}</div></td>
+                  <td><div>
+                      @if( column.data[idxRow]!=null && column.data[idxRow]!='undefined' ){
+                      <span class="
+                      font-color-sc-100
+                      font-normal-regular
+                      ">{{ column.data[idxRow] }} </span>
+                      }@else{
+                      <span class="
+                      font-color-fail
+                      font-bold-regular
+                      ">NOTHING</span>
+                      }
+                  </div></td>
 
               }@else if( column.type=='accuracy' ){
                 <td><div class="
