@@ -1,0 +1,100 @@
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable, signal, WritableSignal } from '@angular/core';
+import { firstValueFrom, Observable } from 'rxjs';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+
+
+import { AddAuthTokenHttpIntercept } from '../services/auth-token-http-intercept-interceptor';
+import { environment as env } from '../../environment/environment';
+import { httpRequestHeadersReceiveJson } from '../model/tools';
+import { HearoTeamDataStruct } from '../model/account';
+import { AuthUser } from './auth-user';
+
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ApiFile {
+  private __http= inject(HttpClient);
+  private sanitizer: DomSanitizer= inject(DomSanitizer);
+
+
+  private authUser= inject(AuthUser);
+  public cachedProfilePicture: WritableSignal<SafeUrl>= signal('/user_default_profile.svg');
+  private __isCachedProfilePhotoAtLeastOnce: WritableSignal<boolean>= signal(false);
+
+
+  public imgBlob2SafeUrl(imgBlob: File|Blob): SafeUrl{
+    return this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(imgBlob));
+  }
+  private async __getProfilePictureViaSafeUrlAsync(): Promise<SafeUrl>{
+    const imgBlob= await firstValueFrom(this.__http.get(
+      `${env.API_DOMAIN}api/v1/get-profile-picture/`,
+      {
+        observe: 'body',
+        responseType: 'blob',
+        context: AddAuthTokenHttpIntercept
+      },
+    ));
+    return this.imgBlob2SafeUrl(imgBlob);
+  }
+  /**
+   * getProfilePictureViaSafeUrlAsync() to be used only when logged in
+   */
+  public async updateProfilePhotoAsync(force: boolean=false): Promise<void>{
+    if( this.__isCachedProfilePhotoAtLeastOnce()==false || force ){
+      try{
+        const profile_picture_doneSafeUrl: SafeUrl= await this.__getProfilePictureViaSafeUrlAsync();
+        this.cachedProfilePicture.set( profile_picture_doneSafeUrl );
+      }catch(err: any){}
+      this.__isCachedProfilePhotoAtLeastOnce.set(true);
+    }
+  }
+  public cachedProfilePhotoGoBack2Default(): void{
+    this.cachedProfilePicture.set('/user_default_profile.svg');
+    this.__isCachedProfilePhotoAtLeastOnce.set(false);
+  }
+
+
+
+
+  public uploadPhotoUserHttpPatch(image_blob: File): Observable<HearoTeamDataStruct>{
+    this.cachedProfilePicture.set( this.imgBlob2SafeUrl(image_blob) );
+
+    const formData= new FormData();
+    formData.append('profile_picture', image_blob, image_blob.name);
+
+    return this.__http.patch<HearoTeamDataStruct>(
+      `${env.API_DOMAIN}api/v1/hearo-teams/${this.authUser.getUserIdViaTokenAuth()}/`,
+      formData,{
+        headers: httpRequestHeadersReceiveJson,
+        observe: 'body',
+        context: AddAuthTokenHttpIntercept
+      }
+    )
+  }
+  public async getQRAccessAccountCode(): Promise<SafeUrl>{
+    const imgBlob: Blob= await firstValueFrom(this.__http.get(
+      `${env.API_DOMAIN}api/token/qr/`,
+      {
+        observe: 'body',
+        responseType: 'blob',
+        context: AddAuthTokenHttpIntercept
+      }
+    ));
+
+    return this.imgBlob2SafeUrl(imgBlob);
+  }
+
+
+  public getHospitalHeadDocumentsViaZipFile(hospitalHeadId: number): Observable<Blob|null>{
+    return this.__http.get(
+      `${env.API_DOMAIN}api/v1/get-hospital-head-documents-zip/${hospitalHeadId}/`,
+      {
+        observe: 'body',
+        responseType: 'blob',
+        context: AddAuthTokenHttpIntercept
+      }
+    )
+  }
+}

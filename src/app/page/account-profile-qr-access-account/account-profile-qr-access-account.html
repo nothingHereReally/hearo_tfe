@@ -1,0 +1,390 @@
+<div class="qr-access-account-page">
+  <app-header/>
+
+
+
+
+
+
+
+
+  @if( authUser.cachedHearoUser().is_access_account ?? false ){
+
+
+    @if( passedGate1()==false && passedGate2()==false ){
+    <div class="flex-center-horizontal">
+      <!-- 1st step, confirm via password -->
+      <div class="
+        flex-column-stretch
+        gap-pad300-xs
+        text-wrap-560px-max-with
+        padding-left-right-pad200-xs
+        padding-top-bottom-pad200-xs
+        background-color-sc-900
+        border-radius
+        shadow-only
+        ">
+        <div class="flex-column-8px-gap-stretch">
+          <div class="
+            font-bold-title
+            font-color-pc1-300
+            flex-center-horizontal
+            ">
+            Type your Password
+          </div>
+            <div class="flex-center-horizontal">
+              <div class="
+                font-normal-regular
+                font-color-pc1-300
+                ">
+                To confirm, please type your password
+            </div>
+          </div>
+          <app-input
+              [nameInput]="'password'"
+              [(inputValue)]="password2confirm"
+              [iconNameLeft]="''"
+              [labelText]="'Password'"
+              [placeholderText]="'Password'"
+              [hasEye]="'eye'"
+              (outWant2Run)="checkGate1()"
+              />
+          <div class="flex-center-horizontal">
+            <span class="
+            font-normal-regular
+            font-color-fail
+            ">
+            {{ warningInputText() }}
+            </span>
+          </div>
+          <div>
+            <span class="
+              font-normal-regular
+              font-color-pc1-300
+              ">
+              By Generating the
+            </span>
+            <span class="
+              font-bold-regular
+              font-color-fail
+              ">
+              “Access QR”
+            </span>
+            <span class="
+              font-normal-regular
+              font-color-pc1-300
+              ">
+              your account would be able to be used as Access key for your teammates to
+            </span>
+            <span class="
+              font-bold-regular
+              font-color-fail
+              ">
+              create their “Hearo Team Account”.
+            </span>
+            <span class="
+              font-normal-regular
+              font-color-pc1-300
+              ">
+              If you don’t want your account to be used as a “Access QR” or “QR Access Account” you can always Deactivate it, which is at your profile then
+            </span>
+            <span class="
+              font-bold-regular
+              font-color-fail
+              ">
+              Deactivate
+            </span>
+            <span class="
+              font-normal-regular
+              font-color-pc1-300
+              ">
+              the
+            </span>
+            <span class="
+              font-bold-regular
+              font-color-fail
+              ">
+              “Is Access Account”.
+            </span>
+          </div>
+          <div class="flex-center-horizontal">
+            <app-button
+                [text]="'Generate Access QR'"
+                [styleButton]="'style-danger-solid'"
+                [iconname]="''"
+                (outOnClick)="checkGate1()"
+                />
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+        <div class="
+          flex-end-row-4px-gap
+          ">
+          <span class="
+            font-normal-regular
+            font-color-pc1-300
+            ">
+            Don’t want to continue?
+          </span>
+          <app-button
+              [text]="'Cancel'"
+              [styleButton]="'style-solid'"
+              [isUnderlined]="'underlined'"
+              [iconname]="''"
+              [linkURL]="'/account-profile'"
+              [linkTarget]="'_self'"
+              />
+        </div>
+      </div>
+    </div>
+    }@else if( passedGate1() && passedGate2()==false ){
+    <div class="flex-center-horizontal">
+      <!-- 2nd step, confirm via typing "I UNDERSTAND" -->
+      <div class="
+        flex-column-stretch
+        gap-pad300-xs
+        text-wrap-560px-max-with
+        padding-left-right-pad200-xs
+        padding-top-bottom-pad200-xs
+        background-color-sc-900
+        border-radius
+        shadow-only
+        ">
+        <div class="flex-column-8px-gap-stretch">
+          <div class="
+            font-bold-title
+            font-color-pc1-300
+            flex-center-horizontal
+            ">
+            Last Warning
+          </div>
+          <div class="flex-center-horizontal">
+            <div class="
+              font-normal-regular
+              font-color-pc1-300
+              ">
+              To confirm, please type: I UNDERSTAND
+            </div>
+          </div>
+          <app-input
+              [nameInput]="'iunderstand'"
+              [(inputValue)]="iunderstand2confirm"
+              [iconNameLeft]="''"
+              [labelText]="''"
+              [placeholderText]="'I UNDERSTAND'"
+              (outWant2Run)="checkGate2()"
+              />
+          <div class="flex-center-horizontal">
+            <span class="
+            font-normal-regular
+            font-color-fail
+            ">
+            {{ warningInputText() }}
+            </span>
+          </div>
+          <div>
+            <span class="
+              font-normal-regular
+              font-color-pc1-300
+              ">
+              By Generating the Access QR, your account’s
+              credential( email and password ) will be
+              used to generate the QR code. And
+              you must only give the
+            </span>
+            <span class="
+              font-bold-regular
+              font-color-fail
+              ">
+              QR TEMPORARILY( with your supervision )
+            </span>
+            <span class="
+              font-normal-regular
+              font-color-pc1-300
+              ">
+              to your teammates or co-worker,
+              so that they can create their account.
+            </span>
+          </div>
+          <div class="flex-center-horizontal">
+            <app-button
+                [text]="'Generate Access QR'"
+                [styleButton]="'style-danger-solid'"
+                [iconname]="''"
+                (outOnClick)="checkGate2()"
+                />
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+        <div class="
+          flex-end-row-4px-gap
+          ">
+          <span class="
+            font-normal-regular
+            font-color-pc1-300
+            ">
+            Don’t want to continue?
+          </span>
+          <app-button
+              [text]="'Cancel'"
+              [styleButton]="'style-solid'"
+              [isUnderlined]="'underlined'"
+              [iconname]="''"
+              [linkURL]="'/account-profile'"
+              [linkTarget]="'_self'"
+              />
+        </div>
+      </div>
+    </div>
+    }@else if( passedGate1() && passedGate2() ){
+    <div class="
+    flex-center-horizontal
+    gap-pad100-xs
+    flex-wrap-row
+    ">
+      <!-- 3rd step, last step, see/download QR code -->
+      <div class="
+      flex-column-stretch
+      gap-pad100-xs
+      ">
+        <div class="
+        flex-center-horizontal
+        ">
+          <div class="
+          font-bold-title
+          font-color-pc1-300
+          ">Generated QR Access Account successfully</div>
+        </div>
+        <img class="qr-image-size border-radius" [src]="qrImageSafeUrl()" alt="QR code photo"/>
+      </div>
+      <div class="
+      flex-column-stretch
+      gap-pad300-xs
+      ">
+        <div class="
+        flex-center-horizontal
+        gap-pad100-xs
+        background-color-tc3-900
+        border-radius
+        text-wrap-370px-max-width
+        padding-left-right-pad100-xl
+        padding-top-bottom-pad100-xl
+        ">
+          <img class="image-48px-size" src="/icon_tc3_500/info.svg" alt="red info icon">
+          <div class="
+          flex-column-stretch
+          gap-pad100-xs
+          ">
+            <span class="
+            font-normal-regular
+            font-color-fail
+            ">
+              Please keep your QR Access
+              SAFE. To keeps things secure,
+              once your co-worker or teammates
+              has successfully made their account.
+              Then please go to your
+            </span>
+            <span class="
+            font-bold-uline-regular
+            font-color-fail
+            ">
+              Profile and “Deactivate” the “Is Access Account”.
+            </span>
+          </div>
+        </div>
+        <div class="flex-start-row-4px-gap">
+          <app-button
+              [text]="'Download'"
+              [styleButton]="'style-outline'"
+              [iconname]="'download'"
+              (outOnClick)="clickedDownload()"
+              />
+        </div>
+        <div class="flex-end-row-4px-gap">
+          <app-button
+              [text]="'Back to Profile'"
+              [styleButton]="'style-outline'"
+              [isUnderlined]="'underlined'"
+              [iconname]="'arrow_left'"
+              [linkURL]="'/account-profile'"
+              [linkTarget]="'_self'"
+              />
+        </div>
+      </div>
+    </div>
+    }
+
+
+  }@else{
+  <div class="flex-center-horizontal">
+    <!-- `Is Access Account` is turned OFF -->
+    <div class="
+      flex-column-8px-gap-stretch
+      text-wrap-560px-max-with
+      padding-left-right-pad200-xs
+      padding-top-bottom-pad200-xs
+      background-color-sc-900
+      border-radius
+      shadow-only
+      ">
+      <div class="flex-center-horizontal">
+        <div class="
+          font-bold-title
+          font-color-fail
+          ">
+          Access QR turned OFF
+        </div>
+      </div>
+
+
+      <div>
+        <span class="
+          font-normal-regular
+          font-color-pc1-300
+          ">
+          If you want to generate a QR Access for your co-worker or teammates to create their own account: You must
+        </span>
+        <span class="
+          font-bold-regular
+          font-color-fail
+          ">
+          Activate
+        </span>
+        <span class="
+          font-normal-regular
+          font-color-pc1-300
+          ">
+          the “
+        </span>
+        <span class="
+          font-bold-regular
+          font-color-fail
+          ">
+          Is Access Account
+        </span>
+        <span class="
+          font-normal-regular
+          font-color-pc1-300
+          ">
+          ” on your Profile Account first.
+        </span>
+      </div>
+    </div>
+  </div>
+  }
+</div>

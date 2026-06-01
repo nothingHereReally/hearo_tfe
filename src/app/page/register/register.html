@@ -1,13 +1,19 @@
-<div class="container-whole-register-page">
-  <div class="register-form">
-    <div>
-      <img src="/logo/hearo_logo.svg" alt="hearo logo">
-      <img src="/logo/hearo_word.svg" alt="hearo word">
-      <span class="font-bold-regular">Create a Hearo Team Account</span>
+<main class="register-whole-page">
+  <form class="register-form">
+    <div class="flex-center-horizontal">
+      <div class="flex-column-8px-gap-stretch">
+        <img src="/logo/hearo_logo.svg" alt="hearo logo" class="logo-height-48px">
+        <img src="/logo/hearo_word.svg" alt="hearo word" class="logo-height-36px">
+        <span class="
+        font-bold-regular
+        font-color-pc1-300
+        ">Create a Hearo Team Account</span>
+      </div>
     </div>
 
-    <div>
-      <div>
+    @if( successMessage()=='' ){
+    <div class="flex-column-8px-gap-stretch">
+      <div class="flex-column-0gap-stretch">
         <app-input
             [nameInput]="'first_name'"
             [(inputValue)]="hearoUser().first_name"
@@ -16,12 +22,16 @@
             [labelText]="'First Name'"
             (outWant2Run)="createAccount()"
             />
-        @if( warnings().first_name!='' ){
-        <span class="font-normal-regular">{{ warnings().first_name }}</span>
+        @for(warn_first_name of warnings().first_name; track warn_first_name){
+        <span class="
+        font-normal-regular
+        font-color-fail
+        flex-center-horizontal
+        ">{{ warn_first_name }}</span>
         }
       </div>
 
-      <div>
+      <div class="flex-column-0gap-stretch">
         <app-input
             [nameInput]="'last_name'"
             [(inputValue)]="hearoUser().last_name"
@@ -30,12 +40,16 @@
             [labelText]="'Last Name'"
             (outWant2Run)="createAccount()"
             />
-        @if( warnings().last_name!='' ){
-        <span class="font-normal-regular">{{ warnings().last_name }}</span>
+        @for(warn_last_name of warnings().last_name; track warn_last_name){
+        <span class="
+        font-normal-regular
+        font-color-fail
+        flex-center-horizontal
+        ">{{ warn_last_name }}</span>
         }
       </div>
 
-      <div>
+      <div class="flex-column-0gap-stretch">
         <app-input
             [nameInput]="'email'"
             [(inputValue)]="hearoUser().email"
@@ -44,12 +58,16 @@
             [labelText]="''"
             (outWant2Run)="createAccount()"
             />
-        @if( warnings().email!='' ){
-        <span class="font-normal-regular">{{ warnings().email }}</span>
+        @for(warn_email of warnings().email; track warn_email){
+        <span class="
+        font-normal-regular
+        font-color-fail
+        flex-center-horizontal
+        ">{{ warn_email }}</span>
         }
       </div>
 
-      <div>
+      <div class="flex-column-0gap-stretch">
         <app-input
             [nameInput]="'username'"
             [(inputValue)]="hearoUser().username"
@@ -58,12 +76,16 @@
             [labelText]="''"
             (outWant2Run)="createAccount()"
             />
-        @if( warnings().username!='' ){
-        <span class="font-normal-regular">{{ warnings().username }}</span>
+        @for(warn_username of warnings().username; track warn_username){
+        <span class="
+        font-normal-regular
+        font-color-fail
+        flex-center-horizontal
+        ">{{ warn_username }}</span>
         }
       </div>
 
-      <div>
+      <div class="flex-column-0gap-stretch">
         <app-input
             [nameInput]="'password'"
             [(inputValue)]="hearoUser().password"
@@ -72,12 +94,16 @@
             [hasEye]="'eye'"
             (outWant2Run)="createAccount()"
             />
-        @if( warnings().password!='' ){
-        <span class="font-normal-regular">{{ warnings().password }}</span>
+        @for(warn_password of warnings().password; track warn_password){
+        <span class="
+        font-normal-regular
+        font-color-fail
+        flex-center-horizontal
+        ">{{ warn_password }}</span>
         }
       </div>
 
-      <div>
+      <div class="flex-column-0gap-stretch">
         <app-input
             [nameInput]="'retype_password'"
             [(inputValue)]="hearoUser().retype_password"
@@ -86,20 +112,29 @@
             [hasEye]="'eye'"
             (outWant2Run)="createAccount()"
             />
-        @if( warnings().retype_password!='' ){
-        <span class="font-normal-regular">{{ warnings().retype_password }}</span>
+        @for(warn_retype_password of warnings().retype_password; track warn_retype_password){
+        <span class="
+        font-normal-regular
+        font-color-fail
+        flex-center-horizontal
+        ">{{ warn_retype_password }}</span>
         }
       </div>
     </div>
 
-    <app-button
-        [text]="'Create Account'"
-        [styleButton]="'style-solid'"
-        (outOnClick)="createAccount()"
-        />
+    <span class="flex-center-horizontal">
+      <app-button
+          [text]="'Create Account'"
+          [styleButton]="'style-solid'"
+          (outOnClick)="createAccount()"
+          />
+    </span>
 
-    <div>
-      <span class="font-normal-regular">Already have an account?</span>
+    <div class="flex-end-row-4px-gap">
+      <span class="
+      font-normal-regular
+      font-color-pc1-300
+      ">Already have an account?</span>
       <app-button
           [text]="'Sign in'"
           [styleButton]="'style-outline'"
@@ -108,5 +143,15 @@
           [linkTarget]="'_self'"
           />
     </div>
-  </div>
-</div>
+    }@else{
+    <div class="
+    flex-center-horizontal
+    font-bold-title
+    font-color-success
+    "
+    >
+    <span>{{ successMessage() }}</span>
+    </div>
+    }
+  </form>
+</main>

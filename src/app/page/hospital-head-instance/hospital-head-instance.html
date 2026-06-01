@@ -1,0 +1,406 @@
+<div class="
+  flex-column
+  flex-align-stretch
+  gap-pad100-lg
+  ">
+  <app-header/>
+  <div class="
+    flex-column
+    flex-align-stretch
+    gap-pad300-xs
+
+    padding-left-right-pad100-lg
+    padding-top-bottom-pad100-lg
+    ">
+    <app-button
+        [text]="'Back'"
+        [styleButton]="'style-outline'"
+        [iconname]="'arrow_left'"
+        (outOnClick)="goBack()"
+        />
+    @if( hospitalHeadUser() ){
+    <div class="
+      flex-row
+      flex-justify-center
+      ">
+      <h1 class="
+        font-bold-title
+        font-color-pc1-300
+        ">Hospital Head Request</h1>
+    </div>
+    <div class="
+      flex-row
+      flex-justify-center
+      ">
+      <div class="
+        flex-column
+        flex-align-strech
+        hospital-head-instance-body
+        gap-pad200-xs
+        ">
+        <div>
+          <table class="
+            font-normal-regular
+            data-table-hospital-head
+            ">
+            <tbody>
+              <tr>
+                <td><div class="
+                    font-color-pc1-300
+                    padding-left-right-pad100-md
+                    padding-top-bottom-pad100-lg
+                    ">Name</div></td>
+                <td><div class="
+                    padding-left-right-pad100-md
+                    padding-top-bottom-pad100-lg
+                ">
+                    {{ hospitalHeadUser()?.user?.first_name }}
+                    {{ hospitalHeadUser()?.user?.last_name }}
+                  </div></td>
+              </tr>
+              <tr>
+                <td><div class="
+                    font-color-pc1-300
+                    padding-left-right-pad100-md
+                    padding-top-bottom-pad100-lg
+                    ">Email</div></td>
+                <td><div class="
+                    padding-left-right-pad100-md
+                    padding-top-bottom-pad100-lg
+                ">{{ hospitalHeadUser()?.user?.email }}</div></td>
+              </tr>
+              @if( hospitalHeadUser()?.hospital_facility_name ){
+              <tr>
+                <td><div class="
+                    font-color-pc1-300
+                    padding-left-right-pad100-md
+                    padding-top-bottom-pad100-lg
+                    ">Hospital Name</div></td>
+                <td><div class="
+                    padding-left-right-pad100-md
+                    padding-top-bottom-pad100-lg
+                ">{{ hospitalHeadUser()?.hospital_facility_name }}</div></td>
+              </tr>
+              <tr>
+                <td><div class="
+                    font-color-pc1-300
+                    padding-left-right-pad100-md
+                    padding-top-bottom-pad100-lg
+                    ">Hospital Address</div></td>
+                <td><div class="
+                    padding-left-right-pad100-md
+                    padding-top-bottom-pad100-lg
+                ">{{ hospitalAddress() }}</div></td>
+              </tr>
+              <tr>
+                <td><div class="
+                    padding-left-right-pad100-md
+                    padding-top-bottom-pad100-lg
+                    ">
+                      <app-button
+                          [text]="'Hospital Facility'"
+                          [styleButton]="'style-link'"
+                          [linkURL]="`/hospitals/${hospitalHeadUser()?.hospital_facility}`"
+                          [linkTarget]="'_self'"
+                          />
+                    </div></td>
+              </tr>
+              }@else{
+              <tr>
+                <td><div class="
+                    font-color-pc1-300
+                    padding-left-right-pad100-md
+                    padding-top-bottom-pad100-lg
+                    ">Other Hospital</div></td>
+                <td><div class="
+                    padding-left-right-pad100-md
+                    padding-top-bottom-pad100-lg
+                ">{{ hospitalHeadUser()?.other_hospital }}</div></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><div class="
+                    padding-left-right-pad100-md
+                    padding-top-bottom-pad100-lg
+                ">
+                    <app-button
+                        [text]="'Assign Hospital Facility'"
+                        [styleButton]="'style-outline'"
+                        [iconname]="'hospital_location'"
+                        (outOnClick)="clickedAssignHospitalFacility()"
+                        />
+                </div></td>
+              </tr>
+              }
+              <tr>
+                <td><div class="
+                    font-color-pc1-300
+                    padding-left-right-pad100-md
+                    padding-top-bottom-pad100-lg
+                    ">Request Made</div></td>
+                <td><div class="
+                    padding-left-right-pad100-md
+                    padding-top-bottom-pad100-lg
+                ">{{ dateJoined() }}</div></td>
+              </tr>
+              <tr>
+                <td><div class="
+                    font-color-pc1-300
+                    padding-left-right-pad100-md
+                    padding-top-bottom-pad100-lg
+                    ">Document Files</div></td>
+                <td>
+                  <div class="
+                    padding-left-right-pad100-md
+                    padding-top-bottom-pad100-lg
+                  ">
+                    @if( isDownloadAvailable() ){
+                    <app-button
+                        [text]="'Download All Files'"
+                        [styleButton]="'style-outline'"
+                        [iconname]="'download'"
+                        (outOnClick)="clickedDownloadAllFilesFromHospitalHead()"
+                        />
+                    }@else{
+                    <p class="
+                    font-bold-regular
+                    font-color-fail
+                    ">
+                      No Documents uploaded by user yet
+                    </p>
+                    }
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+
+
+
+
+
+
+
+        <div class="
+          flex-row
+          flex-justify-space-between
+          ">
+          @if( ! hospitalHeadUser()?.account_approved ){
+          <app-button
+              [text]="'Approve Account'"
+              [styleButton]="'style-solid'"
+              [iconname]="''"
+              (outOnClick)="clickedApproveAccount()"
+              />
+          }@else{
+          <div class="
+            flex-column
+            gap-pad100-xs
+            ">
+            <div class="
+              flex-row
+              flex-align-center
+              text-wrap-284px-max-width
+              background-color-tc2-800
+              padding-left-right-pad100-xl
+              padding-top-bottom-pad100-xl
+              border-radius
+              gap-pad100-xs
+              ">
+              <img
+                src="icon_tc2_400/info.svg"
+                alt="info image"
+                class="
+                  image-48px-size
+                ">
+              <span class="
+                font-color-info
+                ">Toggle active/deactivated account, please email the user if you have deactivated the account, as to the reason why.</span>
+            </div>
+            <div class="
+            flex-row
+            flex-justify-space-between
+            flex-align-center
+            ">
+              <span class="
+                  font-normal-regular
+                  ">Current Status</span>
+              @if( hospitalHeadUser()?.is_active ){
+              <app-button
+                  [text]="'Account Active'"
+                  [styleButton]="'style-solid'"
+                  [iconname]="''"
+                  (outOnClick)="clickedToggleAccountActiveDeactivated()"
+                  />
+              }@else{
+              <app-button
+                  [text]="'Deactivated'"
+                  [styleButton]="'style-danger-outline'"
+                  [iconname]="''"
+                  (outOnClick)="clickedToggleAccountActiveDeactivated()"
+                  />
+              }
+            </div>
+          </div>
+          }
+          @if( ! hospitalHeadUser()?.account_approved || ! hospitalHeadUser()?.is_active ){
+          <div class="
+            flex-column
+            gap-pad100-xs
+            ">
+            @if( deleteConfirmationStep() === 0 ){
+            <div class="
+              flex-row
+              flex-align-center
+              text-wrap-284px-max-width
+              background-color-tc3-900
+              padding-left-right-pad100-xl
+              padding-top-bottom-pad100-xl
+              border-radius
+              gap-pad100-xs
+              ">
+              <img
+                src="icon_tc3_500/info.svg"
+                alt="info image"
+                class="
+                  image-48px-size
+                ">
+              <span class="
+                font-color-fail
+                ">By clicking <span>@if( ! hospitalHeadUser()?.account_approved ){ “REJECT” }@else{ “DELETE” }</span>this hospital head account will be deleted, kindly contact the account first before rejecting via Email that is provided above.</span>
+            </div>
+            <app-button
+                [text]="hospitalHeadUser()?.account_approved ? 'DELETE' : 'REJECT'"
+                [styleButton]="'style-danger-solid'"
+                [iconname]="'delete'"
+                (outOnClick)="deleteHospitalHeadAccont()"
+                />
+            }@else if( deleteConfirmationStep() === 1 ){
+              <div class="
+                flex-column
+                gap-pad100-xs
+                text-wrap-370px-max-width
+                background-color-tc3-900
+                padding-left-right-pad100-xl
+                padding-top-bottom-pad100-xl
+                border-radius
+                ">
+                <span class="font-bold-regular font-color-fail">Are you sure? DELETE USER?</span>
+                <div class="flex-row flex-justify-space-between">
+                  <app-button
+                      [text]="'YES'"
+                      [styleButton]="'style-danger-solid'"
+                      [iconname]="'check'"
+                      (outOnClick)="deleteHospitalHeadAccont()"
+                      />
+                  <app-button
+                      [text]="'CANCEL'"
+                      [styleButton]="'style-outline'"
+                      [iconname]="''"
+                      (outOnClick)="cancelDeleteConfirmation()"
+                      />
+                </div>
+              </div>
+            }@else if( deleteConfirmationStep() === 2 ){
+              <div class="
+                flex-column
+                gap-pad100-xs
+                text-wrap-370px-max-width
+                background-color-tc3-900
+                padding-left-right-pad100-xl
+                padding-top-bottom-pad100-xl
+                border-radius
+                ">
+                <span class="font-normal-regular">Please type <b class="font-color-fail">DELETE HOSPITAL HEAD USER</b> to confirm.</span>
+                <app-input
+                    [nameInput]="'deletehospitalheadusername'"
+                    [(inputValue)]="deleteConfirmationInput"
+                    [iconNameLeft]="''"
+                    [placeholderText]="'Type here...'"
+                    (outWant2Run)="deleteHospitalHeadAccont()"
+                    />
+                <div class="
+                flex-row
+                flex-justify-space-between
+                ">
+                  <app-button
+                      [text]="'CONFIRM'"
+                      [iconname]="''"
+                      [styleButton]="deleteConfirmationInput() === 'DELETE HOSPITAL HEAD USER' ? 'style-danger-solid' : 'style-outline'"
+                      (outOnClick)="deleteHospitalHeadAccont()"
+                      />
+                  <app-button
+                      [text]="'CANCEL'"
+                      [iconname]="''"
+                      [styleButton]="'style-outline'"
+                      (outOnClick)="cancelDeleteConfirmation()"
+                      />
+                </div>
+              </div>
+            }@else if( deleteConfirmationStep() === 3 ){
+            <div class="
+              flex-row
+              flex-align-center
+              text-wrap-284px-max-width
+              background-color-tc3-900
+              padding-left-right-pad100-xl
+              padding-top-bottom-pad100-xl
+              border-radius
+              gap-pad100-xs
+              ">
+              <img
+                src="icon_tc1_500/check.svg"
+                alt="info image"
+                class="
+                  image-48px-size
+                ">
+              <img
+                src="icon_tc3_500/delete.svg"
+                alt="info image"
+                class="
+                  image-48px-size
+                ">
+              <span class="
+                font-bold-regular
+                font-color-fail
+                ">Hospital Head User sucessfully DELETED.</span>
+            </div>
+            }
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+    }@else{
+    <div class="
+      flex-column
+      flex-align-center
+      gap-pad100-md
+      ">
+      <span class="
+        font-normal-title
+        font-color-pc1-300
+        ">No such Hospital Head Account</span>
+      <img
+          class="human-lost-hospital-head"
+          src="/background/human_lost.svg"
+          alt="human lost image"
+          >
+    </div>
+    }
+  </div>
+
+  @if( showAssignPopup() && hospitalHeadUser() ){
+    <div class="popup-overlay">
+      <div class="popup-content">
+        <app-assign-hospital-facility-card
+          [hospitalHeadId]="hospitalHeadUser()!.user.id"
+          (outCancel)="showAssignPopup.set(false)"
+          (outAssign)="onHospitalAssigned($event)"
+        />
+      </div>
+    </div>
+  }
+</div>

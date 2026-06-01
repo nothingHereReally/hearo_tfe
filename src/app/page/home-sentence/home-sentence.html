@@ -1,0 +1,744 @@
+<div class="container-home-sentence">
+  <app-header/>
+  <div class="
+    flex-center-horizontal
+    ">
+
+
+  <div class="
+    flex-column
+    flex-align-stretch
+    gap-pad200-md
+    container-home-sentence-body
+    ">
+    <div class="
+      flex-column
+      flex-align-stretch
+      gap-pad100-lg
+      padding-left-right-pad100-lg
+      padding-top-bottom-pad100-lg
+      border-radius
+      border-pc1-300
+      ">
+      <div class="
+        flex-row
+        flex-justify-center
+        ">
+        <div class="
+          font-bold-title
+          font-color-pc1-300
+          ">
+          Most frequent 9 sentences
+        </div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <div class="
+        flex-row
+        flex-justify-space-between
+        flex-align-center
+        flex-wrap-row
+        ">
+        <div class="
+          flex-column
+          flex-align-center
+          gap-pad100-md
+          ">
+          <app-doughnut-graph
+              [dataSet]="[mostFrequent9sentence().accuracy/100.0]"
+              />
+          <span class="
+            font-bold-regular
+            font-color-pc1-300
+            ">Average Accuracy</span>
+          <span class="
+            font-bold-title
+            font-color-success
+            ">{{ mostFrequent9sentence().accuracy }}%</span>
+        </div>
+
+
+
+
+
+
+
+
+        <div class="
+          flex-column
+          flex-align-center
+          gap-pad100-xs
+          ">
+          <span class="font-bold-regular font-color-pc1-300">Average Response Time</span>
+          <span class="font-bold-title font-color-success">{{ mostFrequent9sentence().response_time_ms }}s</span>
+        </div>
+
+
+
+
+
+
+
+
+        <app-doughnut-graph
+            [dataSet]="doughnut4frequentSentence()"
+            />
+
+
+
+
+
+
+
+
+        <div class="
+          font-normal-regular
+          flex-column
+          gap-pad100-md
+          ">
+          @for(sentence of mostFrequent9sentence().sentences; track $index){
+            @if( $index==0 ){
+            <div class="
+              background-color-pc1-200
+              flex-row
+              flex-justify-start
+              flex-align-center
+              gap-pad100-xs
+              padding-top-bottom-pad100-xs
+              padding-left-right-pad100-xs
+              border-radius
+              font-color-sc-900
+              " >
+              <span class="
+                circle-dot
+                background-color-sc-900
+                "> </span>
+              <span>{{ mostFrequentQuantityPercent()[$index] }}% ( {{ sentence.quantity_rows }} )</span>
+              <span>{{ sentence.sentence }}</span>
+            </div>
+
+
+            }@else if( $index==1 ){
+            <div class="
+              background-color-pc1-400
+              flex-row
+              flex-wrap
+              flex-justify-start
+              flex-align-center
+              gap-pad100-xs
+              padding-top-bottom-pad100-xs
+              padding-left-right-pad100-xs
+              border-radius
+              font-color-sc-900
+              " >
+              <span class="
+                circle-dot
+                background-color-sc-900
+                "> </span>
+              <span>{{ mostFrequentQuantityPercent()[$index] }}% ( {{ sentence.quantity_rows }} )</span>
+              <span>{{ sentence.sentence }}</span>
+            </div>
+
+
+            }@else if( $index==2 ){
+            <div class="
+              background-color-pc1-600
+              flex-row
+              flex-wrap
+              flex-justify-start
+              flex-align-center
+              gap-pad100-xs
+              padding-top-bottom-pad100-xs
+              padding-left-right-pad100-xs
+              border-radius
+              font-color-sc-900
+              " >
+              <span class="
+                circle-dot
+                background-color-sc-900
+                "> </span>
+              <span>{{ mostFrequentQuantityPercent()[$index] }}% ( {{ sentence.quantity_rows }} )</span>
+              <span>{{ sentence.sentence }}</span>
+            </div>
+
+
+            }@else if( $index==3 ){
+            <div class="
+              background-color-pc1-800
+              flex-row
+              flex-wrap
+              flex-justify-start
+              flex-align-center
+              gap-pad100-xs
+              padding-top-bottom-pad100-xs
+              padding-left-right-pad100-xs
+              border-radius
+              " >
+              <span class="
+                circle-dot
+                background-color-sc-900
+                "> </span>
+              <span>{{ mostFrequentQuantityPercent()[$index] }}% ( {{ sentence.quantity_rows }} )</span>
+              <span>{{ sentence.sentence }}</span>
+            </div>
+
+
+            }@else if( $index==4 ){
+            <div class="
+              background-color-pc3-200
+              flex-row
+              flex-wrap
+              flex-justify-start
+              flex-align-center
+              gap-pad100-xs
+              padding-top-bottom-pad100-xs
+              padding-left-right-pad100-xs
+              border-radius
+              font-color-sc-900
+              " >
+              <span class="
+                circle-dot
+                background-color-sc-900
+                "> </span>
+              <span>{{ mostFrequentQuantityPercent()[$index] }}% ( {{ sentence.quantity_rows }} )</span>
+              <span>{{ sentence.sentence }}</span>
+            </div>
+
+
+            }@else if( $index==5 ){
+            <div class="
+              background-color-pc3-400
+              flex-row
+              flex-wrap
+              flex-justify-start
+              flex-align-center
+              gap-pad100-xs
+              padding-top-bottom-pad100-xs
+              padding-left-right-pad100-xs
+              border-radius
+              font-color-sc-900
+              " >
+              <span class="
+                circle-dot
+                background-color-sc-900
+                "> </span>
+              <span>{{ mostFrequentQuantityPercent()[$index] }}% ( {{ sentence.quantity_rows }} )</span>
+              <span>{{ sentence.sentence }}</span>
+            </div>
+
+
+            }@else if( $index==6 ){
+            <div class="
+              background-color-pc3-600
+              flex-row
+              flex-wrap
+              flex-justify-start
+              flex-align-center
+              gap-pad100-xs
+              padding-top-bottom-pad100-xs
+              padding-left-right-pad100-xs
+              border-radius
+              " >
+              <span class="
+                circle-dot
+                background-color-sc-900
+                "> </span>
+              <span>{{ mostFrequentQuantityPercent()[$index] }}% ( {{ sentence.quantity_rows }} )</span>
+              <span>{{ sentence.sentence }}</span>
+            </div>
+
+
+            }@else if( $index==7 ){
+            <div class="
+              background-color-pc2-300
+              flex-row
+              flex-wrap
+              flex-justify-start
+              flex-align-center
+              gap-pad100-xs
+              padding-top-bottom-pad100-xs
+              padding-left-right-pad100-xs
+              border-radius
+              font-color-sc-900
+              " >
+              <span class="
+                circle-dot
+                background-color-sc-900
+                "> </span>
+              <span>{{ mostFrequentQuantityPercent()[$index] }}% ( {{ sentence.quantity_rows }} )</span>
+              <span>{{ sentence.sentence }}</span>
+            </div>
+
+
+            }@else if( $index==8 ){
+            <div class="
+              background-color-pc2-400
+              flex-row
+              flex-wrap
+              flex-justify-start
+              flex-align-center
+              gap-pad100-xs
+              padding-top-bottom-pad100-xs
+              padding-left-right-pad100-xs
+              border-radius
+              font-color-sc-900
+              " >
+              <span class="
+                circle-dot
+                background-color-sc-900
+                "> </span>
+              <span>{{ mostFrequentQuantityPercent()[$index] }}% ( {{ sentence.quantity_rows }} )</span>
+              <span>{{ sentence.sentence }}</span>
+            </div>
+
+
+            }@else{
+            <div class="
+              background-color-pc2-600
+              flex-row
+              flex-wrap
+              flex-justify-start
+              flex-align-center
+              gap-pad100-xs
+              padding-top-bottom-pad100-xs
+              padding-left-right-pad100-xs
+              border-radius
+              " >
+              <span class="
+                circle-dot
+                background-color-sc-900
+                "> </span>
+              <span>{{ mostFrequentQuantityPercent()[$index] }}% ( {{ sentence.quantity_rows }} )</span>
+              <span>{{ sentence.sentence }}</span>
+            </div>
+            }
+          }
+        </div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <div class="
+        flex-row
+        flex-justify-center
+        ">
+        <app-button
+            [text]="'Show More'"
+            [styleButton]="'style-link'"
+            [linkURL]="'/home/sentence/frequent-sentence'"
+            />
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="
+      flex-column
+      flex-align-stretch
+      gap-pad100-lg
+      padding-left-right-pad100-lg
+      padding-top-bottom-pad100-lg
+      background-color-fail
+      border-radius
+      ">
+      <div class="
+        flex-row
+        flex-justify-center
+        ">
+        <div class="
+          font-bold-title
+          font-color-fail
+          ">
+          Most Mistakenly mistaken 9 sentences
+        </div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <div class="
+        flex-row
+        flex-justify-space-between
+        flex-align-center
+        flex-wrap-row
+        ">
+        <div class="
+          flex-column
+          flex-align-center
+          gap-pad100-md
+          ">
+          <app-doughnut-graph
+              [dataSet]="[mostMistaken9sentence().accuracy/100.0]"
+              />
+          <span class="
+            font-bold-regular
+            font-color-pc1-300
+            ">Average Accuracy</span>
+          <span class="
+            font-normal-regular
+            font-color-fail
+            ">On mistaken sentences( lower better ).</span>
+          <span class="
+            font-bold-title
+            font-color-success
+            ">{{ mostMistaken9sentence().accuracy }}%</span>
+        </div>
+
+
+
+
+
+
+
+
+        <div class="
+          flex-column
+          flex-align-center
+          gap-pad100-xs
+          ">
+          <span class="font-bold-regular font-color-pc1-300">Average Response Time</span>
+          <span class="font-bold-title font-color-success">{{ mostMistaken9sentence().response_time_ms }}s</span>
+        </div>
+
+
+
+
+
+
+
+
+        <app-doughnut-graph
+            [dataSet]="doughnut4mistakenSentence()"
+            />
+
+
+
+
+
+
+
+
+        <div class="
+          font-normal-regular
+          flex-column
+          gap-pad100-md
+          ">
+          @for(sentence of mostMistaken9sentence().sentences; track $index){
+            @if( $index==0 ){
+            <div class="
+              background-color-pc1-200
+              flex-row
+              flex-justify-start
+              flex-align-center
+              gap-pad100-xs
+              padding-top-bottom-pad100-xs
+              padding-left-right-pad100-xs
+              border-radius
+              font-color-sc-900
+              " >
+              <span class="
+                circle-dot
+                background-color-sc-900
+                "> </span>
+              <span>{{ mostMistakenQuantityPercent()[$index] }}% ( {{ sentence.quantity_rows }} )</span>
+              <span>{{ sentence.sentence }}</span>
+            </div>
+
+
+            }@else if( $index==1 ){
+            <div class="
+              background-color-pc1-400
+              flex-row
+              flex-wrap
+              flex-justify-start
+              flex-align-center
+              gap-pad100-xs
+              padding-top-bottom-pad100-xs
+              padding-left-right-pad100-xs
+              border-radius
+              font-color-sc-900
+              " >
+              <span class="
+                circle-dot
+                background-color-sc-900
+                "> </span>
+              <span>{{ mostMistakenQuantityPercent()[$index] }}% ( {{ sentence.quantity_rows }} )</span>
+              <span>{{ sentence.sentence }}</span>
+            </div>
+
+
+            }@else if( $index==2 ){
+            <div class="
+              background-color-pc1-600
+              flex-row
+              flex-wrap
+              flex-justify-start
+              flex-align-center
+              gap-pad100-xs
+              padding-top-bottom-pad100-xs
+              padding-left-right-pad100-xs
+              border-radius
+              font-color-sc-900
+              " >
+              <span class="
+                circle-dot
+                background-color-sc-900
+                "> </span>
+              <span>{{ mostMistakenQuantityPercent()[$index] }}% ( {{ sentence.quantity_rows }} )</span>
+              <span>{{ sentence.sentence }}</span>
+            </div>
+
+
+            }@else if( $index==3 ){
+            <div class="
+              background-color-pc1-800
+              flex-row
+              flex-wrap
+              flex-justify-start
+              flex-align-center
+              gap-pad100-xs
+              padding-top-bottom-pad100-xs
+              padding-left-right-pad100-xs
+              border-radius
+              " >
+              <span class="
+                circle-dot
+                background-color-sc-900
+                "> </span>
+              <span>{{ mostMistakenQuantityPercent()[$index] }}% ( {{ sentence.quantity_rows }} )</span>
+              <span>{{ sentence.sentence }}</span>
+            </div>
+
+
+            }@else if( $index==4 ){
+            <div class="
+              background-color-pc3-200
+              flex-row
+              flex-wrap
+              flex-justify-start
+              flex-align-center
+              gap-pad100-xs
+              padding-top-bottom-pad100-xs
+              padding-left-right-pad100-xs
+              border-radius
+              font-color-sc-900
+              " >
+              <span class="
+                circle-dot
+                background-color-sc-900
+                "> </span>
+              <span>{{ mostMistakenQuantityPercent()[$index] }}% ( {{ sentence.quantity_rows }} )</span>
+              <span>{{ sentence.sentence }}</span>
+            </div>
+
+
+            }@else if( $index==5 ){
+            <div class="
+              background-color-pc3-400
+              flex-row
+              flex-wrap
+              flex-justify-start
+              flex-align-center
+              gap-pad100-xs
+              padding-top-bottom-pad100-xs
+              padding-left-right-pad100-xs
+              border-radius
+              font-color-sc-900
+              " >
+              <span class="
+                circle-dot
+                background-color-sc-900
+                "> </span>
+              <span>{{ mostMistakenQuantityPercent()[$index] }}% ( {{ sentence.quantity_rows }} )</span>
+              <span>{{ sentence.sentence }}</span>
+            </div>
+
+
+            }@else if( $index==6 ){
+            <div class="
+              background-color-pc3-600
+              flex-row
+              flex-wrap
+              flex-justify-start
+              flex-align-center
+              gap-pad100-xs
+              padding-top-bottom-pad100-xs
+              padding-left-right-pad100-xs
+              border-radius
+              " >
+              <span class="
+                circle-dot
+                background-color-sc-900
+                "> </span>
+              <span>{{ mostMistakenQuantityPercent()[$index] }}% ( {{ sentence.quantity_rows }} )</span>
+              <span>{{ sentence.sentence }}</span>
+            </div>
+
+
+            }@else if( $index==7 ){
+            <div class="
+              background-color-pc2-300
+              flex-row
+              flex-wrap
+              flex-justify-start
+              flex-align-center
+              gap-pad100-xs
+              padding-top-bottom-pad100-xs
+              padding-left-right-pad100-xs
+              border-radius
+              font-color-sc-900
+              " >
+              <span class="
+                circle-dot
+                background-color-sc-900
+                "> </span>
+              <span>{{ mostMistakenQuantityPercent()[$index] }}% ( {{ sentence.quantity_rows }} )</span>
+              <span>{{ sentence.sentence }}</span>
+            </div>
+
+
+            }@else if( $index==8 ){
+            <div class="
+              background-color-pc2-400
+              flex-row
+              flex-wrap
+              flex-justify-start
+              flex-align-center
+              gap-pad100-xs
+              padding-top-bottom-pad100-xs
+              padding-left-right-pad100-xs
+              border-radius
+              font-color-sc-900
+              " >
+              <span class="
+                circle-dot
+                background-color-sc-900
+                "> </span>
+              <span>{{ mostMistakenQuantityPercent()[$index] }}% ( {{ sentence.quantity_rows }} )</span>
+              <span>{{ sentence.sentence }}</span>
+            </div>
+
+
+            }@else{
+            <div class="
+              background-color-pc2-600
+              flex-row
+              flex-wrap
+              flex-justify-start
+              flex-align-center
+              gap-pad100-xs
+              padding-top-bottom-pad100-xs
+              padding-left-right-pad100-xs
+              border-radius
+              " >
+              <span class="
+                circle-dot
+                background-color-sc-900
+                "> </span>
+              <span>{{ mostMistakenQuantityPercent()[$index] }}% ( {{ sentence.quantity_rows }} )</span>
+              <span>{{ sentence.sentence }}</span>
+            </div>
+            }
+          }
+        </div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <div class="
+        flex-row
+        flex-justify-center
+        ">
+        <app-button
+            [text]="'Show More'"
+            [styleButton]="'style-link'"
+            [linkURL]="'/home/sentence/mistaken-sentence'"
+            />
+      </div>
+    </div>
+  </div>
+
+
+  </div>
+</div>

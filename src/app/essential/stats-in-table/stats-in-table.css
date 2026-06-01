@@ -1,0 +1,201 @@
+.stats-in-table-styles-container{
+  width: 100%;
+}
+.stats-in-table-styles{
+  border-spacing: 0px;
+  width: 100%;
+}
+
+
+/* do css on cells,
+ * includes headers/titlesOnColumns and
+ * body cell
+ */
+.stats-in-table-styles > thead > tr > th,
+.stats-in-table-styles > tbody > tr > td{
+  padding: 0px;
+}
+.stats-in-table-styles > thead > tr > th > div,
+.stats-in-table-styles > tbody > tr > td > div{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  min-height: var(--pad200-xl);
+
+  gap: var(--pad100-xs);
+}
+.stats-in-table-styles > tbody > tr > td > div{
+  padding-top: var(--pad100-xs);
+  padding-bottom: var(--pad100-xs);
+
+  padding-left: var(--pad100-lg);
+  padding-right: var(--pad100-lg);
+}
+.accuracy-float-top-pading{
+  padding-top: var(--pad100-lg);
+}
+
+
+
+
+.border-left{
+  border-top-left-radius: 48px;
+  border-bottom-left-radius: 48px;
+}
+.border-right{
+  border-top-right-radius: 48px;
+  border-bottom-right-radius: 48px;
+}
+
+
+
+
+.pie-percent-style{
+  max-width: var(--pad200-md);
+  max-height: var(--pad200-md);
+
+  padding: 0px;
+  margin: 0px;
+}
+
+
+
+
+
+
+
+
+/* 4 columns be auto hide columns via media query */
+@media (max-width: 880px){
+  .stats-in-table-column-hide-cols4 > thead > tr > th:nth-child(3),
+  .stats-in-table-column-hide-cols4 > tbody > tr > td:nth-child(3){
+    display: none;
+  }
+}
+@media (max-width: 664px){
+  .stats-in-table-column-hide-cols4 > thead > tr > th:nth-child(2),
+  .stats-in-table-column-hide-cols4 > tbody > tr > td:nth-child(2){
+    display: none;
+  }
+}
+
+
+/* 5 columns be auto hide columns via media query */
+@media (max-width: 1140px){
+  .stats-in-table-column-hide-cols5 > thead > tr > th:nth-child(3),
+  .stats-in-table-column-hide-cols5 > tbody > tr > td:nth-child(3){
+    display: none;
+  }
+}
+@media (max-width: 904px){
+  .stats-in-table-column-hide-cols5 > thead > tr > th:nth-child(4),
+  .stats-in-table-column-hide-cols5 > tbody > tr > td:nth-child(4){
+    display: none;
+  }
+}
+@media (max-width: 650px){
+  .stats-in-table-column-hide-cols5 > thead > tr > th:nth-child(2),
+  .stats-in-table-column-hide-cols5 > tbody > tr > td:nth-child(2){
+    display: none;
+  }
+}
+
+
+/* 6 columns be auto hide columns via media query */
+@media (max-width: 1414px){
+  .stats-in-table-column-hide-cols6 > thead > tr > th:nth-child(3),
+  .stats-in-table-column-hide-cols6 > tbody > tr > td:nth-child(3){
+    display: none;
+  }
+}
+@media (max-width: 1178px){
+  .stats-in-table-column-hide-cols6 > thead > tr > th:nth-child(5),
+  .stats-in-table-column-hide-cols6 > tbody > tr > td:nth-child(5){
+    display: none;
+  }
+}
+@media (max-width: 940px){
+  .stats-in-table-column-hide-cols6 > thead > tr > th:nth-child(2),
+  .stats-in-table-column-hide-cols6 > tbody > tr > td:nth-child(2){
+    display: none;
+  }
+}
+@media (max-width: 710px){
+  .stats-in-table-column-hide-cols6 > thead > tr > th:nth-child(4),
+  .stats-in-table-column-hide-cols6 > tbody > tr > td:nth-child(4){
+    display: none;
+  }
+}
+
+
+/* 7 columns be auto hide columns via media query */
+@media (max-width: 1665px){
+  .stats-in-table-column-hide-cols7 > thead > tr > th:nth-child(4),
+  .stats-in-table-column-hide-cols7 > tbody > tr > td:nth-child(4){
+    display: none;
+  }
+}
+@media (max-width: 1320px){
+  .stats-in-table-column-hide-cols7 > thead > tr > th:nth-child(6),
+  .stats-in-table-column-hide-cols7 > tbody > tr > td:nth-child(6){
+    display: none;
+  }
+}
+@media (max-width: 1162px){
+  .stats-in-table-column-hide-cols7 > thead > tr > th:nth-child(2),
+  .stats-in-table-column-hide-cols7 > tbody > tr > td:nth-child(2){
+    display: none;
+  }
+}
+@media (max-width: 902px){
+  .stats-in-table-column-hide-cols7 > thead > tr > th:nth-child(3),
+  .stats-in-table-column-hide-cols7 > tbody > tr > td:nth-child(3){
+    display: none;
+  }
+}
+@media (max-width: 650px){
+  .stats-in-table-column-hide-cols7 > thead > tr > th:nth-child(5),
+  .stats-in-table-column-hide-cols7 > tbody > tr > td:nth-child(5){
+    display: none;
+  }
+}
+
+
+/* 8 columns be auto hide columns via media query */
+@media (max-width: 1784px){
+  .stats-in-table-column-hide-cols8 > thead > tr > th:nth-child(4),
+  .stats-in-table-column-hide-cols8 > tbody > tr > td:nth-child(4){
+    display: none;
+  }
+}
+@media (max-width: 1570px){
+  .stats-in-table-column-hide-cols8 > thead > tr > th:nth-child(7),
+  .stats-in-table-column-hide-cols8 > tbody > tr > td:nth-child(7){
+    display: none;
+  }
+}
+@media (max-width: 1376px){
+  .stats-in-table-column-hide-cols8 > thead > tr > th:nth-child(3),
+  .stats-in-table-column-hide-cols8 > tbody > tr > td:nth-child(3){
+    display: none;
+  }
+}
+@media (max-width: 1132px){
+  .stats-in-table-column-hide-cols8 > thead > tr > th:nth-child(6),
+  .stats-in-table-column-hide-cols8 > tbody > tr > td:nth-child(6){
+    display: none;
+  }
+}
+@media (max-width: 904px){
+  .stats-in-table-column-hide-cols8 > thead > tr > th:nth-child(5),
+  .stats-in-table-column-hide-cols8 > tbody > tr > td:nth-child(5){
+    display: none;
+  }
+}
+@media (max-width: 650px){
+  .stats-in-table-column-hide-cols8 > thead > tr > th:nth-child(2),
+  .stats-in-table-column-hide-cols8 > tbody > tr > td:nth-child(2){
+    display: none;
+  }
+}

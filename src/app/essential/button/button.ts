@@ -1,13 +1,24 @@
-import { Component, signal, input, OnInit, output, InputSignal, WritableSignal } from '@angular/core';
+import {
+  Component, signal, input, OnInit,
+  output, InputSignal, WritableSignal,
+  inject, Signal
+} from '@angular/core';
+import { NgClass } from '@angular/common';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-button',
-  standalone: false,
+  imports: [
+    NgClass,
+    RouterLink
+  ],
   templateUrl: './button.html',
-  styleUrl: './button.css'
+  styleUrl: './button.css',
 })
 export class Button implements OnInit{
   public outOnClick= output();
+  private route: Router= inject(Router);
+  protected currentPath: Signal<string>= signal(String(this.route.url));
 
   readonly text: InputSignal<string>= input.required<string>();
   readonly styleButton: InputSignal<string>= input.required<string>(); /*
@@ -19,7 +30,7 @@ export class Button implements OnInit{
   readonly iconname: InputSignal<string>= input<string>('');
   readonly isUnderlined: InputSignal<string>= input<string>('not-underlined');
   readonly linkURL: InputSignal<string>= input<string>('');
-  readonly linkTarget: InputSignal<string>= input<string>('_blank');
+  readonly linkTarget: InputSignal<'_blank'|'_self'>= input<'_blank'|'_self'>('_blank');
   protected iconfiledir: WritableSignal<string>= signal<string>('');
   private iconfile_init: string= '';
   private iconfile_hover: string= '';

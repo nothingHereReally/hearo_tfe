@@ -1,0 +1,422 @@
+<div class="stats-in-table-styles-container">
+  <table [class]="`stats-in-table-styles stats-in-table-column-hide-cols${dataOnTable().length}`">
+    <thead>
+      <tr>
+        @for( title of dataOnTable(); track $index){
+          <th><div class="
+              font-color-pc1-300
+              font-bold-regular
+              padding-top-bottom-pad200-xs
+              padding-left-right-pad200-xs
+              ">{{ title.name }}</div></th>
+        }
+      </tr>
+    </thead>
+    <tbody>
+      @for(row_not_use_this_var of dataOnTable()[0].data; track $index; let idxRow= $index, isOddRowIdx= $odd){
+        <tr>
+          <!-- odd index means has background color -->
+          @if( isOddRowIdx ){
+            @for(column of dataOnTable(); track column.name; let isFirstCol= $first, isLastCol= $last){
+              <!-- 1st column be border on left -->
+              @if( isFirstCol ){
+                @if( column.type=='string' ){
+                  <td><div class="
+                      border-left
+                      background-color-pc1-800
+                      ">
+                      @if( column.data[idxRow]!=null && column.data[idxRow]!='undefined' ){
+                      <span class="
+                      font-color-sc-100
+                      font-normal-regular
+                      ">{{ column.data[idxRow] }}</span>
+                      }@else{
+                      <span class="
+                      font-color-fail
+                      font-bold-regular
+                      ">NOTHING</span>
+                      }
+                  </div></td>
+
+                }@else if( column.type=='accuracy' ){
+                  <td>
+                    <div class="
+                        font-color-sc-100
+                        font-normal-regular
+                        border-left
+                        background-color-pc1-800
+                        ">
+                        <span class="accuracy-float-top-pading">{{ column.data[idxRow] }}</span>
+                        <div class="pie-percent-style">
+                          <app-pie-chart-percent
+                              [accuracyType]="column.accuracyType"
+                              [accuracyFloat]="column.data[idxRow]"
+                              />
+                        </div>
+                    </div>
+                  </td>
+
+                }@else if( column.type=='statusPatientVideo' ){
+                  <td>
+                    <div class="
+                      font-color-sc-100
+                      font-normal-regular
+                      border-left
+                      background-color-pc1-800
+                      ">
+                      @if( column.data[idxRow]=="Pending" ){
+                        <img
+                            src="/icon_pc1_300/3dots.svg"
+                            [alt]="`check icon image svg`"
+                            class="icon-botton-size"
+                        >
+                      }@else if( column.data[idxRow]=="In Progress" ){
+                        <img
+                            [src]="`/icon_pc3_600/loading.svg`"
+                            [alt]="`loading icon image svg`"
+                            class="icon-botton-size"
+                        >
+                      }@else{
+                        <img
+                            [src]="`/icon_tc1_500/check.svg`"
+                            [alt]="`check icon image svg`"
+                            class="icon-botton-size"
+                        >
+                      }
+                      <span>{{ column.data[idxRow] }}</span>
+                    </div>
+                  </td>
+
+                }@else if( column.type=='urlLink' ){
+                  <td>
+                    <div class="
+                      font-color-sc-100
+                      font-normal-regular
+                      border-left
+                      background-color-pc1-800
+                      ">
+                      @if( column.data[idxRow].colorButton=='blue' ){
+                        <app-button
+                            [text]="column.data[idxRow].label"
+                            [styleButton]="'style-link'"
+                            [linkURL]="column.data[idxRow].link"
+                            />
+                      }@else{
+                        <app-button
+                            [text]="column.data[idxRow].label"
+                            [styleButton]="'style-danger-outline'"
+                            [iconname]="'link'"
+                            [linkURL]="column.data[idxRow].link"
+                            />
+                      }
+                    </div>
+                  </td>
+                }
+
+
+
+
+
+
+
+
+              <!-- last column be border on right -->
+              }@else if( isLastCol ){
+                @if( column.type=='string' ){
+                  <td><div class="
+                      border-right
+                      background-color-pc1-800
+                      ">
+                      @if( column.data[idxRow]!=null && column.data[idxRow]!='undefined' ){
+                      <span class="
+                      font-color-sc-100
+                      font-normal-regular
+                      ">{{ column.data[idxRow] }}</span>
+                      }@else{
+                      <span class="
+                      font-color-fail
+                      font-bold-regular
+                      ">NOTHING</span>
+                      }
+                  </div></td>
+
+                }@else if( column.type=='accuracy' ){
+                  <td>
+                    <div class="
+                        font-color-sc-100
+                        font-normal-regular
+                        border-right
+                        background-color-pc1-800
+                        ">
+                        <span class="accuracy-float-top-pading">{{ column.data[idxRow] }}</span>
+                        <div class="pie-percent-style">
+                          <app-pie-chart-percent
+                              [accuracyType]="column.accuracyType"
+                              [accuracyFloat]="column.data[idxRow]"
+                              />
+                        </div>
+                    </div>
+                  </td>
+
+                }@else if( column.type=='statusPatientVideo' ){
+                  <td>
+                    <div class="
+                      font-color-sc-100
+                      font-normal-regular
+                      border-right
+                      background-color-pc1-800
+                      ">
+                      @if( column.data[idxRow]=="Pending" ){
+                        <img
+                            src="/icon_pc1_300/3dots.svg"
+                            [alt]="`check icon image svg`"
+                            class="icon-botton-size"
+                        >
+                      }@else if( column.data[idxRow]=="In Progress" ){
+                        <img
+                            [src]="`/icon_pc3_600/loading.svg`"
+                            [alt]="`loading icon image svg`"
+                            class="icon-botton-size"
+                        >
+                      }@else{
+                        <img
+                            [src]="`/icon_tc1_500/check.svg`"
+                            [alt]="`check icon image svg`"
+                            class="icon-botton-size"
+                        >
+                      }
+                      <span>{{ column.data[idxRow] }}</span>
+                    </div>
+                  </td>
+
+                }@else if( column.type=='urlLink' ){
+                  <td><div class="
+                      font-color-sc-100
+                      font-normal-regular
+                      border-right
+                      background-color-pc1-800
+                      ">
+                      @if( column.data[idxRow].colorButton=='blue' ){
+                        <app-button
+                            [text]="column.data[idxRow].label"
+                            [styleButton]="'style-link'"
+                            [linkURL]="column.data[idxRow].link"
+                            />
+                      }@else{
+                        <app-button
+                            [text]="column.data[idxRow].label"
+                            [styleButton]="'style-danger-outline'"
+                            [iconname]="'link'"
+                            [linkURL]="column.data[idxRow].link"
+                            />
+                      }
+                    </div>
+                  </td>
+                }
+
+
+
+
+
+
+
+
+              <!-- since NOT 1st/last column be NO border -->
+              }@else{
+                @if( column.type=='string' ){
+                  <td><div class="
+                      background-color-pc1-800
+                      ">
+                      @if( column.data[idxRow]!=null && column.data[idxRow]!='undefined' ){
+                      <span class="
+                      font-color-sc-100
+                      font-normal-regular
+                      ">{{ column.data[idxRow] }}</span>
+                      }@else{
+                      <span class="
+                      font-color-fail
+                      font-bold-regular
+                      ">NOTHING</span>
+                      }
+                  </div></td>
+
+                }@else if( column.type=='accuracy' ){
+                  <td>
+                    <div class="
+                      font-color-sc-100
+                      font-normal-regular
+                      background-color-pc1-800
+                      ">
+                        <span class="accuracy-float-top-pading">{{ column.data[idxRow] }}</span>
+                        <div class="pie-percent-style">
+                          <app-pie-chart-percent
+                              [accuracyType]="column.accuracyType"
+                              [accuracyFloat]="column.data[idxRow]"
+                              />
+                        </div>
+                    </div>
+                  </td>
+
+                }@else if( column.type=='statusPatientVideo' ){
+                  <td>
+                    <div class="
+                      font-color-sc-100
+                      font-normal-regular
+                      background-color-pc1-800
+                      ">
+                      @if( column.data[idxRow]=="Pending" ){
+                        <img
+                            src="/icon_pc1_300/3dots.svg"
+                            [alt]="`check icon image svg`"
+                            class="icon-botton-size"
+                        >
+                      }@else if( column.data[idxRow]=="In Progress" ){
+                        <img
+                            [src]="`/icon_pc3_600/loading.svg`"
+                            [alt]="`loading icon image svg`"
+                            class="icon-botton-size"
+                        >
+                      }@else{
+                        <img
+                            [src]="`/icon_tc1_500/check.svg`"
+                            [alt]="`check icon image svg`"
+                            class="icon-botton-size"
+                        >
+                      }
+                      <span>{{ column.data[idxRow] }}</span>
+                    </div>
+                  </td>
+
+                }@else if( column.type=='urlLink' ){
+                  <td><div class="
+                      font-color-sc-100
+                      font-normal-regular
+                      background-color-pc1-800
+                      ">
+                      @if( column.data[idxRow].colorButton=='blue' ){
+                        <app-button
+                            [text]="column.data[idxRow].label"
+                            [styleButton]="'style-link'"
+                            [linkURL]="column.data[idxRow].link"
+                            />
+                      }@else{
+                        <app-button
+                            [text]="column.data[idxRow].label"
+                            [styleButton]="'style-danger-outline'"
+                            [iconname]="'link'"
+                            [linkURL]="column.data[idxRow].link"
+                            />
+                      }
+                    </div>
+                  </td>
+                }
+              }
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          <!-- NOT odd index means has NO background color -->
+          }@else{
+            @for(column of dataOnTable(); track column.name){
+              @if( column.type=='string'){
+                  <td><div>
+                      @if( column.data[idxRow]!=null && column.data[idxRow]!='undefined' ){
+                      <span class="
+                      font-color-sc-100
+                      font-normal-regular
+                      ">{{ column.data[idxRow] }} </span>
+                      }@else{
+                      <span class="
+                      font-color-fail
+                      font-bold-regular
+                      ">NOTHING</span>
+                      }
+                  </div></td>
+
+              }@else if( column.type=='accuracy' ){
+                <td><div class="
+                    font-color-sc-100
+                    font-normal-regular
+                    ">
+                        <span class="accuracy-float-top-pading">{{ column.data[idxRow] }}</span>
+                        <div class="pie-percent-style">
+                          <app-pie-chart-percent
+                              [accuracyType]="column.accuracyType"
+                              [accuracyFloat]="column.data[idxRow]"
+                              />
+                        </div>
+                    </div>
+                </td>
+
+              }@else if( column.type=='statusPatientVideo' ){
+                <td>
+                  <div class="
+                    font-color-sc-100
+                    font-normal-regular
+                    ">
+                    @if( column.data[idxRow]=="Pending" ){
+                      <img
+                          src="/icon_pc1_300/3dots.svg"
+                          [alt]="`check icon image svg`"
+                          class="icon-botton-size"
+                      >
+                    }@else if( column.data[idxRow]=="In Progress" ){
+                      <img
+                          [src]="`/icon_pc3_600/loading.svg`"
+                          [alt]="`loading icon image svg`"
+                          class="icon-botton-size"
+                      >
+                    }@else{
+                      <img
+                          [src]="`/icon_tc1_500/check.svg`"
+                          [alt]="`check icon image svg`"
+                          class="icon-botton-size"
+                      >
+                    }
+                    <span>{{ column.data[idxRow] }}</span>
+                  </div>
+                </td>
+
+              }@else if( column.type=='urlLink' ){
+                <td>
+                  <div class="
+                    font-color-sc-100
+                    font-normal-regular
+                    ">
+                    @if( column.data[idxRow].colorButton=='blue' ){
+                      <app-button
+                          [text]="column.data[idxRow].label"
+                          [styleButton]="'style-link'"
+                          [linkURL]="column.data[idxRow].link"
+                          />
+                    }@else{
+                      <app-button
+                          [text]="column.data[idxRow].label"
+                          [styleButton]="'style-danger-outline'"
+                          [iconname]="'link'"
+                          [linkURL]="column.data[idxRow].link"
+                          />
+                    }
+                  </div>
+                </td>
+              }
+            }
+          }
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

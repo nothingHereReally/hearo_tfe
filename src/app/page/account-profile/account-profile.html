@@ -1,0 +1,337 @@
+<div class="account-profile-page">
+  <app-header/>
+
+
+
+
+  <div class="back-button-padding-left">
+    <app-button
+        [text]="'Back'"
+        [styleButton]="'style-outline'"
+        [iconname]="'arrow_left'"
+        (outOnClick)="clickedBack()"
+        />
+  </div>
+
+
+
+
+  <div class="flex-center-horizontal">
+    <form class="account-profile-form">
+      <div class="
+        font-color-pc1-300
+        font-bold-title
+        flex-center-horizontal
+        ">
+        Profile
+      </div>
+
+
+      <div class="account-edits">
+        <div>
+          <img
+              [src]="apiFile.cachedProfilePicture()"
+              alt="Profile Picture"
+              class="image-18rem-size radius-50p-be-round"
+              >
+          <app-button
+              [text]="'Upload Photo'"
+              [styleButton]="'style-outline'"
+              [iconname]="'upload'"
+              (outOnClick)="clickedUploadPhoto()"
+              />
+        </div>
+
+
+        <div>
+          <div>
+            <app-input
+                [nameInput]="'fist_name'"
+                [(inputValue)]="userHT().user!.first_name!"
+                [iconNameLeft]="''"
+                [isReadOnly]="readOrWithEdit()"
+                [labelText]="'First Name'"
+                [placeholderText]="'First Name'"
+                (outWant2Run)="clickedUpdateInfo()"
+                />
+            @for(warn_first_name of userHTWarnings().first_name; track warn_first_name){
+            <span class="
+            font-normal-regular
+            font-color-fail
+            flex-center-horizontal
+            ">{{ warn_first_name }}</span>
+            }
+            @for(success_first_name of userHTUpdateSuccess().first_name; track success_first_name){
+            <span class="
+            font-normal-regular
+            font-color-success
+            flex-center-horizontal
+            ">{{ success_first_name }}</span>
+            }
+          </div>
+          <div>
+            <app-input
+                [nameInput]="'last_name'"
+                [(inputValue)]="userHT().user!.last_name!"
+                [iconNameLeft]="''"
+                [isReadOnly]="readOrWithEdit()"
+                [labelText]="'Last Name'"
+                [placeholderText]="'Last Name'"
+                (outWant2Run)="clickedUpdateInfo()"
+                />
+            @for(warn_last_name of userHTWarnings().last_name; track warn_last_name){
+            <span class="
+            font-normal-regular
+            font-color-fail
+            flex-center-horizontal
+            ">{{ warn_last_name }}</span>
+            }
+            @for(success_last_name of userHTUpdateSuccess().last_name; track success_last_name){
+            <span class="
+            font-normal-regular
+            font-color-success
+            flex-center-horizontal
+            ">{{ success_last_name }}</span>
+            }
+          </div>
+          <div>
+            <app-input
+                [nameInput]="'email'"
+                [(inputValue)]="userHT().user!.email!"
+                [iconNameLeft]="''"
+                [isReadOnly]="readOrWithEdit()"
+                [labelText]="'Email'"
+                [placeholderText]="'Email'"
+                (outWant2Run)="clickedUpdateInfo()"
+                />
+            @for(warn_email of userHTWarnings().email; track warn_email){
+            <span class="
+            font-normal-regular
+            font-color-fail
+            flex-center-horizontal
+            ">{{ warn_email }}</span>
+            }
+            @for(success_email of userHTUpdateSuccess().email; track success_email){
+            <span class="
+            font-normal-regular
+            font-color-success
+            flex-center-horizontal
+            ">{{ success_email }}</span>
+            }
+          </div>
+          <div>
+            <app-input
+                [nameInput]="'username'"
+                [(inputValue)]="userHT().user!.username!"
+                [iconNameLeft]="''"
+                [isReadOnly]="readOrWithEdit()"
+                [labelText]="'Username'"
+                [placeholderText]="'Username'"
+                (outWant2Run)="clickedUpdateInfo()"
+                />
+            @for(warn_username of userHTWarnings().username; track warn_username){
+            <span class="
+            font-normal-regular
+            font-color-fail
+            flex-center-horizontal
+            ">{{ warn_username }}</span>
+            }
+            @for(success_username of userHTUpdateSuccess().username; track success_username){
+            <span class="
+            font-normal-regular
+            font-color-success
+            flex-center-horizontal
+            ">{{ success_username }}</span>
+            }
+          </div>
+          @if(readOrWithEdit()=='is-readonly'){
+          <app-button
+              [text]="'Edit'"
+              [styleButton]="'style-solid'"
+              [iconname]="'pen'"
+              (outOnClick)="clickedEdit()"
+              />
+          }@else{
+          <div class="flex-row-space-between">
+            <app-button
+                [text]="'Update Info'"
+                [styleButton]="'style-outline'"
+                [iconname]="'check'"
+                (outOnClick)="clickedUpdateInfo()"
+                />
+            <app-button
+                [text]="'Cancel'"
+                [styleButton]="'style-solid'"
+                [iconname]="''"
+                (outOnClick)="clickedCancelEdit()"
+                />
+          </div>
+          }
+        </div>
+      </div>
+
+
+      <div class="flex-row-space-between">
+        <div class="flex-start-row-4px-gap">
+          <span class="
+            font-color-pc1-300
+            font-normal-regular
+            ">
+            Is Access Acount
+          </span>
+          @if( (authUser.cachedHearoUser().is_access_account ?? false)==false ){
+          <app-button
+             [text]="'Deactivated'"
+             [styleButton]="'style-outline'"
+             [iconname]="''"
+             (outOnClick)="toggleAccessAccount()"
+             />
+          }@else{
+          <app-button
+             [text]="'Activated'"
+             [styleButton]="'style-danger-outline'"
+             [iconname]="''"
+             (outOnClick)="toggleAccessAccount()"
+             />
+          }
+        </div>
+        @if( authUser.cachedHearoUser().is_access_account ){
+        <app-button
+           [text]="'Generate Access QR'"
+           [styleButton]="'style-danger-outline'"
+           [iconname]="''"
+           (outOnClick)="gotoGenerateAccessQR()"
+           />
+        }
+      </div>
+
+
+      @if( deleteAccount1stGatePass()==false && deleteAccount2ndGatePass()==false ){
+      <!-- delete account hasn't been clicked -->
+      <div class="flex-start-row-4px-gap">
+        <span class="
+          font-color-fail
+          font-normal-regular
+          ">
+          DANGER
+        </span>
+        <app-button
+           [text]="'DELETE Account'"
+           [styleButton]="'style-danger-solid'"
+           [iconname]="'delete'"
+           (outOnClick)="clickedDELETEAccount()"
+           />
+      </div>
+      }@else if( deleteAccount1stGatePass() && deleteAccount2ndGatePass()==false ){
+      <!-- delete account 1st clicked, result below -->
+      <div class="flex-row-space-between flex-wrap-row">
+        <div class="flex-start-row-4px-gap">
+          <span class="
+            font-color-fail
+            font-bold-regular
+            ">
+            DELETE ACCOUNT? SURE?
+          </span>
+          <app-button
+             [text]="'YES, DELETE Account'"
+             [styleButton]="'style-danger-solid'"
+             [iconname]="'delete'"
+             (outOnClick)="clickedDELETEAccount()"
+             />
+        </div>
+        <app-button
+           [text]="'Cancel, DON\'T Delete'"
+           [styleButton]="'style-outline'"
+           [iconname]="''"
+           (outOnClick)="clickedCancelDELETEAccount()"
+           />
+      </div>
+      }@else if( deleteAccount1stGatePass() &&
+                 deleteAccount2ndGatePass() &&
+                 deleteAccountShowSucessMsg()==false ){
+      <!-- delete account 2nd clicked, result below -->
+      <div class="
+        flex-column-8px-gap-stretch
+        background-color-tc3-900
+        border-radius
+        padding-left-right-pad100-md
+        padding-top-bottom-pad100-md
+        ">
+        <div class="flex-center-horizontal">
+          <span class="
+            font-color-fail
+            font-bold-regular
+            text-wrap-300px-max-width
+            ">
+            This is your LAST WARNING. After deleting, you wouldn’t
+            be able to Access your account on this website.
+            Please enter your password to confirm that this is you.
+          </span>
+        </div>
+        <app-input
+            [nameInput]="'delete_account_write_pw'"
+            [(inputValue)]="deleteAccountWritePassword"
+            [iconNameLeft]="''"
+            [placeholderText]="'Password'"
+            [labelText]="'Password'"
+            [hasEye]="'eye'"
+            (outWant2Run)="clickedDELETEAccount()"
+            />
+        <div class="flex-center-horizontal">
+          <span class="
+              font-color-fail
+              font-normal-regular
+            ">{{ deleteAccountPWWarning() }}</span>
+        </div>
+        <div class="flex-start-row-4px-gap">
+          <app-button
+             [text]="'DELETE Account'"
+             [styleButton]="'style-danger-solid'"
+             [iconname]="'delete'"
+             (outOnClick)="clickedDELETEAccount()"
+             />
+        </div>
+        <div class="flex-end-row-4px-gap">
+          <app-button
+             [text]="'Cancel, DON\'T Delete'"
+             [styleButton]="'style-outline'"
+             [iconname]="''"
+             (outOnClick)="clickedCancelDELETEAccount()"
+             />
+        </div>
+      </div>
+      }@else if( deleteAccount1stGatePass() &&
+                 deleteAccount2ndGatePass() &&
+                 deleteAccountShowSucessMsg() ){
+      <div class="
+        flex-center-horizontal
+        background-color-tc3-900
+        border-radius
+        padding-left-right-pad100-md
+        padding-top-bottom-pad100-md
+        ">
+        <div class="flex-start-row-4px-gap">
+          <span class="
+            font-color-success
+            font-bold-regular
+            ">
+            Successfully
+          </span>
+          <span class="
+            font-color-fail
+            font-bold-regular
+            ">
+            Deleted Account
+          </span>
+          <span class="
+            font-color-success
+            font-bold-regular
+            ">
+            ✔
+          </span>
+        </div>
+      </div>
+      }
+    </form>
+  </div>
+</div>

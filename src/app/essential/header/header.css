@@ -1,47 +1,75 @@
-.header-logged-in{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 64px;
-  padding: 12px;
-}
-
-.header-logged-in > div:nth-child(2){
-  display: flex;
-  max-width: 900px;
-  justify-content: space-between;
-  flex-grow: 1;
-  align-items: center;
-  border: 1px solid var(--pc1-300);
-  flex-wrap: wrap;
-}
-
-.header-logged-in > div:nth-child(3){
-  display: flex;
-  align-items: center;
-  gap: 24px;
-}
-
-
-
-
-
-
-.profile-pic-and-name{
+.whole-header{
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
-  padding: 0px;
 
-  background-color: transparent;
-  border: none;
+  padding: var(--pad100-lg, 12px);
 }
-.profile-pic-and-name > img{
-  width: 48px;
-  border-radius: 50%;
+
+
+
+
+.profile-up-right{
+  width: var(--pad200-xl);
+  height: var(--pad200-xl);
 }
-.profile-pic-and-name > span{
-  color: var(--pc1-300);
+
+
+
+
+.upper-header{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: var(--pad100-lg);
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100%;
+}
+/* upper header 4 main buttons inside
+ * .upper-header > div:nth-child(2)
+ * */
+.upper-header > div:nth-child(2){
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  gap: var(--pad200-md);
+  max-width: 71rem;
+
+  flex-wrap: wrap;
+}
+/* inside be
+ * -- logout
+ * -- button
+ * ---- logout app-button
+ * ------ generic button
+ * ------ span user full name( 1st name + last name )
+ * */
+.upper-header > div:nth-child(3){
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--pad200-xs, 24px);
+}
+.upper-header > div:nth-child(3) > button{
+  display: flex;
+  width: fit-content;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pad100-xs, 4px);
+}
+
+
+
+
+.lower-header{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  gap: var(--pad200-md);
+  max-width: 41rem;
+
+  flex-wrap: wrap;
 }

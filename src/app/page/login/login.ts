@@ -1,16 +1,26 @@
 import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
+import { Router } from '@angular/router';
+
+
+import { firstValueFrom } from 'rxjs';
+
+
+import { Input } from '../../essential/input/input';
 
 
 import { LoginField } from '../../model/login-field';
-import { TIME_ERROR_DISPLAY } from '../../model/constant';
+import { environment as env } from '../../../environment/environment';
 import { AuthUser } from '../../api-service/auth-user';
 import { Token } from '../../model/token';
-import { Router } from '@angular/router';
-import { RegisterUser } from '../../model/register-user';
+import { sleepAsync } from '../../model/tools';
+import { Button } from '../../essential/button/button';
 
 @Component({
   selector: 'app-login',
-  standalone: false,
+  imports: [
+    Input,
+    Button,
+  ],
   templateUrl: './login.html',
   styleUrl: './login.css'
 })
@@ -30,60 +40,43 @@ export class Login implements OnInit{
 
 
   ngOnInit(): void {
-    let authToken: Token|null= this.authUser.getAccountToken();
-    if( authToken!=null ){
-      this.authUser.verifyToken(authToken.access).subscribe({
-        next: (r: any)=>{
-          this.router.navigate(['/home']);
-        },
-        error: (err: any)=>{
-          this.authUser.getTokenViaRefresh(authToken.refresh).subscribe({
-            next: (validToken: Token)=>{
-              this.authUser.saveAccountToken(validToken);
-              this.router.navigate(['/home']);
-            },
-            error: (err: any)=>{
-              /* refresh token already expired, so need to fill login form again */
-            },
-            complete: ()=>{
-            }
-          });
-        },
-        complete: ()=>{
-        }
-      });
-    }
+    this.authUser.goTo_home_pageIfValidAuthTokenAsync()
   }
 
 
-  protected loggingIn(): void{
-    if( this.hearoUser().username!='' && this.hearoUser().password!='' ){
-      this.authUser.userLogin(this.hearoUser()).subscribe({
-        next: (r: Token)=>{
-          this.authUser.saveAccountToken(r);
-          this.router.navigate(['/home']);
-        },
-        error: (err: any)=>{
-          this.warnings.update(value=>{ value.password="Incorrect Username or Password"; return value });
-          setTimeout(()=>{
-            this.warnings.update(value=>{ value.password=""; return value });
-          }, TIME_ERROR_DISPLAY);
-        },
-        complete: ()=>{
-        }
-      });
-    }
+  private async __showWarnings2fillUp(): Promise<void>{
     if( this.hearoUser().username=='' ){
       this.warnings.update(value=>{ value.username="Please fill your Username"; return value });
-      setTimeout(()=>{
-        this.warnings.update(value=>{ value.username=""; return value });
-      }, TIME_ERROR_DISPLAY);
+      sleepAsync(
+        env.TIME_ERROR_DISPLAY,
+        ()=>{this.warnings.update(value=>{ value.username=""; return value });}
+      );
+
     }
     if( this.hearoUser().password=='' ){
       this.warnings.update(value=>{ value.password="Please fill your Password"; return value });
-      setTimeout(()=>{
-        this.warnings.update(value=>{ value.password=""; return value });
-      }, TIME_ERROR_DISPLAY);
+      sleepAsync(
+        env.TIME_ERROR_DISPLAY,
+        ()=>{this.warnings.update(value=>{ value.password=""; return value });}
+      );
     }
+  }
+  protected async loggingIn(): Promise<void>{
+    if( this.hearoUser().username!='' && this.hearoUser().password!='' ){
+      let response: Token|any= null;
+      try{
+        response= await firstValueFrom(this.authUser.userLoginHttpPost(this.hearoUser()));
+        this.authUser.saveAccountToken(response)
+        this.authUser.deleteTokenAccessQRAccount();
+        this.router.navigate(['/home/sentence']);
+      }catch(err: any){
+        this.warnings.update(value=>{ value.password=err.error.details; return value; });
+        sleepAsync(
+          env.TIME_ERROR_DISPLAY,
+          ()=>{this.warnings.update(value=>{ value.password=''; return value; });}
+        );
+      }
+
+    }else{ this.__showWarnings2fillUp(); }
   }
 }

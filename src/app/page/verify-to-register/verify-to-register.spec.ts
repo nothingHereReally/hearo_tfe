@@ -8,13 +8,12 @@ describe('VerifyToRegister', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [VerifyToRegister]
-    })
-    .compileComponents();
+      imports: [VerifyToRegister],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(VerifyToRegister);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    await fixture.whenStable();
   });
 
   it('should create', () => {

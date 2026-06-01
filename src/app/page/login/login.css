@@ -1,15 +1,16 @@
 .container-whole-login-page{
   display: flex;
   justify-content: flex-end;
-  padding-top: 96px;
-  height: 89.7vh;
+  height: 100vh;
 }
 
 
 .login-form{
+  padding-top: var(--pad300-lg, 96px);
+
   display: flex;
   flex-direction: column;
-  gap: 64px;
+  gap: var(--pad300-xs, 64px);
   align-items: center;
 
   min-width: 300px;
@@ -22,11 +23,11 @@
 .login-form > div:nth-child(1){
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--pad100-xs, 4px);
   align-items: center;
 }
 .login-form > div:nth-child(1) > img:nth-child(1){
-  height: 48px;
+  height: var(--pad200-xl, 48px);
 }
 .login-form > div:nth-child(1) > img:nth-child(2){
   height: 36px;
@@ -46,10 +47,10 @@
   width: 100%;
 }
 .login-form > div:nth-child(2){
-  gap: 24px;
+  gap: var(--pad200-xs, 24px);
 }
 .login-form > div:nth-child(2) > div{
-  gap: 8px;
+  gap: var(--pad100-md, 8px);
 }
 .login-form > div:nth-child(2) > div > div{
   gap: 0px;
@@ -67,7 +68,7 @@
   flex-direction: row;
   align-items: center;
   color: var(--pc1-300);
-  gap: 4px;
+  gap: var(--pad100-xs, 4px);
 }
 
 
@@ -104,4 +105,3 @@
     padding-left: 96px;
   }
 }
-

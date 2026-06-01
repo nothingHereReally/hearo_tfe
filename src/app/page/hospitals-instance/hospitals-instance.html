@@ -1,0 +1,279 @@
+<div class="
+  flex-column
+  flex-align-stretch
+  gap-pad100-lg
+  ">
+  <app-header/>
+
+
+
+
+  <div class="
+    flex-column
+    flex-align-strech
+    gap-pad300-xs
+    padding-left-right-pad100-lg
+    padding-top-bottom-pad100-lg
+    ">
+    <div>
+        <app-button
+            [text]="'Back'"
+            [styleButton]="'style-outline'"
+            [iconname]="'arrow_left'"
+            (outOnClick)="clickedBack()"
+            />
+    </div>
+    <div class="
+      flex-row
+      flex-justify-center
+      ">
+      @if( 0<editHospitalFacility().id ){
+      <div class="
+        flex-column
+        gap-pad300-xl
+        hospital-edit-form
+        ">
+        <div class="
+          flex-column
+          gap-pad200-xs
+          hospital-new-add-form
+          ">
+          <div class="
+            flex-column
+            gap-pad100-md
+            ">
+              <app-input
+                  [nameInput]="'hospital_name'"
+                  [(inputValue)]="editHospitalFacility().name"
+                  [placeholderText]="'Hospital Name'"
+                  [isReadOnly]="readOnlyOrEdit()"
+                  [iconNameLeft]="''"
+                  [labelText]="'Hospital Name'"
+                  [hasEye]="''"
+                  (outWant2Run)="clickedEditOrUpdate()"
+                  />
+              <div class="
+                font-normal-regular
+                font-color-fail
+                flex-row
+                flex-justify-center
+                "><span>{{ warnings().name }}</span></div>
+              <app-input
+                  [nameInput]="'hospital_street'"
+                  [(inputValue)]="editHospitalFacility().street"
+                  [placeholderText]="'Hospital Street at'"
+                  [isReadOnly]="readOnlyOrEdit()"
+                  [iconNameLeft]="''"
+                  [labelText]="'Street Address'"
+                  [hasEye]="''"
+                  (outWant2Run)="clickedEditOrUpdate()"
+                  />
+              <div class="
+                font-normal-regular
+                font-color-fail
+                flex-row
+                flex-justify-center
+                "><span>{{ warnings().street }}</span></div>
+              <app-input
+                  [nameInput]="'hospital_municipality'"
+                  [(inputValue)]="editHospitalFacility().municipality"
+                  [placeholderText]="'Hospital Municipality at'"
+                  [isReadOnly]="readOnlyOrEdit()"
+                  [iconNameLeft]="''"
+                  [labelText]="'Municipality'"
+                  [hasEye]="''"
+                  (outWant2Run)="clickedEditOrUpdate()"
+                  />
+              <div class="
+                font-normal-regular
+                font-color-fail
+                flex-row
+                flex-justify-center
+                "><span>{{ warnings().municipality }}</span></div>
+          </div>
+          <div class="
+            font-normal-regular
+            font-color-success
+            flex-row
+            flex-justify-center
+            "><span>{{ editSuccessMsg() }}</span></div>
+            @if( readOnlyOrEdit()=='is-readonly' ){
+            <app-button
+                [text]="'Edit'"
+                [styleButton]="'style-solid'"
+                [iconname]="'pen'"
+                (outOnClick)="clickedEditOrUpdate()"
+                />
+            }@else{
+            <div class="
+              flex-row
+              flex-justify-space-between
+              ">
+              <app-button
+                  [text]="'Done'"
+                  [styleButton]="'style-outline'"
+                  [iconname]="'check'"
+                  (outOnClick)="clickedEditOrUpdate()"
+                  />
+              <app-button
+                  [text]="'Cancel'"
+                  [styleButton]="'style-solid'"
+                  [iconname]="''"
+                  (outOnClick)="clickedCancelEdit()"
+                  />
+            </div>
+            }
+        </div>
+        @if( editHospitalFacility().hospital_head!=null ){
+        <div class="
+        flex-row
+        flex-justify-start
+        flex-align-center
+        gap-pad100-xs
+        ">
+          <span class="font-normal-regular">Hospital Head</span>
+          <app-button
+              [text]="hospitalHeadName()"
+              [styleButton]="'style-link'"
+              [linkURL]="`/hospital-head/${editHospitalFacility().hospital_head}`"
+              [linkTarget]="'_self'"
+              />
+        </div>
+        }@else{
+        <div class="
+          font-bold-regular
+          font-color-fail
+          ">
+          No Assigned Hospital Head
+        </div>
+        }
+        @if( deleteConfirmationStep() === 0 ){
+        <div class="
+          flex-row
+          gap-pad100-xs
+          flex-justify-start
+          flex-align-center
+          ">
+          <p class="
+          font-bold-regular
+          font-color-fail
+          ">DANGER</p>
+          <app-button
+              [text]="'DELETE'"
+              [styleButton]="'style-danger-solid'"
+              [iconname]="'delete'"
+              (outOnClick)="clickedDelete()"
+              />
+        </div>
+        }@else if( deleteConfirmationStep() === 1 ){
+          <div class="
+            flex-column
+            gap-pad100-xs
+            text-wrap-370px-max-width
+            background-color-tc3-900
+            padding-left-right-pad100-xl
+            padding-top-bottom-pad100-xl
+            border-radius
+            ">
+            <span class="font-bold-regular font-color-fail">Are you sure? DELETE Hospital Facility?</span>
+            <div class="flex-row flex-justify-space-between">
+              <app-button
+                  [text]="'YES'"
+                  [styleButton]="'style-danger-solid'"
+                  [iconname]="'check'"
+                  (outOnClick)="clickedDelete()"
+                  />
+              <app-button
+                  [text]="'CANCEL'"
+                  [styleButton]="'style-outline'"
+                  [iconname]="''"
+                  (outOnClick)="clickedCancelDelete()"
+                  />
+            </div>
+          </div>
+        }@else if( deleteConfirmationStep() === 2 ){
+          <div class="
+            flex-column
+            gap-pad100-xs
+            text-wrap-370px-max-width
+            background-color-tc3-900
+            padding-left-right-pad100-xl
+            padding-top-bottom-pad100-xl
+            border-radius
+            ">
+            <span class="font-normal-regular">Please type <b class="font-color-fail">DELETE HOSPITAL FACILITY</b> to confirm.</span>
+            <app-input
+                [nameInput]="'deletehospitalheadusername'"
+                [(inputValue)]="deleteConfirmationInput"
+                [iconNameLeft]="''"
+                [placeholderText]="'Type here...'"
+                (outWant2Run)="clickedDelete()"
+                />
+            <div class="
+            flex-row
+            flex-justify-space-between
+            ">
+              <app-button
+                  [text]="'CONFIRM'"
+                  [iconname]="''"
+                  [styleButton]="deleteConfirmationInput() === 'DELETE HOSPITAL FACILITY' ? 'style-danger-solid' : 'style-outline'"
+                  (outOnClick)="clickedDelete()"
+                  />
+              <app-button
+                  [text]="'CANCEL'"
+                  [iconname]="''"
+                  [styleButton]="'style-outline'"
+                  (outOnClick)="clickedCancelDelete()"
+                  />
+            </div>
+          </div>
+        }@else if( deleteConfirmationStep() === 3 ){
+        <div class="
+          flex-row
+          flex-align-center
+          text-wrap-284px-max-width
+          background-color-tc3-900
+          padding-left-right-pad100-xl
+          padding-top-bottom-pad100-xl
+          border-radius
+          gap-pad100-xs
+          ">
+          <img
+            src="icon_tc1_500/check.svg"
+            alt="info image"
+            class="
+              image-48px-size
+            ">
+          <img
+            src="icon_tc3_500/delete.svg"
+            alt="info image"
+            class="
+              image-48px-size
+            ">
+          <span class="
+            font-bold-regular
+            font-color-fail
+            ">Hospital Facility sucessfully DELETED.</span>
+        </div>
+        }
+      </div>
+      }@else{
+      <div class="
+        flex-column
+        flex-align-center
+        gap-pad100-md
+        ">
+        <span class="
+          font-normal-title
+          font-color-pc1-300
+          ">No such Hospital Facility</span>
+        <img
+            class="human-lost-hospital-head"
+            src="/background/human_lost.svg"
+            alt="human lost image"
+            >
+      </div>
+      }
+    </div>
+  </div>
+</div>

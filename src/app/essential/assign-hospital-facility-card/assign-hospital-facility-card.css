@@ -1,0 +1,31 @@
+.assign-hospital-facility-card-container {
+  background-color: var(--sc-900);
+  width: 40rem;
+  max-width: 90vw;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.hospital-list-container {
+  width: 100%;
+  margin-top: var(--pad100-lg);
+  margin-bottom: var(--pad100-lg);
+}
+
+.hospital-table-selection {
+  border-collapse: collapse;
+}
+
+.hospital-table-selection tbody tr {
+  cursor: pointer;
+  transition: var(--time-regular);
+}
+
+.hospital-table-selection tbody tr:hover div {
+  background-color: var(--pc1-900);
+}
+
+.selected-row td div {
+  background-color: var(--pc1-700) !important;
+  font-weight: 700 !important;
+}

@@ -1,0 +1,107 @@
+<div class="
+  flex-column
+  flex-align-stretch
+  gap-pad100-lg
+  ">
+  <app-header/>
+
+
+
+
+  @if( dataSource().length==0 ){
+    <div class="
+      flex-column
+      flex-align-center
+      gap-pad100-md
+      ">
+      <span class="
+        font-normal-title
+        font-color-pc1-300
+        ">No Hospital Head Account</span>
+      <img
+          class="human-lost-hospital-head"
+          src="/background/human_lost.svg"
+          alt="human lost image"
+          >
+    </div>
+
+
+  }@else{
+    <div class="
+      flex-row
+      flex-justify-center
+      ">
+      <div class="
+        flex-column
+        flex-align-stretch
+        gap-pad200-xl
+        body-hospital-head-page
+        ">
+        <div class="
+          flex-row
+          flex-justify-center
+          ">
+          <div class="
+            search-container-hh
+            flex-column
+            flex-align-strech
+            gap-pad100-md
+            ">
+            <app-input
+                [nameInput]="'search_bar'"
+                [labelText]="''"
+                [placeholderText]="'Hospital or account name ...'"
+                [hasSearch]="'search'"
+                [(inputValue)]="searchHospitalOrAccountName"
+                (outWant2Run)="clickedSearch()"
+                />
+            <span class="
+            font-normal-regular
+            font-color-fail
+            flex-row
+            flex-justify-center
+            ">{{ searchWarning() }}</span>
+          </div>
+        </div>
+        <div class="
+          flex-column
+          flex-align-stretch
+          gap-pad100-lg
+          ">
+          <span class="
+            font-bold-title
+            font-color-pc1-300
+            flex-row
+            flex-justify-center
+            ">Hospital Head Accounts</span>
+          <app-stats-in-table
+              [dataOnTable]="dataSource()"
+              />
+        </div>
+        <div class="
+          flex-row
+          gap-pad200-xl
+          flex-justify-center
+          flex-align-center
+          ">
+          <app-button
+              [text]="''"
+              [styleButton]="'style-outline'"
+              [iconname]="'arrow_left'"
+              (outOnClick)="clickedPrevPagination()"
+              />
+          <span class="
+          font-normal-regular
+          font-color-sc-100
+          ">{{ this.pageCurrentWhat() }}/{{ this.pageTotalWhat() }}</span>
+          <app-button
+              [text]="''"
+              [styleButton]="'style-outline'"
+              [iconname]="'arrow_right'"
+              (outOnClick)="clickedNextPagination()"
+              />
+        </div>
+      </div>
+    </div>
+  }
+</div>
