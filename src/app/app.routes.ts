@@ -17,8 +17,8 @@ import { PageNotFound } from './page/page-not-found/page-not-found';
 import { Register } from './page/register/register';
 import { ResetPassword } from './page/reset-password/reset-password';
 import { VerifyToRegister } from './page/verify-to-register/verify-to-register';
-import { HomeSentenceFrequentSentence } from './page/home-sentence-frequent-sentence/home-sentence-frequent-sentence';
-import { HomeSentenceMistakenSentence } from './page/home-sentence-mistaken-sentence/home-sentence-mistaken-sentence';
+// import { HomeSentenceFrequentSentence } from './page/home-sentence-frequent-sentence/home-sentence-frequent-sentence';
+// import { HomeSentenceMistakenSentence } from './page/home-sentence-mistaken-sentence/home-sentence-mistaken-sentence';
 import { HospitalHeadInstance } from './page/hospital-head-instance/hospital-head-instance';
 import { HospitalsNew } from './page/hospitals-new/hospitals-new';
 import { HospitalsInstance } from './page/hospitals-instance/hospitals-instance';
@@ -39,8 +39,8 @@ export const routes: Routes = [
   {path: 'home/gloss', component: HomeGloss, title: 'Hearo Home - gloss'},
   {path: 'home/usage', component: HomeUsage, title: 'Hearo Home - usage'},
 
-  {path: 'home/sentence/frequent-sentence', component: HomeSentenceFrequentSentence, title: 'Frequent Sentences - Hearo'},
-  {path: 'home/sentence/mistaken-sentence', component: HomeSentenceMistakenSentence, title: 'Frequent Mistaken Sentences - Hearo'},
+  // {path: 'home/sentence/frequent-sentence', component: HomeSentenceFrequentSentence, title: 'Frequent Sentences - Hearo'},
+  // {path: 'home/sentence/mistaken-sentence', component: HomeSentenceMistakenSentence, title: 'Frequent Mistaken Sentences - Hearo'},
 
   {path: 'hospital-head', component: HospitalHead, title: 'Hearo Hospital Heads'},
   {path: 'hospital-head/:hhid', component: HospitalHeadInstance, title: 'Hearo - A Hospital Head'},

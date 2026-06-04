@@ -1,10 +1,12 @@
 import { Component, inject, input, OnInit, signal, output, WritableSignal, ModelSignal, model } from '@angular/core';
 import { AssignHospitalFacility } from '../../api-service/assign-hospital-facility';
-import { HospitalFacility } from '../../model/hospital-facility';
+import { HospitalFacility, ResponseHospitalFacility } from '../../model/hospital-facility';
 import { Input } from '../input/input';
 import { Button } from '../button/button';
 import { firstValueFrom } from 'rxjs';
 import { RowHospitalHead } from '../../model/hospital-head';
+import { sleepAsync } from '../../model/tools';
+import { environment as env } from '../../../environment/environment';
 
 @Component({
   selector: 'app-assign-hospital-facility-card',
@@ -27,6 +29,7 @@ export class AssignHospitalFacilityCard implements OnInit {
   protected searchText: ModelSignal<string>= model<string>('');
   protected pageCurrentWhat: WritableSignal<number>= signal(0);
   protected pageTotalWhat: WritableSignal<number>= signal(0);
+  protected warning: WritableSignal<string>= signal('');
   private pageSize: number= 0;
 
   public async ngOnInit() {
@@ -55,16 +58,37 @@ export class AssignHospitalFacilityCard implements OnInit {
   }
 
   protected async search() {
-    const response= await this.assignHospitalService.searchHospitalFacilities(this.searchText());
-    if (response) {
-      this.facilities.set(response.results);
-      if (response.results.length > 0) {
-        this.pageSize= response.results.length; // Update page size based on search result page
-        this.pageCurrentWhat.set(1);
-        this.pageTotalWhat.set(Math.ceil(response.count / this.pageSize));
-      } else {
-        this.pageCurrentWhat.set(0);
-        this.pageTotalWhat.set(0);
+    if( this.searchText()!='' ){
+      const response: ResponseHospitalFacility|null= await this.assignHospitalService.searchHospitalFacilities(this.searchText());
+      if( response && response.count>0 ){
+        this.facilities.set(response.results);
+        if( response.results.length > 0 ){
+          this.pageSize= response.results.length; // Update page size based on search result page
+          this.pageCurrentWhat.set(1);
+          this.pageTotalWhat.set(Math.ceil(response.count / this.pageSize));
+        }else{
+          this.pageCurrentWhat.set(0);
+          this.pageTotalWhat.set(0);
+        }
+      }else{
+        this.warning.set('No such hospital Facility found');
+        sleepAsync(
+          env.TIME_ERROR_DISPLAY,
+          ()=>{this.warning.set('')}
+        );
+      }
+    }else{
+      const response: ResponseHospitalFacility|null= await this.assignHospitalService.getHospitalFacilities(true);
+      if( response && response.count>0 ){
+        this.facilities.set(response.results);
+        if( response.results.length > 0 ){
+          this.pageSize= response.results.length; // Update page size based on search result page
+          this.pageCurrentWhat.set(1);
+          this.pageTotalWhat.set(Math.ceil(response.count / this.pageSize));
+        }else{
+          this.pageCurrentWhat.set(0);
+          this.pageTotalWhat.set(0);
+        }
       }
     }
     this.selectedFacilityId.set(null);
