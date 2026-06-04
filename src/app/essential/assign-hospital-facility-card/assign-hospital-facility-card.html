@@ -1,7 +1,22 @@
-<div class="assign-hospital-facility-card-container shadown-and-blur border-radius padding-left-right-pad200-xs padding-top-bottom-pad200-xs">
-  <div class="flex-column gap-pad100-lg">
-    <div class="flex-row flex-justify-center">
-      <h2 class="font-bold-title font-color-pc1-300">Select Hospital Facility</h2>
+<div class="
+assign-hospital-facility-card-container
+shadown-and-blur
+border-radius
+padding-left-right-pad200-xs
+padding-top-bottom-pad200-xs
+">
+  <div class="
+  flex-column
+  gap-pad200-xl
+  ">
+    <div class="
+    flex-row
+    flex-justify-center
+    ">
+      <h2 class="
+      font-bold-title
+      font-color-pc1-300
+      ">Select Hospital Facility</h2>
     </div>
 
     <app-input
@@ -12,25 +27,58 @@
       (outWant2Run)="search()"
     />
 
+    <div class="
+    flex-row
+    flex-justify-center
+    flex-align-center
+    font-normal-regular
+    font-color-fail
+    "><span>
+    {{ warning() }}
+    </span></div>
+
     <div class="hospital-list-container">
-      <table class="stats-in-table-styles hospital-table-selection">
+      <table class="
+      stats-in-table-styles
+      hospital-table-selection
+      ">
         <thead>
           <tr>
-            <th><div class="font-color-pc1-300 font-bold-regular padding-top-bottom-pad100-xs">Hospital Name</div></th>
-            <th><div class="font-color-pc1-300 font-bold-regular padding-top-bottom-pad100-xs">Address</div></th>
+            <th><div class="
+            font-color-pc1-300
+            font-bold-regular
+            padding-top-bottom-pad100-xs
+            ">Hospital Name</div></th>
+            <th><div class="
+            font-color-pc1-300
+            font-bold-regular
+            padding-top-bottom-pad100-xs
+            ">Address</div></th>
           </tr>
         </thead>
         <tbody>
           @for (hospital of facilities(); track hospital.id) {
-            <tr (click)="selectFacility(hospital.id)" [class.selected-row]="selectedFacilityId() === hospital.id">
+            <tr
+            (click)="selectFacility(hospital.id)"
+            [class.selected-row]="selectedFacilityId() === hospital.id">
               <td>
-                <div class="font-color-sc-100 font-normal-regular padding-left-right-pad100-lg padding-top-bottom-pad100-lg"
+                <div class="
+                font-color-sc-100
+                font-normal-regular
+                padding-left-right-pad100-lg
+                padding-top-bottom-pad100-lg
+                "
                      [class.border-radius]="selectedFacilityId() === hospital.id">
                   {{ hospital.name }}
                 </div>
               </td>
               <td>
-                <div class="font-color-sc-100 font-normal-regular padding-left-right-pad100-lg padding-top-bottom-pad100-lg"
+                <div class="
+                font-color-sc-100
+                font-normal-regular
+                padding-left-right-pad100-lg
+                padding-top-bottom-pad100-lg
+                "
                      [class.border-radius]="selectedFacilityId() === hospital.id">
                   {{ hospital.street }} {{ hospital.municipality }}
                 </div>
@@ -41,15 +89,44 @@
       </table>
     </div>
 
-    <div class="flex-row gap-pad200-xl flex-justify-center flex-align-center">
-      <app-button [text]="''" [styleButton]="'style-outline'" [iconname]="'arrow_left'" (outOnClick)="prev()" />
-      <span class="font-normal-regular font-color-sc-100">{{ pageCurrentWhat() }}/{{ pageTotalWhat() }}</span>
-      <app-button [text]="''" [styleButton]="'style-outline'" [iconname]="'arrow_right'" (outOnClick)="next()" />
+    <div class="
+    flex-row
+    gap-pad200-xl
+    flex-justify-center
+    flex-align-center
+    ">
+      <app-button
+          [text]="''"
+          [styleButton]="'style-outline'"
+          [iconname]="'arrow_left'"
+          (outOnClick)="prev()"
+          />
+      <span class="
+      font-normal-regular
+      font-color-sc-100
+      ">{{ pageCurrentWhat() }}/{{ pageTotalWhat() }}</span>
+      <app-button
+          [text]="''"
+          [styleButton]="'style-outline'"
+          [iconname]="'arrow_right'"
+          (outOnClick)="next()"
+          />
     </div>
 
-    <div class="flex-row flex-justify-end gap-pad100-lg">
-      <app-button [text]="'Cancel'" [styleButton]="'style-outline'" (outOnClick)="cancel()" />
-      <app-button [text]="'Assign Hospital Facility'" [styleButton]="'style-solid'" (outOnClick)="assign()" />
+    <div class="
+    flex-row
+    flex-justify-space-between
+    ">
+      <app-button
+          [text]="'Cancel'"
+          [styleButton]="'style-outline'"
+          (outOnClick)="cancel()"
+          />
+      <app-button
+          [text]="'Assign Hospital Facility'"
+          [styleButton]="'style-solid'"
+          (outOnClick)="assign()"
+          />
     </div>
   </div>
 </div>
