@@ -60,13 +60,16 @@
             },
             "development": {
               "buildTarget": "hearo_tfe:build:development"
+            },
+            "https_linux": {
+              "buildTarget": "hearo_tfe:build:development"
+              "ssl": true,
+              "sslKey": "localhost_tls_ng.key",
+              "sslCert": "localhost_tls_ng.crt",
             }
           },
           "defaultConfiguration": "development",
           "options": {
-            "ssl": true,
-            "sslKey": "localhost_tls_ng.key",
-            "sslCert": "localhost_tls_ng.crt",
             "host": "127.0.0.1",
             "port": 4200,
           }
