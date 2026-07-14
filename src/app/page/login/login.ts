@@ -68,7 +68,8 @@ export class Login implements OnInit{
         response= await firstValueFrom(this.authUser.userLoginHttpPost(this.hearoUser()));
         this.authUser.saveAccountToken(response)
         this.authUser.deleteTokenAccessQRAccount();
-        this.router.navigate(['/home/sentence']);
+        this.router.navigate(['/hospital-head'])
+        // this.router.navigate(['/home/sentence']);
       }catch(err: any){
         this.warnings.update(value=>{ value.password=err.error.details; return value; });
         sleepAsync(

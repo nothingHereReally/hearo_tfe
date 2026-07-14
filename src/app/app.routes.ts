@@ -4,15 +4,15 @@ import { Routes } from '@angular/router';
 import { AccountProfile } from './page/account-profile/account-profile';
 import { AccountProfileQrAccessAccount } from './page/account-profile-qr-access-account/account-profile-qr-access-account';
 import { ForgotPassword } from './page/forgot-password/forgot-password';
-import { HomeGloss } from './page/home-gloss/home-gloss';
-import { HomeSentence } from './page/home-sentence/home-sentence';
-import { HomeUsage } from './page/home-usage/home-usage';
+// import { HomeGloss } from './page/home-gloss/home-gloss';
+// import { HomeSentence } from './page/home-sentence/home-sentence';
+// import { HomeUsage } from './page/home-usage/home-usage';
 import { HospitalHead } from './page/hospital-head/hospital-head';
 import { Hospitals } from './page/hospitals/hospitals';
 import { Login } from './page/login/login';
-import { ModelAslRecognition } from './page/model-asl-recognition/model-asl-recognition';
-import { ModelGloss } from './page/model-gloss/model-gloss';
-import { ModelPatientVideo } from './page/model-patient-video/model-patient-video';
+// import { ModelAslRecognition } from './page/model-asl-recognition/model-asl-recognition';
+// import { ModelGloss } from './page/model-gloss/model-gloss';
+// import { ModelPatientVideo } from './page/model-patient-video/model-patient-video';
 import { PageNotFound } from './page/page-not-found/page-not-found';
 import { Register } from './page/register/register';
 import { ResetPassword } from './page/reset-password/reset-password';
@@ -34,10 +34,11 @@ export const routes: Routes = [
   {path: 'forgot-password', component: ForgotPassword, title: 'Forgot Password | Hearo Team'},
   {path: 'reset-password/:userb64/:usertoken', component: ResetPassword, title: 'Reset Password | Hearo Team'},
 
-  {path: 'home', redirectTo: 'home/sentence', pathMatch: 'full'},
-  {path: 'home/sentence', component: HomeSentence, title: 'Hearo Home'},
-  {path: 'home/gloss', component: HomeGloss, title: 'Hearo Home - gloss'},
-  {path: 'home/usage', component: HomeUsage, title: 'Hearo Home - usage'},
+  {path: 'home', redirectTo: 'hospital-head', pathMatch: 'full'},
+  // {path: 'home', redirectTo: 'home/sentence', pathMatch: 'full'},
+  // {path: 'home/sentence', component: HomeSentence, title: 'Hearo Home'},
+  // {path: 'home/gloss', component: HomeGloss, title: 'Hearo Home - gloss'},
+  // {path: 'home/usage', component: HomeUsage, title: 'Hearo Home - usage'},
 
   // {path: 'home/sentence/frequent-sentence', component: HomeSentenceFrequentSentence, title: 'Frequent Sentences - Hearo'},
   // {path: 'home/sentence/mistaken-sentence', component: HomeSentenceMistakenSentence, title: 'Frequent Mistaken Sentences - Hearo'},
@@ -49,9 +50,9 @@ export const routes: Routes = [
   {path: 'hospitals/new', component: HospitalsNew, title: 'Hearo - Add a Hospital'},
   {path: 'hospitals/:hfid', component: HospitalsInstance, title: 'Hearo - A Hospital Facility'},
 
-  {path: 'model/patient-video', component: ModelPatientVideo, title: 'Hearo Model - Patient Video'},
-  {path: 'model/gloss', component: ModelGloss, title: 'Hearo Model - Gloss Record'},
-  {path: 'model/asl-recognition', component: ModelAslRecognition, title: 'Hearo - ASL Model'},
+  // {path: 'model/patient-video', component: ModelPatientVideo, title: 'Hearo Model - Patient Video'},
+  // {path: 'model/gloss', component: ModelGloss, title: 'Hearo Model - Gloss Record'},
+  // {path: 'model/asl-recognition', component: ModelAslRecognition, title: 'Hearo - ASL Model'},
 
   {path: 'account-profile', component: AccountProfile, title: 'Account Hearo Team'},
   {path: 'account-profile/qr-access-account', component: AccountProfileQrAccessAccount, title: 'Account Hearo - QR'},

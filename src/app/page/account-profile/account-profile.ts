@@ -32,7 +32,8 @@ export class AccountProfile implements OnInit{
   protected authUser: AuthUser= inject(AuthUser);
   protected apiFile: ApiFile= inject(ApiFile);
   private readonly prevPath: Signal<string>= signal(String(
-    this.router.currentNavigation()?.extras.state?.['past_path'] ?? '/home/sentence'
+    this.router.currentNavigation()?.extras.state?.['past_path'] ?? '/hospital-head'
+    // this.router.currentNavigation()?.extras.state?.['past_path'] ?? '/home/sentence'
   ));
 
 
