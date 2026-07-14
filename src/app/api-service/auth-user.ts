@@ -456,7 +456,8 @@ export class AuthUser {
         await this.refreshAuthUserTokenOnCookieAsync() )  ){
 
       this.deleteTokenAccessQRAccount();
-      await this.router.navigate(['/home/sentence']);
+      await this.router.navigate(['/hospital-head'])
+      // await this.router.navigate(['/home/sentence']);
       return true;
     }
 
