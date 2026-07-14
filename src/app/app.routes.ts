@@ -34,6 +34,7 @@ export const routes: Routes = [
   {path: 'forgot-password', component: ForgotPassword, title: 'Forgot Password | Hearo Team'},
   {path: 'reset-password/:userb64/:usertoken', component: ResetPassword, title: 'Reset Password | Hearo Team'},
 
+  {path: 'home', redirectTo: 'hospital-head', pathMatch: 'full'},
   // {path: 'home', redirectTo: 'home/sentence', pathMatch: 'full'},
   // {path: 'home/sentence', component: HomeSentence, title: 'Hearo Home'},
   // {path: 'home/gloss', component: HomeGloss, title: 'Hearo Home - gloss'},
