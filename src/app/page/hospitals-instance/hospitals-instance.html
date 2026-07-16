@@ -131,20 +131,27 @@
         flex-align-center
         gap-pad100-xs
         ">
+          <!--
           <span class="font-normal-regular">Hospital Head</span>
+          -->
+          <img src="/icon_tc1_500/check.svg" alt="check image">
+          <span class="font-normal-regular font-color-success">Hospital Head </span>
+          <span class="font-normal-regular">{{ hospitalHeadName() }}</span>
+          <!--
           <app-button
               [text]="hospitalHeadName()"
               [styleButton]="'style-link'"
               [linkURL]="`/hospital-head/${editHospitalFacility().hospital_head}`"
               [linkTarget]="'_self'"
               />
+          -->
         </div>
         }@else{
         <div class="
           font-bold-regular
           font-color-fail
           ">
-          No Assigned Hospital Head
+          No Hospital Head Assigned
         </div>
         }
         @if( deleteConfirmationStep() === 0 ){

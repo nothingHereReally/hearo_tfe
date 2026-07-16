@@ -92,6 +92,7 @@
                     padding-top-bottom-pad100-lg
                 ">{{ hospitalAddress() }}</div></td>
               </tr>
+              <!--
               <tr>
                 <td><div class="
                     padding-left-right-pad100-md
@@ -105,6 +106,7 @@
                           />
                     </div></td>
               </tr>
+              -->
               }@else{
               <tr>
                 <td><div class="
@@ -128,6 +130,20 @@
                         [styleButton]="'style-outline'"
                         [iconname]="'hospital_location'"
                         (outOnClick)="clickedAssignHospitalFacility()"
+                        />
+                </div></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><div class="
+                    padding-left-right-pad100-md
+                    padding-top-bottom-pad100-lg
+                ">
+                    <app-button
+                        [text]="'Create New Hospital Facility'"
+                        [styleButton]="'style-link'"
+                        [linkURL]="`/hospitals/new`"
+                        [linkTarget]="'_self'"
                         />
                 </div></td>
               </tr>
