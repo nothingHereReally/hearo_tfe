@@ -1,4 +1,4 @@
-import { Component, inject, signal, WritableSignal } from '@angular/core';
+import { Component, inject, Signal, signal, WritableSignal } from '@angular/core';
 
 
 import { Header } from '../../essential/header/header';
@@ -24,6 +24,9 @@ import { firstValueFrom } from 'rxjs';
 })
 export class HospitalsNew{
   private route: Router= inject(Router);
+  private readonly prevPath: Signal<string>= signal(String(
+    this.route.currentNavigation()?.extras.state?.['past_path'] ?? '/hospitals'
+  ));
 
 
   private hospitalFacilityService: HospitalFacility= inject(HospitalFacility);
@@ -41,7 +44,7 @@ export class HospitalsNew{
 
 
   protected clickedBack(): void{
-    this.route.navigate(['/hospitals']);
+    this.route.navigate([this.prevPath()]);
   }
   protected async clickedAddHospital(): Promise<void>{
     let allNotEmpty: boolean= true;
