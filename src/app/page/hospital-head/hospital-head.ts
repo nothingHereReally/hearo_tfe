@@ -120,7 +120,7 @@ export class HospitalHead implements OnInit{
           name: 'Hospital',
           type: 'string',
           data: readHospitaHeads.results.map(
-            el=>`${el.hospital_facility_name}`
+            el=>el.hospital_facility_name || el.other_hospital || 'NOTHING'
           )
         },
         {
