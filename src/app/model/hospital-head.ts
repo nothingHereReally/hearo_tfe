@@ -10,7 +10,7 @@ export interface RowUserHospitalHead{
 }
 export interface RowHospitalHead{
   user: RowUserHospitalHead;
-  hospital_facility: number;
+  hospital_facility: number|null;
   hospital_facility_name: string;
   other_hospital: string|null;
   account_approved: boolean;
@@ -41,7 +41,7 @@ export interface UserHospitalHead{
 }
 export interface HospitalHead{
   user: UserHospitalHead;
-  hospital_facility: number;
+  hospital_facility: number|null;
   hospital_facility_name: string;
   other_hospital: string|null;
   account_approved: boolean;
@@ -61,7 +61,7 @@ export interface ResponseHospitalHead{
 
 
 export interface EditHospitalHead{
-  hospital_facility: number;
-  account_approved: boolean;
-  is_active: boolean;
+  hospital_facility?: number|null;
+  account_approved?: boolean;
+  is_active?: boolean;
 }

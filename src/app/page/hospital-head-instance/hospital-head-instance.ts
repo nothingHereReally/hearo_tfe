@@ -49,6 +49,7 @@ export class HospitalHeadInstance implements OnInit{
   protected deleteConfirmationStep: WritableSignal<number>= signal(0);
   protected deleteConfirmationInput: WritableSignal<string>= signal("");
   protected showAssignPopup: WritableSignal<boolean>= signal(false);
+  protected activeTogglePending: WritableSignal<boolean>= signal(false);
 
 
 
@@ -96,11 +97,14 @@ export class HospitalHeadInstance implements OnInit{
   }
   protected async onHospitalAssigned(updatedHospitalFacility: RowHospitalHead): Promise<void> {
     this.hospitalHeadUser.set(this.userHospitalHeadService.getHospitalHeadFromRow(updatedHospitalFacility));
-    const updatedHF: RowHospitalFacility|null= await firstValueFrom(
-      this.hospitalFacilityService.getHospitalFacilityById(this.hospitalHeadUser()!.hospital_facility)
-    );
-    if( updatedHF )
-      this.hospitalAddress.set(`${updatedHF.street} ${updatedHF.municipality}`);
+    const hospitalFacilityId= this.hospitalHeadUser()!.hospital_facility;
+    if( hospitalFacilityId ){
+      const updatedHF: RowHospitalFacility|null= await firstValueFrom(
+        this.hospitalFacilityService.getHospitalFacilityById(hospitalFacilityId)
+      );
+      if( updatedHF )
+        this.hospitalAddress.set(`${updatedHF.street} ${updatedHF.municipality}`);
+    }
     this.showAssignPopup.set(false);
   }
   protected async clickedDownloadAllFilesFromHospitalHead(){
@@ -130,21 +134,29 @@ export class HospitalHeadInstance implements OnInit{
       }
     }
   }
-  protected async clickedToggleAccountActiveDeactivated(): Promise<void>{
-    if( this.hospitalHeadUser() ){
-      const toggleActiveDeactivatedAccount: EditHospitalHead= {
-        account_approved: this.hospitalHeadUser()!.account_approved,
-        is_active: this.hospitalHeadUser()!.is_active? false : true,
-        hospital_facility: this.hospitalHeadUser()!.hospital_facility
-      }
+  protected async setHospitalHeadActive(isActive: boolean): Promise<void>{
+    if( this.activeTogglePending() || ! this.hospitalHeadUser() ){
+      return;
+    }
+    const currentHospitalHead= this.hospitalHeadUser()!;
+    this.activeTogglePending.set(true);
+    try{
       let editedUserHospitalHead: RowHospitalHead|null= await firstValueFrom(
         this.userHospitalHeadService.editHospitalHead(
-          this.hospitalHeadUser()!.user.id, toggleActiveDeactivatedAccount
+          currentHospitalHead.user.id,
+          { is_active: isActive }
         )
       );
       if( editedUserHospitalHead ){
-        this.hospitalHeadUser.set(this.userHospitalHeadService.getHospitalHeadFromRow(editedUserHospitalHead));
+        const refreshedUserHospitalHead: RowHospitalHead|null= await firstValueFrom(
+          this.userHospitalHeadService.getHospitalHeadById(currentHospitalHead.user.id)
+        );
+        this.hospitalHeadUser.set(
+          this.userHospitalHeadService.getHospitalHeadFromRow(refreshedUserHospitalHead ?? editedUserHospitalHead)
+        );
       }
+    }finally{
+      this.activeTogglePending.set(false);
     }
   }
 

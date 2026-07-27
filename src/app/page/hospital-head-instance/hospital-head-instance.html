@@ -243,20 +243,27 @@
               <span class="
                   font-normal-regular
                   ">Current Status</span>
+              @if( activeTogglePending() ){
+              <span class="
+                  font-normal-regular
+                  font-color-sc-100
+                  ">Updating...</span>
+              }@else{
               @if( hospitalHeadUser()?.is_active ){
               <app-button
-                  [text]="'Account Active'"
+                  [text]="'Deactivate'"
                   [styleButton]="'style-solid'"
                   [iconname]="''"
-                  (outOnClick)="clickedToggleAccountActiveDeactivated()"
+                  (outOnClick)="setHospitalHeadActive(false)"
                   />
               }@else{
               <app-button
-                  [text]="'Deactivated'"
+                  [text]="'Activate'"
                   [styleButton]="'style-danger-outline'"
                   [iconname]="''"
-                  (outOnClick)="clickedToggleAccountActiveDeactivated()"
+                  (outOnClick)="setHospitalHeadActive(true)"
                   />
+              }
               }
             </div>
           </div>
